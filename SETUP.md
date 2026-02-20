@@ -9,7 +9,8 @@
 - [x] `.devcontainer/` 作成（devcontainer.json, Dockerfile, firewall, etc.）
 - [x] `.claude/settings.json` MCP設定（Context7, Playwright）
 - [x] GitHubリポジトリ作成（public: https://github.com/uekiGityuto/todo-list）
-- [x] mainブランチ保護（直push禁止、PR必須）
+- [x] mainブランチへ初回push済み
+- [x] mainブランチ保護（直push禁止、PR必須）※初回push後に有効化
 - [x] takt グローバルインストール（Dockerfileに含む）
 - [x] `~/.takt` マウント設定（devcontainer.jsonに含む）
 
@@ -70,13 +71,15 @@ npx takt export-cc
 - セットアップ済みのツール・MCP構成の反映
 - takt関連の情報追記（`npx takt export-cc` 済みなら Skills セクション等）
 
-その後、初回コミット＆push:
+その後、コミット＆PRを作成:
 ```bash
+git checkout -b feat/phase0-setup
 git add -A
 git commit -m "chore: Phase 0 開発環境構築"
-git remote add origin git@github.com:uekiGityuto/todo-list.git  # まだ設定されていない場合
-git push -u origin main
+git push -u origin feat/phase0-setup
+gh pr create --title "chore: Phase 0 開発環境構築" --body "..."
 ```
+※ mainへの直pushは保護ルールにより禁止。PR経由でマージする。
 
 ## 実行順序
 
