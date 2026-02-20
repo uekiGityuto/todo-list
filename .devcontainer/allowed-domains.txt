@@ -1,0 +1,82 @@
+# ===========================================
+# 許可ドメインリスト（チーム共通）
+# ===========================================
+# 1行1ドメイン、#でコメント、空行は無視されます
+# 個人用は allowed-domains.local.txt に追加してください
+
+# -------------------------------------------
+# インフラ系
+# -------------------------------------------
+registry.npmjs.org
+www.npmjs.com
+npm.pkg.github.com
+raw.githubusercontent.com
+
+# -------------------------------------------
+# AI API
+# -------------------------------------------
+api.anthropic.com
+claude.ai
+docs.anthropic.com
+api.openai.com
+generativelanguage.googleapis.com
+oauth2.googleapis.com
+accounts.google.com
+
+# -------------------------------------------
+# 監視・分析
+# -------------------------------------------
+sentry.io
+statsig.anthropic.com
+statsig.com
+
+# -------------------------------------------
+# VS Code
+# -------------------------------------------
+marketplace.visualstudio.com
+vscode.blob.core.windows.net
+update.code.visualstudio.com
+
+# -------------------------------------------
+# 技術ドキュメント
+# -------------------------------------------
+# Next.js
+nextjs.org
+www.nextjs.org
+
+# React
+react.dev
+
+# TypeScript
+typescriptlang.org
+www.typescriptlang.org
+
+# TailwindCSS
+tailwindcss.com
+
+# shadcn/ui
+ui.shadcn.com
+
+# pnpm
+pnpm.io
+
+# -------------------------------------------
+# pencil.dev
+# -------------------------------------------
+pencil.dev
+www.pencil.dev
+docs.pencil.dev
+api.pencil.dev
+
+# -------------------------------------------
+# Context7
+# -------------------------------------------
+context7.com
+api.context7.com
+
+# -------------------------------------------
+# その他
+# -------------------------------------------
+deepwiki.com
+zenn.dev
+qiita.com

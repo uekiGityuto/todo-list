@@ -1,0 +1,44 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# next.js
+.next/
+out/
+
+# production
+build/
+dist/
+
+# misc
+*.pem
+.DS_Store
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files
+.env
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# devcontainer
+.devcontainer/extensions.local.txt
+.devcontainer/allowed-domains.local.txt
+
+# IDE
+.vscode/
+!.vscode/extensions.json
+.idea/
+
+# Claude Code
+.claude/settings.local.json

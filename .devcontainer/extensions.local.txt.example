@@ -1,0 +1,15 @@
+# 個人用 VS Code 拡張機能
+# このファイルを extensions.local.txt にコピーして使用してください
+# 1行1拡張機能ID、#でコメント
+
+# Git
+eamodio.gitlens
+
+# AI
+# github.copilot
+
+# Docker
+# ms-azuretools.vscode-docker
+
+# その他
+# ms-vscode.vscode-typescript-next
