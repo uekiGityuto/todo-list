@@ -52,7 +52,8 @@
     "source=${localEnv:HOME}/.claude,target=/home/node/.claude,type=bind",
     "source=${localEnv:HOME}/.codex,target=/home/node/.codex,type=bind",
     "source=${localEnv:HOME}/.gemini,target=/home/node/.gemini,type=bind",
-    "source=${localEnv:HOME}/.takt,target=/home/node/.takt,type=bind"
+    "source=${localEnv:HOME}/.takt,target=/home/node/.takt,type=bind",
+    "source=${localEnv:HOME}/.agents,target=/home/node/.agents,type=bind"
   ],
   "containerEnv": {
     "NODE_OPTIONS": "--max-old-space-size=4096",

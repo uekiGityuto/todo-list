@@ -1,4 +1,14 @@
 {
+  "permissions": {
+    "ask": [
+      "Edit(**/.devcontainer/**)",
+      "Edit(**/.claude/**)",
+      "Edit(**/.codex/**)",
+      "Edit(**/.gemini/**)",
+      "Edit(**/.takt/**)",
+      "Edit(**/.agents/**)"
+    ]
+  },
   "mcpServers": {
     "context7": {
       "command": "npx",

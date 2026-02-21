@@ -62,8 +62,19 @@ npx takt export-cc
 - `vercel-react-best-practices`
 - `ui-ux-pro-max`
 
-**注意:** スキルのインストールは対話的操作が必要な場合がある。
-`claude /install-skill <skill-name>` で試行し、対話が必要ならユーザーに案内する。
+```bash
+# スキル検索（対話的）
+npx skills find
+
+# インストール例（GitHubリポジトリ指定）
+npx skills add <github-user/repo>
+
+# インストール済みスキル一覧
+npx skills list
+```
+
+**注意:** `npx skills add` は対話的操作（スキル選択・エージェント選択）が必要な場合がある。
+スキルの正確なリポジトリ名は `npx skills find <keyword>` で検索して確認する。
 
 ### Step 7: CLAUDE.md更新 + 初回コミット
 
