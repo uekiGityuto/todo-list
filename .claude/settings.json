@@ -1,12 +1,14 @@
 {
   "permissions": {
     "ask": [
-      "Edit(**/.devcontainer/**)",
-      "Edit(**/.claude/**)",
-      "Edit(**/.codex/**)",
-      "Edit(**/.gemini/**)",
-      "Edit(**/.takt/**)",
-      "Edit(**/.agents/**)"
+      "Edit(**/.devcontainer/**)"
+    ],
+    "deny": [
+      "Edit(~/.claude/**)",
+      "Edit(~/.codex/**)",
+      "Edit(~/.gemini/**)",
+      "Edit(~/.takt/**)",
+      "Edit(~/.agents/**)"
     ]
   },
   "mcpServers": {
