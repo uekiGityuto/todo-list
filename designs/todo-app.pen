@@ -755,68 +755,6 @@
         },
         {
           "type": "frame",
-          "id": "hpt4Y",
-          "name": "calTabs",
-          "width": "fill_container",
-          "gap": 24,
-          "padding": [
-            0,
-            20
-          ],
-          "children": [
-            {
-              "type": "frame",
-              "id": "rOx4g",
-              "name": "tabDone",
-              "layout": "vertical",
-              "gap": 8,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "DPayi",
-                  "name": "dnTx",
-                  "fill": "$primary",
-                  "content": "完了",
-                  "fontFamily": "Inter",
-                  "fontSize": 14,
-                  "fontWeight": "600"
-                },
-                {
-                  "type": "frame",
-                  "id": "TLYcR",
-                  "name": "doneUnderline",
-                  "width": "fill_container",
-                  "height": 2,
-                  "fill": "$primary",
-                  "cornerRadius": 1
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "hn401",
-              "name": "tabScheduled",
-              "layout": "vertical",
-              "gap": 8,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "2oNNE",
-                  "name": "scTx",
-                  "fill": "$text-muted",
-                  "content": "予定",
-                  "fontFamily": "Inter",
-                  "fontSize": 14,
-                  "fontWeight": "500"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "frame",
           "id": "WePLc",
           "name": "calendarGrid",
           "width": "fill_container",
@@ -988,405 +926,421 @@
             },
             {
               "type": "frame",
-              "id": "ex8dk",
-              "name": "week1",
+              "id": "N9UyM",
+              "name": "gridBody",
               "width": "fill_container",
+              "fill": "$border",
+              "layout": "vertical",
+              "gap": 1,
+              "padding": 1,
               "children": [
                 {
-                  "id": "mSyeM",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "a1",
+                  "type": "frame",
+                  "id": "ex8dk",
+                  "name": "week1",
                   "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "1"
-                    }
-                  }
-                },
-                {
-                  "id": "TQxKM",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "a2",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "2"
-                    }
-                  }
-                },
-                {
-                  "id": "79OeT",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "a3",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "3"
-                    }
-                  }
-                },
-                {
-                  "id": "K2TQw",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "a4",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "4"
-                    }
-                  }
-                },
-                {
-                  "id": "RiVUI",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "a5",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "5"
-                    }
-                  }
-                },
-                {
-                  "id": "Oi8z2",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "a6",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "6"
-                    }
-                  }
-                },
-                {
-                  "id": "7doB0",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "a7",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "7"
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "Ihiir",
-              "name": "week2",
-              "width": "fill_container",
-              "children": [
-                {
-                  "id": "bObxM",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "b1",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "8"
-                    }
-                  }
-                },
-                {
-                  "id": "cNS4S",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "b2",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "9"
+                  "gap": 1,
+                  "children": [
+                    {
+                      "id": "mSyeM",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "a1",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "1"
+                        }
+                      }
                     },
-                    "vZ1Ef": {
-                      "content": "コメント返信"
-                    }
-                  }
-                },
-                {
-                  "id": "yzyfJ",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "b3",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "10"
+                    {
+                      "id": "TQxKM",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "a2",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "2"
+                        }
+                      }
                     },
-                    "vZ1Ef": {
-                      "content": "リール動画の編集"
-                    }
-                  }
-                },
-                {
-                  "id": "ZL4B9",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "b4",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "11"
-                    }
-                  }
-                },
-                {
-                  "id": "O26wQ",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "b5",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "12"
+                    {
+                      "id": "79OeT",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "a3",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "3"
+                        }
+                      }
                     },
-                    "vZ1Ef": {
-                      "content": "ストーリー作成"
-                    }
-                  }
-                },
-                {
-                  "id": "L3956",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "b6",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "13"
-                    }
-                  }
-                },
-                {
-                  "id": "L0lXv",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "b7",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "14"
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "CxQt0",
-              "name": "week3",
-              "width": "fill_container",
-              "children": [
-                {
-                  "id": "XZ6hu",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "e1",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "15"
-                    }
-                  }
-                },
-                {
-                  "id": "yZ4HF",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "e2",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "16"
+                    {
+                      "id": "K2TQw",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "a4",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "4"
+                        }
+                      }
                     },
-                    "vZ1Ef": {
-                      "content": "コメント返信"
-                    }
-                  }
-                },
-                {
-                  "id": "JOMCv",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "e3",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "17"
+                    {
+                      "id": "RiVUI",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "a5",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "5"
+                        }
+                      }
                     },
-                    "vZ1Ef": {
-                      "content": "リール動画の編集"
-                    }
-                  }
-                },
-                {
-                  "id": "8iI3E",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "e4",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "18"
+                    {
+                      "id": "Oi8z2",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "a6",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "6"
+                        }
+                      }
                     },
-                    "vZ1Ef": {
-                      "content": "インスタ投稿"
+                    {
+                      "id": "7doB0",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "a7",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "7"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Ihiir",
+                  "name": "week2",
+                  "width": "fill_container",
+                  "gap": 1,
+                  "children": [
+                    {
+                      "id": "bObxM",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "b1",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "8"
+                        }
+                      }
                     },
-                    "bCi1a": {
-                      "content": "ストーリー作成"
-                    }
-                  }
-                },
-                {
-                  "id": "EIDFR",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "e5",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "19"
+                    {
+                      "id": "cNS4S",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "b2",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "9"
+                        },
+                        "vZ1Ef": {
+                          "content": "コメント返信"
+                        }
+                      }
                     },
-                    "vZ1Ef": {
-                      "content": "リール動画の編集"
-                    }
-                  }
-                },
-                {
-                  "id": "x6OrW",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "e6",
-                  "width": "fill_container",
-                  "fill": "$primary",
-                  "cornerRadius": 8,
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "20",
-                      "fill": "$primary-fg",
-                      "fontWeight": "600"
+                    {
+                      "id": "yzyfJ",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "b3",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "10"
+                        },
+                        "vZ1Ef": {
+                          "content": "リール動画の編集"
+                        }
+                      }
                     },
-                    "vZ1Ef": {
-                      "content": "コメント返信",
-                      "fill": "$primary-fg"
+                    {
+                      "id": "ZL4B9",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "b4",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "11"
+                        }
+                      }
                     },
-                    "bCi1a": {
-                      "content": "インスタ投稿",
-                      "fill": "$primary-fg"
+                    {
+                      "id": "O26wQ",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "b5",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "12"
+                        },
+                        "vZ1Ef": {
+                          "content": "ストーリー作成"
+                        }
+                      }
+                    },
+                    {
+                      "id": "L3956",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "b6",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "13"
+                        }
+                      }
+                    },
+                    {
+                      "id": "L0lXv",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "b7",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "14"
+                        }
+                      }
                     }
-                  }
+                  ]
                 },
                 {
-                  "id": "RkG0c",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "e7",
+                  "type": "frame",
+                  "id": "CxQt0",
+                  "name": "week3",
                   "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "21"
+                  "gap": 1,
+                  "children": [
+                    {
+                      "id": "XZ6hu",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "e1",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "15"
+                        }
+                      }
+                    },
+                    {
+                      "id": "yZ4HF",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "e2",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "16"
+                        },
+                        "vZ1Ef": {
+                          "content": "コメント返信"
+                        }
+                      }
+                    },
+                    {
+                      "id": "JOMCv",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "e3",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "17"
+                        },
+                        "vZ1Ef": {
+                          "content": "リール動画の編集"
+                        }
+                      }
+                    },
+                    {
+                      "id": "8iI3E",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "e4",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "18"
+                        },
+                        "vZ1Ef": {
+                          "content": "インスタ投稿"
+                        },
+                        "bCi1a": {
+                          "content": "ストーリー作成"
+                        }
+                      }
+                    },
+                    {
+                      "id": "EIDFR",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "e5",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "19"
+                        },
+                        "vZ1Ef": {
+                          "content": "リール動画の編集"
+                        }
+                      }
+                    },
+                    {
+                      "id": "x6OrW",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "e6",
+                      "width": "fill_container",
+                      "fill": "$primary",
+                      "cornerRadius": 8,
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "20",
+                          "fill": "$primary-fg",
+                          "fontWeight": "600"
+                        },
+                        "vZ1Ef": {
+                          "content": "コメント返信",
+                          "fill": "$primary-fg"
+                        },
+                        "bCi1a": {
+                          "content": "インスタ投稿",
+                          "fill": "$primary-fg"
+                        }
+                      }
+                    },
+                    {
+                      "id": "RkG0c",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "e7",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "21"
+                        }
+                      }
                     }
-                  }
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "xodeT",
-              "name": "week4",
-              "width": "fill_container",
-              "children": [
-                {
-                  "id": "ILUIL",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "f1",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "22"
-                    }
-                  }
+                  ]
                 },
                 {
-                  "id": "6vsh7",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "f2",
+                  "type": "frame",
+                  "id": "xodeT",
+                  "name": "week4",
                   "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "23"
+                  "gap": 1,
+                  "children": [
+                    {
+                      "id": "ILUIL",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "f1",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "22"
+                        }
+                      }
+                    },
+                    {
+                      "id": "6vsh7",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "f2",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "23"
+                        }
+                      }
+                    },
+                    {
+                      "id": "Q9qha",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "f3",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "24"
+                        }
+                      }
+                    },
+                    {
+                      "id": "n7dRJ",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "f4",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "25"
+                        }
+                      }
+                    },
+                    {
+                      "id": "erV7F",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "f5",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "26"
+                        }
+                      }
+                    },
+                    {
+                      "id": "2klCK",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "f6",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "27"
+                        }
+                      }
+                    },
+                    {
+                      "id": "9Kkdu",
+                      "type": "ref",
+                      "ref": "PbnYO",
+                      "name": "f7",
+                      "width": "fill_container",
+                      "descendants": {
+                        "Fxm4v": {
+                          "content": "28"
+                        }
+                      }
                     }
-                  }
-                },
-                {
-                  "id": "Q9qha",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "f3",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "24"
-                    }
-                  }
-                },
-                {
-                  "id": "n7dRJ",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "f4",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "25"
-                    }
-                  }
-                },
-                {
-                  "id": "erV7F",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "f5",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "26"
-                    }
-                  }
-                },
-                {
-                  "id": "2klCK",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "f6",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "27"
-                    }
-                  }
-                },
-                {
-                  "id": "9Kkdu",
-                  "type": "ref",
-                  "ref": "PbnYO",
-                  "name": "f7",
-                  "width": "fill_container",
-                  "descendants": {
-                    "Fxm4v": {
-                      "content": "28"
-                    }
-                  }
+                  ]
                 }
               ]
             }
@@ -1418,7 +1372,7 @@
                   "content": "2月20日の作業"
                 },
                 "GutFB": {
-                  "content": "2件完了"
+                  "content": "2件の作業"
                 }
               }
             },
@@ -1429,6 +1383,12 @@
               "name": "doneTask1",
               "width": "fill_container",
               "descendants": {
+                "EHfKq": {
+                  "id": "nowi8",
+                  "type": "ref",
+                  "ref": "4gr5W",
+                  "name": "r1"
+                },
                 "tQsuG": {
                   "content": "リール動画の編集",
                   "fill": "$text-muted"
@@ -1450,7 +1410,7 @@
               "descendants": {
                 "tQsuG": {
                   "content": "コメント返信",
-                  "fill": "$text-muted"
+                  "fill": "$text"
                 },
                 "OBN81": {
                   "content": "15分"
@@ -3201,64 +3161,6 @@
                 },
                 {
                   "type": "frame",
-                  "id": "NCToS",
-                  "name": "calTabs",
-                  "width": "fill_container",
-                  "gap": 24,
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "s60XZ",
-                      "name": "tabDone",
-                      "layout": "vertical",
-                      "gap": 8,
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "CiiTa",
-                          "name": "pdTx",
-                          "fill": "$primary",
-                          "content": "完了",
-                          "fontFamily": "Inter",
-                          "fontSize": 15,
-                          "fontWeight": "600"
-                        },
-                        {
-                          "type": "frame",
-                          "id": "trXWG",
-                          "name": "doneUnderline",
-                          "width": "fill_container",
-                          "height": 2,
-                          "fill": "$primary",
-                          "cornerRadius": 1
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "7RlTv",
-                      "name": "tabScheduled",
-                      "layout": "vertical",
-                      "gap": 8,
-                      "alignItems": "center",
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "NgPcn",
-                          "name": "psTx",
-                          "fill": "$text-muted",
-                          "content": "予定",
-                          "fontFamily": "Inter",
-                          "fontSize": 15,
-                          "fontWeight": "500"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
                   "id": "yvLwJ",
                   "name": "calGrid",
                   "width": "fill_container",
@@ -3426,609 +3328,625 @@
                     },
                     {
                       "type": "frame",
-                      "id": "lM7uC",
-                      "name": "week1",
+                      "id": "9uWFv",
+                      "name": "gridBody",
                       "width": "fill_container",
+                      "fill": "$border",
+                      "layout": "vertical",
+                      "gap": 1,
+                      "padding": 1,
                       "children": [
                         {
-                          "id": "KP7KH",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "a1",
+                          "type": "frame",
+                          "id": "lM7uC",
+                          "name": "week1",
                           "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "1",
-                              "fontSize": 13
+                          "gap": 1,
+                          "children": [
+                            {
+                              "id": "KP7KH",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "a1",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "1",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
                             },
-                            "vZ1Ef": {
-                              "fontSize": 11
+                            {
+                              "id": "Stwj4",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "a2",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "2",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
                             },
-                            "bCi1a": {
-                              "fontSize": 11
+                            {
+                              "id": "gcHbn",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "a3",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "3",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "bK6II",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "a4",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "4",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "2Edc9",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "a5",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "5",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "uKv62",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "a6",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "6",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "Ywt5z",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "a7",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "7",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
                             }
-                          }
+                          ]
                         },
                         {
-                          "id": "Stwj4",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "a2",
+                          "type": "frame",
+                          "id": "UP3N3",
+                          "name": "week2",
                           "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "2",
-                              "fontSize": 13
+                          "gap": 1,
+                          "children": [
+                            {
+                              "id": "G76lp",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "b1",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "8",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
                             },
-                            "vZ1Ef": {
-                              "fontSize": 11
+                            {
+                              "id": "FWTqD",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "b2",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "9",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "content": "コメント返信",
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
                             },
-                            "bCi1a": {
-                              "fontSize": 11
+                            {
+                              "id": "PKB1j",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "b3",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "10",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "content": "リール動画の編集",
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "Qs214",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "b4",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "11",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "1jfLz",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "b5",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "12",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "content": "ストーリー作成",
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "lnuXp",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "b6",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "13",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "bnFZ8",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "b7",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "14",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
                             }
-                          }
+                          ]
                         },
                         {
-                          "id": "gcHbn",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "a3",
+                          "type": "frame",
+                          "id": "l709W",
+                          "name": "week3",
                           "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "3",
-                              "fontSize": 13
+                          "gap": 1,
+                          "children": [
+                            {
+                              "id": "hnGLB",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "c1",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "15",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
                             },
-                            "vZ1Ef": {
-                              "fontSize": 11
+                            {
+                              "id": "NtHJ7",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "c2",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "16",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "content": "コメント返信",
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
                             },
-                            "bCi1a": {
-                              "fontSize": 11
+                            {
+                              "id": "kQzdG",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "c3",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "17",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "content": "リール動画の編集",
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "bMx19",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "c4",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "18",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "content": "インスタ投稿",
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "content": "ストーリー作成",
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "MehF0",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "c5",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "19",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "content": "リール動画の編集",
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "ywCs6",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "c6",
+                              "width": "fill_container",
+                              "height": 90,
+                              "fill": "$primary",
+                              "cornerRadius": 8,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "20",
+                                  "fontSize": 13,
+                                  "fill": "$primary-fg",
+                                  "fontWeight": "600"
+                                },
+                                "vZ1Ef": {
+                                  "content": "コメント返信",
+                                  "fontSize": 11,
+                                  "fill": "$primary-fg"
+                                },
+                                "bCi1a": {
+                                  "content": "インスタ投稿",
+                                  "fontSize": 11,
+                                  "fill": "$primary-fg"
+                                }
+                              }
+                            },
+                            {
+                              "id": "yuy9w",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "c7",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "21",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
                             }
-                          }
+                          ]
                         },
                         {
-                          "id": "bK6II",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "a4",
+                          "type": "frame",
+                          "id": "CSWIG",
+                          "name": "week4",
                           "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "4",
-                              "fontSize": 13
+                          "gap": 1,
+                          "children": [
+                            {
+                              "id": "zPWNE",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "d1",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "22",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
                             },
-                            "vZ1Ef": {
-                              "fontSize": 11
+                            {
+                              "id": "c0QtD",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "d2",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "23",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
                             },
-                            "bCi1a": {
-                              "fontSize": 11
+                            {
+                              "id": "AJmKf",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "d3",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "24",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "i8Keg",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "d4",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "25",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "Grm12",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "d5",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "26",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "lFPhc",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "d6",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "27",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
+                            },
+                            {
+                              "id": "Py8OO",
+                              "type": "ref",
+                              "ref": "PbnYO",
+                              "name": "d7",
+                              "width": "fill_container",
+                              "height": 90,
+                              "descendants": {
+                                "Fxm4v": {
+                                  "content": "28",
+                                  "fontSize": 13
+                                },
+                                "vZ1Ef": {
+                                  "fontSize": 11
+                                },
+                                "bCi1a": {
+                                  "fontSize": 11
+                                }
+                              }
                             }
-                          }
-                        },
-                        {
-                          "id": "2Edc9",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "a5",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "5",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "uKv62",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "a6",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "6",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "Ywt5z",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "a7",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "7",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "UP3N3",
-                      "name": "week2",
-                      "width": "fill_container",
-                      "children": [
-                        {
-                          "id": "G76lp",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "b1",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "8",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "FWTqD",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "b2",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "9",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "content": "コメント返信",
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "PKB1j",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "b3",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "10",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "content": "リール動画の編集",
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "Qs214",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "b4",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "11",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "1jfLz",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "b5",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "12",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "content": "ストーリー作成",
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "lnuXp",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "b6",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "13",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "bnFZ8",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "b7",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "14",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "l709W",
-                      "name": "week3",
-                      "width": "fill_container",
-                      "children": [
-                        {
-                          "id": "hnGLB",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "c1",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "15",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "NtHJ7",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "c2",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "16",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "content": "コメント返信",
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "kQzdG",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "c3",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "17",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "content": "リール動画の編集",
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "bMx19",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "c4",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "18",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "content": "インスタ投稿",
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "content": "ストーリー作成",
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "MehF0",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "c5",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "19",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "content": "リール動画の編集",
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "ywCs6",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "c6",
-                          "width": "fill_container",
-                          "height": 90,
-                          "fill": "$primary",
-                          "cornerRadius": 8,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "20",
-                              "fontSize": 13,
-                              "fill": "$primary-fg",
-                              "fontWeight": "600"
-                            },
-                            "vZ1Ef": {
-                              "content": "コメント返信",
-                              "fontSize": 11,
-                              "fill": "$primary-fg"
-                            },
-                            "bCi1a": {
-                              "content": "インスタ投稿",
-                              "fontSize": 11,
-                              "fill": "$primary-fg"
-                            }
-                          }
-                        },
-                        {
-                          "id": "yuy9w",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "c7",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "21",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "frame",
-                      "id": "CSWIG",
-                      "name": "week4",
-                      "width": "fill_container",
-                      "children": [
-                        {
-                          "id": "zPWNE",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "d1",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "22",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "c0QtD",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "d2",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "23",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "AJmKf",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "d3",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "24",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "i8Keg",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "d4",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "25",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "Grm12",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "d5",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "26",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "lFPhc",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "d6",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "27",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
-                        },
-                        {
-                          "id": "Py8OO",
-                          "type": "ref",
-                          "ref": "PbnYO",
-                          "name": "d7",
-                          "width": "fill_container",
-                          "height": 90,
-                          "descendants": {
-                            "Fxm4v": {
-                              "content": "28",
-                              "fontSize": 13
-                            },
-                            "vZ1Ef": {
-                              "fontSize": 11
-                            },
-                            "bCi1a": {
-                              "fontSize": 11
-                            }
-                          }
+                          ]
                         }
                       ]
                     }
@@ -4056,7 +3974,7 @@
                       "content": "2月20日の作業"
                     },
                     "GutFB": {
-                      "content": "2件完了"
+                      "content": "2件の作業"
                     }
                   }
                 },
@@ -4067,6 +3985,12 @@
                   "name": "doneTask1",
                   "width": "fill_container",
                   "descendants": {
+                    "EHfKq": {
+                      "id": "099qP",
+                      "type": "ref",
+                      "ref": "4gr5W",
+                      "name": "r2"
+                    },
                     "tQsuG": {
                       "content": "リール動画の編集",
                       "fill": "$text-muted"
@@ -4088,7 +4012,7 @@
                   "descendants": {
                     "tQsuG": {
                       "content": "コメント返信",
-                      "fill": "$text-muted"
+                      "fill": "$text"
                     },
                     "OBN81": {
                       "content": "15分"
@@ -4216,6 +4140,7 @@
       "clip": true,
       "width": 50,
       "height": 64,
+      "fill": "$bg",
       "layout": "vertical",
       "gap": 2,
       "padding": [
