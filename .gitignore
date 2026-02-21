@@ -42,3 +42,8 @@ next-env.d.ts
 
 # Claude Code
 .claude/settings.local.json
+.claude/skills/
+
+# Skills (npx skills)
+.agents/
+skills-lock.json

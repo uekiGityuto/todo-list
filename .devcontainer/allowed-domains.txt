@@ -47,6 +47,10 @@ www.nextjs.org
 # React
 react.dev
 
+# Google Fonts
+fonts.googleapis.com
+fonts.gstatic.com
+
 # TypeScript
 typescriptlang.org
 www.typescriptlang.org

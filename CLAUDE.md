@@ -25,6 +25,17 @@ pnpm build        # ビルド
 pnpm lint         # Lint実行
 ```
 
+## MCP
+
+- **Context7**: 技術ドキュメント参照
+- **Playwright**: ブラウザ操作・E2Eテスト
+
+## Skills
+
+- **takt**: `npx takt export-cc` でエクスポート済み。`/takt <piece-name> <task>` で利用
+- **vercel-react-best-practices**: React/Next.jsパフォーマンス最適化ガイドライン
+- **ui-ux-pro-max**: UI/UX設計ガイドライン
+
 ## アーキテクチャ
 
 ### 画面構成

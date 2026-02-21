@@ -9,15 +9,34 @@
 - [x] `.devcontainer/` 作成（devcontainer.json, Dockerfile, firewall, etc.）
 - [x] `.claude/settings.json` MCP設定（Context7, Playwright）
 - [x] GitHubリポジトリ作成（public: https://github.com/uekiGityuto/todo-list）
-- [x] mainブランチ保護（直push禁止、PR必須）
+- [x] mainブランチへ初回push済み
+- [x] mainブランチ保護（直push禁止、PR必須）※初回push後に有効化
 - [x] takt グローバルインストール（Dockerfileに含む）
 - [x] `~/.takt` マウント設定（devcontainer.jsonに含む）
 
 ## ユーザーが手動で行う前提条件
 
 - [x] `~/.takt/config.yaml` をホストに作成（dotfilesで管理、`~/.takt` → `dotfiles/dot_takt` シンボリックリンク済み）
-- [ ] devcontainer を Rebuild して起動
-- [ ] **要確認**: グローバル `~/.claude/settings.json` の git系 `deny` ルールが `--dangerously-skip-permissions` で上書きされるか検証。されない場合、`deny` → `ask` に変更が必要
+- [x] devcontainer を Rebuild して起動
+- [x] **検証済み**: グローバル `~/.claude/settings.json` の `deny`/`ask` ルールはプロジェクト設定の `allow` では上書きできない。`deny` → `ask` に変更済み
+- [x] `gh auth login`（HTTPS）でGitHub認証（下記「Git/GitHub認証」参照）
+
+## Git/GitHub認証
+
+devcontainer内にはSSHキーをマウントしていないため、以下の設定が必要：
+
+```bash
+# GitHub CLI認証（プロトコルはHTTPSを選択）
+gh auth login
+
+# gitのcredential helperを設定
+gh auth setup-git
+```
+
+リモートURLもHTTPSを使用する：
+```bash
+git remote set-url origin https://github.com/uekiGityuto/todo-list.git
+```
 
 ## devcontainer内で実行するステップ
 
@@ -61,8 +80,19 @@ npx takt export-cc
 - `vercel-react-best-practices`
 - `ui-ux-pro-max`
 
-**注意:** スキルのインストールは対話的操作が必要な場合がある。
-`claude /install-skill <skill-name>` で試行し、対話が必要ならユーザーに案内する。
+```bash
+# スキル検索（対話的）
+npx skills find
+
+# インストール例（GitHubリポジトリ指定）
+npx skills add <github-user/repo>
+
+# インストール済みスキル一覧
+npx skills list
+```
+
+**注意:** `npx skills add` は対話的操作（スキル選択・エージェント選択）が必要な場合がある。
+スキルの正確なリポジトリ名は `npx skills find <keyword>` で検索して確認する。
 
 ### Step 7: CLAUDE.md更新 + 初回コミット
 
@@ -70,13 +100,15 @@ npx takt export-cc
 - セットアップ済みのツール・MCP構成の反映
 - takt関連の情報追記（`npx takt export-cc` 済みなら Skills セクション等）
 
-その後、初回コミット＆push:
+その後、コミット＆PRを作成:
 ```bash
+git checkout -b feat/phase0-setup
 git add -A
 git commit -m "chore: Phase 0 開発環境構築"
-git remote add origin git@github.com:uekiGityuto/todo-list.git  # まだ設定されていない場合
-git push -u origin main
+git push -u origin feat/phase0-setup
+gh pr create --title "chore: Phase 0 開発環境構築" --body "..."
 ```
+※ mainへの直pushは保護ルールにより禁止。PR経由でマージする。
 
 ## 実行順序
 
