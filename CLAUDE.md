@@ -17,6 +17,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **データ保存**: ローカルストレージ（将来的にSupabase等のDB移行予定）
 - **開発環境**: devcontainer
 
+## Gitルール
+
+- **mainブランチでは作業しない**。必ずfeatureブランチを切ってからコミットすること
+- PRはmain向けに作成し、マージはPR経由で行う
+
 ## コマンド
 
 ```bash
