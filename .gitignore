@@ -44,6 +44,9 @@ next-env.d.ts
 .claude/settings.local.json
 .claude/skills/
 
+# MCP (API key含む)
+.mcp.json
+
 # Skills (npx skills)
 .agents/
 skills-lock.json
