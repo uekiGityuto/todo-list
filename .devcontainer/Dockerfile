@@ -57,6 +57,13 @@ RUN ARCH=$(dpkg --print-architecture) && \
   sudo dpkg -i "git-delta_${GIT_DELTA_VERSION}_${ARCH}.deb" && \
   rm "git-delta_${GIT_DELTA_VERSION}_${ARCH}.deb"
 
+ARG LAZYGIT_VERSION=0.44.1
+RUN ARCH=$(dpkg --print-architecture) && \
+  if [ "$ARCH" = "amd64" ]; then LG_ARCH="x86_64"; else LG_ARCH="$ARCH"; fi && \
+  wget "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_${LG_ARCH}.tar.gz" && \
+  sudo tar -xzf "lazygit_${LAZYGIT_VERSION}_Linux_${LG_ARCH}.tar.gz" -C /usr/local/bin lazygit && \
+  rm "lazygit_${LAZYGIT_VERSION}_Linux_${LG_ARCH}.tar.gz"
+
 # Set up non-root user
 USER node
 

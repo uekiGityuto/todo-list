@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 妻の副業タスク管理を効率化するアプリ。「次やるタスク」の即表示、作業タイマー、カレンダーによる作業履歴確認が主要機能。
 
-設計書: `task-management-plan.md`
+設計書: `docs/task-management-plan.md`
 
 ## 技術スタック
 
@@ -16,6 +16,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **デザイン**: pencil.dev（MCP経由で.penファイルを読み取りコード生成）
 - **データ保存**: ローカルストレージ（将来的にSupabase等のDB移行予定）
 - **開発環境**: devcontainer
+
+## Gitルール
+
+- **mainブランチでは作業しない**。必ずfeatureブランチを切ってからコミットすること
+- PRはmain向けに作成し、マージはPR経由で行う
 
 ## コマンド
 

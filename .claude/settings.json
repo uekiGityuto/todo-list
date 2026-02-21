@@ -1,8 +1,6 @@
 {
   "permissions": {
-    "ask": [
-      "Edit(**/.devcontainer/**)"
-    ],
+    "ask": ["Edit(**/.devcontainer/**)"],
     "deny": [
       "Edit(~/.claude/**)",
       "Edit(~/.codex/**)",
@@ -11,14 +9,26 @@
       "Edit(~/.agents/**)"
     ]
   },
-  "mcpServers": {
-    "context7": {
-      "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp"]
-    },
-    "playwright": {
-      "command": "npx",
-      "args": ["-y", "@anthropic-ai/mcp-playwright"]
-    }
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "branch=$(git branch --show-current 2>/dev/null); if [ \"$branch\" = \"main\" ]; then echo 'mainブランチでの編集は禁止です。featureブランチを作成してください。' >&2; exit 2; fi"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "branch=$(git branch --show-current 2>/dev/null); if [ \"$branch\" = \"main\" ] && echo \"$CLAUDE_TOOL_INPUT\" | grep -qE '\"command\"\\s*:\\s*\"git (add|commit|stash|rebase|reset|cherry-pick)'; then echo 'mainブランチでのgit操作は禁止です。featureブランチを作成してください。' >&2; exit 2; fi"
+          }
+        ]
+      }
+    ]
   }
 }
