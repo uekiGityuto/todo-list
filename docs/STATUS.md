@@ -12,8 +12,8 @@
 - [x] PR作成・マージ済み
 
 ### 環境構築時の注意点
-- ファイアウォール: `allowed-domains.txt` にドメイン追加後、`/usr/local/bin/` にもコピーして `sudo init-firewall.sh` が必要
-- GitHub認証: SSHキー未マウント。`gh auth login`（HTTPS）+ `gh auth setup-git` で対応
+- ファイアウォール: `.devcontainer/allowed-domains.txt` にドメイン追加後、rebuild せずに反映するには `/usr/local/bin/` へのコピー + `sudo init-firewall.sh` が必要（rebuildすれば自動反映）
+- GitHub認証: SSHキー未マウント。`gh auth login`（HTTPS）+ `gh auth setup-git` で対応。セッションごとに再ログインが必要な場合あり
 - Claude Code permissions: ユーザー設定の `deny`/`ask` はプロジェクト設定の `allow` で上書き不可
 
 ## 未着手
