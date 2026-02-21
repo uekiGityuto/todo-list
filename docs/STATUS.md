@@ -16,10 +16,16 @@
 - GitHub認証: SSHキー未マウント。`gh auth login`（HTTPS）+ `gh auth setup-git` で対応。セッションごとに再ログインが必要な場合あり
 - Claude Code permissions: ユーザー設定の `deny`/`ask` はプロジェクト設定の `allow` で上書き不可
 
-## 未着手
+## 進行中
 
 ### Phase 1: デザイン
-- [ ] pencil.devで全画面のデザイン作成（ホーム、タスク一覧、タイマー、カレンダー）
+- [x] pencil.devで全画面のデザイン作成（ホーム、タスク一覧、タイマー、カレンダー）
+  - デザインファイル: `pencil-new.pen`（pencil.devで保存後 `designs/` に移動予定）
+  - テーマ変数でカラー管理（$primary, $card, $text 等）
+  - 再利用コンポーネント: Button, Check, Badge, Filter, TabBarItem, SectionHeader, TaskCard, NextTaskHero
+  - モバイル4画面 + PC1画面
+
+## 未着手
 
 ### Phase 2: 実装
 - [ ] タスクCRUD（追加・編集・削除・一覧）
@@ -28,7 +34,10 @@
 - [ ] タイマー機能（カウントダウン、継続/完了/中断選択）
 - [ ] カレンダー機能（日付ごとの完了タスク一覧）
 
+### 将来対応
+- [ ] PIPタイマー（Picture-in-Picture）: タスク作業中に右上等にフローティング表示。ブラウザのPIP APIまたはフローティングウィンドウで実現
+
 ## 次にやること
 
-1. **Phase 1**: pencil.devで画面デザイン作成
-2. デザイン完成後、**Phase 2**: taktで実装に入る
+1. pencil.devでデザインファイルを `designs/todo-app.pen` として保存
+2. **Phase 2**: taktで実装に入る

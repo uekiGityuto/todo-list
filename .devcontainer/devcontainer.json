@@ -25,7 +25,7 @@
         "bradlc.vscode-tailwindcss",
         "streetsidesoftware.code-spell-checker",
         "anthropic.claude-code",
-        "nicepkg.vscode-pencil"
+        "highagency.pencildev"
       ],
       "settings": {
         "editor.formatOnSave": true,
