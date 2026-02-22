@@ -1,13 +1,14 @@
 {
   "permissions": {
-    "ask": ["Edit(**/.devcontainer/**)"],
-    "deny": [
+    "ask": [
+      "Edit(**/.devcontainer/**)",
       "Edit(~/.claude/**)",
       "Edit(~/.codex/**)",
       "Edit(~/.gemini/**)",
       "Edit(~/.takt/**)",
       "Edit(~/.agents/**)"
-    ]
+    ],
+    "deny": []
   },
   "hooks": {
     "PreToolUse": [
