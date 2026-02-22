@@ -8,6 +8,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 設計書: `docs/task-management-plan.md`
 
+## ドキュメント管理
+
+| ディレクトリ | 用途 |
+|------------|------|
+| `docs/specs/` | 確定済みの設計ドキュメント |
+| `docs/issues/` | 未対応の課題。対応したら結果を追記し `docs/archives/` に移動 |
+| `docs/archives/` | 対応済みの課題アーカイブ |
+
 ## 技術スタック
 
 - **フレームワーク**: Next.js + TypeScript

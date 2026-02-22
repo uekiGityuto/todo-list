@@ -30,7 +30,7 @@
   - 枠線追加（border-collapse方式: gridBodyにfill=$border + gap:1）
   - 「作業記録」として位置付け変更（完了+作業中タスクを同列表示）
   - 日の詳細で完了/作業中をチェックアイコンで区別
-- [ ] **ユーザーフロー設計** → [`docs/issues/001-user-flow-design.md`](issues/001-user-flow-design.md)
+- [x] **ユーザーフロー設計** → [`docs/specs/user-flow.md`](specs/user-flow.md)
 - [ ] フローに基づくUI調整
 
 ## 未着手
