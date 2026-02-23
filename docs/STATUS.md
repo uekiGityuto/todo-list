@@ -26,11 +26,6 @@
   - 復帰ダイアログ（ブラウザ閉じ後の復帰）
   - PCタイマー簡易表示
 
-### 環境構築時の注意点
-- ファイアウォール: `.devcontainer/allowed-domains.txt` にドメイン追加後、rebuild せずに反映するには `/usr/local/bin/` へのコピー + `sudo init-firewall.sh` が必要（rebuildすれば自動反映）
-- GitHub認証: SSHキー未マウント。`gh auth login`（HTTPS）+ `gh auth setup-git` で対応。セッションごとに再ログインが必要な場合あり
-- Claude Code permissions: ユーザー設定の `deny`/`ask` はプロジェクト設定の `allow` で上書き不可
-
 ## 進行中
 
 ### Phase 2: 実装
