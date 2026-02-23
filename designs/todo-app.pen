@@ -154,55 +154,11 @@
           ]
         },
         {
-          "type": "frame",
-          "id": "M7Luf",
+          "id": "Aaghx",
+          "type": "ref",
+          "ref": "pvU65",
           "name": "tabBar",
-          "width": "fill_container",
-          "height": 64,
-          "fill": "$bg",
-          "padding": [
-            4,
-            0,
-            8,
-            0
-          ],
-          "alignItems": "center",
-          "children": [
-            {
-              "id": "QrDlZ",
-              "type": "ref",
-              "ref": "e85qJ",
-              "name": "tabHome"
-            },
-            {
-              "id": "8XDPr",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabTasks",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "list-todo"
-                },
-                "Hrbdv": {
-                  "content": "タスク"
-                }
-              }
-            },
-            {
-              "id": "lQbLf",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabCalendar",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "calendar"
-                },
-                "Hrbdv": {
-                  "content": "カレンダー"
-                }
-              }
-            }
-          ]
+          "width": "fill_container"
         }
       ]
     },
@@ -418,63 +374,11 @@
           ]
         },
         {
-          "type": "frame",
-          "id": "fnJHp",
+          "id": "B8Rs9",
+          "type": "ref",
+          "ref": "x9fBM",
           "name": "tabBar",
-          "width": "fill_container",
-          "height": 64,
-          "fill": "$bg",
-          "padding": [
-            4,
-            0,
-            8,
-            0
-          ],
-          "alignItems": "center",
-          "children": [
-            {
-              "id": "MDsaz",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabHome",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "house"
-                },
-                "Hrbdv": {
-                  "content": "ホーム"
-                }
-              }
-            },
-            {
-              "id": "92rGc",
-              "type": "ref",
-              "ref": "e85qJ",
-              "name": "tabTasks",
-              "descendants": {
-                "kDLs3": {
-                  "iconFontName": "list-todo"
-                },
-                "K2HRa": {
-                  "content": "タスク"
-                }
-              }
-            },
-            {
-              "id": "nGMIF",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabCalendar",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "calendar"
-                },
-                "Hrbdv": {
-                  "content": "カレンダー"
-                }
-              }
-            }
-          ]
+          "width": "fill_container"
         }
       ]
     },
@@ -652,63 +556,11 @@
           ]
         },
         {
-          "type": "frame",
-          "id": "3ABCl",
+          "id": "euK0o",
+          "type": "ref",
+          "ref": "pvU65",
           "name": "tabBar",
-          "width": "fill_container",
-          "height": 64,
-          "fill": "$bg",
-          "padding": [
-            4,
-            0,
-            8,
-            0
-          ],
-          "alignItems": "center",
-          "children": [
-            {
-              "id": "O4pnA",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabHome",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "house"
-                },
-                "Hrbdv": {
-                  "content": "ホーム"
-                }
-              }
-            },
-            {
-              "id": "Q0kiG",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabTasks",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "list-todo"
-                },
-                "Hrbdv": {
-                  "content": "タスク"
-                }
-              }
-            },
-            {
-              "id": "gjy6t",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabCalendar",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "calendar"
-                },
-                "Hrbdv": {
-                  "content": "カレンダー"
-                }
-              }
-            }
-          ]
+          "width": "fill_container"
         }
       ]
     },
@@ -1437,63 +1289,11 @@
           ]
         },
         {
-          "type": "frame",
-          "id": "20gAs",
+          "id": "nqeNK",
+          "type": "ref",
+          "ref": "9pqAx",
           "name": "tabBar",
-          "width": "fill_container",
-          "height": 64,
-          "fill": "$bg",
-          "padding": [
-            4,
-            0,
-            8,
-            0
-          ],
-          "alignItems": "center",
-          "children": [
-            {
-              "id": "HYEmP",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabHome",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "house"
-                },
-                "Hrbdv": {
-                  "content": "ホーム"
-                }
-              }
-            },
-            {
-              "id": "EMyUI",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabTasks",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "list-todo"
-                },
-                "Hrbdv": {
-                  "content": "タスク"
-                }
-              }
-            },
-            {
-              "id": "zPptD",
-              "type": "ref",
-              "ref": "e85qJ",
-              "name": "tabCalendar",
-              "descendants": {
-                "kDLs3": {
-                  "iconFontName": "calendar"
-                },
-                "K2HRa": {
-                  "content": "カレンダー"
-                }
-              }
-            }
-          ]
+          "width": "fill_container"
         }
       ]
     },
@@ -1510,7 +1310,7 @@
       "children": [
         {
           "type": "frame",
-          "id": "BVlF3",
+          "id": "4S0Qd",
           "name": "sidebar",
           "width": 220,
           "height": "fill_container",
@@ -1524,7 +1324,7 @@
           "children": [
             {
               "type": "frame",
-              "id": "okpHQ",
+              "id": "9qHbt",
               "name": "appHeader",
               "gap": 8,
               "padding": [
@@ -1537,7 +1337,7 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "5Xuzj",
+                  "id": "UbNPE",
                   "name": "appIcon",
                   "width": 22,
                   "height": 22,
@@ -1547,7 +1347,7 @@
                 },
                 {
                   "type": "text",
-                  "id": "WA5ch",
+                  "id": "XWArq",
                   "name": "appName",
                   "fill": "$text",
                   "content": "todo-list",
@@ -1559,7 +1359,7 @@
             },
             {
               "type": "frame",
-              "id": "W1q74",
+              "id": "6vke2",
               "name": "navHome",
               "width": "fill_container",
               "fill": "$primary-soft",
@@ -1573,7 +1373,7 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "nqCxF",
+                  "id": "Tgf97",
                   "name": "icon",
                   "width": 18,
                   "height": 18,
@@ -1583,7 +1383,7 @@
                 },
                 {
                   "type": "text",
-                  "id": "axhLc",
+                  "id": "xsN9U",
                   "name": "label",
                   "fill": "$primary",
                   "content": "ホーム",
@@ -1595,7 +1395,7 @@
             },
             {
               "type": "frame",
-              "id": "NUyNg",
+              "id": "YuZpJ",
               "name": "navTasks",
               "width": "fill_container",
               "cornerRadius": 12,
@@ -1608,7 +1408,7 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "5ldsK",
+                  "id": "xpOWz",
                   "name": "icon",
                   "width": 18,
                   "height": 18,
@@ -1618,7 +1418,7 @@
                 },
                 {
                   "type": "text",
-                  "id": "mAevF",
+                  "id": "jeWiL",
                   "name": "label",
                   "fill": "$text-secondary",
                   "content": "タスク",
@@ -1630,7 +1430,7 @@
             },
             {
               "type": "frame",
-              "id": "XFSae",
+              "id": "KjWl9",
               "name": "navCalendar",
               "width": "fill_container",
               "cornerRadius": 12,
@@ -1643,7 +1443,7 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "92NmZ",
+                  "id": "32GgT",
                   "name": "icon",
                   "width": 18,
                   "height": 18,
@@ -1653,10 +1453,45 @@
                 },
                 {
                   "type": "text",
-                  "id": "N5uOW",
+                  "id": "kIC5d",
                   "name": "label",
                   "fill": "$text-secondary",
                   "content": "カレンダー",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "CqPLh",
+              "name": "navSettings",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "U2OTG",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "settings",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "DcowV",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "設定",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
@@ -2133,7 +1968,7 @@
       "children": [
         {
           "type": "frame",
-          "id": "Zn1QJ",
+          "id": "90tq8",
           "name": "sidebar",
           "width": 220,
           "height": "fill_container",
@@ -2147,7 +1982,7 @@
           "children": [
             {
               "type": "frame",
-              "id": "vplz2",
+              "id": "Ld1uO",
               "name": "appHeader",
               "gap": 8,
               "padding": [
@@ -2160,7 +1995,7 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "TeeuK",
+                  "id": "ppxBe",
                   "name": "appIcon",
                   "width": 22,
                   "height": 22,
@@ -2170,7 +2005,7 @@
                 },
                 {
                   "type": "text",
-                  "id": "3hUEP",
+                  "id": "2oOMv",
                   "name": "appName",
                   "fill": "$text",
                   "content": "todo-list",
@@ -2182,7 +2017,7 @@
             },
             {
               "type": "frame",
-              "id": "1s0rl",
+              "id": "v8NXa",
               "name": "navHome",
               "width": "fill_container",
               "cornerRadius": 12,
@@ -2195,8 +2030,8 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "sRMTJ",
-                  "name": "nhIc",
+                  "id": "qH3wP",
+                  "name": "icon",
                   "width": 18,
                   "height": 18,
                   "iconFontName": "house",
@@ -2205,8 +2040,8 @@
                 },
                 {
                   "type": "text",
-                  "id": "HjJFm",
-                  "name": "nhTx",
+                  "id": "0gaWI",
+                  "name": "label",
                   "fill": "$text-secondary",
                   "content": "ホーム",
                   "fontFamily": "Inter",
@@ -2217,7 +2052,7 @@
             },
             {
               "type": "frame",
-              "id": "gc7Vt",
+              "id": "gkJVb",
               "name": "navTasks",
               "width": "fill_container",
               "fill": "$primary-soft",
@@ -2231,8 +2066,8 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "3BWVO",
-                  "name": "ntIc",
+                  "id": "IWUEf",
+                  "name": "icon",
                   "width": 18,
                   "height": 18,
                   "iconFontName": "list-todo",
@@ -2241,8 +2076,8 @@
                 },
                 {
                   "type": "text",
-                  "id": "H2buq",
-                  "name": "ntTx",
+                  "id": "Z1P3C",
+                  "name": "label",
                   "fill": "$primary",
                   "content": "タスク",
                   "fontFamily": "Inter",
@@ -2253,7 +2088,7 @@
             },
             {
               "type": "frame",
-              "id": "3OU9n",
+              "id": "j3IrG",
               "name": "navCalendar",
               "width": "fill_container",
               "cornerRadius": 12,
@@ -2266,8 +2101,8 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "ALG06",
-                  "name": "ncIc",
+                  "id": "upsZK",
+                  "name": "icon",
                   "width": 18,
                   "height": 18,
                   "iconFontName": "calendar",
@@ -2276,10 +2111,45 @@
                 },
                 {
                   "type": "text",
-                  "id": "O0Bwj",
-                  "name": "ncTx",
+                  "id": "rPR3x",
+                  "name": "label",
                   "fill": "$text-secondary",
                   "content": "カレンダー",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ezeXe",
+              "name": "navSettings",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "OrZJz",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "settings",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "XMbdI",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "設定",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
@@ -2514,7 +2384,7 @@
       "children": [
         {
           "type": "frame",
-          "id": "W9QXo",
+          "id": "VqfEn",
           "name": "sidebar",
           "width": 220,
           "height": "fill_container",
@@ -2528,7 +2398,7 @@
           "children": [
             {
               "type": "frame",
-              "id": "oBaSC",
+              "id": "IbwHT",
               "name": "appHeader",
               "gap": 8,
               "padding": [
@@ -2541,8 +2411,8 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "yacrg",
-                  "name": "ai2",
+                  "id": "rNswF",
+                  "name": "appIcon",
                   "width": 22,
                   "height": 22,
                   "iconFontName": "square-check-big",
@@ -2551,8 +2421,8 @@
                 },
                 {
                   "type": "text",
-                  "id": "hPrI7",
-                  "name": "an2",
+                  "id": "0PGNs",
+                  "name": "appName",
                   "fill": "$text",
                   "content": "todo-list",
                   "fontFamily": "Inter",
@@ -2563,7 +2433,7 @@
             },
             {
               "type": "frame",
-              "id": "K4evu",
+              "id": "xhono",
               "name": "navHome",
               "width": "fill_container",
               "cornerRadius": 12,
@@ -2576,8 +2446,8 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "kJQYX",
-                  "name": "nhi2",
+                  "id": "Pj3PI",
+                  "name": "icon",
                   "width": 18,
                   "height": 18,
                   "iconFontName": "house",
@@ -2586,8 +2456,8 @@
                 },
                 {
                   "type": "text",
-                  "id": "DpqMK",
-                  "name": "nht2",
+                  "id": "WwZtk",
+                  "name": "label",
                   "fill": "$text-secondary",
                   "content": "ホーム",
                   "fontFamily": "Inter",
@@ -2598,7 +2468,7 @@
             },
             {
               "type": "frame",
-              "id": "gHO3F",
+              "id": "EpyxZ",
               "name": "navTasks",
               "width": "fill_container",
               "cornerRadius": 12,
@@ -2611,8 +2481,8 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "quOJx",
-                  "name": "nti2",
+                  "id": "DEPkr",
+                  "name": "icon",
                   "width": 18,
                   "height": 18,
                   "iconFontName": "list-todo",
@@ -2621,8 +2491,8 @@
                 },
                 {
                   "type": "text",
-                  "id": "6PTTw",
-                  "name": "ntt2",
+                  "id": "tjw6Z",
+                  "name": "label",
                   "fill": "$text-secondary",
                   "content": "タスク",
                   "fontFamily": "Inter",
@@ -2633,7 +2503,7 @@
             },
             {
               "type": "frame",
-              "id": "XqQum",
+              "id": "ozGnw",
               "name": "navCalendar",
               "width": "fill_container",
               "fill": "$primary-soft",
@@ -2647,8 +2517,8 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "iUFXn",
-                  "name": "nci2",
+                  "id": "G3b3i",
+                  "name": "icon",
                   "width": 18,
                   "height": 18,
                   "iconFontName": "calendar",
@@ -2657,13 +2527,48 @@
                 },
                 {
                   "type": "text",
-                  "id": "o2FAE",
-                  "name": "nct2",
+                  "id": "ouRYx",
+                  "name": "label",
                   "fill": "$primary",
                   "content": "カレンダー",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "XnM10",
+              "name": "navSettings",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "5JP5z",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "settings",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "Qvkl8",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "設定",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
                 }
               ]
             }
@@ -5561,6 +5466,1078 @@
               "fontWeight": "500"
             }
           ]
+        },
+        {
+          "type": "frame",
+          "id": "pvU65",
+          "x": 0,
+          "y": 0,
+          "name": "Component/TabBar/Home",
+          "reusable": true,
+          "width": "fill_container(0)",
+          "height": 64,
+          "fill": "$bg",
+          "padding": [
+            4,
+            0,
+            8,
+            0
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "211zn",
+              "type": "ref",
+              "ref": "e85qJ",
+              "name": "tabHome"
+            },
+            {
+              "id": "DiDtz",
+              "type": "ref",
+              "ref": "upf2S",
+              "name": "tabTasks",
+              "descendants": {
+                "o1lec": {
+                  "iconFontName": "list-todo"
+                },
+                "Hrbdv": {
+                  "content": "タスク"
+                }
+              }
+            },
+            {
+              "id": "trPdT",
+              "type": "ref",
+              "ref": "upf2S",
+              "name": "tabCalendar",
+              "descendants": {
+                "o1lec": {
+                  "iconFontName": "calendar"
+                },
+                "Hrbdv": {
+                  "content": "カレンダー"
+                }
+              }
+            },
+            {
+              "id": "NSPEt",
+              "type": "ref",
+              "ref": "upf2S",
+              "name": "tabSettings",
+              "descendants": {
+                "o1lec": {
+                  "iconFontName": "settings"
+                },
+                "Hrbdv": {
+                  "content": "設定"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "x9fBM",
+          "x": 0,
+          "y": 0,
+          "name": "Component/TabBar/Tasks",
+          "reusable": true,
+          "width": "fill_container(0)",
+          "height": 64,
+          "fill": "$bg",
+          "padding": [
+            4,
+            0,
+            8,
+            0
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "bY9o2",
+              "type": "ref",
+              "ref": "upf2S",
+              "name": "tabHome",
+              "descendants": {
+                "o1lec": {
+                  "iconFontName": "house"
+                },
+                "Hrbdv": {
+                  "content": "ホーム"
+                }
+              }
+            },
+            {
+              "id": "vfjVF",
+              "type": "ref",
+              "ref": "e85qJ",
+              "name": "tabTasks",
+              "descendants": {
+                "kDLs3": {
+                  "iconFontName": "list-todo"
+                },
+                "K2HRa": {
+                  "content": "タスク"
+                }
+              }
+            },
+            {
+              "id": "Cf1YR",
+              "type": "ref",
+              "ref": "upf2S",
+              "name": "tabCalendar",
+              "descendants": {
+                "o1lec": {
+                  "iconFontName": "calendar"
+                },
+                "Hrbdv": {
+                  "content": "カレンダー"
+                }
+              }
+            },
+            {
+              "id": "yhppd",
+              "type": "ref",
+              "ref": "upf2S",
+              "name": "tabSettings",
+              "descendants": {
+                "o1lec": {
+                  "iconFontName": "settings"
+                },
+                "Hrbdv": {
+                  "content": "設定"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "9pqAx",
+          "x": 0,
+          "y": 0,
+          "name": "Component/TabBar/Calendar",
+          "reusable": true,
+          "width": "fill_container(0)",
+          "height": 64,
+          "fill": "$bg",
+          "padding": [
+            4,
+            0,
+            8,
+            0
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "6C59t",
+              "type": "ref",
+              "ref": "upf2S",
+              "name": "tabHome",
+              "descendants": {
+                "o1lec": {
+                  "iconFontName": "house"
+                },
+                "Hrbdv": {
+                  "content": "ホーム"
+                }
+              }
+            },
+            {
+              "id": "ZWz84",
+              "type": "ref",
+              "ref": "upf2S",
+              "name": "tabTasks",
+              "descendants": {
+                "o1lec": {
+                  "iconFontName": "list-todo"
+                },
+                "Hrbdv": {
+                  "content": "タスク"
+                }
+              }
+            },
+            {
+              "id": "XYcv6",
+              "type": "ref",
+              "ref": "e85qJ",
+              "name": "tabCalendar",
+              "descendants": {
+                "kDLs3": {
+                  "iconFontName": "calendar"
+                },
+                "K2HRa": {
+                  "content": "カレンダー"
+                }
+              }
+            },
+            {
+              "id": "G2A8u",
+              "type": "ref",
+              "ref": "upf2S",
+              "name": "tabSettings",
+              "descendants": {
+                "o1lec": {
+                  "iconFontName": "settings"
+                },
+                "Hrbdv": {
+                  "content": "設定"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "iVjgs",
+          "x": 0,
+          "y": 0,
+          "name": "Component/TabBar/Settings",
+          "reusable": true,
+          "width": "fill_container(0)",
+          "height": 64,
+          "fill": "$bg",
+          "padding": [
+            4,
+            0,
+            8,
+            0
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "EABdH",
+              "type": "ref",
+              "ref": "upf2S",
+              "name": "tabHome",
+              "descendants": {
+                "o1lec": {
+                  "iconFontName": "house"
+                },
+                "Hrbdv": {
+                  "content": "ホーム"
+                }
+              }
+            },
+            {
+              "id": "gqyjS",
+              "type": "ref",
+              "ref": "upf2S",
+              "name": "tabTasks",
+              "descendants": {
+                "o1lec": {
+                  "iconFontName": "list-todo"
+                },
+                "Hrbdv": {
+                  "content": "タスク"
+                }
+              }
+            },
+            {
+              "id": "4xHYT",
+              "type": "ref",
+              "ref": "upf2S",
+              "name": "tabCalendar",
+              "descendants": {
+                "o1lec": {
+                  "iconFontName": "calendar"
+                },
+                "Hrbdv": {
+                  "content": "カレンダー"
+                }
+              }
+            },
+            {
+              "id": "pphwP",
+              "type": "ref",
+              "ref": "e85qJ",
+              "name": "tabSettings",
+              "descendants": {
+                "kDLs3": {
+                  "iconFontName": "settings"
+                },
+                "K2HRa": {
+                  "content": "設定"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "yK85N",
+          "x": 0,
+          "y": 0,
+          "name": "Component/Sidebar/Home",
+          "width": 220,
+          "height": "fill_container(800)",
+          "fill": "$card",
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            24,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "TuNhk",
+              "name": "appHeader",
+              "gap": 8,
+              "padding": [
+                0,
+                0,
+                16,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "reVRU",
+                  "name": "appIcon",
+                  "width": 22,
+                  "height": 22,
+                  "iconFontName": "square-check-big",
+                  "iconFontFamily": "lucide",
+                  "fill": "$primary"
+                },
+                {
+                  "type": "text",
+                  "id": "BHP8c",
+                  "name": "appName",
+                  "fill": "$text",
+                  "content": "todo-list",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "iLjpN",
+              "name": "navHome",
+              "width": "fill_container",
+              "fill": "$primary-soft",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "rqWSg",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "house",
+                  "iconFontFamily": "lucide",
+                  "fill": "$primary"
+                },
+                {
+                  "type": "text",
+                  "id": "pYnZO",
+                  "name": "label",
+                  "fill": "$primary",
+                  "content": "ホーム",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "fZfWe",
+              "name": "navTasks",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "UTcZH",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "list-todo",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "NFKxV",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "タスク",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "wtxTz",
+              "name": "navCalendar",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "hMTFz",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "calendar",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "yg1Q5",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "カレンダー",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "KDeRS",
+              "name": "navSettings",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "weI5E",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "settings",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "uSXhw",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "設定",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "AqE0A",
+          "x": 0,
+          "y": 0,
+          "name": "Component/Sidebar/Tasks",
+          "width": 220,
+          "height": "fill_container(800)",
+          "fill": "$card",
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            24,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "n7HAS",
+              "name": "appHeader",
+              "gap": 8,
+              "padding": [
+                0,
+                0,
+                16,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "eExRw",
+                  "name": "appIcon",
+                  "width": 22,
+                  "height": 22,
+                  "iconFontName": "square-check-big",
+                  "iconFontFamily": "lucide",
+                  "fill": "$primary"
+                },
+                {
+                  "type": "text",
+                  "id": "yEipa",
+                  "name": "appName",
+                  "fill": "$text",
+                  "content": "todo-list",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "d9h6k",
+              "name": "navHome",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "1uk1P",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "house",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "8EIGJ",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "ホーム",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "gOyCW",
+              "name": "navTasks",
+              "width": "fill_container",
+              "fill": "$primary-soft",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "LiP34",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "list-todo",
+                  "iconFontFamily": "lucide",
+                  "fill": "$primary"
+                },
+                {
+                  "type": "text",
+                  "id": "9tl9p",
+                  "name": "label",
+                  "fill": "$primary",
+                  "content": "タスク",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "kzMI4",
+              "name": "navCalendar",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "g6HT8",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "calendar",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "ujO2H",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "カレンダー",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "hz6Rp",
+              "name": "navSettings",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "A3I3w",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "settings",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "C01gz",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "設定",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "TyWoO",
+          "x": 0,
+          "y": 0,
+          "name": "Component/Sidebar/Calendar",
+          "width": 220,
+          "height": "fill_container(800)",
+          "fill": "$card",
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            24,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "hx7Hu",
+              "name": "appHeader",
+              "gap": 8,
+              "padding": [
+                0,
+                0,
+                16,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "AMeTY",
+                  "name": "appIcon",
+                  "width": 22,
+                  "height": 22,
+                  "iconFontName": "square-check-big",
+                  "iconFontFamily": "lucide",
+                  "fill": "$primary"
+                },
+                {
+                  "type": "text",
+                  "id": "q0Cgu",
+                  "name": "appName",
+                  "fill": "$text",
+                  "content": "todo-list",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "8U0vx",
+              "name": "navHome",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "gx6uX",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "house",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "FVuOB",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "ホーム",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "csepE",
+              "name": "navTasks",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "OCsAt",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "list-todo",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "0GBWX",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "タスク",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "3Feoz",
+              "name": "navCalendar",
+              "width": "fill_container",
+              "fill": "$primary-soft",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "nIi1E",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "calendar",
+                  "iconFontFamily": "lucide",
+                  "fill": "$primary"
+                },
+                {
+                  "type": "text",
+                  "id": "nzAdC",
+                  "name": "label",
+                  "fill": "$primary",
+                  "content": "カレンダー",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "BClOa",
+              "name": "navSettings",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "7FLMs",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "settings",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "6R5rK",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "設定",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "1Rnoi",
+          "x": 0,
+          "y": 0,
+          "name": "Component/Sidebar/Settings",
+          "width": 220,
+          "height": "fill_container(800)",
+          "fill": "$card",
+          "layout": "vertical",
+          "gap": 8,
+          "padding": [
+            24,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "OEGnB",
+              "name": "appHeader",
+              "gap": 8,
+              "padding": [
+                0,
+                0,
+                16,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "YOPht",
+                  "name": "appIcon",
+                  "width": 22,
+                  "height": 22,
+                  "iconFontName": "square-check-big",
+                  "iconFontFamily": "lucide",
+                  "fill": "$primary"
+                },
+                {
+                  "type": "text",
+                  "id": "YZsWZ",
+                  "name": "appName",
+                  "fill": "$text",
+                  "content": "todo-list",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "yjQ0t",
+              "name": "navHome",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "41PR3",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "house",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "AkyWN",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "ホーム",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "upK9Y",
+              "name": "navTasks",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "qpBTd",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "list-todo",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "zzS6M",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "タスク",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "u8obb",
+              "name": "navCalendar",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "nWW45",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "calendar",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "xfNCh",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "カレンダー",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "UIRkp",
+              "name": "navSettings",
+              "width": "fill_container",
+              "fill": "$primary-soft",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "zDbv2",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "settings",
+                  "iconFontFamily": "lucide",
+                  "fill": "$primary"
+                },
+                {
+                  "type": "text",
+                  "id": "UR102",
+                  "name": "label",
+                  "fill": "$primary",
+                  "content": "設定",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -5749,63 +6726,11 @@
           ]
         },
         {
-          "type": "frame",
-          "id": "76TFW",
+          "id": "i7oLr",
+          "type": "ref",
+          "ref": "x9fBM",
           "name": "tabBar",
-          "width": "fill_container",
-          "height": 64,
-          "fill": "$bg",
-          "padding": [
-            4,
-            0,
-            8,
-            0
-          ],
-          "alignItems": "center",
-          "children": [
-            {
-              "id": "2zrzs",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabHome",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "house"
-                },
-                "Hrbdv": {
-                  "content": "ホーム"
-                }
-              }
-            },
-            {
-              "id": "6sipe",
-              "type": "ref",
-              "ref": "e85qJ",
-              "name": "tabTasks",
-              "descendants": {
-                "kDLs3": {
-                  "iconFontName": "list-todo"
-                },
-                "K2HRa": {
-                  "content": "タスク"
-                }
-              }
-            },
-            {
-              "id": "64KSs",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabCalendar",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "calendar"
-                },
-                "Hrbdv": {
-                  "content": "カレンダー"
-                }
-              }
-            }
-          ]
+          "width": "fill_container"
         }
       ]
     },
@@ -6494,63 +7419,11 @@
           ]
         },
         {
-          "type": "frame",
-          "id": "dLHa4",
+          "id": "iUIY0",
+          "type": "ref",
+          "ref": "9pqAx",
           "name": "tabBar",
-          "width": "fill_container",
-          "height": 64,
-          "fill": "$bg",
-          "padding": [
-            4,
-            0,
-            8,
-            0
-          ],
-          "alignItems": "center",
-          "children": [
-            {
-              "id": "APKPr",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabHome",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "house"
-                },
-                "Hrbdv": {
-                  "content": "ホーム"
-                }
-              }
-            },
-            {
-              "id": "rcol0",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabTasks",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "list-todo"
-                },
-                "Hrbdv": {
-                  "content": "タスク"
-                }
-              }
-            },
-            {
-              "id": "TL5HM",
-              "type": "ref",
-              "ref": "e85qJ",
-              "name": "tabCalendar",
-              "descendants": {
-                "kDLs3": {
-                  "iconFontName": "calendar"
-                },
-                "K2HRa": {
-                  "content": "カレンダー"
-                }
-              }
-            }
-          ]
+          "width": "fill_container"
         }
       ]
     },
@@ -6566,7 +7439,7 @@
       "children": [
         {
           "type": "frame",
-          "id": "n0g0V",
+          "id": "RsQ2H",
           "name": "sidebar",
           "width": 220,
           "height": "fill_container",
@@ -6580,7 +7453,7 @@
           "children": [
             {
               "type": "frame",
-              "id": "Ew1ma",
+              "id": "CzkKY",
               "name": "appHeader",
               "gap": 8,
               "padding": [
@@ -6593,7 +7466,7 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "ky9rw",
+                  "id": "1wQZP",
                   "name": "appIcon",
                   "width": 22,
                   "height": 22,
@@ -6603,7 +7476,7 @@
                 },
                 {
                   "type": "text",
-                  "id": "5IMPs",
+                  "id": "lNaId",
                   "name": "appName",
                   "fill": "$text",
                   "content": "todo-list",
@@ -6615,7 +7488,7 @@
             },
             {
               "type": "frame",
-              "id": "eh8JJ",
+              "id": "3sLFf",
               "name": "navHome",
               "width": "fill_container",
               "cornerRadius": 12,
@@ -6628,8 +7501,8 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "JpFGS",
-                  "name": "nhIc",
+                  "id": "n5eh2",
+                  "name": "icon",
                   "width": 18,
                   "height": 18,
                   "iconFontName": "house",
@@ -6638,8 +7511,8 @@
                 },
                 {
                   "type": "text",
-                  "id": "rNfjq",
-                  "name": "nhTx",
+                  "id": "DMj2b",
+                  "name": "label",
                   "fill": "$text-secondary",
                   "content": "ホーム",
                   "fontFamily": "Inter",
@@ -6650,7 +7523,7 @@
             },
             {
               "type": "frame",
-              "id": "VKTw3",
+              "id": "QoBrL",
               "name": "navTasks",
               "width": "fill_container",
               "fill": "$primary-soft",
@@ -6664,8 +7537,8 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "b7o0P",
-                  "name": "ntIc",
+                  "id": "Y6C8h",
+                  "name": "icon",
                   "width": 18,
                   "height": 18,
                   "iconFontName": "list-todo",
@@ -6674,8 +7547,8 @@
                 },
                 {
                   "type": "text",
-                  "id": "El2Og",
-                  "name": "ntTx",
+                  "id": "bFrQ9",
+                  "name": "label",
                   "fill": "$primary",
                   "content": "タスク",
                   "fontFamily": "Inter",
@@ -6686,7 +7559,7 @@
             },
             {
               "type": "frame",
-              "id": "Sohxq",
+              "id": "abaTv",
               "name": "navCalendar",
               "width": "fill_container",
               "cornerRadius": 12,
@@ -6699,8 +7572,8 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "LV314",
-                  "name": "ncIc",
+                  "id": "4UZ8O",
+                  "name": "icon",
                   "width": 18,
                   "height": 18,
                   "iconFontName": "calendar",
@@ -6709,10 +7582,45 @@
                 },
                 {
                   "type": "text",
-                  "id": "OtFEF",
-                  "name": "ncTx",
+                  "id": "nTTpl",
+                  "name": "label",
                   "fill": "$text-secondary",
                   "content": "カレンダー",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "aSDKp",
+              "name": "navSettings",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "ov2mB",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "settings",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "Nc5Tu",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "設定",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
@@ -6897,7 +7805,7 @@
       "children": [
         {
           "type": "frame",
-          "id": "uEd10",
+          "id": "nA1GJ",
           "name": "sidebar",
           "width": 220,
           "height": "fill_container",
@@ -6911,7 +7819,7 @@
           "children": [
             {
               "type": "frame",
-              "id": "xxs3n",
+              "id": "03Z5Z",
               "name": "appHeader",
               "gap": 8,
               "padding": [
@@ -6924,8 +7832,8 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "HFQoJ",
-                  "name": "ai2",
+                  "id": "1hNbV",
+                  "name": "appIcon",
                   "width": 22,
                   "height": 22,
                   "iconFontName": "square-check-big",
@@ -6934,8 +7842,8 @@
                 },
                 {
                   "type": "text",
-                  "id": "96WX0",
-                  "name": "an2",
+                  "id": "5Hxit",
+                  "name": "appName",
                   "fill": "$text",
                   "content": "todo-list",
                   "fontFamily": "Inter",
@@ -6946,7 +7854,7 @@
             },
             {
               "type": "frame",
-              "id": "zimKR",
+              "id": "z5eeB",
               "name": "navHome",
               "width": "fill_container",
               "cornerRadius": 12,
@@ -6959,8 +7867,8 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "OVoud",
-                  "name": "nhi2",
+                  "id": "4PROB",
+                  "name": "icon",
                   "width": 18,
                   "height": 18,
                   "iconFontName": "house",
@@ -6969,8 +7877,8 @@
                 },
                 {
                   "type": "text",
-                  "id": "386cv",
-                  "name": "nht2",
+                  "id": "JKrDx",
+                  "name": "label",
                   "fill": "$text-secondary",
                   "content": "ホーム",
                   "fontFamily": "Inter",
@@ -6981,7 +7889,7 @@
             },
             {
               "type": "frame",
-              "id": "5qYK4",
+              "id": "ZBy2t",
               "name": "navTasks",
               "width": "fill_container",
               "cornerRadius": 12,
@@ -6994,8 +7902,8 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "HrtFW",
-                  "name": "nti2",
+                  "id": "lNprx",
+                  "name": "icon",
                   "width": 18,
                   "height": 18,
                   "iconFontName": "list-todo",
@@ -7004,8 +7912,8 @@
                 },
                 {
                   "type": "text",
-                  "id": "x4QCQ",
-                  "name": "ntt2",
+                  "id": "BFLd3",
+                  "name": "label",
                   "fill": "$text-secondary",
                   "content": "タスク",
                   "fontFamily": "Inter",
@@ -7016,7 +7924,7 @@
             },
             {
               "type": "frame",
-              "id": "jLw2L",
+              "id": "I7Va7",
               "name": "navCalendar",
               "width": "fill_container",
               "fill": "$primary-soft",
@@ -7030,8 +7938,8 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "C85vs",
-                  "name": "nci2",
+                  "id": "0ZH10",
+                  "name": "icon",
                   "width": 18,
                   "height": 18,
                   "iconFontName": "calendar",
@@ -7040,13 +7948,48 @@
                 },
                 {
                   "type": "text",
-                  "id": "kTrJw",
-                  "name": "nct2",
+                  "id": "uh04Q",
+                  "name": "label",
                   "fill": "$primary",
                   "content": "カレンダー",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "hAC79",
+              "name": "navSettings",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "w9pJD",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "settings",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "gbit3",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "設定",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
                 }
               ]
             }
@@ -7963,55 +8906,11 @@
           ]
         },
         {
-          "type": "frame",
-          "id": "p31Ar",
+          "id": "oCPDA",
+          "type": "ref",
+          "ref": "pvU65",
           "name": "tabBar",
-          "width": "fill_container",
-          "height": 64,
-          "fill": "$bg",
-          "padding": [
-            4,
-            0,
-            8,
-            0
-          ],
-          "alignItems": "center",
-          "children": [
-            {
-              "id": "eQUXV",
-              "type": "ref",
-              "ref": "e85qJ",
-              "name": "tabHome"
-            },
-            {
-              "id": "eQ6m8",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabTasks",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "list-todo"
-                },
-                "Hrbdv": {
-                  "content": "タスク"
-                }
-              }
-            },
-            {
-              "id": "UaCip",
-              "type": "ref",
-              "ref": "upf2S",
-              "name": "tabCalendar",
-              "descendants": {
-                "o1lec": {
-                  "iconFontName": "calendar"
-                },
-                "Hrbdv": {
-                  "content": "カレンダー"
-                }
-              }
-            }
-          ]
+          "width": "fill_container"
         }
       ]
     },
@@ -8028,7 +8927,7 @@
       "children": [
         {
           "type": "frame",
-          "id": "9ZChH",
+          "id": "IWuux",
           "name": "sidebar",
           "width": 220,
           "height": "fill_container",
@@ -8042,7 +8941,7 @@
           "children": [
             {
               "type": "frame",
-              "id": "zY2BA",
+              "id": "PJUAD",
               "name": "appHeader",
               "gap": 8,
               "padding": [
@@ -8055,7 +8954,7 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "qx4PK",
+                  "id": "WaOft",
                   "name": "appIcon",
                   "width": 22,
                   "height": 22,
@@ -8065,7 +8964,7 @@
                 },
                 {
                   "type": "text",
-                  "id": "j3ZSM",
+                  "id": "TAWkc",
                   "name": "appName",
                   "fill": "$text",
                   "content": "todo-list",
@@ -8077,7 +8976,7 @@
             },
             {
               "type": "frame",
-              "id": "UGCbV",
+              "id": "IIzzh",
               "name": "navHome",
               "width": "fill_container",
               "fill": "$primary-soft",
@@ -8091,7 +8990,7 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "f2eFk",
+                  "id": "etVaK",
                   "name": "icon",
                   "width": 18,
                   "height": 18,
@@ -8101,7 +9000,7 @@
                 },
                 {
                   "type": "text",
-                  "id": "4T7PY",
+                  "id": "ms7GW",
                   "name": "label",
                   "fill": "$primary",
                   "content": "ホーム",
@@ -8113,7 +9012,7 @@
             },
             {
               "type": "frame",
-              "id": "3idgR",
+              "id": "CQT3W",
               "name": "navTasks",
               "width": "fill_container",
               "cornerRadius": 12,
@@ -8126,7 +9025,7 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "kZPsD",
+                  "id": "PQb0K",
                   "name": "icon",
                   "width": 18,
                   "height": 18,
@@ -8136,7 +9035,7 @@
                 },
                 {
                   "type": "text",
-                  "id": "8t2wy",
+                  "id": "hTR4M",
                   "name": "label",
                   "fill": "$text-secondary",
                   "content": "タスク",
@@ -8148,7 +9047,7 @@
             },
             {
               "type": "frame",
-              "id": "GNDWO",
+              "id": "XEQtD",
               "name": "navCalendar",
               "width": "fill_container",
               "cornerRadius": 12,
@@ -8161,7 +9060,7 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "egsqZ",
+                  "id": "0vhrp",
                   "name": "icon",
                   "width": 18,
                   "height": 18,
@@ -8171,10 +9070,45 @@
                 },
                 {
                   "type": "text",
-                  "id": "hjbaJ",
+                  "id": "3N7fq",
                   "name": "label",
                   "fill": "$text-secondary",
                   "content": "カレンダー",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Ttc1y",
+              "name": "navSettings",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "FnWaq",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "settings",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "g8vbd",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "設定",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
@@ -8381,7 +9315,7 @@
       "children": [
         {
           "type": "frame",
-          "id": "lAznM",
+          "id": "tpq6G",
           "name": "sidebar",
           "width": 220,
           "height": "fill_container",
@@ -8395,7 +9329,7 @@
           "children": [
             {
               "type": "frame",
-              "id": "JLul9",
+              "id": "hxlba",
               "name": "appHeader",
               "gap": 8,
               "padding": [
@@ -8408,7 +9342,7 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "MNW0t",
+                  "id": "oDLgb",
                   "name": "appIcon",
                   "width": 22,
                   "height": 22,
@@ -8418,7 +9352,7 @@
                 },
                 {
                   "type": "text",
-                  "id": "1kHSn",
+                  "id": "zXX0S",
                   "name": "appName",
                   "fill": "$text",
                   "content": "todo-list",
@@ -8430,7 +9364,7 @@
             },
             {
               "type": "frame",
-              "id": "AdRHY",
+              "id": "5iBcA",
               "name": "navHome",
               "width": "fill_container",
               "fill": "$primary-soft",
@@ -8444,7 +9378,7 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "NuLqZ",
+                  "id": "s1ns0",
                   "name": "icon",
                   "width": 18,
                   "height": 18,
@@ -8454,7 +9388,7 @@
                 },
                 {
                   "type": "text",
-                  "id": "hV3SI",
+                  "id": "JZBd5",
                   "name": "label",
                   "fill": "$primary",
                   "content": "ホーム",
@@ -8466,7 +9400,7 @@
             },
             {
               "type": "frame",
-              "id": "xvn9v",
+              "id": "qEKny",
               "name": "navTasks",
               "width": "fill_container",
               "cornerRadius": 12,
@@ -8479,7 +9413,7 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "PCIvI",
+                  "id": "7z47N",
                   "name": "icon",
                   "width": 18,
                   "height": 18,
@@ -8489,7 +9423,7 @@
                 },
                 {
                   "type": "text",
-                  "id": "09k4t",
+                  "id": "MTc8U",
                   "name": "label",
                   "fill": "$text-secondary",
                   "content": "タスク",
@@ -8501,7 +9435,7 @@
             },
             {
               "type": "frame",
-              "id": "t7Oxs",
+              "id": "69Ixh",
               "name": "navCalendar",
               "width": "fill_container",
               "cornerRadius": 12,
@@ -8514,7 +9448,7 @@
               "children": [
                 {
                   "type": "icon_font",
-                  "id": "RYS2z",
+                  "id": "PXnII",
                   "name": "icon",
                   "width": 18,
                   "height": 18,
@@ -8524,10 +9458,45 @@
                 },
                 {
                   "type": "text",
-                  "id": "FzCoa",
+                  "id": "bh3Yp",
                   "name": "label",
                   "fill": "$text-secondary",
                   "content": "カレンダー",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "v1MPx",
+              "name": "navSettings",
+              "width": "fill_container",
+              "cornerRadius": 12,
+              "gap": 10,
+              "padding": [
+                10,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "g0xg6",
+                  "name": "icon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "settings",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "hJJGf",
+                  "name": "label",
+                  "fill": "$text-secondary",
+                  "content": "設定",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
