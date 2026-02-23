@@ -31,7 +31,7 @@
    - 要件を満たす最適なデザインを作ってほしいと伝える（ターゲットとユースケースを伝えてそれに最適なUI/UXを提案してもらう形）
    - レスポンシブ対応の必要性を伝える
    - スタイルガイドをつくる
-     - 色、フォント、スペーシング、角丸、シャドウ、などの基準を決める。
+     - 色、フォント、スペーシング、角丸、シャドウなどの基準を決める
      - 色を決めるときはコントラストに注意する（WCAGの基準を参考にする）
      - 作成方法
        - Skillsのui-ux-pro-maxの--design-system
@@ -97,15 +97,14 @@
 3. `readDepth` を制御する（デフォルト1。2〜3で十分なことが多い）
 
 ```
-# NG: パターンで全体検索 → 21MB超でトークン上限超過
-batch_get(patterns: ["Dialog - Task Action"])
+# NG: パターンで全体検索 → 数十MBでトークン上限超過
+batch_get(patterns: ["<探したいフレーム名>"])
 
-# OK: まずget_editor_stateでノードID一覧を取得
+# OK: まずget_editor_stateでノード一覧を取得し、目的のノードIDを特定
 get_editor_state(include_schema: false)
-# → トップレベルに "3y8Nj" (Dialog - Task Action) を発見
 
 # OK: 特定のノードIDをreadDepth指定で読む
-batch_get(nodeIds: ["3y8Nj"], readDepth: 3)
+batch_get(nodeIds: ["<特定したノードID>"], readDepth: 3)
 ```
 
 ### C() で画面コピー後のパス解決に制約がある

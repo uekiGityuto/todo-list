@@ -14490,7 +14490,7 @@
           "name": "overlay",
           "width": 393,
           "height": 852,
-          "fill": "#00000040"
+          "fill": "$overlay"
         },
         {
           "type": "frame",
