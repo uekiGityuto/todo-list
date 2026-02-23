@@ -51,3 +51,9 @@ CLAUDE.local.md
 # Skills (npx skills)
 .agents/
 skills-lock.json
+
+# Playwright MCP
+.playwright-mcp/
+
+# Screenshots
+showcase-*.png
