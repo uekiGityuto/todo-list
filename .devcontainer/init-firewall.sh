@@ -6,6 +6,11 @@ IFS=$'\n\t'       # Stricter word splitting
 DOCKER_DNS_RULES=$(iptables-save -t nat | grep "127\.0\.0\.11" || true)
 
 # Flush existing rules, reset policies, and delete existing ipsets
+# NOTE: ポリシーリセット（ACCEPT）はフラッシュ（-F）より先に行うこと。
+# ポリシー = どのルールにもマッチしなかったパケットのデフォルト動作（ACCEPT=通す / DROP=遮断）。
+# このスクリプトは最後にポリシーをDROP（全遮断）に設定し、許可ルールで特定通信だけ通す。
+# 再実行時に -F でルール（許可リスト）だけ消すと、ポリシーDROP（全遮断）だけが残り、
+# curl等の通信が一切できずスクリプトがハングする。
 iptables -P INPUT ACCEPT
 iptables -P FORWARD ACCEPT
 iptables -P OUTPUT ACCEPT
