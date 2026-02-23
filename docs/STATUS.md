@@ -26,9 +26,17 @@
   - 復帰ダイアログ（ブラウザ閉じ後の復帰）
   - PCタイマー簡易表示
 
+### Phase 2-1: 共通基盤
+- [x] テーマ変数設定（globals.css）— primaryを青(#3BADE0)に変更
+- [x] フォント変更（Geist Sans → Inter）
+- [x] shadcn/uiコンポーネント導入+カスタマイズ（button, badge, dialog, input, label）
+- [x] アプリ固有コンポーネント9種作成（check, filter-chip, section-header, tab-bar, sidebar, task-card, next-task-card, next-task-hero, calendar-cell）
+- [x] optimizePackageImports設定（lucide-react）
+- [x] デザインファイルのprimary色も青に同期
+
 ## 進行中
 
-### Phase 2: 実装
+### Phase 2-2: 各ページ実装
 - [ ] タスクCRUD（追加・編集・削除・一覧）
 - [ ] 「次やる」マーク機能 + ホーム画面
 - [ ] ローカルストレージによるデータ永続化
@@ -40,4 +48,4 @@
 
 ## 次にやること
 
-1. **Phase 2**: taktで実装に入る
+1. **Phase 2-2**: taktで各ページを並列実装
