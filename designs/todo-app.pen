@@ -2111,596 +2111,6 @@
     },
     {
       "type": "frame",
-      "id": "wa5Bn",
-      "x": 0,
-      "y": -500,
-      "name": "Component/Button/Primary",
-      "reusable": true,
-      "height": 48,
-      "fill": "$primary",
-      "cornerRadius": "$radius",
-      "gap": 8,
-      "padding": [
-        12,
-        24
-      ],
-      "justifyContent": "center",
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "icon_font",
-          "id": "zVyqt",
-          "name": "icon",
-          "width": 20,
-          "height": 20,
-          "iconFontName": "plus",
-          "iconFontFamily": "lucide",
-          "fill": "$primary-fg"
-        },
-        {
-          "type": "text",
-          "id": "BrdBl",
-          "name": "label",
-          "fill": "$primary-fg",
-          "content": "Button",
-          "fontFamily": "Inter",
-          "fontSize": 15,
-          "fontWeight": "600"
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "50jT2",
-      "x": 150,
-      "y": -500,
-      "name": "Component/Button/Secondary",
-      "reusable": true,
-      "height": 48,
-      "fill": "$card",
-      "cornerRadius": "$radius",
-      "gap": 8,
-      "padding": [
-        12,
-        24
-      ],
-      "justifyContent": "center",
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "icon_font",
-          "id": "LfdUb",
-          "name": "icon",
-          "width": 20,
-          "height": 20,
-          "iconFontName": "plus",
-          "iconFontFamily": "lucide",
-          "fill": "$text"
-        },
-        {
-          "type": "text",
-          "id": "zDJPX",
-          "name": "label",
-          "fill": "$text",
-          "content": "Button",
-          "fontFamily": "Inter",
-          "fontSize": 15,
-          "fontWeight": "600"
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "An68q",
-      "x": 300,
-      "y": -500,
-      "name": "Component/Button/Ghost",
-      "reusable": true,
-      "height": 48,
-      "cornerRadius": "$radius",
-      "gap": 8,
-      "padding": [
-        12,
-        24
-      ],
-      "justifyContent": "center",
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "icon_font",
-          "id": "aXqPE",
-          "name": "icon",
-          "width": 20,
-          "height": 20,
-          "iconFontName": "plus",
-          "iconFontFamily": "lucide",
-          "fill": "$text-secondary"
-        },
-        {
-          "type": "text",
-          "id": "o6s28",
-          "name": "label",
-          "fill": "$text-secondary",
-          "content": "Button",
-          "fontFamily": "Inter",
-          "fontSize": 15,
-          "fontWeight": "600"
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "xj6NN",
-      "x": 450,
-      "y": -500,
-      "name": "Component/Check/Empty",
-      "reusable": true,
-      "width": 24,
-      "height": 24,
-      "cornerRadius": 12,
-      "stroke": {
-        "align": "inside",
-        "thickness": 2,
-        "fill": "$border"
-      }
-    },
-    {
-      "type": "frame",
-      "id": "4gr5W",
-      "x": 500,
-      "y": -500,
-      "name": "Component/Check/Done",
-      "reusable": true,
-      "width": 24,
-      "height": 24,
-      "fill": "$primary",
-      "cornerRadius": 12,
-      "layout": "none",
-      "children": [
-        {
-          "type": "icon_font",
-          "id": "ADmlU",
-          "x": 5,
-          "y": 5,
-          "name": "icon",
-          "width": 14,
-          "height": 14,
-          "iconFontName": "check",
-          "iconFontFamily": "lucide",
-          "fill": "$primary-fg"
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "JEV2o",
-      "x": 550,
-      "y": -500,
-      "name": "Component/Badge",
-      "reusable": true,
-      "fill": "$primary-soft",
-      "cornerRadius": 14,
-      "gap": 4,
-      "padding": [
-        4,
-        10
-      ],
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "icon_font",
-          "id": "uU6rg",
-          "name": "icon",
-          "width": 14,
-          "height": 14,
-          "iconFontName": "zap",
-          "iconFontFamily": "lucide",
-          "fill": "$primary"
-        },
-        {
-          "type": "text",
-          "id": "kKH3F",
-          "name": "label",
-          "fill": "$primary",
-          "content": "Badge",
-          "fontFamily": "Inter",
-          "fontSize": 11,
-          "fontWeight": "600"
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "cVTLk",
-      "x": 650,
-      "y": -500,
-      "name": "Component/Filter/Active",
-      "reusable": true,
-      "fill": "$primary",
-      "cornerRadius": "$radius-sm",
-      "padding": [
-        8,
-        16
-      ],
-      "justifyContent": "center",
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "text",
-          "id": "mlwnQ",
-          "name": "label",
-          "fill": "$primary-fg",
-          "content": "Filter",
-          "fontFamily": "Inter",
-          "fontSize": 13,
-          "fontWeight": "600"
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "SwJwS",
-      "x": 750,
-      "y": -500,
-      "name": "Component/Filter/Inactive",
-      "reusable": true,
-      "fill": "$card",
-      "cornerRadius": "$radius-sm",
-      "padding": [
-        8,
-        16
-      ],
-      "justifyContent": "center",
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "text",
-          "id": "JqMte",
-          "name": "label",
-          "fill": "$text-secondary",
-          "content": "Filter",
-          "fontFamily": "Inter",
-          "fontSize": 13,
-          "fontWeight": "500"
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "e85qJ",
-      "x": 0,
-      "y": -420,
-      "name": "Component/TabBarItem/Active",
-      "reusable": true,
-      "layout": "vertical",
-      "gap": 2,
-      "padding": [
-        6,
-        16
-      ],
-      "justifyContent": "center",
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "icon_font",
-          "id": "kDLs3",
-          "name": "icon",
-          "width": 20,
-          "height": 20,
-          "iconFontName": "house",
-          "iconFontFamily": "lucide",
-          "fill": "$primary"
-        },
-        {
-          "type": "text",
-          "id": "K2HRa",
-          "name": "label",
-          "fill": "$primary",
-          "content": "ホーム",
-          "fontFamily": "Inter",
-          "fontSize": 11,
-          "fontWeight": "600"
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "upf2S",
-      "x": 100,
-      "y": -420,
-      "name": "Component/TabBarItem/Inactive",
-      "reusable": true,
-      "layout": "vertical",
-      "gap": 2,
-      "padding": [
-        6,
-        16
-      ],
-      "justifyContent": "center",
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "icon_font",
-          "id": "o1lec",
-          "name": "icon",
-          "width": 20,
-          "height": 20,
-          "iconFontName": "list-todo",
-          "iconFontFamily": "lucide",
-          "fill": "$text-muted"
-        },
-        {
-          "type": "text",
-          "id": "Hrbdv",
-          "name": "label",
-          "fill": "$text-muted",
-          "content": "タスク",
-          "fontFamily": "Inter",
-          "fontSize": 11,
-          "fontWeight": "500"
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "x7rxJ",
-      "x": 200,
-      "y": -420,
-      "name": "Component/SectionHeader",
-      "reusable": true,
-      "width": 350,
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "text",
-          "id": "vNo0x",
-          "name": "title",
-          "fill": "$text",
-          "content": "セクション",
-          "fontFamily": "Inter",
-          "fontSize": 16,
-          "fontWeight": "700"
-        },
-        {
-          "type": "text",
-          "id": "GutFB",
-          "name": "action",
-          "fill": "$primary",
-          "content": "すべて見る",
-          "fontFamily": "Inter",
-          "fontSize": 13,
-          "fontWeight": "500"
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "7JQWh",
-      "x": 600,
-      "y": -420,
-      "name": "Component/TaskCard",
-      "reusable": true,
-      "width": 350,
-      "fill": "$card",
-      "cornerRadius": "$radius-sm",
-      "gap": 12,
-      "padding": [
-        14,
-        16
-      ],
-      "alignItems": "center",
-      "children": [
-        {
-          "id": "EHfKq",
-          "type": "ref",
-          "ref": "xj6NN",
-          "name": "check",
-          "enabled": false
-        },
-        {
-          "type": "frame",
-          "id": "QbvT4",
-          "name": "content",
-          "width": "fill_container",
-          "layout": "vertical",
-          "gap": 4,
-          "children": [
-            {
-              "type": "text",
-              "id": "tQsuG",
-              "name": "title",
-              "fill": "$text",
-              "content": "タスク名がここに入る",
-              "fontFamily": "Inter",
-              "fontSize": 14,
-              "fontWeight": "600"
-            },
-            {
-              "type": "frame",
-              "id": "jhnhH",
-              "name": "meta",
-              "gap": 8,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "OBN81",
-                  "name": "time",
-                  "fill": "$text-muted",
-                  "content": "30分",
-                  "fontFamily": "Inter",
-                  "fontSize": 12,
-                  "fontWeight": "normal"
-                },
-                {
-                  "type": "text",
-                  "id": "Exq02",
-                  "name": "category",
-                  "fill": "$text-secondary",
-                  "content": "インスタ投稿",
-                  "fontFamily": "Inter",
-                  "fontSize": 12,
-                  "fontWeight": "normal"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "icon_font",
-          "id": "4SeBv",
-          "name": "chevron",
-          "width": 16,
-          "height": 16,
-          "iconFontName": "chevron-right",
-          "iconFontFamily": "lucide",
-          "fill": "$text-muted"
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "MWXMq",
-      "x": 0,
-      "y": -330,
-      "name": "Component/NextTaskHero",
-      "reusable": true,
-      "width": 350,
-      "fill": "$primary",
-      "cornerRadius": "$radius",
-      "layout": "vertical",
-      "gap": 16,
-      "padding": [
-        28,
-        24
-      ],
-      "children": [
-        {
-          "type": "frame",
-          "id": "N2pB5",
-          "name": "labelRow",
-          "gap": 6,
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "icon_font",
-              "id": "xffuO",
-              "name": "icon",
-              "width": 16,
-              "height": 16,
-              "iconFontName": "zap",
-              "iconFontFamily": "lucide",
-              "fill": "$primary-fg"
-            },
-            {
-              "type": "text",
-              "id": "teXd2",
-              "name": "label",
-              "opacity": 0.85,
-              "fill": "$primary-fg",
-              "content": "次にやること",
-              "fontFamily": "Inter",
-              "fontSize": 13,
-              "fontWeight": "600"
-            }
-          ]
-        },
-        {
-          "type": "text",
-          "id": "YdZGO",
-          "name": "taskName",
-          "fill": "$primary-fg",
-          "content": "インスタ投稿の\n画像を作成する",
-          "lineHeight": 1.3,
-          "fontFamily": "Inter",
-          "fontSize": 24,
-          "fontWeight": "700"
-        },
-        {
-          "type": "frame",
-          "id": "3yBmF",
-          "name": "meta",
-          "gap": 12,
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "frame",
-              "id": "nRKhO",
-              "name": "categoryBadge",
-              "fill": "#FFFFFF20",
-              "cornerRadius": "$radius-pill",
-              "padding": [
-                4,
-                10
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "5NaIs",
-                  "name": "categoryText",
-                  "fill": "$primary-fg",
-                  "content": "インスタ投稿",
-                  "fontFamily": "Inter",
-                  "fontSize": 12,
-                  "fontWeight": "500"
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "id": "60968",
-              "name": "timeText",
-              "opacity": 0.8,
-              "fill": "$primary-fg",
-              "content": "30分",
-              "fontFamily": "Inter",
-              "fontSize": 13,
-              "fontWeight": "500"
-            }
-          ]
-        },
-        {
-          "type": "frame",
-          "id": "J2YhE",
-          "name": "startButton",
-          "width": "fill_container",
-          "fill": "#FFFFFF20",
-          "cornerRadius": "$radius-sm",
-          "gap": 8,
-          "padding": [
-            12,
-            0
-          ],
-          "justifyContent": "center",
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "icon_font",
-              "id": "EWWut",
-              "name": "btnIcon",
-              "width": 18,
-              "height": 18,
-              "iconFontName": "play",
-              "iconFontFamily": "lucide",
-              "fill": "$primary-fg"
-            },
-            {
-              "type": "text",
-              "id": "UJ79M",
-              "name": "btnLabel",
-              "fill": "$primary-fg",
-              "content": "作業を始める",
-              "fontFamily": "Inter",
-              "fontSize": 14,
-              "fontWeight": "600"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "frame",
       "id": "xzsWL",
       "x": 1380,
       "y": 1052,
@@ -4209,167 +3619,6 @@
     },
     {
       "type": "frame",
-      "id": "QFr2P",
-      "x": 400,
-      "y": -330,
-      "name": "Component/NextTaskCard",
-      "reusable": true,
-      "width": 350,
-      "fill": "$primary-soft",
-      "cornerRadius": "$radius-sm",
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "frame",
-          "id": "QlQ78",
-          "name": "accentBar",
-          "width": 4,
-          "height": "fill_container",
-          "fill": "$primary",
-          "cornerRadius": 2
-        },
-        {
-          "type": "frame",
-          "id": "f2uKW",
-          "name": "content",
-          "width": "fill_container",
-          "layout": "vertical",
-          "gap": 8,
-          "padding": [
-            14,
-            16
-          ],
-          "children": [
-            {
-              "type": "frame",
-              "id": "IMSYE",
-              "name": "badgeRow",
-              "gap": 6,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "icon_font",
-                  "id": "OPdqy",
-                  "name": "bIcon",
-                  "width": 14,
-                  "height": 14,
-                  "iconFontName": "zap",
-                  "iconFontFamily": "lucide",
-                  "fill": "$primary"
-                },
-                {
-                  "type": "text",
-                  "id": "LB7z8",
-                  "name": "badgeText",
-                  "fill": "$primary",
-                  "content": "次にやるタスク",
-                  "fontFamily": "Inter",
-                  "fontSize": 12,
-                  "fontWeight": "600"
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "id": "6cImM",
-              "name": "taskTitle",
-              "fill": "$text",
-              "content": "タスク名がここに入る",
-              "fontFamily": "Inter",
-              "fontSize": 15,
-              "fontWeight": "700"
-            },
-            {
-              "type": "frame",
-              "id": "C847a",
-              "name": "meta",
-              "gap": 8,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "P9nPn",
-                  "name": "time",
-                  "fill": "$text-muted",
-                  "content": "30分",
-                  "fontFamily": "Inter",
-                  "fontSize": 12
-                },
-                {
-                  "type": "text",
-                  "id": "MeaOk",
-                  "name": "category",
-                  "fill": "$text-secondary",
-                  "content": "カテゴリ",
-                  "fontFamily": "Inter",
-                  "fontSize": 12
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "icon_font",
-          "id": "uodho",
-          "name": "chevron",
-          "width": 16,
-          "height": 16,
-          "iconFontName": "chevron-right",
-          "iconFontFamily": "lucide",
-          "fill": "$primary"
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "PbnYO",
-      "x": 800,
-      "y": -330,
-      "name": "Component/CalendarCell",
-      "reusable": true,
-      "clip": true,
-      "width": 50,
-      "height": 64,
-      "fill": "$bg",
-      "layout": "vertical",
-      "gap": 2,
-      "padding": [
-        4,
-        2
-      ],
-      "children": [
-        {
-          "type": "text",
-          "id": "Fxm4v",
-          "name": "day",
-          "fill": "$text",
-          "content": "1",
-          "fontFamily": "Inter",
-          "fontSize": 11,
-          "fontWeight": "500"
-        },
-        {
-          "type": "text",
-          "id": "vZ1Ef",
-          "name": "task1",
-          "fill": "$primary",
-          "fontFamily": "Inter",
-          "fontSize": 8,
-          "fontWeight": "500"
-        },
-        {
-          "type": "text",
-          "id": "bCi1a",
-          "name": "task2",
-          "fill": "$primary",
-          "fontFamily": "Inter",
-          "fontSize": 8,
-          "fontWeight": "500"
-        }
-      ]
-    },
-    {
-      "type": "frame",
       "id": "N6Z8D",
       "x": 2565,
       "y": 0,
@@ -4838,19 +4087,19 @@
                   }
                 },
                 {
-                  "id": "KGEYZ",
+                  "id": "U5qVu",
                   "type": "ref",
-                  "ref": "An68q",
-                  "width": "fill_container",
+                  "ref": "ZMMXU",
                   "name": "timerStop",
+                  "width": "fill_container",
                   "descendants": {
-                    "aXqPE": {
+                    "f8Cb4": {
                       "iconFontName": "square",
-                      "height": 16,
                       "width": 16,
+                      "height": 16,
                       "fill": "$text-secondary"
                     },
-                    "o6s28": {
+                    "DcCtb": {
                       "content": "中断する",
                       "fill": "$text-secondary"
                     }
@@ -4972,19 +4221,19 @@
                   }
                 },
                 {
-                  "id": "E6CQl",
+                  "id": "boChr",
                   "type": "ref",
-                  "ref": "An68q",
-                  "width": "fill_container",
+                  "ref": "ZMMXU",
                   "name": "recStop",
+                  "width": "fill_container",
                   "descendants": {
-                    "aXqPE": {
+                    "f8Cb4": {
                       "iconFontName": "square",
-                      "height": 16,
                       "width": 16,
+                      "height": 16,
                       "fill": "$text-secondary"
                     },
-                    "o6s28": {
+                    "DcCtb": {
                       "content": "中断にする",
                       "fill": "$text-secondary"
                     }
@@ -5406,6 +4655,7 @@
               "name": "actionList",
               "width": "fill_container",
               "layout": "vertical",
+              "gap": 4,
               "children": [
                 {
                   "type": "frame",
@@ -5514,6 +4764,14 @@
                 },
                 {
                   "type": "frame",
+                  "id": "bRjrJ",
+                  "name": "separator",
+                  "width": "fill_container",
+                  "height": 1,
+                  "fill": "$border"
+                },
+                {
+                  "type": "frame",
                   "id": "FHkaB",
                   "name": "actionDelete",
                   "width": "fill_container",
@@ -5609,6 +4867,7 @@
               "name": "actionList",
               "width": "fill_container",
               "layout": "vertical",
+              "gap": 4,
               "children": [
                 {
                   "type": "frame",
@@ -5717,6 +4976,14 @@
                 },
                 {
                   "type": "frame",
+                  "id": "bRFXH",
+                  "name": "separator",
+                  "width": "fill_container",
+                  "height": 1,
+                  "fill": "$border"
+                },
+                {
+                  "type": "frame",
                   "id": "s4D2I",
                   "name": "actionDelete",
                   "width": "fill_container",
@@ -5775,6 +5042,815 @@
       "width": 393,
       "height": 0,
       "content": "トリガー: 「次にやるタスク」カードをタップ/クリック\n（通常版との違い: 「次やるに設定」→「次やるを解除」）"
+    },
+    {
+      "type": "frame",
+      "id": "qN6ZF",
+      "x": -40,
+      "y": -600,
+      "name": "Components",
+      "width": 960,
+      "height": 580,
+      "fill": "$bg",
+      "cornerRadius": 16,
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "wa5Bn",
+          "x": 40,
+          "y": 40,
+          "name": "Component/Button/Primary",
+          "reusable": true,
+          "height": 48,
+          "fill": "$primary",
+          "cornerRadius": "$radius",
+          "gap": 8,
+          "padding": [
+            12,
+            24
+          ],
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "zVyqt",
+              "name": "icon",
+              "width": 20,
+              "height": 20,
+              "iconFontName": "plus",
+              "iconFontFamily": "lucide",
+              "fill": "$primary-fg"
+            },
+            {
+              "type": "text",
+              "id": "BrdBl",
+              "name": "label",
+              "fill": "$primary-fg",
+              "content": "Button",
+              "fontFamily": "Inter",
+              "fontSize": 15,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "50jT2",
+          "x": 200,
+          "y": 40,
+          "name": "Component/Button/Secondary",
+          "reusable": true,
+          "height": 48,
+          "fill": "$card",
+          "cornerRadius": "$radius",
+          "gap": 8,
+          "padding": [
+            12,
+            24
+          ],
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "LfdUb",
+              "name": "icon",
+              "width": 20,
+              "height": 20,
+              "iconFontName": "plus",
+              "iconFontFamily": "lucide",
+              "fill": "$text"
+            },
+            {
+              "type": "text",
+              "id": "zDJPX",
+              "name": "label",
+              "fill": "$text",
+              "content": "Button",
+              "fontFamily": "Inter",
+              "fontSize": 15,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "An68q",
+          "x": 360,
+          "y": 40,
+          "name": "Component/Button/Ghost",
+          "reusable": true,
+          "height": 48,
+          "cornerRadius": "$radius",
+          "gap": 8,
+          "padding": [
+            12,
+            24
+          ],
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "aXqPE",
+              "name": "icon",
+              "width": 20,
+              "height": 20,
+              "iconFontName": "plus",
+              "iconFontFamily": "lucide",
+              "fill": "$text"
+            },
+            {
+              "type": "text",
+              "id": "o6s28",
+              "name": "label",
+              "fill": "$text",
+              "content": "Button",
+              "fontFamily": "Inter",
+              "fontSize": 15,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ZMMXU",
+          "x": 520,
+          "y": 40,
+          "name": "Component/Button/Outlined",
+          "reusable": true,
+          "height": 48,
+          "cornerRadius": "$radius",
+          "stroke": {
+            "align": "inside",
+            "thickness": 1.5,
+            "fill": "$text-muted"
+          },
+          "gap": 8,
+          "padding": [
+            12,
+            24
+          ],
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "f8Cb4",
+              "name": "icon",
+              "width": 20,
+              "height": 20,
+              "iconFontName": "plus",
+              "iconFontFamily": "lucide",
+              "fill": "$text"
+            },
+            {
+              "type": "text",
+              "id": "DcCtb",
+              "name": "label",
+              "fill": "$text",
+              "content": "Button",
+              "fontFamily": "Inter",
+              "fontSize": 15,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "xj6NN",
+          "x": 40,
+          "y": 120,
+          "name": "Component/Check/Empty",
+          "reusable": true,
+          "width": 24,
+          "height": 24,
+          "cornerRadius": 12,
+          "stroke": {
+            "align": "inside",
+            "thickness": 2,
+            "fill": "$border"
+          }
+        },
+        {
+          "type": "frame",
+          "id": "4gr5W",
+          "x": 80,
+          "y": 120,
+          "name": "Component/Check/Done",
+          "reusable": true,
+          "width": 24,
+          "height": 24,
+          "fill": "$primary",
+          "cornerRadius": 12,
+          "layout": "none",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "ADmlU",
+              "x": 5,
+              "y": 5,
+              "name": "icon",
+              "width": 14,
+              "height": 14,
+              "iconFontName": "check",
+              "iconFontFamily": "lucide",
+              "fill": "$primary-fg"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "JEV2o",
+          "x": 130,
+          "y": 120,
+          "name": "Component/Badge",
+          "reusable": true,
+          "fill": "$primary-soft",
+          "cornerRadius": 14,
+          "gap": 4,
+          "padding": [
+            4,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "uU6rg",
+              "name": "icon",
+              "width": 14,
+              "height": 14,
+              "iconFontName": "zap",
+              "iconFontFamily": "lucide",
+              "fill": "$primary"
+            },
+            {
+              "type": "text",
+              "id": "kKH3F",
+              "name": "label",
+              "fill": "$primary",
+              "content": "Badge",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "cVTLk",
+          "x": 310,
+          "y": 120,
+          "name": "Component/Filter/Active",
+          "reusable": true,
+          "fill": "$primary",
+          "cornerRadius": "$radius-sm",
+          "padding": [
+            8,
+            16
+          ],
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "mlwnQ",
+              "name": "label",
+              "fill": "$primary-fg",
+              "content": "Filter",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "SwJwS",
+          "x": 420,
+          "y": 120,
+          "name": "Component/Filter/Inactive",
+          "reusable": true,
+          "fill": "$card",
+          "cornerRadius": "$radius-sm",
+          "padding": [
+            8,
+            16
+          ],
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "JqMte",
+              "name": "label",
+              "fill": "$text-secondary",
+              "content": "Filter",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "e85qJ",
+          "x": 40,
+          "y": 200,
+          "name": "Component/TabBarItem/Active",
+          "reusable": true,
+          "layout": "vertical",
+          "gap": 2,
+          "padding": [
+            6,
+            16
+          ],
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "kDLs3",
+              "name": "icon",
+              "width": 20,
+              "height": 20,
+              "iconFontName": "house",
+              "iconFontFamily": "lucide",
+              "fill": "$primary"
+            },
+            {
+              "type": "text",
+              "id": "K2HRa",
+              "name": "label",
+              "fill": "$primary",
+              "content": "ホーム",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "upf2S",
+          "x": 120,
+          "y": 200,
+          "name": "Component/TabBarItem/Inactive",
+          "reusable": true,
+          "layout": "vertical",
+          "gap": 2,
+          "padding": [
+            6,
+            16
+          ],
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "o1lec",
+              "name": "icon",
+              "width": 20,
+              "height": 20,
+              "iconFontName": "list-todo",
+              "iconFontFamily": "lucide",
+              "fill": "$text-muted"
+            },
+            {
+              "type": "text",
+              "id": "Hrbdv",
+              "name": "label",
+              "fill": "$text-muted",
+              "content": "タスク",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "x7rxJ",
+          "x": 240,
+          "y": 200,
+          "name": "Component/SectionHeader",
+          "reusable": true,
+          "width": 350,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "vNo0x",
+              "name": "title",
+              "fill": "$text",
+              "content": "セクション",
+              "fontFamily": "Inter",
+              "fontSize": 16,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "GutFB",
+              "name": "action",
+              "fill": "$primary",
+              "content": "すべて見る",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "7JQWh",
+          "x": 580,
+          "y": 200,
+          "name": "Component/TaskCard",
+          "reusable": true,
+          "width": 350,
+          "fill": "$card",
+          "cornerRadius": "$radius-sm",
+          "gap": 12,
+          "padding": [
+            14,
+            16
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "EHfKq",
+              "type": "ref",
+              "ref": "xj6NN",
+              "name": "check",
+              "enabled": false
+            },
+            {
+              "type": "frame",
+              "id": "QbvT4",
+              "name": "content",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 4,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "tQsuG",
+                  "name": "title",
+                  "fill": "$text",
+                  "content": "タスク名がここに入る",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "jhnhH",
+                  "name": "meta",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "OBN81",
+                      "name": "time",
+                      "fill": "$text-muted",
+                      "content": "30分",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Exq02",
+                      "name": "category",
+                      "fill": "$text-secondary",
+                      "content": "インスタ投稿",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "icon_font",
+              "id": "4SeBv",
+              "name": "chevron",
+              "width": 16,
+              "height": 16,
+              "iconFontName": "chevron-right",
+              "iconFontFamily": "lucide",
+              "fill": "$text-muted"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "MWXMq",
+          "x": 40,
+          "y": 310,
+          "name": "Component/NextTaskHero",
+          "reusable": true,
+          "width": 350,
+          "fill": "$primary",
+          "cornerRadius": "$radius",
+          "layout": "vertical",
+          "gap": 16,
+          "padding": [
+            28,
+            24
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "N2pB5",
+              "name": "labelRow",
+              "gap": 6,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "xffuO",
+                  "name": "icon",
+                  "width": 16,
+                  "height": 16,
+                  "iconFontName": "zap",
+                  "iconFontFamily": "lucide",
+                  "fill": "$primary-fg"
+                },
+                {
+                  "type": "text",
+                  "id": "teXd2",
+                  "name": "label",
+                  "opacity": 0.85,
+                  "fill": "$primary-fg",
+                  "content": "次にやること",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "YdZGO",
+              "name": "taskName",
+              "fill": "$primary-fg",
+              "content": "インスタ投稿の\n画像を作成する",
+              "lineHeight": 1.3,
+              "fontFamily": "Inter",
+              "fontSize": 24,
+              "fontWeight": "700"
+            },
+            {
+              "type": "frame",
+              "id": "3yBmF",
+              "name": "meta",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "nRKhO",
+                  "name": "categoryBadge",
+                  "fill": "#FFFFFF20",
+                  "cornerRadius": "$radius-pill",
+                  "padding": [
+                    4,
+                    10
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "5NaIs",
+                      "name": "categoryText",
+                      "fill": "$primary-fg",
+                      "content": "インスタ投稿",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "60968",
+                  "name": "timeText",
+                  "opacity": 0.8,
+                  "fill": "$primary-fg",
+                  "content": "30分",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "J2YhE",
+              "name": "startButton",
+              "width": "fill_container",
+              "fill": "#FFFFFF20",
+              "cornerRadius": "$radius-sm",
+              "gap": 8,
+              "padding": [
+                12,
+                0
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "EWWut",
+                  "name": "btnIcon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "play",
+                  "iconFontFamily": "lucide",
+                  "fill": "$primary-fg"
+                },
+                {
+                  "type": "text",
+                  "id": "UJ79M",
+                  "name": "btnLabel",
+                  "fill": "$primary-fg",
+                  "content": "作業を始める",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "QFr2P",
+          "x": 420,
+          "y": 310,
+          "name": "Component/NextTaskCard",
+          "reusable": true,
+          "width": 350,
+          "fill": "$primary-soft",
+          "cornerRadius": "$radius-sm",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "QlQ78",
+              "name": "accentBar",
+              "width": 4,
+              "height": "fill_container",
+              "fill": "$primary",
+              "cornerRadius": 2
+            },
+            {
+              "type": "frame",
+              "id": "f2uKW",
+              "name": "content",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "padding": [
+                14,
+                16
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "IMSYE",
+                  "name": "badgeRow",
+                  "gap": 6,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "OPdqy",
+                      "name": "bIcon",
+                      "width": 14,
+                      "height": 14,
+                      "iconFontName": "zap",
+                      "iconFontFamily": "lucide",
+                      "fill": "$primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "LB7z8",
+                      "name": "badgeText",
+                      "fill": "$primary",
+                      "content": "次にやるタスク",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "6cImM",
+                  "name": "taskTitle",
+                  "fill": "$text",
+                  "content": "タスク名がここに入る",
+                  "fontFamily": "Inter",
+                  "fontSize": 15,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "frame",
+                  "id": "C847a",
+                  "name": "meta",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "P9nPn",
+                      "name": "time",
+                      "fill": "$text-muted",
+                      "content": "30分",
+                      "fontFamily": "Inter",
+                      "fontSize": 12
+                    },
+                    {
+                      "type": "text",
+                      "id": "MeaOk",
+                      "name": "category",
+                      "fill": "$text-secondary",
+                      "content": "カテゴリ",
+                      "fontFamily": "Inter",
+                      "fontSize": 12
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "icon_font",
+              "id": "uodho",
+              "name": "chevron",
+              "width": 16,
+              "height": 16,
+              "iconFontName": "chevron-right",
+              "iconFontFamily": "lucide",
+              "fill": "$primary"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "PbnYO",
+          "x": 810,
+          "y": 310,
+          "name": "Component/CalendarCell",
+          "reusable": true,
+          "clip": true,
+          "width": 50,
+          "height": 64,
+          "fill": "$bg",
+          "layout": "vertical",
+          "gap": 2,
+          "padding": [
+            4,
+            2
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "Fxm4v",
+              "name": "day",
+              "fill": "$text",
+              "content": "1",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "vZ1Ef",
+              "name": "task1",
+              "fill": "$primary",
+              "fontFamily": "Inter",
+              "fontSize": 8,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "bCi1a",
+              "name": "task2",
+              "fill": "$primary",
+              "fontFamily": "Inter",
+              "fontSize": 8,
+              "fontWeight": "500"
+            }
+          ]
+        }
+      ]
     }
   ],
   "variables": {
