@@ -738,7 +738,7 @@
               "id": "8e5Fe",
               "name": "title",
               "fill": "$text",
-              "content": "カレンダー",
+              "content": "作業記録",
               "fontFamily": "Inter",
               "fontSize": 24,
               "fontWeight": "700"
@@ -1595,7 +1595,7 @@
                   "id": "kIC5d",
                   "name": "label",
                   "fill": "$text-secondary",
-                  "content": "カレンダー",
+                  "content": "作業記録",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
@@ -2253,7 +2253,7 @@
                   "id": "rPR3x",
                   "name": "label",
                   "fill": "$text-secondary",
-                  "content": "カレンダー",
+                  "content": "作業記録",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
@@ -2802,7 +2802,7 @@
                   "id": "ouRYx",
                   "name": "label",
                   "fill": "$primary",
-                  "content": "カレンダー",
+                  "content": "作業記録",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "600"
@@ -2879,7 +2879,7 @@
                       "id": "Qwygw",
                       "name": "calTitle",
                       "fill": "$text",
-                      "content": "カレンダー",
+                      "content": "作業記録",
                       "fontFamily": "Inter",
                       "fontSize": 24,
                       "fontWeight": "700"
@@ -5787,7 +5787,7 @@
                   "iconFontName": "calendar"
                 },
                 "Hrbdv": {
-                  "content": "カレンダー"
+                  "content": "作業記録"
                 }
               }
             },
@@ -5863,7 +5863,7 @@
                   "iconFontName": "calendar"
                 },
                 "Hrbdv": {
-                  "content": "カレンダー"
+                  "content": "作業記録"
                 }
               }
             },
@@ -5939,7 +5939,7 @@
                   "iconFontName": "calendar"
                 },
                 "K2HRa": {
-                  "content": "カレンダー"
+                  "content": "作業記録"
                 }
               }
             },
@@ -6015,7 +6015,7 @@
                   "iconFontName": "calendar"
                 },
                 "Hrbdv": {
-                  "content": "カレンダー"
+                  "content": "作業記録"
                 }
               }
             },
@@ -6185,7 +6185,7 @@
                   "id": "yg1Q5",
                   "name": "label",
                   "fill": "$text-secondary",
-                  "content": "カレンダー",
+                  "content": "作業記録",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
@@ -6379,7 +6379,7 @@
                   "id": "ujO2H",
                   "name": "label",
                   "fill": "$text-secondary",
-                  "content": "カレンダー",
+                  "content": "作業記録",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
@@ -6573,7 +6573,7 @@
                   "id": "nzAdC",
                   "name": "label",
                   "fill": "$primary",
-                  "content": "カレンダー",
+                  "content": "作業記録",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "600"
@@ -6766,7 +6766,7 @@
                   "id": "xfNCh",
                   "name": "label",
                   "fill": "$text-secondary",
-                  "content": "カレンダー",
+                  "content": "作業記録",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
@@ -7065,7 +7065,7 @@
               "id": "ai88b",
               "name": "title",
               "fill": "$text",
-              "content": "カレンダー",
+              "content": "作業記録",
               "fontFamily": "Inter",
               "fontSize": 24,
               "fontWeight": "700"
@@ -7881,7 +7881,7 @@
                   "id": "nTTpl",
                   "name": "label",
                   "fill": "$text-secondary",
-                  "content": "カレンダー",
+                  "content": "作業記録",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
@@ -8247,7 +8247,7 @@
                   "id": "uh04Q",
                   "name": "label",
                   "fill": "$primary",
-                  "content": "カレンダー",
+                  "content": "作業記録",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "600"
@@ -8324,7 +8324,7 @@
                       "id": "B1qrl",
                       "name": "calTitle",
                       "fill": "$text",
-                      "content": "カレンダー",
+                      "content": "作業記録",
                       "fontFamily": "Inter",
                       "fontSize": 24,
                       "fontWeight": "700"
@@ -9369,7 +9369,7 @@
                   "id": "3N7fq",
                   "name": "label",
                   "fill": "$text-secondary",
-                  "content": "カレンダー",
+                  "content": "作業記録",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
@@ -9757,7 +9757,7 @@
                   "id": "bh3Yp",
                   "name": "label",
                   "fill": "$text-secondary",
-                  "content": "カレンダー",
+                  "content": "作業記録",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
@@ -10569,7 +10569,7 @@
                   "id": "x6Dt5",
                   "name": "label",
                   "fill": "$text-secondary",
-                  "content": "カレンダー",
+                  "content": "作業記録",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
@@ -11848,7 +11848,7 @@
                   "id": "HZoH9",
                   "name": "label",
                   "fill": "$text-secondary",
-                  "content": "カレンダー",
+                  "content": "作業記録",
                   "fontFamily": "Inter",
                   "fontSize": 14,
                   "fontWeight": "500"
