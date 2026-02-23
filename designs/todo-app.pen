@@ -541,30 +541,70 @@
               "width": 220,
               "height": 220,
               "cornerRadius": 110,
-              "layout": "vertical",
-              "gap": 4,
-              "justifyContent": "center",
-              "alignItems": "center",
+              "layout": "none",
               "children": [
                 {
-                  "type": "text",
-                  "id": "9403u",
-                  "name": "time",
-                  "fill": "$text",
-                  "content": "24:30",
-                  "fontFamily": "Inter",
-                  "fontSize": 48,
-                  "fontWeight": "700"
+                  "type": "ellipse",
+                  "id": "tNH7h",
+                  "x": 6,
+                  "y": 6,
+                  "name": "track",
+                  "width": 208,
+                  "height": 208,
+                  "stroke": {
+                    "align": "center",
+                    "thickness": 8,
+                    "fill": "$border"
+                  }
                 },
                 {
-                  "type": "text",
-                  "id": "VCgET",
-                  "name": "remaining",
-                  "fill": "$text-muted",
-                  "content": "残り時間",
-                  "fontFamily": "Inter",
-                  "fontSize": 12,
-                  "fontWeight": "normal"
+                  "type": "path",
+                  "id": "0Q3Q3",
+                  "x": 0,
+                  "y": 0,
+                  "name": "progressArc",
+                  "geometry": "M110 6a104 104 0 1 1-98.97 136.18",
+                  "width": 220,
+                  "height": 220,
+                  "stroke": {
+                    "thickness": 8,
+                    "fill": "$primary"
+                  }
+                },
+                {
+                  "type": "frame",
+                  "id": "840gj",
+                  "x": 0,
+                  "y": 0,
+                  "name": "textGroup",
+                  "width": 220,
+                  "height": 220,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "9403u",
+                      "name": "time",
+                      "fill": "$text",
+                      "content": "24:30",
+                      "fontFamily": "Inter",
+                      "fontSize": 48,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "VCgET",
+                      "name": "remaining",
+                      "fill": "$text-muted",
+                      "content": "残り時間",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
                 }
               ]
             },
@@ -5792,6 +5832,16 @@
           ]
         }
       ]
+    },
+    {
+      "type": "note",
+      "id": "gjKMA",
+      "x": 986,
+      "y": -80,
+      "name": "note-timer-ring",
+      "width": 393,
+      "height": 0,
+      "content": "プログレスリングはpencil.devのパス描画の制約でやや位置ずれあり。\n実装ではSVG（stroke-dasharray / stroke-dashoffset）で正確に描画すること。"
     }
   ],
   "variables": {
