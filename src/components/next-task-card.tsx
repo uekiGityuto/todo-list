@@ -36,7 +36,7 @@ export function NextTaskCard({
         </span>
         <div className="flex items-center gap-2">
           {duration && (
-            <span className="text-xs text-text-muted">{duration}</span>
+            <span className="text-xs text-muted-foreground">{duration}</span>
           )}
           {category && (
             <span className="text-xs text-muted-foreground">{category}</span>
