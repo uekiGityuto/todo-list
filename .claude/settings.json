@@ -26,7 +26,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "branch=$(git branch --show-current 2>/dev/null); if [ \"$branch\" = \"main\" ] && echo \"$CLAUDE_TOOL_INPUT\" | grep -qE '\"command\"\\s*:\\s*\"git (add|commit|stash|rebase|reset|cherry-pick)'; then echo 'mainブランチでのgit操作は禁止です。featureブランチを作成してください。' >&2; exit 2; fi"
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/block-main-git.sh"
           },
           {
             "type": "command",
