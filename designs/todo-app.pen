@@ -3581,6 +3581,16 @@
                           "fontSize": 14
                         }
                       ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "KAVRl",
+                      "name": "error",
+                      "fill": "#EF4444",
+                      "content": "タスク名を入力してください",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "500"
                     }
                   ]
                 },
@@ -4205,6 +4215,16 @@
                           "fontWeight": "normal"
                         }
                       ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "WdKOF",
+                      "name": "error",
+                      "fill": "#EF4444",
+                      "content": "タスク名を入力してください",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "500"
                     }
                   ]
                 },
