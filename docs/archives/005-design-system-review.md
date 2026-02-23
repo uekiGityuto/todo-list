@@ -8,16 +8,16 @@ ui-ux-pro-maxの出力（`docs/specs/design-system/todo-list/MASTER.md`）を参
 
 | # | 状態 | 項目 | 内容 |
 |---|------|------|------|
-| 1 | 未対応 | シャドウ | シャドウの変数定義がない。カードやモーダルにシャドウをつけるか決める |
-| 2 | 未対応 | トランジション | ホバーやタップのアニメーション時間を決める（150-300msが一般的） |
-| 3 | 未対応 | フォーカスリング | キーボード操作時のフォーカス表示スタイルを決める |
+| 1 | 完了 | シャドウ/オーバーレイ | シャドウ変数は不要。浮き要素の背景オーバーレイ($overlay)をデザイン・implementation-notesに反映済み |
+| 2 | 完了 | トランジション | transition-all duration-200 ease-out で統一。implementation-notesに記載 |
+| 3 | 完了 | フォーカスリング | shadcn/uiデフォルト（focus-visible:ring-2）に従う |
 
 ## アンチパターンチェック
 
 | # | 状態 | 項目 | 内容 |
 |---|------|------|------|
 | 4 | 問題なし | Emojis as icons | Lucide使用で問題なし |
-| 5 | 未対応 | $text-mutedのコントラスト | #A1A1AAの白背景上コントラスト比が約2.4:1でWCAG AA基準(4.5:1)を下回る |
+| 5 | 現状維持 | $text-mutedのコントラスト | 補助テキスト用途のみで実用上問題なし。実装時に実機確認 |
 | 6 | 実装時確認 | cursor:pointer | クリック可能な要素にcursor:pointerを付ける |
 | 7 | 実装時確認 | Layout-shifting hovers | レイアウトをずらすホバーアニメーションを避ける |
 | 8 | 実装時確認 | Instant state changes | 状態変化にトランジション(150-300ms)をつける |

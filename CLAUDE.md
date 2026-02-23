@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## プロジェクト概要
 
-妻の副業タスク管理を効率化するアプリ。「次やるタスク」の即表示、作業タイマー、カレンダーによる作業履歴確認が主要機能。
+妻の副業タスク管理を効率化するアプリ。「次やるタスク」の即表示、作業タイマー、カレンダーによる作業履歴確認が主要機能。利用環境はPCメイン、スマホサブ。
 
 設計書: `docs/task-management-plan.md`
 

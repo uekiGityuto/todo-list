@@ -4022,13 +4022,195 @@
       "children": [
         {
           "type": "frame",
+          "id": "kvIWZ",
+          "x": 0,
+          "y": 0,
+          "name": "timerScreenBg",
+          "clip": true,
+          "width": 393,
+          "height": 852,
+          "fill": "$bg",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "BsvTV",
+              "name": "statusBar",
+              "width": "fill_container",
+              "height": 44
+            },
+            {
+              "type": "frame",
+              "id": "kK33g",
+              "name": "timerContent",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 32,
+              "padding": [
+                0,
+                20
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "p8qwN",
+                  "name": "taskLabel",
+                  "fill": "$text",
+                  "content": "インスタ投稿の画像を作成する",
+                  "textAlign": "center",
+                  "fontFamily": "Inter",
+                  "fontSize": 16,
+                  "fontWeight": "600"
+                },
+                {
+                  "id": "VaAwT",
+                  "type": "ref",
+                  "ref": "JEV2o",
+                  "name": "categoryBadge",
+                  "descendants": {
+                    "kKH3F": {
+                      "content": "インスタ投稿"
+                    }
+                  }
+                },
+                {
+                  "type": "frame",
+                  "id": "lDYx6",
+                  "name": "timerCircle",
+                  "width": 220,
+                  "height": 220,
+                  "cornerRadius": 110,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "O15Ln",
+                      "x": 6,
+                      "y": 6,
+                      "name": "track",
+                      "width": 208,
+                      "height": 208,
+                      "stroke": {
+                        "align": "center",
+                        "thickness": 8,
+                        "fill": "$border"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "id": "5hxKz",
+                      "x": 0,
+                      "y": 0,
+                      "name": "progressArc",
+                      "geometry": "M110 6a104 104 0 1 1-98.97 136.18",
+                      "width": 220,
+                      "height": 220,
+                      "stroke": {
+                        "thickness": 8,
+                        "fill": "$primary"
+                      }
+                    },
+                    {
+                      "type": "frame",
+                      "id": "TpTPx",
+                      "x": 0,
+                      "y": 0,
+                      "name": "textGroup",
+                      "width": 220,
+                      "height": 220,
+                      "layout": "vertical",
+                      "gap": 4,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "cY6yN",
+                          "name": "time",
+                          "fill": "$text",
+                          "content": "24:30",
+                          "fontFamily": "Inter",
+                          "fontSize": 48,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "cb23w",
+                          "name": "remaining",
+                          "fill": "$text-muted",
+                          "content": "残り時間",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ABuDo",
+                  "name": "actionButtons",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "id": "Uu89Y",
+                      "type": "ref",
+                      "ref": "50jT2",
+                      "name": "pauseButton",
+                      "descendants": {
+                        "LfdUb": {
+                          "iconFontName": "pause",
+                          "width": 16,
+                          "height": 16
+                        },
+                        "zDJPX": {
+                          "content": "中断"
+                        }
+                      }
+                    },
+                    {
+                      "id": "XpyKd",
+                      "type": "ref",
+                      "ref": "wa5Bn",
+                      "name": "doneButton",
+                      "descendants": {
+                        "zVyqt": {
+                          "iconFontName": "check",
+                          "width": 16,
+                          "height": 16
+                        },
+                        "BrdBl": {
+                          "content": "完了"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "Pp91b",
+              "type": "ref",
+              "ref": "pvU65",
+              "name": "tabBar",
+              "width": "fill_container"
+            }
+          ]
+        },
+        {
+          "type": "frame",
           "id": "8Bkg9",
           "x": 0,
           "y": 0,
           "name": "overlay",
           "width": 393,
           "height": 852,
-          "fill": "#00000040"
+          "fill": "$overlay"
         },
         {
           "type": "frame",
@@ -14130,6 +14312,16 @@
           ]
         }
       ]
+    },
+    {
+      "type": "note",
+      "id": "XjrVI",
+      "x": 1400,
+      "y": 2476,
+      "name": "note-overlay",
+      "width": 393,
+      "height": 0,
+      "content": "オーバーレイの見本。この画面のみ実際の画面の上にオーバーレイを表示している。\n他のダイアログ・ボトムシートも実装時に同じように背景オーバーレイ（$overlay）を適用する。"
     }
   ],
   "variables": {
@@ -14192,6 +14384,10 @@
     "text-secondary": {
       "type": "color",
       "value": "#71717A"
+    },
+    "overlay": {
+      "type": "color",
+      "value": "#00000040"
     }
   }
 }
