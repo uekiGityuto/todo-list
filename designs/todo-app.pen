@@ -3778,7 +3778,8 @@
                           "fill": "$text-muted",
                           "content": "タスク名を入力",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -3833,7 +3834,8 @@
                           "fill": "$text-muted",
                           "content": "選択してください",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "icon_font",
@@ -3888,7 +3890,8 @@
                           "fill": "$text-muted",
                           "content": "日付を選択",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "icon_font",
@@ -3943,7 +3946,8 @@
                           "fill": "$text-muted",
                           "content": "選択してください",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "icon_font",
@@ -4788,7 +4792,7 @@
       "x": 0,
       "y": -1800,
       "name": "Components",
-      "width": 1040,
+      "width": 1600,
       "height": 1260,
       "fill": "$bg",
       "cornerRadius": 16,
@@ -5514,7 +5518,8 @@
                       "fill": "$text-muted",
                       "content": "30分",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     },
                     {
                       "type": "text",
@@ -5523,7 +5528,8 @@
                       "fill": "$text-secondary",
                       "content": "カテゴリ",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -6834,6 +6840,508 @@
           "fontFamily": "Inter",
           "fontSize": 14,
           "fontWeight": "600"
+        },
+        {
+          "type": "text",
+          "id": "f0vOu",
+          "x": 1080,
+          "y": 40,
+          "name": "labelStyleGuide",
+          "fill": "$text-muted",
+          "content": "Style Guide",
+          "fontFamily": "Inter",
+          "fontSize": 14,
+          "fontWeight": "600"
+        },
+        {
+          "type": "text",
+          "id": "eXABv",
+          "x": 1080,
+          "y": 70,
+          "name": "labelColors",
+          "fill": "$text",
+          "content": "Colors",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "600"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": 6,
+          "id": "81cKC",
+          "x": 1080,
+          "y": 92,
+          "name": "swatch-primary",
+          "fill": "$primary",
+          "width": 28,
+          "height": 28
+        },
+        {
+          "type": "text",
+          "id": "wfB8C",
+          "x": 1116,
+          "y": 98,
+          "name": "c1t",
+          "fill": "$text-secondary",
+          "content": "$primary",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": 6,
+          "id": "1uucu",
+          "x": 1080,
+          "y": 130,
+          "name": "swatch-primary-fg",
+          "fill": "$primary-fg",
+          "width": 28,
+          "height": 28,
+          "stroke": {
+            "align": "inside",
+            "thickness": 1,
+            "fill": "$border"
+          }
+        },
+        {
+          "type": "text",
+          "id": "Ljk8e",
+          "x": 1116,
+          "y": 136,
+          "name": "c2t",
+          "fill": "$text-secondary",
+          "content": "$primary-fg",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": 6,
+          "id": "dtcOz",
+          "x": 1080,
+          "y": 168,
+          "name": "swatch-primary-soft",
+          "fill": "$primary-soft",
+          "width": 28,
+          "height": 28
+        },
+        {
+          "type": "text",
+          "id": "bumdU",
+          "x": 1116,
+          "y": 174,
+          "name": "c3t",
+          "fill": "$text-secondary",
+          "content": "$primary-soft",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": 6,
+          "id": "VS5Dm",
+          "x": 1080,
+          "y": 206,
+          "name": "swatch-bg",
+          "fill": "$bg",
+          "width": 28,
+          "height": 28,
+          "stroke": {
+            "align": "inside",
+            "thickness": 1,
+            "fill": "$border"
+          }
+        },
+        {
+          "type": "text",
+          "id": "HdXPr",
+          "x": 1116,
+          "y": 212,
+          "name": "c4t",
+          "fill": "$text-secondary",
+          "content": "$bg",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": 6,
+          "id": "eRdDC",
+          "x": 1080,
+          "y": 244,
+          "name": "swatch-card",
+          "fill": "$card",
+          "width": 28,
+          "height": 28
+        },
+        {
+          "type": "text",
+          "id": "Fe1lQ",
+          "x": 1116,
+          "y": 250,
+          "name": "c5t",
+          "fill": "$text-secondary",
+          "content": "$card",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": 6,
+          "id": "zZQ7W",
+          "x": 1080,
+          "y": 282,
+          "name": "swatch-border",
+          "fill": "$border",
+          "width": 28,
+          "height": 28
+        },
+        {
+          "type": "text",
+          "id": "Y4GGf",
+          "x": 1116,
+          "y": 288,
+          "name": "c6t",
+          "fill": "$text-secondary",
+          "content": "$border",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": 6,
+          "id": "x55jJ",
+          "x": 1280,
+          "y": 92,
+          "name": "swatch-text",
+          "fill": "$text",
+          "width": 28,
+          "height": 28
+        },
+        {
+          "type": "text",
+          "id": "O2DYu",
+          "x": 1316,
+          "y": 98,
+          "name": "c7t",
+          "fill": "$text-secondary",
+          "content": "$text",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": 6,
+          "id": "5Rw5S",
+          "x": 1280,
+          "y": 130,
+          "name": "swatch-text-secondary",
+          "fill": "$text-secondary",
+          "width": 28,
+          "height": 28
+        },
+        {
+          "type": "text",
+          "id": "9vzam",
+          "x": 1316,
+          "y": 136,
+          "name": "c8t",
+          "fill": "$text-secondary",
+          "content": "$text-secondary",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": 6,
+          "id": "stD3i",
+          "x": 1280,
+          "y": 168,
+          "name": "swatch-text-muted",
+          "fill": "$text-muted",
+          "width": 28,
+          "height": 28
+        },
+        {
+          "type": "text",
+          "id": "almd8",
+          "x": 1316,
+          "y": 174,
+          "name": "c9t",
+          "fill": "$text-secondary",
+          "content": "$text-muted",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": 6,
+          "id": "17wKa",
+          "x": 1280,
+          "y": 206,
+          "name": "swatch-text-disabled",
+          "fill": "$text-disabled",
+          "width": 28,
+          "height": 28
+        },
+        {
+          "type": "text",
+          "id": "ljwQq",
+          "x": 1316,
+          "y": 212,
+          "name": "c10t",
+          "fill": "$text-secondary",
+          "content": "$text-disabled",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": 6,
+          "id": "P9ors",
+          "x": 1280,
+          "y": 244,
+          "name": "swatch-accent",
+          "fill": "$accent",
+          "width": 28,
+          "height": 28
+        },
+        {
+          "type": "text",
+          "id": "iQcVQ",
+          "x": 1316,
+          "y": 250,
+          "name": "c11t",
+          "fill": "$text-secondary",
+          "content": "$accent",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": 6,
+          "id": "zRP3W",
+          "x": 1280,
+          "y": 282,
+          "name": "swatch-success",
+          "fill": "$success",
+          "width": 28,
+          "height": 28
+        },
+        {
+          "type": "text",
+          "id": "BPkh8",
+          "x": 1316,
+          "y": 288,
+          "name": "c12t",
+          "fill": "$text-secondary",
+          "content": "$success",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "otwST",
+          "x": 1080,
+          "y": 340,
+          "name": "labelTypography",
+          "fill": "$text",
+          "content": "Typography (Inter)",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "600"
+        },
+        {
+          "type": "text",
+          "id": "xjvvS",
+          "x": 1080,
+          "y": 365,
+          "name": "t1",
+          "fill": "$text",
+          "content": "30px - Heading",
+          "fontFamily": "Inter",
+          "fontSize": 30,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "BeESL",
+          "x": 1080,
+          "y": 405,
+          "name": "t2",
+          "fill": "$text",
+          "content": "24px - Title",
+          "fontFamily": "Inter",
+          "fontSize": 24,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "WSjWa",
+          "x": 1080,
+          "y": 438,
+          "name": "t3",
+          "fill": "$text",
+          "content": "20px - Subtitle",
+          "fontFamily": "Inter",
+          "fontSize": 20,
+          "fontWeight": "600"
+        },
+        {
+          "type": "text",
+          "id": "yUXa0",
+          "x": 1080,
+          "y": 466,
+          "name": "t4",
+          "fill": "$text",
+          "content": "18px - Large",
+          "fontFamily": "Inter",
+          "fontSize": 18,
+          "fontWeight": "600"
+        },
+        {
+          "type": "text",
+          "id": "k2Uht",
+          "x": 1080,
+          "y": 492,
+          "name": "t5",
+          "fill": "$text",
+          "content": "16px - Body",
+          "fontFamily": "Inter",
+          "fontSize": 16,
+          "fontWeight": "500"
+        },
+        {
+          "type": "text",
+          "id": "01hR8",
+          "x": 1080,
+          "y": 516,
+          "name": "t6",
+          "fill": "$text",
+          "content": "14px - Small",
+          "fontFamily": "Inter",
+          "fontSize": 14,
+          "fontWeight": "500"
+        },
+        {
+          "type": "text",
+          "id": "XXrB1",
+          "x": 1080,
+          "y": 538,
+          "name": "t7",
+          "fill": "$text-secondary",
+          "content": "12px - Caption",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "500"
+        },
+        {
+          "type": "text",
+          "id": "24UI3",
+          "x": 1080,
+          "y": 580,
+          "name": "labelRadius",
+          "fill": "$text",
+          "content": "Radius",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "600"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": "$radius-sm",
+          "id": "vRudl",
+          "x": 1080,
+          "y": 602,
+          "name": "r1",
+          "fill": "$card",
+          "width": 60,
+          "height": 40,
+          "stroke": {
+            "align": "inside",
+            "thickness": 1,
+            "fill": "$border"
+          }
+        },
+        {
+          "type": "text",
+          "id": "sdalP",
+          "x": 1080,
+          "y": 650,
+          "name": "r1t",
+          "fill": "$text-secondary",
+          "content": "$radius-sm (20)",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": "$radius",
+          "id": "dLldI",
+          "x": 1180,
+          "y": 602,
+          "name": "r2",
+          "fill": "$card",
+          "width": 60,
+          "height": 40,
+          "stroke": {
+            "align": "inside",
+            "thickness": 1,
+            "fill": "$border"
+          }
+        },
+        {
+          "type": "text",
+          "id": "m1CWS",
+          "x": 1180,
+          "y": 650,
+          "name": "r2t",
+          "fill": "$text-secondary",
+          "content": "$radius (24)",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "cornerRadius": "$radius-pill",
+          "id": "51ETn",
+          "x": 1280,
+          "y": 602,
+          "name": "r3",
+          "fill": "$card",
+          "width": 60,
+          "height": 40,
+          "stroke": {
+            "align": "inside",
+            "thickness": 1,
+            "fill": "$border"
+          }
+        },
+        {
+          "type": "text",
+          "id": "WVQhY",
+          "x": 1272,
+          "y": 650,
+          "name": "r3t",
+          "fill": "$text-secondary",
+          "content": "$radius-pill (100)",
+          "fontFamily": "Inter",
+          "fontSize": 12,
+          "fontWeight": "normal"
         }
       ]
     },
@@ -11020,7 +11528,8 @@
                           "fill": "$text-muted",
                           "content": "タスク名を入力",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -11075,7 +11584,8 @@
                           "fill": "$text-muted",
                           "content": "選択してください",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "icon_font",
@@ -11130,7 +11640,8 @@
                           "fill": "$text-muted",
                           "content": "日付を選択",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "icon_font",
@@ -11185,7 +11696,8 @@
                           "fill": "$text-muted",
                           "content": "選択してください",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "icon_font",
@@ -12501,7 +13013,8 @@
                           "fill": "$text-muted",
                           "content": "タスク名を入力",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -12664,24 +13177,7 @@
                           ],
                           "gap": 6,
                           "x": 0,
-                          "y": 0,
-                          "children": [
-                            {
-                              "id": "aXqPE",
-                              "type": "ref",
-                              "ref": "aXqPE",
-                              "height": 14,
-                              "width": 14,
-                              "enabled": false
-                            },
-                            {
-                              "id": "o6s28",
-                              "type": "ref",
-                              "ref": "o6s28",
-                              "fontSize": 12,
-                              "content": "キャンセル"
-                            }
-                          ]
+                          "y": 0
                         },
                         {
                           "id": "LdEKy",
@@ -12695,25 +13191,8 @@
                             16
                           ],
                           "gap": 6,
-                          "x": 101,
-                          "y": 0,
-                          "children": [
-                            {
-                              "id": "zVyqt",
-                              "type": "ref",
-                              "ref": "zVyqt",
-                              "height": 14,
-                              "width": 14,
-                              "enabled": false
-                            },
-                            {
-                              "id": "BrdBl",
-                              "type": "ref",
-                              "ref": "BrdBl",
-                              "fontSize": 12,
-                              "content": "保存"
-                            }
-                          ]
+                          "x": 117,
+                          "y": 0
                         }
                       ]
                     }
@@ -12758,7 +13237,8 @@
                           "fill": "$text-muted",
                           "content": "日付を選択",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "icon_font",
@@ -12813,7 +13293,8 @@
                           "fill": "$text-muted",
                           "content": "選択してください",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "icon_font",
@@ -13206,7 +13687,8 @@
                           "fill": "$text-muted",
                           "content": "タスク名を入力",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -13261,7 +13743,8 @@
                           "fill": "$text-muted",
                           "content": "選択してください",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "icon_font",
@@ -13316,7 +13799,8 @@
                           "fill": "$text-muted",
                           "content": "日付を選択",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "icon_font",
@@ -13371,7 +13855,8 @@
                           "fill": "$text-muted",
                           "content": "選択してください",
                           "fontFamily": "Inter",
-                          "fontSize": 14
+                          "fontSize": 14,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "icon_font",
