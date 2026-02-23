@@ -1055,9 +1055,6 @@
                       "descendants": {
                         "Fxm4v": {
                           "content": "9"
-                        },
-                        "vZ1Ef": {
-                          "content": "コメント返信"
                         }
                       }
                     },
@@ -1070,9 +1067,6 @@
                       "descendants": {
                         "Fxm4v": {
                           "content": "10"
-                        },
-                        "vZ1Ef": {
-                          "content": "リール動画の編集"
                         }
                       }
                     },
@@ -1097,9 +1091,6 @@
                       "descendants": {
                         "Fxm4v": {
                           "content": "12"
-                        },
-                        "vZ1Ef": {
-                          "content": "ストーリー作成"
                         }
                       }
                     },
@@ -1157,9 +1148,6 @@
                       "descendants": {
                         "Fxm4v": {
                           "content": "16"
-                        },
-                        "vZ1Ef": {
-                          "content": "コメント返信"
                         }
                       }
                     },
@@ -1172,9 +1160,6 @@
                       "descendants": {
                         "Fxm4v": {
                           "content": "17"
-                        },
-                        "vZ1Ef": {
-                          "content": "リール動画の編集"
                         }
                       }
                     },
@@ -1187,12 +1172,6 @@
                       "descendants": {
                         "Fxm4v": {
                           "content": "18"
-                        },
-                        "vZ1Ef": {
-                          "content": "インスタ投稿"
-                        },
-                        "bCi1a": {
-                          "content": "ストーリー作成"
                         }
                       }
                     },
@@ -1205,9 +1184,6 @@
                       "descendants": {
                         "Fxm4v": {
                           "content": "19"
-                        },
-                        "vZ1Ef": {
-                          "content": "リール動画の編集"
                         }
                       }
                     },
@@ -1224,14 +1200,6 @@
                           "content": "20",
                           "fill": "$primary-fg",
                           "fontWeight": "600"
-                        },
-                        "vZ1Ef": {
-                          "content": "コメント返信",
-                          "fill": "$primary-fg"
-                        },
-                        "bCi1a": {
-                          "content": "インスタ投稿",
-                          "fill": "$primary-fg"
                         }
                       }
                     },
@@ -2916,12 +2884,6 @@
                                 "Fxm4v": {
                                   "content": "1",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -2936,12 +2898,6 @@
                                 "Fxm4v": {
                                   "content": "2",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -2956,12 +2912,6 @@
                                 "Fxm4v": {
                                   "content": "3",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -2976,12 +2926,6 @@
                                 "Fxm4v": {
                                   "content": "4",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -2996,12 +2940,6 @@
                                 "Fxm4v": {
                                   "content": "5",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3016,12 +2954,6 @@
                                 "Fxm4v": {
                                   "content": "6",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3036,12 +2968,6 @@
                                 "Fxm4v": {
                                   "content": "7",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             }
@@ -3066,12 +2992,6 @@
                                 "Fxm4v": {
                                   "content": "8",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3086,13 +3006,6 @@
                                 "Fxm4v": {
                                   "content": "9",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "content": "コメント返信",
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3107,13 +3020,6 @@
                                 "Fxm4v": {
                                   "content": "10",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "content": "リール動画の編集",
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3128,12 +3034,6 @@
                                 "Fxm4v": {
                                   "content": "11",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3148,13 +3048,6 @@
                                 "Fxm4v": {
                                   "content": "12",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "content": "ストーリー作成",
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3169,12 +3062,6 @@
                                 "Fxm4v": {
                                   "content": "13",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3189,12 +3076,6 @@
                                 "Fxm4v": {
                                   "content": "14",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             }
@@ -3219,12 +3100,6 @@
                                 "Fxm4v": {
                                   "content": "15",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3239,13 +3114,6 @@
                                 "Fxm4v": {
                                   "content": "16",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "content": "コメント返信",
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3260,13 +3128,6 @@
                                 "Fxm4v": {
                                   "content": "17",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "content": "リール動画の編集",
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3281,14 +3142,6 @@
                                 "Fxm4v": {
                                   "content": "18",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "content": "インスタ投稿",
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "content": "ストーリー作成",
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3303,13 +3156,6 @@
                                 "Fxm4v": {
                                   "content": "19",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "content": "リール動画の編集",
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3328,16 +3174,6 @@
                                   "fontSize": 13,
                                   "fill": "$primary-fg",
                                   "fontWeight": "600"
-                                },
-                                "vZ1Ef": {
-                                  "content": "コメント返信",
-                                  "fontSize": 11,
-                                  "fill": "$primary-fg"
-                                },
-                                "bCi1a": {
-                                  "content": "インスタ投稿",
-                                  "fontSize": 11,
-                                  "fill": "$primary-fg"
                                 }
                               }
                             },
@@ -3352,12 +3188,6 @@
                                 "Fxm4v": {
                                   "content": "21",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             }
@@ -3382,12 +3212,6 @@
                                 "Fxm4v": {
                                   "content": "22",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3402,12 +3226,6 @@
                                 "Fxm4v": {
                                   "content": "23",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3422,12 +3240,6 @@
                                 "Fxm4v": {
                                   "content": "24",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3442,12 +3254,6 @@
                                 "Fxm4v": {
                                   "content": "25",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3462,12 +3268,6 @@
                                 "Fxm4v": {
                                   "content": "26",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3482,12 +3282,6 @@
                                 "Fxm4v": {
                                   "content": "27",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             },
@@ -3502,12 +3296,6 @@
                                 "Fxm4v": {
                                   "content": "28",
                                   "fontSize": 13
-                                },
-                                "vZ1Ef": {
-                                  "fontSize": 11
-                                },
-                                "bCi1a": {
-                                  "fontSize": 11
                                 }
                               }
                             }
@@ -5809,22 +5597,28 @@
               "fontWeight": "500"
             },
             {
-              "type": "text",
-              "id": "vZ1Ef",
-              "name": "task1",
-              "fill": "$primary",
-              "fontFamily": "Inter",
-              "fontSize": 8,
-              "fontWeight": "500"
-            },
-            {
-              "type": "text",
-              "id": "bCi1a",
-              "name": "task2",
-              "fill": "$primary",
-              "fontFamily": "Inter",
-              "fontSize": 8,
-              "fontWeight": "500"
+              "type": "frame",
+              "id": "EMFYf",
+              "name": "dots",
+              "gap": 3,
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "MDYLo",
+                  "name": "dot1",
+                  "fill": "$primary",
+                  "width": 6,
+                  "height": 6
+                },
+                {
+                  "type": "ellipse",
+                  "id": "lUuJ5",
+                  "name": "dot2",
+                  "fill": "$primary",
+                  "width": 6,
+                  "height": 6
+                }
+              ]
             }
           ]
         },
