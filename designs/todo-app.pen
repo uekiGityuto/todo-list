@@ -243,7 +243,7 @@
               "fill": "$text",
               "content": "タスク",
               "fontFamily": "Inter",
-              "fontSize": 22,
+              "fontSize": 24,
               "fontWeight": "700"
             },
             {
@@ -563,7 +563,7 @@
                   "fill": "$text-muted",
                   "content": "残り時間",
                   "fontFamily": "Inter",
-                  "fontSize": 13,
+                  "fontSize": 12,
                   "fontWeight": "normal"
                 }
               ]
@@ -709,7 +709,7 @@
               "fill": "$text",
               "content": "カレンダー",
               "fontFamily": "Inter",
-              "fontSize": 22,
+              "fontSize": 24,
               "fontWeight": "700"
             },
             {
@@ -736,7 +736,7 @@
                   "fill": "$text",
                   "content": "2月 2026",
                   "fontFamily": "Inter",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "fontWeight": "600"
                 },
                 {
@@ -1891,7 +1891,7 @@
                           "fill": "$text",
                           "content": "インスタ投稿の画像を作成する",
                           "fontFamily": "Inter",
-                          "fontSize": 15,
+                          "fontSize": 16,
                           "fontWeight": "600"
                         },
                         {
@@ -1901,7 +1901,7 @@
                           "fill": "$primary",
                           "content": "24:30",
                           "fontFamily": "Inter",
-                          "fontSize": 32,
+                          "fontSize": 30,
                           "fontWeight": "700"
                         },
                         {
@@ -1932,7 +1932,7 @@
                                 },
                                 "zDJPX": {
                                   "content": "中断",
-                                  "fontSize": 13
+                                  "fontSize": 12
                                 }
                               }
                             },
@@ -1957,7 +1957,7 @@
                                 },
                                 "BrdBl": {
                                   "content": "完了",
-                                  "fontSize": 13
+                                  "fontSize": 12
                                 }
                               }
                             }
@@ -1995,7 +1995,7 @@
                           "fill": "$text-secondary",
                           "content": "2月20日（金）",
                           "fontFamily": "Inter",
-                          "fontSize": 13,
+                          "fontSize": 12,
                           "fontWeight": "600"
                         },
                         {
@@ -2034,7 +2034,7 @@
                           "fill": "$text-secondary",
                           "content": "2月18日（水）",
                           "fontFamily": "Inter",
-                          "fontSize": 13,
+                          "fontSize": 12,
                           "fontWeight": "600"
                         },
                         {
@@ -2753,7 +2753,7 @@
                               "fill": "$text-muted",
                               "content": "日",
                               "fontFamily": "Inter",
-                              "fontSize": 13,
+                              "fontSize": 12,
                               "fontWeight": "500"
                             }
                           ]
@@ -2774,7 +2774,7 @@
                               "fill": "$text-muted",
                               "content": "月",
                               "fontFamily": "Inter",
-                              "fontSize": 13,
+                              "fontSize": 12,
                               "fontWeight": "500"
                             }
                           ]
@@ -2795,7 +2795,7 @@
                               "fill": "$text-muted",
                               "content": "火",
                               "fontFamily": "Inter",
-                              "fontSize": 13,
+                              "fontSize": 12,
                               "fontWeight": "500"
                             }
                           ]
@@ -2816,7 +2816,7 @@
                               "fill": "$text-muted",
                               "content": "水",
                               "fontFamily": "Inter",
-                              "fontSize": 13,
+                              "fontSize": 12,
                               "fontWeight": "500"
                             }
                           ]
@@ -2837,7 +2837,7 @@
                               "fill": "$text-muted",
                               "content": "木",
                               "fontFamily": "Inter",
-                              "fontSize": 13,
+                              "fontSize": 12,
                               "fontWeight": "500"
                             }
                           ]
@@ -2858,7 +2858,7 @@
                               "fill": "$text-muted",
                               "content": "金",
                               "fontFamily": "Inter",
-                              "fontSize": 13,
+                              "fontSize": 12,
                               "fontWeight": "500"
                             }
                           ]
@@ -2879,7 +2879,7 @@
                               "fill": "$text-muted",
                               "content": "土",
                               "fontFamily": "Inter",
-                              "fontSize": 13,
+                              "fontSize": 12,
                               "fontWeight": "500"
                             }
                           ]
@@ -3701,7 +3701,7 @@
                       "fill": "$text",
                       "content": "タスク名 *",
                       "fontFamily": "Inter",
-                      "fontSize": 13,
+                      "fontSize": 12,
                       "fontWeight": "600"
                     },
                     {
@@ -3746,7 +3746,7 @@
                       "fill": "$text",
                       "content": "カテゴリ",
                       "fontFamily": "Inter",
-                      "fontSize": 13,
+                      "fontSize": 12,
                       "fontWeight": "600"
                     },
                     {
@@ -3801,7 +3801,7 @@
                       "fill": "$text",
                       "content": "予定日",
                       "fontFamily": "Inter",
-                      "fontSize": 13,
+                      "fontSize": 12,
                       "fontWeight": "600"
                     },
                     {
@@ -3856,7 +3856,7 @@
                       "fill": "$text",
                       "content": "見積もり時間",
                       "fontFamily": "Inter",
-                      "fontSize": 13,
+                      "fontSize": 12,
                       "fontWeight": "600"
                     },
                     {
@@ -4324,7 +4324,7 @@
                       "fill": "$text",
                       "content": "タスク名 *",
                       "fontFamily": "Inter",
-                      "fontSize": 13,
+                      "fontSize": 12,
                       "fontWeight": "600"
                     },
                     {
@@ -4370,7 +4370,7 @@
                       "fill": "$text",
                       "content": "カテゴリ",
                       "fontFamily": "Inter",
-                      "fontSize": 13,
+                      "fontSize": 12,
                       "fontWeight": "600"
                     },
                     {
@@ -4426,7 +4426,7 @@
                       "fill": "$text",
                       "content": "予定日",
                       "fontFamily": "Inter",
-                      "fontSize": 13,
+                      "fontSize": 12,
                       "fontWeight": "600"
                     },
                     {
@@ -4482,7 +4482,7 @@
                       "fill": "$text",
                       "content": "見積もり時間",
                       "fontFamily": "Inter",
-                      "fontSize": 13,
+                      "fontSize": 12,
                       "fontWeight": "600"
                     },
                     {
@@ -4665,7 +4665,7 @@
                       "fill": "$text",
                       "content": "次やるに設定",
                       "fontFamily": "Inter",
-                      "fontSize": 15,
+                      "fontSize": 16,
                       "fontWeight": "500"
                     }
                   ]
@@ -4700,7 +4700,7 @@
                       "fill": "$text",
                       "content": "作業を始める",
                       "fontFamily": "Inter",
-                      "fontSize": 15,
+                      "fontSize": 16,
                       "fontWeight": "500"
                     }
                   ]
@@ -4735,7 +4735,7 @@
                       "fill": "$text",
                       "content": "編集",
                       "fontFamily": "Inter",
-                      "fontSize": 15,
+                      "fontSize": 16,
                       "fontWeight": "500"
                     }
                   ]
@@ -4778,7 +4778,7 @@
                       "fill": "#EF4444",
                       "content": "削除",
                       "fontFamily": "Inter",
-                      "fontSize": 15,
+                      "fontSize": 16,
                       "fontWeight": "500"
                     }
                   ]
@@ -4877,7 +4877,7 @@
                       "fill": "$text",
                       "content": "次やるを解除",
                       "fontFamily": "Inter",
-                      "fontSize": 15,
+                      "fontSize": 16,
                       "fontWeight": "500"
                     }
                   ]
@@ -4912,7 +4912,7 @@
                       "fill": "$text",
                       "content": "作業を始める",
                       "fontFamily": "Inter",
-                      "fontSize": 15,
+                      "fontSize": 16,
                       "fontWeight": "500"
                     }
                   ]
@@ -4947,7 +4947,7 @@
                       "fill": "$text",
                       "content": "編集",
                       "fontFamily": "Inter",
-                      "fontSize": 15,
+                      "fontSize": 16,
                       "fontWeight": "500"
                     }
                   ]
@@ -4990,7 +4990,7 @@
                       "fill": "#EF4444",
                       "content": "削除",
                       "fontFamily": "Inter",
-                      "fontSize": 15,
+                      "fontSize": 16,
                       "fontWeight": "500"
                     }
                   ]
@@ -5068,7 +5068,7 @@
               "fill": "$primary-fg",
               "content": "Button",
               "fontFamily": "Inter",
-              "fontSize": 15,
+              "fontSize": 16,
               "fontWeight": "600"
             }
           ]
@@ -5108,7 +5108,7 @@
               "fill": "$text",
               "content": "Button",
               "fontFamily": "Inter",
-              "fontSize": 15,
+              "fontSize": 16,
               "fontWeight": "600"
             }
           ]
@@ -5147,7 +5147,7 @@
               "fill": "$text",
               "content": "Button",
               "fontFamily": "Inter",
-              "fontSize": 15,
+              "fontSize": 16,
               "fontWeight": "600"
             }
           ]
@@ -5191,7 +5191,7 @@
               "fill": "$text",
               "content": "Button",
               "fontFamily": "Inter",
-              "fontSize": 15,
+              "fontSize": 16,
               "fontWeight": "600"
             }
           ]
@@ -5272,7 +5272,7 @@
               "fill": "$primary",
               "content": "Badge",
               "fontFamily": "Inter",
-              "fontSize": 11,
+              "fontSize": 12,
               "fontWeight": "600"
             }
           ]
@@ -5300,7 +5300,7 @@
               "fill": "$primary-fg",
               "content": "Filter",
               "fontFamily": "Inter",
-              "fontSize": 13,
+              "fontSize": 12,
               "fontWeight": "600"
             }
           ]
@@ -5328,7 +5328,7 @@
               "fill": "$text-secondary",
               "content": "Filter",
               "fontFamily": "Inter",
-              "fontSize": 13,
+              "fontSize": 12,
               "fontWeight": "500"
             }
           ]
@@ -5366,7 +5366,7 @@
               "fill": "$primary",
               "content": "ホーム",
               "fontFamily": "Inter",
-              "fontSize": 11,
+              "fontSize": 12,
               "fontWeight": "600"
             }
           ]
@@ -5404,7 +5404,7 @@
               "fill": "$text-muted",
               "content": "タスク",
               "fontFamily": "Inter",
-              "fontSize": 11,
+              "fontSize": 12,
               "fontWeight": "500"
             }
           ]
@@ -5436,7 +5436,7 @@
               "fill": "$primary",
               "content": "すべて見る",
               "fontFamily": "Inter",
-              "fontSize": 13,
+              "fontSize": 12,
               "fontWeight": "500"
             }
           ]
@@ -5568,7 +5568,7 @@
                   "fill": "$primary-fg",
                   "content": "次にやること",
                   "fontFamily": "Inter",
-                  "fontSize": 13,
+                  "fontSize": 12,
                   "fontWeight": "600"
                 }
               ]
@@ -5623,7 +5623,7 @@
                   "fill": "$primary-fg",
                   "content": "30分",
                   "fontFamily": "Inter",
-                  "fontSize": 13,
+                  "fontSize": 12,
                   "fontWeight": "500"
                 }
               ]
@@ -5736,7 +5736,7 @@
                   "fill": "$text",
                   "content": "タスク名がここに入る",
                   "fontFamily": "Inter",
-                  "fontSize": 15,
+                  "fontSize": 16,
                   "fontWeight": "700"
                 },
                 {
@@ -5805,7 +5805,7 @@
               "fill": "$text",
               "content": "1",
               "fontFamily": "Inter",
-              "fontSize": 11,
+              "fontSize": 12,
               "fontWeight": "500"
             },
             {
@@ -5848,7 +5848,7 @@
               "width": 14
             },
             "BrdBl": {
-              "fontSize": 13
+              "fontSize": 12
             }
           }
         },
@@ -5872,7 +5872,7 @@
               "width": 14
             },
             "zDJPX": {
-              "fontSize": 13
+              "fontSize": 12
             }
           }
         },
@@ -5896,7 +5896,7 @@
               "width": 14
             },
             "o6s28": {
-              "fontSize": 13
+              "fontSize": 12
             }
           }
         },
@@ -5920,7 +5920,7 @@
               "width": 14
             },
             "DcCtb": {
-              "fontSize": 13
+              "fontSize": 12
             }
           }
         }
