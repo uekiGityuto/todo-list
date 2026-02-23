@@ -10,8 +10,8 @@ paths:
 ## 1. 確認
 
 - `docs/specs/pages/page-{画面名}.md` の該当ページ仕様を読む
-- `docs/specs/user-flow.md` で画面間の遷移・フローを確認
-- `docs/issues/006-directory-structure.md` でファイルの置き場所を確認
+- 画面間の遷移・フローを確認: @docs/specs/user-flow.md
+- ファイルの置き場所を確認: @docs/specs/directory-structure.md
 - pencil デザインを `batch_get` / `get_screenshot` で確認する
   - `batch_get` は `readDepth: 2〜3`, `searchDepth: 3〜5` に抑える（大きすぎるとコンテキスト溢れ）
   - 該当ページ仕様の「デザイン参照（pencil nodeId）」に nodeId 記載あり
