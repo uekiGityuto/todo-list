@@ -1912,72 +1912,54 @@
                           "gap": 8,
                           "children": [
                             {
-                              "type": "frame",
-                              "id": "OAgIJ",
+                              "id": "BshpL",
+                              "type": "ref",
+                              "ref": "50jT2",
                               "name": "stopBtn",
                               "width": "fill_container",
                               "height": 36,
-                              "fill": "$card",
                               "cornerRadius": 12,
+                              "padding": [
+                                8,
+                                16
+                              ],
                               "gap": 6,
-                              "justifyContent": "center",
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon_font",
-                                  "id": "Nw0Hy",
-                                  "name": "pcStopIcon",
-                                  "width": 14,
-                                  "height": 14,
+                              "descendants": {
+                                "LfdUb": {
                                   "iconFontName": "pause",
-                                  "iconFontFamily": "lucide",
-                                  "fill": "$text-secondary"
+                                  "height": 14,
+                                  "width": 14
                                 },
-                                {
-                                  "type": "text",
-                                  "id": "G9yTN",
-                                  "name": "pcStopText",
-                                  "fill": "$text-secondary",
+                                "zDJPX": {
                                   "content": "中断",
-                                  "fontFamily": "Inter",
-                                  "fontSize": 13,
-                                  "fontWeight": "600"
+                                  "fontSize": 13
                                 }
-                              ]
+                              }
                             },
                             {
-                              "type": "frame",
-                              "id": "7zrmf",
+                              "id": "COgCo",
+                              "type": "ref",
+                              "ref": "wa5Bn",
                               "name": "doneBtn",
                               "width": "fill_container",
                               "height": 36,
-                              "fill": "$primary",
                               "cornerRadius": 12,
+                              "padding": [
+                                8,
+                                16
+                              ],
                               "gap": 6,
-                              "justifyContent": "center",
-                              "alignItems": "center",
-                              "children": [
-                                {
-                                  "type": "icon_font",
-                                  "id": "XENWM",
-                                  "name": "pcDoneIcon",
-                                  "width": 14,
-                                  "height": 14,
+                              "descendants": {
+                                "zVyqt": {
                                   "iconFontName": "check",
-                                  "iconFontFamily": "lucide",
-                                  "fill": "$primary-fg"
+                                  "height": 14,
+                                  "width": 14
                                 },
-                                {
-                                  "type": "text",
-                                  "id": "0AnRA",
-                                  "name": "pcDoneText",
-                                  "fill": "$primary-fg",
+                                "BrdBl": {
                                   "content": "完了",
-                                  "fontFamily": "Inter",
-                                  "fontSize": 13,
-                                  "fontWeight": "600"
+                                  "fontSize": 13
                                 }
-                              ]
+                              }
                             }
                           ]
                         }
@@ -3924,16 +3906,16 @@
               "gap": 12,
               "children": [
                 {
-                  "id": "H40s3",
+                  "id": "ECUa0",
                   "type": "ref",
-                  "ref": "An68q",
-                  "width": "fill_container",
+                  "ref": "ZMMXU",
                   "name": "cancelBtn",
+                  "width": "fill_container",
                   "descendants": {
-                    "aXqPE": {
+                    "f8Cb4": {
                       "enabled": false
                     },
-                    "o6s28": {
+                    "DcCtb": {
                       "content": "キャンセル"
                     }
                   }
@@ -4087,21 +4069,19 @@
                   }
                 },
                 {
-                  "id": "U5qVu",
+                  "id": "dCqpQ",
                   "type": "ref",
                   "ref": "ZMMXU",
                   "name": "timerStop",
                   "width": "fill_container",
                   "descendants": {
                     "f8Cb4": {
-                      "iconFontName": "square",
+                      "iconFontName": "pause",
                       "width": 16,
-                      "height": 16,
-                      "fill": "$text-secondary"
+                      "height": 16
                     },
                     "DcCtb": {
-                      "content": "中断する",
-                      "fill": "$text-secondary"
+                      "content": "中断する"
                     }
                   }
                 }
@@ -4221,21 +4201,19 @@
                   }
                 },
                 {
-                  "id": "boChr",
+                  "id": "FGAns",
                   "type": "ref",
                   "ref": "ZMMXU",
                   "name": "recStop",
                   "width": "fill_container",
                   "descendants": {
                     "f8Cb4": {
-                      "iconFontName": "square",
+                      "iconFontName": "pause",
                       "width": 16,
-                      "height": 16,
-                      "fill": "$text-secondary"
+                      "height": 16
                     },
                     "DcCtb": {
-                      "content": "中断にする",
-                      "fill": "$text-secondary"
+                      "content": "中断にする"
                     }
                   }
                 }
@@ -4556,15 +4534,15 @@
               "justifyContent": "end",
               "children": [
                 {
-                  "id": "3wE6j",
+                  "id": "3e5iu",
                   "type": "ref",
-                  "ref": "An68q",
+                  "ref": "ZMMXU",
                   "name": "pcCancelBtn",
                   "descendants": {
-                    "aXqPE": {
+                    "f8Cb4": {
                       "enabled": false
                     },
-                    "o6s28": {
+                    "DcCtb": {
                       "content": "キャンセル"
                     }
                   }
@@ -5046,11 +5024,11 @@
     {
       "type": "frame",
       "id": "qN6ZF",
-      "x": -40,
-      "y": -600,
+      "x": 0,
+      "y": -689,
       "name": "Components",
       "width": 960,
-      "height": 580,
+      "height": 620,
       "fill": "$bg",
       "cornerRadius": 16,
       "layout": "none",
@@ -5222,7 +5200,7 @@
           "type": "frame",
           "id": "xj6NN",
           "x": 40,
-          "y": 120,
+          "y": 155,
           "name": "Component/Check/Empty",
           "reusable": true,
           "width": 24,
@@ -5238,7 +5216,7 @@
           "type": "frame",
           "id": "4gr5W",
           "x": 80,
-          "y": 120,
+          "y": 155,
           "name": "Component/Check/Done",
           "reusable": true,
           "width": 24,
@@ -5265,7 +5243,7 @@
           "type": "frame",
           "id": "JEV2o",
           "x": 130,
-          "y": 120,
+          "y": 155,
           "name": "Component/Badge",
           "reusable": true,
           "fill": "$primary-soft",
@@ -5303,7 +5281,7 @@
           "type": "frame",
           "id": "cVTLk",
           "x": 310,
-          "y": 120,
+          "y": 155,
           "name": "Component/Filter/Active",
           "reusable": true,
           "fill": "$primary",
@@ -5331,7 +5309,7 @@
           "type": "frame",
           "id": "SwJwS",
           "x": 420,
-          "y": 120,
+          "y": 155,
           "name": "Component/Filter/Inactive",
           "reusable": true,
           "fill": "$card",
@@ -5359,7 +5337,7 @@
           "type": "frame",
           "id": "e85qJ",
           "x": 40,
-          "y": 200,
+          "y": 235,
           "name": "Component/TabBarItem/Active",
           "reusable": true,
           "layout": "vertical",
@@ -5397,7 +5375,7 @@
           "type": "frame",
           "id": "upf2S",
           "x": 120,
-          "y": 200,
+          "y": 235,
           "name": "Component/TabBarItem/Inactive",
           "reusable": true,
           "layout": "vertical",
@@ -5435,7 +5413,7 @@
           "type": "frame",
           "id": "x7rxJ",
           "x": 240,
-          "y": 200,
+          "y": 235,
           "name": "Component/SectionHeader",
           "reusable": true,
           "width": 350,
@@ -5467,7 +5445,7 @@
           "type": "frame",
           "id": "7JQWh",
           "x": 580,
-          "y": 200,
+          "y": 235,
           "name": "Component/TaskCard",
           "reusable": true,
           "width": 350,
@@ -5552,7 +5530,7 @@
           "type": "frame",
           "id": "MWXMq",
           "x": 40,
-          "y": 310,
+          "y": 345,
           "name": "Component/NextTaskHero",
           "reusable": true,
           "width": 350,
@@ -5693,7 +5671,7 @@
           "type": "frame",
           "id": "QFr2P",
           "x": 420,
-          "y": 310,
+          "y": 345,
           "name": "Component/NextTaskCard",
           "reusable": true,
           "width": 350,
@@ -5806,7 +5784,7 @@
           "type": "frame",
           "id": "PbnYO",
           "x": 810,
-          "y": 310,
+          "y": 345,
           "name": "Component/CalendarCell",
           "reusable": true,
           "clip": true,
@@ -5849,6 +5827,102 @@
               "fontWeight": "500"
             }
           ]
+        },
+        {
+          "id": "4mX2S",
+          "type": "ref",
+          "ref": "wa5Bn",
+          "name": "Component/Button/Primary/sm",
+          "height": 36,
+          "cornerRadius": 12,
+          "padding": [
+            8,
+            16
+          ],
+          "gap": 6,
+          "x": 40,
+          "y": 100,
+          "descendants": {
+            "zVyqt": {
+              "height": 14,
+              "width": 14
+            },
+            "BrdBl": {
+              "fontSize": 13
+            }
+          }
+        },
+        {
+          "id": "k3vEO",
+          "type": "ref",
+          "ref": "50jT2",
+          "name": "Component/Button/Secondary/sm",
+          "height": 36,
+          "cornerRadius": 12,
+          "padding": [
+            8,
+            16
+          ],
+          "gap": 6,
+          "x": 170,
+          "y": 100,
+          "descendants": {
+            "LfdUb": {
+              "height": 14,
+              "width": 14
+            },
+            "zDJPX": {
+              "fontSize": 13
+            }
+          }
+        },
+        {
+          "id": "FgNf4",
+          "type": "ref",
+          "ref": "An68q",
+          "name": "Component/Button/Ghost/sm",
+          "height": 36,
+          "cornerRadius": 12,
+          "padding": [
+            8,
+            16
+          ],
+          "gap": 6,
+          "x": 300,
+          "y": 100,
+          "descendants": {
+            "aXqPE": {
+              "height": 14,
+              "width": 14
+            },
+            "o6s28": {
+              "fontSize": 13
+            }
+          }
+        },
+        {
+          "id": "rwoKS",
+          "type": "ref",
+          "ref": "ZMMXU",
+          "name": "Component/Button/Outlined/sm",
+          "height": 36,
+          "cornerRadius": 12,
+          "padding": [
+            8,
+            16
+          ],
+          "gap": 6,
+          "x": 430,
+          "y": 100,
+          "descendants": {
+            "f8Cb4": {
+              "height": 14,
+              "width": 14
+            },
+            "DcCtb": {
+              "fontSize": 13
+            }
+          }
         }
       ]
     }
