@@ -5,6 +5,7 @@ import {
   Settings,
   type LucideIcon,
 } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 
 interface TabItem {
@@ -31,7 +32,7 @@ export function TabBar({ activeTab, onTabChange, className }: TabBarProps) {
     <nav
       className={cn(
         "flex items-center bg-background px-0 pb-2 pt-1 md:hidden",
-        className
+        className,
       )}
     >
       {tabs.map((tab) => {
@@ -44,16 +45,14 @@ export function TabBar({ activeTab, onTabChange, className }: TabBarProps) {
             onClick={() => onTabChange?.(tab.key)}
             className={cn(
               "flex flex-1 flex-col items-center justify-center gap-0.5 px-4 py-1.5 transition-all duration-200 ease-out",
-              isActive
-                ? "text-primary"
-                : "text-text-muted"
+              isActive ? "text-primary" : "text-text-muted",
             )}
           >
             <Icon className="size-5" />
             <span
               className={cn(
                 "text-xs",
-                isActive ? "font-semibold" : "font-medium"
+                isActive ? "font-semibold" : "font-medium",
               )}
             >
               {tab.label}

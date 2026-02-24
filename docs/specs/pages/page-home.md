@@ -32,13 +32,13 @@
 
 ## 使用コンポーネント
 
-| コンポーネント | 用途 |
-|---|---|
-| `NextTaskHero` | 「次やる」タスクの大表示 |
+| コンポーネント  | 用途                            |
+| --------------- | ------------------------------- |
+| `NextTaskHero`  | 「次やる」タスクの大表示        |
 | `SectionHeader` | "今日のタスク" セクション見出し |
-| `TaskCard` | 今日のタスクリスト |
-| `TabBar` | モバイル下部ナビ（md未満） |
-| `Sidebar` | PCサイドナビ（md以上） |
+| `TaskCard`      | 今日のタスクリスト              |
+| `TabBar`        | モバイル下部ナビ（md未満）      |
+| `Sidebar`       | PCサイドナビ（md以上）          |
 
 ## 状態
 
@@ -54,12 +54,12 @@
 
 ## インタラクション
 
-| 操作 | 動作 |
-|---|---|
-| NextTaskHero「作業を始める」 | タイマー画面に遷移、タイマー開始 |
-| SectionHeader「すべて見る」 | タスク一覧画面に遷移 |
-| TaskCard タップ | アクションメニュー表示（次やる設定/作業開始/編集/削除） |
-| TabBar / Sidebar | ページ遷移 |
+| 操作                         | 動作                                                    |
+| ---------------------------- | ------------------------------------------------------- |
+| NextTaskHero「作業を始める」 | タイマー画面に遷移、タイマー開始                        |
+| SectionHeader「すべて見る」  | タスク一覧画面に遷移                                    |
+| TaskCard タップ              | アクションメニュー表示（次やる設定/作業開始/編集/削除） |
+| TabBar / Sidebar             | ページ遷移                                              |
 
 ## データ要件
 
@@ -78,10 +78,10 @@
 
 ## デザイン参照（pencil nodeId）
 
-| 画面 | nodeId |
-|---|---|
-| Mobile - Home | `07CUD` |
+| 画面                  | nodeId  |
+| --------------------- | ------- |
+| Mobile - Home         | `07CUD` |
 | Mobile - Home (Empty) | `7SS7i` |
-| PC - Main (Working) | `5hEa0` |
-| PC - Main (Idle) | `sM18i` |
-| PC - Main (Empty) | `D8vdB` |
+| PC - Main (Working)   | `5hEa0` |
+| PC - Main (Idle)      | `sM18i` |
+| PC - Main (Empty)     | `D8vdB` |

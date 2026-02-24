@@ -34,13 +34,13 @@
 
 ## 使用コンポーネント
 
-| コンポーネント | 用途 |
-|---|---|
-| `CalendarCell` | カレンダーの各日セル（モバイル: ドット / PC: タスク名） |
-| `SectionHeader` | 日付詳細の見出し |
-| `TaskCard` | その日の完了/中断タスク表示（チェック済み状態） |
-| `Check` | TaskCard 内（完了: Done、中断: Empty） |
-| `TabBar` / `Sidebar` | ナビゲーション |
+| コンポーネント       | 用途                                                    |
+| -------------------- | ------------------------------------------------------- |
+| `CalendarCell`       | カレンダーの各日セル（モバイル: ドット / PC: タスク名） |
+| `SectionHeader`      | 日付詳細の見出し                                        |
+| `TaskCard`           | その日の完了/中断タスク表示（チェック済み状態）         |
+| `Check`              | TaskCard 内（完了: Done、中断: Empty）                  |
+| `TabBar` / `Sidebar` | ナビゲーション                                          |
 
 ## カレンダーグリッド
 
@@ -74,11 +74,11 @@
 
 ## インタラクション
 
-| 操作 | 動作 |
-|---|---|
+| 操作                | 動作                         |
+| ------------------- | ---------------------------- |
 | CalendarCell タップ | その日の作業詳細を下部に表示 |
-| 月ナビ「<」「>」 | 前月/翌月に切り替え |
-| TabBar / Sidebar | ページ遷移 |
+| 月ナビ「<」「>」    | 前月/翌月に切り替え          |
+| TabBar / Sidebar    | ページ遷移                   |
 
 ## 実装時の考慮事項
 
@@ -98,9 +98,9 @@
 
 ## デザイン参照（pencil nodeId）
 
-| 画面 | nodeId |
-|---|---|
-| Mobile - Calendar | `1r90A` |
+| 画面                      | nodeId  |
+| ------------------------- | ------- |
+| Mobile - Calendar         | `1r90A` |
 | Mobile - Calendar (Empty) | `ucZi5` |
-| PC - Calendar | `aGZ6P` |
-| PC - Calendar (Empty) | `y7VUE` |
+| PC - Calendar             | `aGZ6P` |
+| PC - Calendar (Empty)     | `y7VUE` |

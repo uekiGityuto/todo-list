@@ -6,6 +6,7 @@ import {
   Settings,
   type LucideIcon,
 } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 
 interface NavItem {
@@ -32,7 +33,7 @@ export function Sidebar({ activeItem, onItemChange, className }: SidebarProps) {
     <aside
       className={cn(
         "hidden w-55 shrink-0 flex-col gap-2 bg-card p-4 pt-6 md:flex",
-        className
+        className,
       )}
     >
       <div className="flex items-center gap-2 px-0 pb-4">
@@ -51,7 +52,7 @@ export function Sidebar({ activeItem, onItemChange, className }: SidebarProps) {
               "flex w-full items-center gap-2.5 rounded-2xl px-3 py-2.5 text-sm transition-all duration-200 ease-out",
               isActive
                 ? "bg-primary-soft font-semibold text-primary"
-                : "font-medium text-muted-foreground hover:bg-card"
+                : "font-medium text-muted-foreground hover:bg-card",
             )}
           >
             <Icon className="size-4.5" />

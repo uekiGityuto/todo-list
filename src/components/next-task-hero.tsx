@@ -1,6 +1,7 @@
 import { Zap, Play } from "lucide-react";
-import { cn } from "@/lib/utils";
+
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface NextTaskHeroProps {
   title: string;
@@ -21,7 +22,7 @@ export function NextTaskHero({
     <div
       className={cn(
         "flex flex-col gap-4 rounded-[24px] bg-primary px-6 py-7",
-        className
+        className,
       )}
     >
       <div className="flex items-center gap-1.5">

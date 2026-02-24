@@ -6,22 +6,22 @@ ui-ux-pro-maxの出力（`docs/specs/design-system/todo-list/MASTER.md`）を参
 
 ## 未定義の項目
 
-| # | 状態 | 項目 | 内容 |
-|---|------|------|------|
-| 1 | 完了 | シャドウ/オーバーレイ | シャドウ変数は不要。浮き要素の背景オーバーレイ($overlay)をデザイン・implementation-notesに反映済み |
-| 2 | 完了 | トランジション | transition-all duration-200 ease-out で統一。implementation-notesに記載 |
-| 3 | 完了 | フォーカスリング | shadcn/uiデフォルト（focus-visible:ring-2）に従う |
+| #   | 状態 | 項目                  | 内容                                                                                               |
+| --- | ---- | --------------------- | -------------------------------------------------------------------------------------------------- |
+| 1   | 完了 | シャドウ/オーバーレイ | シャドウ変数は不要。浮き要素の背景オーバーレイ($overlay)をデザイン・implementation-notesに反映済み |
+| 2   | 完了 | トランジション        | transition-all duration-200 ease-out で統一。implementation-notesに記載                            |
+| 3   | 完了 | フォーカスリング      | shadcn/uiデフォルト（focus-visible:ring-2）に従う                                                  |
 
 ## アンチパターンチェック
 
-| # | 状態 | 項目 | 内容 |
-|---|------|------|------|
-| 4 | 問題なし | Emojis as icons | Lucide使用で問題なし |
-| 5 | 現状維持 | $text-mutedのコントラスト | 補助テキスト用途のみで実用上問題なし。実装時に実機確認 |
-| 6 | 実装時確認 | cursor:pointer | クリック可能な要素にcursor:pointerを付ける |
-| 7 | 実装時確認 | Layout-shifting hovers | レイアウトをずらすホバーアニメーションを避ける |
-| 8 | 実装時確認 | Instant state changes | 状態変化にトランジション(150-300ms)をつける |
-| 9 | 実装時確認 | Focus states | フォーカス状態を視覚的に表示する |
+| #   | 状態       | 項目                      | 内容                                                   |
+| --- | ---------- | ------------------------- | ------------------------------------------------------ |
+| 4   | 問題なし   | Emojis as icons           | Lucide使用で問題なし                                   |
+| 5   | 現状維持   | $text-mutedのコントラスト | 補助テキスト用途のみで実用上問題なし。実装時に実機確認 |
+| 6   | 実装時確認 | cursor:pointer            | クリック可能な要素にcursor:pointerを付ける             |
+| 7   | 実装時確認 | Layout-shifting hovers    | レイアウトをずらすホバーアニメーションを避ける         |
+| 8   | 実装時確認 | Instant state changes     | 状態変化にトランジション(150-300ms)をつける            |
+| 9   | 実装時確認 | Focus states              | フォーカス状態を視覚的に表示する                       |
 
 ## 詳細
 

@@ -1,19 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
+import { CalendarCell } from "@/components/calendar-cell";
 import { Check } from "@/components/check";
 import { FilterChip } from "@/components/filter-chip";
-import { SectionHeader } from "@/components/section-header";
-import { TabBar } from "@/components/tab-bar";
-import { Sidebar } from "@/components/sidebar";
-import { TaskCard } from "@/components/task-card";
 import { NextTaskCard } from "@/components/next-task-card";
 import { NextTaskHero } from "@/components/next-task-hero";
-import { CalendarCell } from "@/components/calendar-cell";
+import { SectionHeader } from "@/components/section-header";
+import { Sidebar } from "@/components/sidebar";
+import { TabBar } from "@/components/tab-bar";
+import { TaskCard } from "@/components/task-card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function Home() {
   const [checked1, setChecked1] = useState(false);
@@ -44,9 +45,15 @@ export default function Home() {
             </div>
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <Button size="sm">Primary sm</Button>
-              <Button size="sm" variant="secondary">Secondary sm</Button>
-              <Button size="sm" variant="outlined">Outlined sm</Button>
-              <Button size="sm" variant="ghost">Ghost sm</Button>
+              <Button size="sm" variant="secondary">
+                Secondary sm
+              </Button>
+              <Button size="sm" variant="outlined">
+                Outlined sm
+              </Button>
+              <Button size="sm" variant="ghost">
+                Ghost sm
+              </Button>
             </div>
           </section>
 
@@ -77,11 +84,17 @@ export default function Home() {
             <h2 className="mb-4 text-xl font-bold">Check</h2>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <Check checked={checked1} onToggle={() => setChecked1(!checked1)} />
+                <Check
+                  checked={checked1}
+                  onToggle={() => setChecked1(!checked1)}
+                />
                 <span className="text-sm">Empty</span>
               </div>
               <div className="flex items-center gap-2">
-                <Check checked={checked2} onToggle={() => setChecked2(!checked2)} />
+                <Check
+                  checked={checked2}
+                  onToggle={() => setChecked2(!checked2)}
+                />
                 <span className="text-sm">Done</span>
               </div>
             </div>
@@ -94,7 +107,13 @@ export default function Home() {
               {["all", "todo", "done"].map((key) => (
                 <FilterChip
                   key={key}
-                  label={key === "all" ? "すべて" : key === "todo" ? "未完了" : "完了"}
+                  label={
+                    key === "all"
+                      ? "すべて"
+                      : key === "todo"
+                        ? "未完了"
+                        : "完了"
+                  }
                   active={activeFilter === key}
                   onClick={() => setActiveFilter(key)}
                 />

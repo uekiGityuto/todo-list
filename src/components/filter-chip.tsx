@@ -22,7 +22,7 @@ export function FilterChip({
         active
           ? "bg-primary font-semibold text-white"
           : "bg-card font-medium text-muted-foreground",
-        className
+        className,
       )}
     >
       {label}

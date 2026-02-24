@@ -34,6 +34,7 @@ gh auth setup-git
 ```
 
 リモートURLもHTTPSを使用する：
+
 ```bash
 git remote set-url origin https://github.com/uekiGityuto/todo-list.git
 ```
@@ -51,7 +52,9 @@ pnpm dlx shadcn@latest init
 ```
 
 **注意点:**
+
 - `create-next-app` が `.gitignore` を上書きする可能性がある。実行後に以下のエントリが存在するか確認し、なければ追加:
+
   ```
   # devcontainer
   .devcontainer/extensions.local.txt
@@ -60,6 +63,7 @@ pnpm dlx shadcn@latest init
   # Claude Code
   .claude/settings.local.json
   ```
+
 - `pnpm dev` で開発サーバーが起動することを確認
 
 ### Step 5: taktセットアップ
@@ -75,6 +79,7 @@ npx takt export-cc
 ### Step 6: Claude Code Skills導入
 
 以下の4つのスキルをインストール:
+
 - `find-skills`
 - `skill-creator`
 - `vercel-react-best-practices`
@@ -97,10 +102,12 @@ npx skills list
 ### Step 7: CLAUDE.md更新 + 初回コミット
 
 環境構築完了後、CLAUDE.md を以下の観点で更新:
+
 - セットアップ済みのツール・MCP構成の反映
 - takt関連の情報追記（`npx takt export-cc` 済みなら Skills セクション等）
 
 その後、コミット＆PRを作成:
+
 ```bash
 git checkout -b feat/phase0-setup
 git add -A
@@ -108,6 +115,7 @@ git commit -m "chore: Phase 0 開発環境構築"
 git push -u origin feat/phase0-setup
 gh pr create --title "chore: Phase 0 開発環境構築" --body "..."
 ```
+
 ※ mainへの直pushは保護ルールにより禁止。PR経由でマージする。
 
 ## 実行順序

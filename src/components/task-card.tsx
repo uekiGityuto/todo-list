@@ -1,6 +1,7 @@
 import { ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+
 import { Check } from "@/components/check";
+import { cn } from "@/lib/utils";
 
 interface TaskCardProps {
   title: string;
@@ -25,7 +26,7 @@ export function TaskCard({
     <div
       className={cn(
         "flex items-center gap-3 rounded-[20px] bg-card px-5 py-3.5 pl-4",
-        className
+        className,
       )}
     >
       <Check checked={checked} onToggle={onToggle} />

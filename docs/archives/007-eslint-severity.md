@@ -18,6 +18,19 @@
 - `.claude/hooks/pre-commit-lint.sh` — コミット前 lint hook
 - `eslint.config.mjs` — ESLint 設定
 
+## 対応結果
+
+`eslint-plugin-unused-imports` と `eslint-plugin-import` を導入し、以下のルールを追加:
+
+- `unused-imports/no-unused-imports`: error
+- `unused-imports/no-unused-vars`: warn（`_` プレフィックス除外）
+- `@typescript-eslint/no-unused-vars`: off（unused-imports に委譲）
+- `@typescript-eslint/switch-exhaustiveness-check`: error
+- `react/jsx-key`: error
+- `import/order`: error（グループ分け + アルファベット順）
+
+これにより `pnpm lint` が error を検出して非ゼロ終了コードを返すようになり、pre-commit hook でブロック可能になった。
+
 ## ステータス
 
-未対応
+対応済み

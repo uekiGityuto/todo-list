@@ -9,29 +9,29 @@ Phase 2-2 の各ページ実装に入る前に、ドメインモデルの定義�
 
 ### エンティティ → type/interface or class（未決定）
 
-| 型 | 概要 | 主要フィールド |
-|---|---|---|
-| **Task** | 中心エンティティ | id, name, categoryId, status, isNext, estimatedMinutes, scheduledDate, createdAt, updatedAt |
-| **Category** | タスク分類（独立管理） | id, name, color |
-| **WorkRecord** | 作業履歴（カレンダー用） | id, taskId, date, durationMinutes, result |
-| **TimerSession** | タイマー実行状態（localStorage） | taskId, startedAt, estimatedMinutes |
+| 型               | 概要                             | 主要フィールド                                                                              |
+| ---------------- | -------------------------------- | ------------------------------------------------------------------------------------------- |
+| **Task**         | 中心エンティティ                 | id, name, categoryId, status, isNext, estimatedMinutes, scheduledDate, createdAt, updatedAt |
+| **Category**     | タスク分類（独立管理）           | id, name, color                                                                             |
+| **WorkRecord**   | 作業履歴（カレンダー用）         | id, taskId, date, durationMinutes, result                                                   |
+| **TimerSession** | タイマー実行状態（localStorage） | taskId, startedAt, estimatedMinutes                                                         |
 
 ### ユニオン型 → `as const` オブジェクト + `keyof typeof`（決定済み）
 
 `enum` は使わず、定数オブジェクトでラベル等のマッピングを持たせる。
 
-| 型 | 値 |
-|---|---|
+| 型             | 値                              |
+| -------------- | ------------------------------- |
 | **TaskStatus** | `todo` / `in_progress` / `done` |
-| **WorkResult** | `completed` / `interrupted` |
+| **WorkResult** | `completed` / `interrupted`     |
 
 ```ts
 const TASK_STATUSES = {
   todo: { label: "未着手" },
   in_progress: { label: "作業中" },
   done: { label: "完了" },
-} as const
-type TaskStatus = keyof typeof TASK_STATUSES
+} as const;
+type TaskStatus = keyof typeof TASK_STATUSES;
 ```
 
 ## エンティティの定義方法：選択肢
@@ -53,18 +53,20 @@ type TaskStatus = keyof typeof TASK_STATUSES
 
 ```ts
 type TaskState = {
-  id: string
-  name: string
-  status: TaskStatus
+  id: string;
+  name: string;
+  status: TaskStatus;
   // ...
-}
+};
 
 export class Task {
-  readonly state: TaskState
+  readonly state: TaskState;
   constructor(data: TaskState) {
-    this.state = data
+    this.state = data;
   }
-  isOverdue(): boolean { /* ... */ }
+  isOverdue(): boolean {
+    /* ... */
+  }
 }
 ```
 

@@ -34,17 +34,17 @@
 
 ## 使用コンポーネント
 
-| コンポーネント | 用途 |
-|---|---|
-| `Button` | 「+追加」ボタン（primary, アイコン: Plus） |
-| `FilterChip` | ステータスフィルタ（すべて/未完了/完了済み） |
-| `FilterChip`（拡張） | カテゴリフィルタ（カラードット付き） |
-| `NextTaskCard` | 「次やる」タスクの強調表示 |
-| `TaskCard` | 通常タスクカード |
-| `Check` | TaskCard 内のチェックボックス |
-| `Dialog` | タスク追加/編集モーダル、アクションメニュー |
-| `Input` / `Label` | タスク追加フォーム内 |
-| `TabBar` / `Sidebar` | ナビゲーション |
+| コンポーネント       | 用途                                         |
+| -------------------- | -------------------------------------------- |
+| `Button`             | 「+追加」ボタン（primary, アイコン: Plus）   |
+| `FilterChip`         | ステータスフィルタ（すべて/未完了/完了済み） |
+| `FilterChip`（拡張） | カテゴリフィルタ（カラードット付き）         |
+| `NextTaskCard`       | 「次やる」タスクの強調表示                   |
+| `TaskCard`           | 通常タスクカード                             |
+| `Check`              | TaskCard 内のチェックボックス                |
+| `Dialog`             | タスク追加/編集モーダル、アクションメニュー  |
+| `Input` / `Label`    | タスク追加フォーム内                         |
+| `TabBar` / `Sidebar` | ナビゲーション                               |
 
 ## 状態
 
@@ -62,24 +62,24 @@
 
 ### フィルタ
 
-| フィルタ | 表示対象 |
-|---|---|
-| すべて | 全タスク |
-| 未完了 | ステータスが「未着手」or「作業中」 |
-| 完了済み | ステータスが「完了」 |
+| フィルタ | 表示対象                           |
+| -------- | ---------------------------------- |
+| すべて   | 全タスク                           |
+| 未完了   | ステータスが「未着手」or「作業中」 |
+| 完了済み | ステータスが「完了」               |
 
 カテゴリフィルタは AND 条件で絞り込み。
 
 ## インタラクション
 
-| 操作 | 動作 |
-|---|---|
-| 「+追加」ボタン | タスク追加モーダル表示 |
-| FilterChip タップ | ステータスでフィルタ |
-| カテゴリフィルタ タップ | カテゴリでフィルタ |
-| TaskCard chevron | アクションメニュー表示 |
-| NextTaskCard chevron | 「次やる」用アクションメニュー |
-| Check タップ | タスクを完了にする |
+| 操作                    | 動作                           |
+| ----------------------- | ------------------------------ |
+| 「+追加」ボタン         | タスク追加モーダル表示         |
+| FilterChip タップ       | ステータスでフィルタ           |
+| カテゴリフィルタ タップ | カテゴリでフィルタ             |
+| TaskCard chevron        | アクションメニュー表示         |
+| NextTaskCard chevron    | 「次やる」用アクションメニュー |
+| Check タップ            | タスクを完了にする             |
 
 ### タスク追加モーダル
 
@@ -130,18 +130,18 @@
 
 ## デザイン参照（pencil nodeId）
 
-| 画面 | nodeId |
-|---|---|
-| Mobile - Tasks | `EsDrU` |
-| Mobile - Tasks (Empty) | `jkSfI` |
-| Mobile - Tasks (Action Open) | `TFwgm` |
-| Mobile - Tasks (Next Action Open) | `xNFA2` |
-| Mobile - Add Task | `N6Z8D` |
-| Mobile - Add Task (Category) | `HjdlO` |
+| 画面                                | nodeId  |
+| ----------------------------------- | ------- |
+| Mobile - Tasks                      | `EsDrU` |
+| Mobile - Tasks (Empty)              | `jkSfI` |
+| Mobile - Tasks (Action Open)        | `TFwgm` |
+| Mobile - Tasks (Next Action Open)   | `xNFA2` |
+| Mobile - Add Task                   | `N6Z8D` |
+| Mobile - Add Task (Category)        | `HjdlO` |
 | Mobile - Add Task (Category Create) | `iF5AW` |
-| Mobile - Add Category | `mZEMI` |
-| PC - Tasks | `xzsWL` |
-| PC - Tasks (Empty) | `gUgBx` |
-| PC - Add Task | `i1bFM` |
-| PC - Task Action | `H0gBR` |
-| PC - Next Task Action | `prLMX` |
+| Mobile - Add Category               | `mZEMI` |
+| PC - Tasks                          | `xzsWL` |
+| PC - Tasks (Empty)                  | `gUgBx` |
+| PC - Add Task                       | `i1bFM` |
+| PC - Task Action                    | `H0gBR` |
+| PC - Next Task Action               | `prLMX` |

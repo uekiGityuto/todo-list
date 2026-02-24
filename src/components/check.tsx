@@ -1,4 +1,5 @@
 import { Check as CheckIcon } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 
 interface CheckProps {
@@ -16,10 +17,8 @@ export function Check({ checked = false, className, onToggle }: CheckProps) {
       onClick={onToggle}
       className={cn(
         "flex size-6 shrink-0 items-center justify-center rounded-2xl transition-all duration-200 ease-out",
-        checked
-          ? "bg-primary"
-          : "border-2 border-border bg-transparent",
-        className
+        checked ? "bg-primary" : "border-2 border-border bg-transparent",
+        className,
       )}
     >
       {checked && <CheckIcon className="size-3.5 text-white" />}

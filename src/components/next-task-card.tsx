@@ -1,4 +1,5 @@
 import { Zap, ChevronDown } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 
 interface NextTaskCardProps {
@@ -20,7 +21,7 @@ export function NextTaskCard({
     <div
       className={cn(
         "flex items-center overflow-hidden rounded-[20px] bg-primary-soft",
-        className
+        className,
       )}
     >
       <div className="h-full w-1 self-stretch bg-primary" />
