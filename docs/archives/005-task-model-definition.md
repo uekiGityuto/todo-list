@@ -7,7 +7,7 @@ Phase 2-2 の各ページ実装に入る前に、ドメインモデルの定義�
 
 ## ドメイン型一覧
 
-### エンティティ → type/interface or class（未決定）
+### エンティティ → type/interface（決定済み）
 
 | 型               | 概要                             | 主要フィールド                                                                              |
 | ---------------- | -------------------------------- | ------------------------------------------------------------------------------------------- |
@@ -77,6 +77,20 @@ export class Task {
 - ビジネスロジックの置き場所（モデル内 vs ユーティリティ関数）
 - 将来的な DB 移行（Supabase 等）への影響
 
+## 決定事項
+
+- **方式 A: type/interface を採用**
+- ビジネスロジックはユーティリティ関数に分離する
+- ユニオン型は `as const` オブジェクト + `keyof typeof` パターン
+
+## 実装ファイル
+
+- `src/enums/task-statuses.ts` — TASK_STATUSES, TaskStatus
+- `src/enums/work-results.ts` — WORK_RESULTS, WorkResult
+- `src/types/task.ts` — Task, Category
+- `src/types/work-record.ts` — WorkRecord
+- `src/types/timer.ts` — TimerSession
+
 ## ステータス
 
-未検討 → 別セッションで決定する
+対応済み
