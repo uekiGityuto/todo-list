@@ -29,7 +29,13 @@
 - `react/jsx-key`: error
 - `import/order`: error（グループ分け + アルファベット順）
 
-これにより `pnpm lint` が error を検出して非ゼロ終了コードを返すようになり、pre-commit hook でブロック可能になった。
+これにより `pnpm lint` が error を検出して非ゼロ終了コードを返すようになった。
+
+また、pre-commit hook を Claude Code の PreToolUse hook から **lefthook** に移行:
+
+- `lefthook.yml` で format → lint の piped 実行を設定
+- `CLAUDECODE=1` 時のみ実行（手動コミット時はスキップ）
+- `pre-commit-lint.sh` は削除、`block-main-git.sh` は `git -C` 対応に改善
 
 ## ステータス
 

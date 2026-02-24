@@ -66,6 +66,35 @@ pnpm dlx shadcn@latest init
 
 - `pnpm dev` で開発サーバーが起動することを確認
 
+### Step 4: Lint / Format / Git hooks セットアップ
+
+```bash
+# ESLint プラグイン追加
+pnpm add -D eslint-plugin-unused-imports eslint-plugin-import
+
+# Prettier + lefthook 追加
+pnpm add -D prettier lefthook
+
+# lefthook の git hooks をインストール
+npx lefthook install
+```
+
+**設定ファイル:**
+
+- `eslint.config.mjs` — ESLint ルール（unused-imports, import/order, switch-exhaustiveness-check, jsx-key）
+- `lefthook.yml` — pre-commit hook（format → lint、`CLAUDECODE=1` 時のみ実行）
+- `.prettierignore` — Prettier 対象外設定
+
+**package.json scripts:**
+
+```json
+{
+  "lint": "eslint",
+  "format": "prettier --write .",
+  "format:check": "prettier --check ."
+}
+```
+
 ### Step 5: taktセットアップ
 
 ```bash
@@ -121,10 +150,11 @@ gh pr create --title "chore: Phase 0 開発環境構築" --body "..."
 ## 実行順序
 
 ```
-Step 3 (Next.js + shadcn/ui)  ← 最優先・他に依存なし
-Step 5 (takt export-cc)       ← Step 3 と並行可だが、Next.jsプロジェクト存在後が安全
-Step 6 (Skills)               ← Step 5 の後
-Step 7 (CLAUDE.md + コミット) ← 全て完了後
+Step 3 (Next.js + shadcn/ui)        ← 最優先・他に依存なし
+Step 4 (Lint / Format / Git hooks)  ← Step 3 の後
+Step 5 (takt export-cc)             ← Step 3 と並行可だが、Next.jsプロジェクト存在後が安全
+Step 6 (Skills)                     ← Step 5 の後
+Step 7 (CLAUDE.md + コミット)       ← 全て完了後
 ```
 
 ## 検証チェックリスト
@@ -133,3 +163,15 @@ Step 7 (CLAUDE.md + コミット) ← 全て完了後
 - [ ] `takt --version` でバージョンが表示される
 - [ ] `.gitignore` にdevcontainer/Claude Code関連のエントリが含まれている
 - [ ] `git status` でトラッキング不要なファイルが表示されない
+
+## トラブル
+
+### pencil.devがdevcontainerで利用できない
+
+pencil.devのMCPサーバーはmacOSネイティブバイナリ（`mcp-server-darwin-arm64`）で動作するため、Linuxコンテナであるdevcontainer内では利用できない。
+
+**対応方針:**
+
+- pencil.devはホスト側でセットアップして利用する
+- pencil.devを使った実装作業もホスト側で行う
+- ホスト側の開発環境は `mise.toml` で必要なツールをインストールして整備する
