@@ -53,9 +53,9 @@ src/
 ├── lib/
 │   └── utils.ts
 └── types/
-    ├── task.ts              # Task, Category
+    ├── task.ts              # Task, TaskWithCategory, Category
     ├── work-record.ts       # WorkRecord
-    └── timer.ts             # TimerSession
+    └── timer.ts             # TimerSession, TimerSessionWithTask
 ```
 
 ## データアクセスの方針
@@ -69,4 +69,5 @@ hooks をデータアクセスの境界とする。コンポーネントはス�
 
 - 移行時は hooks の中身だけ差し替える
 - `useLocalStorage` を汎用フックとして切り出し、localStorage 操作を集約する
+- hooks は保存用の型（`Task`）を内部で扱い、コンポーネント用の型（`TaskWithCategory`）に解決して返す
 - Repository パターン等の抽象レイヤーは挟まない（hooks 自体が境界）

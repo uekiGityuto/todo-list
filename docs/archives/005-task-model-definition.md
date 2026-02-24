@@ -87,9 +87,16 @@ export class Task {
 
 - `src/enums/task-statuses.ts` — TASK_STATUSES, TaskStatus
 - `src/enums/work-results.ts` — WORK_RESULTS, WorkResult
-- `src/types/task.ts` — Task, Category
+- `src/types/task.ts` — Task, TaskWithCategory, Category
 - `src/types/work-record.ts` — WorkRecord
-- `src/types/timer.ts` — TimerSession
+- `src/types/timer.ts` — TimerSession, TimerSessionWithTask
+
+### 保存用 / コンポーネント用の分離
+
+| 保存用（localStorage）   | コンポーネント用（hooks が返す）        |
+| ------------------------ | --------------------------------------- |
+| `Task`（categoryId）     | `TaskWithCategory`（category 埋め込み） |
+| `TimerSession`（taskId） | `TimerSessionWithTask`（task 埋め込み） |
 
 ## ステータス
 

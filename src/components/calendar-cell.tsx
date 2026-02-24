@@ -33,6 +33,7 @@ export function CalendarCell({
       >
         {day}
       </span>
+      {/* TODO: tasks が動的データになったら key={task.id} に変更する */}
       {/* Mobile: dots */}
       <div className="flex gap-0.75 md:hidden">
         {tasks.slice(0, 3).map((_, i) => (
