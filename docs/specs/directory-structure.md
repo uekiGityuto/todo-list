@@ -25,7 +25,7 @@ src/
     └── utils.ts             # cn() ユーティリティ
 ```
 
-## Phase 2-2 想定（WIP）
+## Phase 2-2 構成
 
 ```
 src/
@@ -42,37 +42,20 @@ src/
 ├── components/
 │   ├── ui/                  # shadcn/ui ベース
 │   └── *.tsx                # アプリ固有（presentational）
+├── enums/
+│   ├── task-statuses.ts     # TASK_STATUSES, TaskStatus
+│   └── work-results.ts     # WORK_RESULTS, WorkResult
 ├── hooks/
 │   ├── use-tasks.ts         # タスク CRUD 操作
 │   ├── use-timer.ts         # タイマーロジック
 │   ├── use-work-records.ts  # 作業記録の読み書き
-│   └── use-local-storage.ts # localStorage 汎用フック（？）
+│   └── use-local-storage.ts # localStorage 汎用フック
 ├── lib/
 │   └── utils.ts
-└── types/                   # ← モデル定義方法次第で変わる（後述）
-```
-
-### types/ の構成案
-
-**A: type/interface の場合**
-
-```
-types/
-├── task.ts           # Task, Category の型定義
-├── work-record.ts    # WorkRecord の型定義
-├── timer.ts          # TimerSession の型定義
-└── constants.ts      # TASK_STATUSES, WORK_RESULTS 等
-```
-
-**B: class の場合**
-
-```
-models/               # types/ ではなく models/ にする？
-├── task.ts           # Task クラス + TaskState 型
-├── category.ts       # Category クラス + CategoryState 型
-├── work-record.ts    # WorkRecord クラス + WorkRecordState 型
-├── timer-session.ts  # TimerSession クラス
-└── constants.ts      # TASK_STATUSES, WORK_RESULTS 等
+└── types/
+    ├── task.ts              # Task, Category
+    ├── work-record.ts       # WorkRecord
+    └── timer.ts             # TimerSession
 ```
 
 ## データアクセスの方針
@@ -80,9 +63,10 @@ models/               # types/ ではなく models/ にする？
 hooks をデータアクセスの境界とする。コンポーネントはストレージの実装を知らない。
 
 ```
-コンポーネント → useTasks() → localStorage（今）
-                            → API/DB（将来）
+コンポーネント → useTasks() → useLocalStorage()（今）
+                            → API/DB hooks（将来）
 ```
 
 - 移行時は hooks の中身だけ差し替える
+- `useLocalStorage` を汎用フックとして切り出し、localStorage 操作を集約する
 - Repository パターン等の抽象レイヤーは挟まない（hooks 自体が境界）
