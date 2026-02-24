@@ -25,7 +25,12 @@ skillsのui-ux-pro-maxとvercel-react-best-practicesを入れてみた。
 
 ## デザイン
 
+pencil.devでClaude Codeにデザインさせる体験が凄く良かった。
+
 [pencil.md](/docs/knowledge/pencil.md)参照
+
+参考となるデザインがあれば、デザイン作成の前に、ui-ux-pro-maxでスタイルガイドを作ってもらうと良さそう。
+また、デザイン工程が面倒であれば、pencil.devを使わずに、ui-ux-pro-maxだけで直接コーディングまでしてもらっても良いかもしれない。
 
 ## コーディング
 
