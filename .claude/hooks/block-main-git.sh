@@ -10,7 +10,7 @@ fi
 INPUT=$(cat)
 COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // ""')
 
-if echo "$COMMAND" | grep -qE '^git (add|commit|stash|rebase|reset|cherry-pick)'; then
+if echo "$COMMAND" | grep -qE '^git\b.*\b(add|commit|stash|rebase|reset|cherry-pick)\b'; then
   echo 'mainブランチでのgit操作は禁止です。featureブランチを作成してください。' >&2
   exit 2
 fi
