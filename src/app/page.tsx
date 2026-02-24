@@ -1,65 +1,194 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+
+import { CalendarCell } from "@/components/calendar-cell";
+import { Check } from "@/components/check";
+import { FilterChip } from "@/components/filter-chip";
+import { NextTaskCard } from "@/components/next-task-card";
+import { NextTaskHero } from "@/components/next-task-hero";
+import { SectionHeader } from "@/components/section-header";
+import { Sidebar } from "@/components/sidebar";
+import { TabBar } from "@/components/tab-bar";
+import { TaskCard } from "@/components/task-card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function Home() {
+  const [checked1, setChecked1] = useState(false);
+  const [checked2, setChecked2] = useState(true);
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [activeTab, setActiveTab] = useState("home");
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="flex min-h-screen">
+      {/* Sidebar */}
+      <Sidebar activeItem={activeTab} onItemChange={setActiveTab} />
+
+      {/* Main Content */}
+      <div className="flex flex-1 flex-col">
+        <main className="flex-1 overflow-y-auto p-6 pb-24 md:p-10">
+          <h1 className="mb-8 text-3xl font-bold">Component Showcase</h1>
+
+          {/* Buttons */}
+          <section className="mb-10">
+            <h2 className="mb-4 text-xl font-bold">Button</h2>
+            <div className="flex flex-wrap items-center gap-3">
+              <Button>Primary</Button>
+              <Button variant="secondary">Secondary</Button>
+              <Button variant="outlined">Outlined</Button>
+              <Button variant="outline">Outline</Button>
+              <Button variant="ghost">Ghost</Button>
+              <Button variant="destructive">Destructive</Button>
+            </div>
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              <Button size="sm">Primary sm</Button>
+              <Button size="sm" variant="secondary">
+                Secondary sm
+              </Button>
+              <Button size="sm" variant="outlined">
+                Outlined sm
+              </Button>
+              <Button size="sm" variant="ghost">
+                Ghost sm
+              </Button>
+            </div>
+          </section>
+
+          {/* Badge */}
+          <section className="mb-10">
+            <h2 className="mb-4 text-xl font-bold">Badge</h2>
+            <div className="flex flex-wrap items-center gap-3">
+              <Badge>Default</Badge>
+              <Badge variant="secondary">Secondary</Badge>
+              <Badge variant="outline">Outline</Badge>
+              <Badge variant="destructive">Destructive</Badge>
+            </div>
+          </section>
+
+          {/* Input */}
+          <section className="mb-10">
+            <h2 className="mb-4 text-xl font-bold">Input</h2>
+            <div className="flex max-w-sm flex-col gap-3">
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="sample">タスク名</Label>
+                <Input id="sample" placeholder="タスク名を入力..." />
+              </div>
+            </div>
+          </section>
+
+          {/* Check */}
+          <section className="mb-10">
+            <h2 className="mb-4 text-xl font-bold">Check</h2>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <Check
+                  checked={checked1}
+                  onToggle={() => setChecked1(!checked1)}
+                />
+                <span className="text-sm">Empty</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Check
+                  checked={checked2}
+                  onToggle={() => setChecked2(!checked2)}
+                />
+                <span className="text-sm">Done</span>
+              </div>
+            </div>
+          </section>
+
+          {/* FilterChip */}
+          <section className="mb-10">
+            <h2 className="mb-4 text-xl font-bold">FilterChip</h2>
+            <div className="flex items-center gap-2">
+              {["all", "todo", "done"].map((key) => (
+                <FilterChip
+                  key={key}
+                  label={
+                    key === "all"
+                      ? "すべて"
+                      : key === "todo"
+                        ? "未完了"
+                        : "完了"
+                  }
+                  active={activeFilter === key}
+                  onClick={() => setActiveFilter(key)}
+                />
+              ))}
+            </div>
+          </section>
+
+          {/* SectionHeader */}
+          <section className="mb-10">
+            <h2 className="mb-4 text-xl font-bold">SectionHeader</h2>
+            <div className="max-w-sm">
+              <SectionHeader title="今日のタスク" action="すべて見る" />
+            </div>
+          </section>
+
+          {/* NextTaskHero */}
+          <section className="mb-10">
+            <h2 className="mb-4 text-xl font-bold">NextTaskHero</h2>
+            <div className="max-w-[350px]">
+              <NextTaskHero
+                title={"インスタ投稿の\n画像を作成する"}
+                category="インスタ投稿"
+                duration="30分"
+              />
+            </div>
+          </section>
+
+          {/* NextTaskCard */}
+          <section className="mb-10">
+            <h2 className="mb-4 text-xl font-bold">NextTaskCard</h2>
+            <div className="max-w-[350px]">
+              <NextTaskCard
+                title="タスク名がここに入る"
+                duration="30分"
+                category="カテゴリ"
+              />
+            </div>
+          </section>
+
+          {/* TaskCard */}
+          <section className="mb-10">
+            <h2 className="mb-4 text-xl font-bold">TaskCard</h2>
+            <div className="flex max-w-[350px] flex-col gap-2">
+              <TaskCard
+                title="タスク名がここに入る"
+                duration="30分"
+                category="インスタ投稿"
+              />
+              <TaskCard
+                title="完了したタスク"
+                duration="15分"
+                category="ブログ"
+                checked
+              />
+            </div>
+          </section>
+
+          {/* CalendarCell */}
+          <section className="mb-10">
+            <h2 className="mb-4 text-xl font-bold">CalendarCell</h2>
+            <div className="flex gap-0.5">
+              <CalendarCell day={1} tasks={["タスクA", "タスクB"]} />
+              <CalendarCell day={2} tasks={["タスクC"]} />
+              <CalendarCell day={3} tasks={[]} />
+              <CalendarCell day={4} isToday tasks={["A", "B", "C"]} />
+              <CalendarCell day={5} tasks={[]} />
+            </div>
+          </section>
+        </main>
+
+        {/* TabBar */}
+        <div className="fixed bottom-0 left-0 right-0">
+          <TabBar activeTab={activeTab} onTabChange={setActiveTab} />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
     </div>
   );
 }

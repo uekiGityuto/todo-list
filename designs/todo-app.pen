@@ -4977,7 +4977,7 @@
                       "type": "text",
                       "id": "OBN81",
                       "name": "time",
-                      "fill": "$text-muted",
+                      "fill": "#71717A",
                       "content": "30分",
                       "fontFamily": "Inter",
                       "fontSize": 12,
@@ -5239,7 +5239,7 @@
                       "type": "text",
                       "id": "P9nPn",
                       "name": "time",
-                      "fill": "$text-muted",
+                      "fill": "#71717A",
                       "content": "30分",
                       "fontFamily": "Inter",
                       "fontSize": 12,
@@ -15289,7 +15289,14 @@
     },
     "primary": {
       "type": "color",
-      "value": "#8B5CF6"
+      "value": [
+        {
+          "value": "#8B5CF6"
+        },
+        {
+          "value": "#3BADE0"
+        }
+      ]
     },
     "primary-fg": {
       "type": "color",
@@ -15297,7 +15304,14 @@
     },
     "primary-soft": {
       "type": "color",
-      "value": "#8B5CF620"
+      "value": [
+        {
+          "value": "#8B5CF620"
+        },
+        {
+          "value": "#3BADE020"
+        }
+      ]
     },
     "radius": {
       "type": "number",

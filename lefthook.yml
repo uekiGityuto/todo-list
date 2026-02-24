@@ -1,0 +1,10 @@
+pre-commit:
+  skip:
+    - run: test "$CLAUDECODE" != 1
+  piped: true
+  commands:
+    1-format:
+      run: pnpm format
+      stage_fixed: true
+    2-lint:
+      run: pnpm lint

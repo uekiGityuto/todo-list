@@ -40,16 +40,16 @@ todo-list
 
 ## 🛠 技術スタック
 
-| カテゴリ | 技術 |
-|---------|------|
-| フレームワーク | Next.js + TypeScript |
-| パッケージマネージャ | pnpm |
-| UIライブラリ | shadcn/ui + Tailwind CSS |
-| デザイン | pencil.dev（shadcn/ui UIキット使用） |
-| 実装 | Claude Code（pencil MCP連携） |
-| データ保存 | ローカルストレージ → 後でログイン + DB |
-| 開発環境 | devcontainer |
-| オーケストレーション | takt + Claude Code Agent Teams |
+| カテゴリ             | 技術                                   |
+| -------------------- | -------------------------------------- |
+| フレームワーク       | Next.js + TypeScript                   |
+| パッケージマネージャ | pnpm                                   |
+| UIライブラリ         | shadcn/ui + Tailwind CSS               |
+| デザイン             | pencil.dev（shadcn/ui UIキット使用）   |
+| 実装                 | Claude Code（pencil MCP連携）          |
+| データ保存           | ローカルストレージ → 後でログイン + DB |
+| 開発環境             | devcontainer                           |
+| オーケストレーション | takt + Claude Code Agent Teams         |
 
 ### 技術選定の理由
 
@@ -60,11 +60,11 @@ todo-list
 
 ## 🔌 MCP構成
 
-| MCP Server | 用途 |
-|-----------|------|
-| Context7 | ライブラリの最新ドキュメント参照（Next.js, shadcn/ui等） |
-| Playwright | デザインと実装の差分確認、E2Eテスト |
-| pencil.dev | デザイン ↔ コード連携（.penファイル読み書き） |
+| MCP Server | 用途                                                     |
+| ---------- | -------------------------------------------------------- |
+| Context7   | ライブラリの最新ドキュメント参照（Next.js, shadcn/ui等） |
+| Playwright | デザインと実装の差分確認、E2Eテスト                      |
+| pencil.dev | デザイン ↔ コード連携（.penファイル読み書き）            |
 
 ### 入れないもの・理由
 
@@ -74,22 +74,22 @@ todo-list
 
 ## 🧠 Claude Code Skills
 
-| Skill | 用途 |
-|-------|------|
-| find-skills | スキル検索（メタスキル） |
-| skill-creator | 独自ワークフローのスキル化 |
-| vercel-react-best-practices | Next.js/Reactのコード品質チェック |
-| ui-ux-pro-max | 参考サイトのUI/UX解析・再現 |
-| supabase-postgres-best-practices | Phase 5のDB移行時に導入 |
+| Skill                            | 用途                              |
+| -------------------------------- | --------------------------------- |
+| find-skills                      | スキル検索（メタスキル）          |
+| skill-creator                    | 独自ワークフローのスキル化        |
+| vercel-react-best-practices      | Next.js/Reactのコード品質チェック |
+| ui-ux-pro-max                    | 参考サイトのUI/UX解析・再現       |
+| supabase-postgres-best-practices | Phase 5のDB移行時に導入           |
 
 ## 📐 画面構成
 
-| 画面 | 概要 |
-|------|------|
-| ホーム | 「次やる」マークをつけたタスクをデカデカ表示。即作業開始できる |
-| タスク一覧 | タスクの追加・編集・完了・削除。「次やる」マーク付与 |
-| タイマー | カウントダウンタイマー。常時表示。終了時に継続/完了/中断を選択 |
-| カレンダー | 日付ごとの完了タスク一覧。日付クリックで詳細表示 |
+| 画面       | 概要                                                           |
+| ---------- | -------------------------------------------------------------- |
+| ホーム     | 「次やる」マークをつけたタスクをデカデカ表示。即作業開始できる |
+| タスク一覧 | タスクの追加・編集・完了・削除。「次やる」マーク付与           |
+| タイマー   | カウントダウンタイマー。常時表示。終了時に継続/完了/中断を選択 |
+| カレンダー | 日付ごとの完了タスク一覧。日付クリックで詳細表示               |
 
 ## 🔧 開発フロー
 

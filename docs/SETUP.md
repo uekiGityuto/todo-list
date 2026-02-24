@@ -34,6 +34,7 @@ gh auth setup-git
 ```
 
 リモートURLもHTTPSを使用する：
+
 ```bash
 git remote set-url origin https://github.com/uekiGityuto/todo-list.git
 ```
@@ -51,7 +52,9 @@ pnpm dlx shadcn@latest init
 ```
 
 **注意点:**
+
 - `create-next-app` が `.gitignore` を上書きする可能性がある。実行後に以下のエントリが存在するか確認し、なければ追加:
+
   ```
   # devcontainer
   .devcontainer/extensions.local.txt
@@ -60,7 +63,37 @@ pnpm dlx shadcn@latest init
   # Claude Code
   .claude/settings.local.json
   ```
+
 - `pnpm dev` で開発サーバーが起動することを確認
+
+### Step 4: Lint / Format / Git hooks セットアップ
+
+```bash
+# ESLint プラグイン追加
+pnpm add -D eslint-plugin-unused-imports eslint-plugin-import
+
+# Prettier + lefthook 追加
+pnpm add -D prettier lefthook
+
+# lefthook の git hooks をインストール
+npx lefthook install
+```
+
+**設定ファイル:**
+
+- `eslint.config.mjs` — ESLint ルール（unused-imports, import/order, switch-exhaustiveness-check, jsx-key）
+- `lefthook.yml` — pre-commit hook（format → lint、`CLAUDECODE=1` 時のみ実行）
+- `.prettierignore` — Prettier 対象外設定
+
+**package.json scripts:**
+
+```json
+{
+  "lint": "eslint",
+  "format": "prettier --write .",
+  "format:check": "prettier --check ."
+}
+```
 
 ### Step 5: taktセットアップ
 
@@ -75,6 +108,7 @@ npx takt export-cc
 ### Step 6: Claude Code Skills導入
 
 以下の4つのスキルをインストール:
+
 - `find-skills`
 - `skill-creator`
 - `vercel-react-best-practices`
@@ -97,10 +131,12 @@ npx skills list
 ### Step 7: CLAUDE.md更新 + 初回コミット
 
 環境構築完了後、CLAUDE.md を以下の観点で更新:
+
 - セットアップ済みのツール・MCP構成の反映
 - takt関連の情報追記（`npx takt export-cc` 済みなら Skills セクション等）
 
 その後、コミット＆PRを作成:
+
 ```bash
 git checkout -b feat/phase0-setup
 git add -A
@@ -108,15 +144,17 @@ git commit -m "chore: Phase 0 開発環境構築"
 git push -u origin feat/phase0-setup
 gh pr create --title "chore: Phase 0 開発環境構築" --body "..."
 ```
+
 ※ mainへの直pushは保護ルールにより禁止。PR経由でマージする。
 
 ## 実行順序
 
 ```
-Step 3 (Next.js + shadcn/ui)  ← 最優先・他に依存なし
-Step 5 (takt export-cc)       ← Step 3 と並行可だが、Next.jsプロジェクト存在後が安全
-Step 6 (Skills)               ← Step 5 の後
-Step 7 (CLAUDE.md + コミット) ← 全て完了後
+Step 3 (Next.js + shadcn/ui)        ← 最優先・他に依存なし
+Step 4 (Lint / Format / Git hooks)  ← Step 3 の後
+Step 5 (takt export-cc)             ← Step 3 と並行可だが、Next.jsプロジェクト存在後が安全
+Step 6 (Skills)                     ← Step 5 の後
+Step 7 (CLAUDE.md + コミット)       ← 全て完了後
 ```
 
 ## 検証チェックリスト
@@ -125,3 +163,15 @@ Step 7 (CLAUDE.md + コミット) ← 全て完了後
 - [ ] `takt --version` でバージョンが表示される
 - [ ] `.gitignore` にdevcontainer/Claude Code関連のエントリが含まれている
 - [ ] `git status` でトラッキング不要なファイルが表示されない
+
+## トラブル
+
+### pencil.devがdevcontainerで利用できない
+
+pencil.devのMCPサーバーはmacOSネイティブバイナリ（`mcp-server-darwin-arm64`）で動作するため、Linuxコンテナであるdevcontainer内では利用できない。
+
+**対応方針:**
+
+- pencil.devはホスト側でセットアップして利用する
+- pencil.devを使った実装作業もホスト側で行う
+- ホスト側の開発環境は `mise.toml` で必要なツールをインストールして整備する
