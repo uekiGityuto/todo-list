@@ -5,10 +5,15 @@ import { cn } from "@/lib/utils";
 
 interface EmptyStateProps {
   onAddTask: () => void;
+  description?: string;
   className?: string;
 }
 
-export function EmptyState({ onAddTask, className }: EmptyStateProps) {
+export function EmptyState({
+  onAddTask,
+  description,
+  className,
+}: EmptyStateProps) {
   return (
     <div
       className={cn(
@@ -21,7 +26,7 @@ export function EmptyState({ onAddTask, className }: EmptyStateProps) {
         タスクがありません
       </span>
       <span className="text-sm text-muted-foreground">
-        新しいタスクを追加しよう
+        {description ?? "新しいタスクを追加しよう"}
       </span>
       <Button onClick={onAddTask} className="mt-2">
         <Plus className="size-4" />

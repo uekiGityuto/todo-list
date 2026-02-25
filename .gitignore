@@ -55,8 +55,6 @@ skills-lock.json
 # Playwright MCP
 .playwright-mcp/
 
-# Screenshots
-showcase-*.png
 
 # TAKT
 .takt/

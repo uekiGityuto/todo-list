@@ -1,193 +1,227 @@
 "use client";
 
-import { useState } from "react";
+import { format } from "date-fns";
+import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
 
-import { CalendarCell } from "@/components/calendar-cell";
-import { Check } from "@/components/check";
-import { FilterChip } from "@/components/filter-chip";
-import { NextTaskCard } from "@/components/next-task-card";
+import { AddTaskModal } from "@/components/add-task-modal";
+import { DeleteConfirmDialog } from "@/components/delete-confirm-dialog";
+import { EmptyState } from "@/components/empty-state";
 import { NextTaskHero } from "@/components/next-task-hero";
+import { RecentWorkColumn } from "@/components/recent-work-column";
 import { SectionHeader } from "@/components/section-header";
 import { Sidebar } from "@/components/sidebar";
 import { TabBar } from "@/components/tab-bar";
 import { TaskCard } from "@/components/task-card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useTaskPageActions } from "@/hooks/use-task-page-actions";
+import { useTasks } from "@/hooks/use-tasks";
+import { useWorkRecords } from "@/hooks/use-work-records";
+import { formatDuration } from "@/lib/format-duration";
 
-export default function Home() {
-  const [checked1, setChecked1] = useState(false);
-  const [checked2, setChecked2] = useState(true);
-  const [activeFilter, setActiveFilter] = useState("all");
-  const [activeTab, setActiveTab] = useState("home");
+import type { TaskWithCategory } from "@/types/task";
+
+export default function HomePage() {
+  const router = useRouter();
+  const {
+    tasks,
+    categories,
+    addTask,
+    updateTask,
+    deleteTask,
+    setNextTask,
+    unsetNextTask,
+    addCategory,
+  } = useTasks();
+
+  const { recentWorkByDay } = useWorkRecords(tasks);
+
+  const {
+    expandedTaskId,
+    editingTask,
+    deleteTarget,
+    handleToggleExpand,
+    handleNavChange,
+    handleStartWork,
+    handleAddTask,
+    handleUpdateTask,
+    handleConfirmDelete,
+    setDeleteTarget,
+    setEditingTask,
+    renderActions,
+  } = useTaskPageActions({
+    addTask,
+    updateTask,
+    deleteTask,
+    setNextTask,
+    unsetNextTask,
+  });
+
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  const todayStr = format(new Date(), "yyyy-MM-dd");
+
+  const nextTask = useMemo(() => tasks.find((t) => t.isNext), [tasks]);
+
+  const todayTasks = useMemo(
+    () =>
+      tasks.filter(
+        (t) =>
+          t.scheduledDate === todayStr &&
+          (t.status === "todo" || t.status === "in_progress") &&
+          !t.isNext,
+      ),
+    [tasks, todayStr],
+  );
+
+  const hasContent = !!nextTask || todayTasks.length > 0;
 
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <Sidebar activeItem={activeTab} onItemChange={setActiveTab} />
+    <div className="flex min-h-svh flex-col bg-background">
+      <div className="flex flex-1">
+        <Sidebar activeItem="home" onItemChange={handleNavChange} />
 
-      {/* Main Content */}
-      <div className="flex flex-1 flex-col">
-        <main className="flex-1 overflow-y-auto p-6 pb-24 md:p-10">
-          <h1 className="mb-8 text-3xl font-bold">Component Showcase</h1>
+        <main className="flex flex-1 flex-col gap-7 p-5 pb-0 md:p-8 md:pt-8">
+          <TopRow onAddTask={() => setIsAddModalOpen(true)} />
 
-          {/* Buttons */}
-          <section className="mb-10">
-            <h2 className="mb-4 text-xl font-bold">Button</h2>
-            <div className="flex flex-wrap items-center gap-3">
-              <Button>Primary</Button>
-              <Button variant="secondary">Secondary</Button>
-              <Button variant="outline">Outlined</Button>
-              <Button variant="outline">Outline</Button>
-              <Button variant="ghost">Ghost</Button>
-              <Button variant="destructive">Destructive</Button>
-            </div>
-            <div className="mt-4 flex flex-wrap items-center gap-3">
-              <Button size="sm">Primary sm</Button>
-              <Button size="sm" variant="secondary">
-                Secondary sm
-              </Button>
-              <Button size="sm" variant="outline">
-                Outlined sm
-              </Button>
-              <Button size="sm" variant="ghost">
-                Ghost sm
-              </Button>
-            </div>
-          </section>
-
-          {/* Badge */}
-          <section className="mb-10">
-            <h2 className="mb-4 text-xl font-bold">Badge</h2>
-            <div className="flex flex-wrap items-center gap-3">
-              <Badge>Default</Badge>
-              <Badge variant="secondary">Secondary</Badge>
-              <Badge variant="outline">Outline</Badge>
-              <Badge variant="destructive">Destructive</Badge>
-            </div>
-          </section>
-
-          {/* Input */}
-          <section className="mb-10">
-            <h2 className="mb-4 text-xl font-bold">Input</h2>
-            <div className="flex max-w-sm flex-col gap-3">
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="sample">タスク名</Label>
-                <Input id="sample" placeholder="タスク名を入力..." />
-              </div>
-            </div>
-          </section>
-
-          {/* Check */}
-          <section className="mb-10">
-            <h2 className="mb-4 text-xl font-bold">Check</h2>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Check
-                  checked={checked1}
-                  onToggle={() => setChecked1(!checked1)}
+          <div className="flex flex-1 gap-7">
+            <div className="flex flex-1 flex-col gap-6">
+              {hasContent ? (
+                <TaskContent
+                  nextTask={nextTask}
+                  todayTasks={todayTasks}
+                  expandedTaskId={expandedTaskId}
+                  onToggleExpand={handleToggleExpand}
+                  onNavigateToTasks={() => router.push("/tasks")}
+                  onStartWork={handleStartWork}
+                  renderActions={renderActions}
                 />
-                <span className="text-sm">Empty</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check
-                  checked={checked2}
-                  onToggle={() => setChecked2(!checked2)}
+              ) : (
+                <EmptyState
+                  onAddTask={() => setIsAddModalOpen(true)}
+                  description="タスクを追加して、今日の作業を始めよう"
+                  className="flex-1"
                 />
-                <span className="text-sm">Done</span>
-              </div>
+              )}
             </div>
-          </section>
 
-          {/* FilterChip */}
-          <section className="mb-10">
-            <h2 className="mb-4 text-xl font-bold">FilterChip</h2>
-            <div className="flex items-center gap-2">
-              {["all", "todo", "done"].map((key) => (
-                <FilterChip
-                  key={key}
-                  label={
-                    key === "all"
-                      ? "すべて"
-                      : key === "todo"
-                        ? "未完了"
-                        : "完了"
-                  }
-                  active={activeFilter === key}
-                  onClick={() => setActiveFilter(key)}
-                />
-              ))}
-            </div>
-          </section>
-
-          {/* SectionHeader */}
-          <section className="mb-10">
-            <h2 className="mb-4 text-xl font-bold">SectionHeader</h2>
-            <div className="max-w-sm">
-              <SectionHeader title="今日のタスク" action="すべて見る" />
-            </div>
-          </section>
-
-          {/* NextTaskHero */}
-          <section className="mb-10">
-            <h2 className="mb-4 text-xl font-bold">NextTaskHero</h2>
-            <div className="max-w-87.5">
-              <NextTaskHero
-                title={"インスタ投稿の\n画像を作成する"}
-                category="インスタ投稿"
-                duration="30分"
-              />
-            </div>
-          </section>
-
-          {/* NextTaskCard */}
-          <section className="mb-10">
-            <h2 className="mb-4 text-xl font-bold">NextTaskCard</h2>
-            <div className="max-w-87.5">
-              <NextTaskCard
-                title="タスク名がここに入る"
-                duration="30分"
-                category="カテゴリ"
-              />
-            </div>
-          </section>
-
-          {/* TaskCard */}
-          <section className="mb-10">
-            <h2 className="mb-4 text-xl font-bold">TaskCard</h2>
-            <div className="flex max-w-87.5 flex-col gap-2">
-              <TaskCard
-                title="タスク名がここに入る"
-                duration="30分"
-                category="インスタ投稿"
-              />
-              <TaskCard
-                title="完了したタスク"
-                duration="15分"
-                category="ブログ"
-              />
-            </div>
-          </section>
-
-          {/* CalendarCell */}
-          <section className="mb-10">
-            <h2 className="mb-4 text-xl font-bold">CalendarCell</h2>
-            <div className="flex gap-0.5">
-              <CalendarCell day={1} tasks={["タスクA", "タスクB"]} />
-              <CalendarCell day={2} tasks={["タスクC"]} />
-              <CalendarCell day={3} tasks={[]} />
-              <CalendarCell day={4} isToday tasks={["A", "B", "C"]} />
-              <CalendarCell day={5} tasks={[]} />
-            </div>
-          </section>
+            <RecentWorkColumn recentWorkByDay={recentWorkByDay} />
+          </div>
         </main>
-
-        {/* TabBar */}
-        <div className="fixed bottom-0 left-0 right-0">
-          <TabBar activeTab={activeTab} onTabChange={setActiveTab} />
-        </div>
       </div>
+
+      <TabBar activeTab="home" onTabChange={handleNavChange} />
+
+      <AddTaskModal
+        open={isAddModalOpen || !!editingTask}
+        onClose={() => {
+          setIsAddModalOpen(false);
+          setEditingTask(undefined);
+        }}
+        onSubmit={editingTask ? handleUpdateTask : handleAddTask}
+        onCreateCategory={addCategory}
+        categories={categories}
+        editingTask={editingTask}
+      />
+
+      {deleteTarget && (
+        <DeleteConfirmDialog
+          open={!!deleteTarget}
+          taskName={deleteTarget.name}
+          onConfirm={handleConfirmDelete}
+          onCancel={() => setDeleteTarget(null)}
+        />
+      )}
     </div>
+  );
+}
+
+function TopRow({ onAddTask }: { onAddTask: () => void }) {
+  return (
+    <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-1">
+        <span className="text-sm font-medium text-muted-foreground">
+          おかえり！
+        </span>
+        <h1 className="text-xl font-bold text-foreground md:text-2xl">
+          今日もがんばろう 💪
+        </h1>
+      </div>
+      <Button size="sm" onClick={onAddTask} className="hidden md:inline-flex">
+        <Plus className="size-4" />
+        タスク追加
+      </Button>
+    </div>
+  );
+}
+
+function TaskContent({
+  nextTask,
+  todayTasks,
+  expandedTaskId,
+  onToggleExpand,
+  onNavigateToTasks,
+  onStartWork,
+  renderActions,
+}: {
+  nextTask: TaskWithCategory | undefined;
+  todayTasks: TaskWithCategory[];
+  expandedTaskId: string | null;
+  onToggleExpand: (taskId: string) => void;
+  onNavigateToTasks: () => void;
+  onStartWork: (taskId: string) => void;
+  renderActions: (task: TaskWithCategory) => React.ReactNode;
+}) {
+  return (
+    <>
+      {nextTask && (
+        <NextTaskHero
+          title={nextTask.name}
+          category={nextTask.category.name || undefined}
+          duration={
+            nextTask.estimatedMinutes
+              ? formatDuration(nextTask.estimatedMinutes)
+              : undefined
+          }
+          onStart={() => onStartWork(nextTask.id)}
+        />
+      )}
+
+      <div className="flex flex-col gap-3">
+        <SectionHeader
+          title="今日のタスク"
+          action="すべて見る →"
+          onAction={onNavigateToTasks}
+        />
+
+        {todayTasks.length > 0 ? (
+          <div className="flex flex-col gap-2">
+            {todayTasks.map((task) => (
+              <TaskCard
+                key={task.id}
+                title={task.name}
+                duration={
+                  task.estimatedMinutes
+                    ? formatDuration(task.estimatedMinutes)
+                    : undefined
+                }
+                category={task.category.name || undefined}
+                expanded={expandedTaskId === task.id}
+                onAction={() => onToggleExpand(task.id)}
+              >
+                {renderActions(task)}
+              </TaskCard>
+            ))}
+          </div>
+        ) : (
+          !nextTask && (
+            <p className="py-4 text-center text-sm text-muted-foreground">
+              今日のタスクはありません
+            </p>
+          )
+        )}
+      </div>
+    </>
   );
 }
