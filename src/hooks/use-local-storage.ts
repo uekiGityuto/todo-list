@@ -54,6 +54,7 @@ export function useLocalStorage<T>(
       cachedRef.current = { raw: newRaw, parsed: resolved };
       subscribersRef.current.forEach((cb) => cb());
     },
+    // initialValue は初期値で不変の前提のため除外
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [key],
   );
