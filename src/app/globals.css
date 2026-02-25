@@ -66,8 +66,8 @@
   --secondary-foreground: #18181b;
   --muted: #f4f4f5;
   --muted-foreground: #71717a;
-  --accent: #f472b6;
-  --accent-foreground: #ffffff;
+  --accent: #3bade015;
+  --accent-foreground: #18181b;
   --destructive: oklch(0.577 0.245 27.325);
   --border: #e4e4e7;
   --input: #e4e4e7;
@@ -133,5 +133,15 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }

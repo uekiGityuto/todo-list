@@ -38,7 +38,7 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-3">
               <Button>Primary</Button>
               <Button variant="secondary">Secondary</Button>
-              <Button variant="outlined">Outlined</Button>
+              <Button variant="outline">Outlined</Button>
               <Button variant="outline">Outline</Button>
               <Button variant="ghost">Ghost</Button>
               <Button variant="destructive">Destructive</Button>
@@ -48,7 +48,7 @@ export default function Home() {
               <Button size="sm" variant="secondary">
                 Secondary sm
               </Button>
-              <Button size="sm" variant="outlined">
+              <Button size="sm" variant="outline">
                 Outlined sm
               </Button>
               <Button size="sm" variant="ghost">
@@ -166,7 +166,6 @@ export default function Home() {
                 title="完了したタスク"
                 duration="15分"
                 category="ブログ"
-                checked
               />
             </div>
           </section>

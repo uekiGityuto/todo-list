@@ -41,7 +41,6 @@
 | `FilterChip`（拡張） | カテゴリフィルタ（カラードット付き）         |
 | `NextTaskCard`       | 「次やる」タスクの強調表示                   |
 | `TaskCard`           | 通常タスクカード                             |
-| `Check`              | TaskCard 内のチェックボックス                |
 | `Dialog`             | タスク追加/編集モーダル、アクションメニュー  |
 | `Input` / `Label`    | タスク追加フォーム内                         |
 | `TabBar` / `Sidebar` | ナビゲーション                               |
@@ -79,7 +78,6 @@
 | カテゴリフィルタ タップ | カテゴリでフィルタ             |
 | TaskCard chevron        | アクションメニュー表示         |
 | NextTaskCard chevron    | 「次やる」用アクションメニュー |
-| Check タップ            | タスクを完了にする             |
 
 ### タスク追加モーダル
 
@@ -143,5 +141,3 @@
 | PC - Tasks                          | `xzsWL` |
 | PC - Tasks (Empty)                  | `gUgBx` |
 | PC - Add Task                       | `i1bFM` |
-| PC - Task Action                    | `H0gBR` |
-| PC - Next Task Action               | `prLMX` |

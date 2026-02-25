@@ -57,3 +57,6 @@ skills-lock.json
 
 # Screenshots
 showcase-*.png
+
+# TAKT
+.takt/
