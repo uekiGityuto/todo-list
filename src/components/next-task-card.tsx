@@ -31,7 +31,7 @@ export function NextTaskCard({
       <button
         type="button"
         onClick={onAction}
-        className="flex w-full items-center text-left"
+        className="flex w-full items-center text-left transition-colors duration-200 ease-out hover:bg-primary-soft/80"
       >
         <div className="h-full w-1 self-stretch bg-primary" />
         <div className="flex min-w-0 flex-1 flex-col gap-2 px-4 py-3.5">

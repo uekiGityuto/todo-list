@@ -31,7 +31,7 @@ export function TaskCard({
       <button
         type="button"
         onClick={onAction}
-        className="flex w-full items-center gap-3 px-5 py-3.5 text-left"
+        className="flex w-full items-center gap-3 rounded-4xl px-5 py-3.5 text-left transition-colors duration-200 ease-out hover:bg-surface-hover"
       >
         <div className="flex min-w-0 flex-1 flex-col gap-1">
           <span className="truncate text-sm font-semibold text-foreground">

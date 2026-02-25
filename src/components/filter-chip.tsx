@@ -22,8 +22,8 @@ export function FilterChip({
       className={cn(
         "inline-flex items-center justify-center gap-1.5 rounded-4xl px-4 py-2 text-xs transition-all duration-200 ease-out",
         active
-          ? "bg-primary font-semibold text-white"
-          : "bg-card font-medium text-muted-foreground",
+          ? "bg-primary font-semibold text-white hover:bg-primary/90"
+          : "bg-card font-medium text-muted-foreground hover:bg-accent",
         className,
       )}
     >
