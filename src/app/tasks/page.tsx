@@ -1,23 +1,20 @@
 "use client";
 
 import { Plus } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
-import { AddTaskModal, type TaskFormData } from "@/components/add-task-modal";
+import { AddTaskModal } from "@/components/add-task-modal";
 import { DeleteConfirmDialog } from "@/components/delete-confirm-dialog";
 import { EmptyState } from "@/components/empty-state";
 import { FilterChip } from "@/components/filter-chip";
 import { NextTaskCard } from "@/components/next-task-card";
 import { Sidebar } from "@/components/sidebar";
 import { TabBar } from "@/components/tab-bar";
-import { TaskActionList } from "@/components/task-action-list";
 import { TaskCard } from "@/components/task-card";
 import { Button } from "@/components/ui/button";
+import { useTaskPageActions } from "@/hooks/use-task-page-actions";
 import { useTasks } from "@/hooks/use-tasks";
 import { formatDuration } from "@/lib/format-duration";
-
-import type { TaskWithCategory } from "@/types/task";
 
 type StatusFilter = "all" | "active" | "done";
 
@@ -28,7 +25,6 @@ const STATUS_FILTERS: { key: StatusFilter; label: string }[] = [
 ];
 
 export default function TasksPage() {
-  const router = useRouter();
   const {
     tasks,
     categories,
@@ -40,16 +36,29 @@ export default function TasksPage() {
     addCategory,
   } = useTasks();
 
+  const {
+    expandedTaskId,
+    editingTask,
+    deleteTarget,
+    handleToggleExpand,
+    handleNavChange,
+    handleAddTask,
+    handleUpdateTask,
+    handleConfirmDelete,
+    setDeleteTarget,
+    setEditingTask,
+    renderActions,
+  } = useTaskPageActions({
+    addTask,
+    updateTask,
+    deleteTask,
+    setNextTask,
+    unsetNextTask,
+  });
+
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
-  const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [editingTask, setEditingTask] = useState<
-    (TaskFormData & { id: string }) | undefined
-  >(undefined);
-  const [deleteTarget, setDeleteTarget] = useState<TaskWithCategory | null>(
-    null,
-  );
 
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
@@ -69,88 +78,9 @@ export default function TasksPage() {
     [filteredTasks],
   );
 
-  const handleToggleExpand = useCallback((taskId: string) => {
-    setExpandedTaskId((prev) => (prev === taskId ? null : taskId));
-  }, []);
-
-  const handleAddTask = useCallback(
-    (data: TaskFormData) => {
-      addTask(data);
-    },
-    [addTask],
-  );
-
-  const handleUpdateTask = useCallback(
-    (data: TaskFormData) => {
-      if (!editingTask) return;
-      updateTask(editingTask.id, data);
-      setEditingTask(undefined);
-    },
-    [editingTask, updateTask],
-  );
-
-  const handleOpenEdit = useCallback((task: TaskWithCategory) => {
-    setEditingTask({
-      id: task.id,
-      name: task.name,
-      categoryId: task.categoryId,
-      scheduledDate: task.scheduledDate,
-      estimatedMinutes: task.estimatedMinutes,
-    });
-    setExpandedTaskId(null);
-  }, []);
-
-  const handleConfirmDelete = useCallback(() => {
-    if (!deleteTarget) return;
-    deleteTask(deleteTarget.id);
-    setDeleteTarget(null);
-    setExpandedTaskId(null);
-  }, [deleteTarget, deleteTask]);
-
-  const handleStartWork = useCallback(
-    (taskId: string) => {
-      router.push(`/timer?taskId=${taskId}`);
-    },
-    [router],
-  );
-
-  const handleNavChange = useCallback(
-    (key: string) => {
-      const routes: Record<string, string> = {
-        home: "/",
-        tasks: "/tasks",
-        calendar: "/calendar",
-        settings: "/settings",
-      };
-      const route = routes[key];
-      if (route) router.push(route);
-    },
-    [router],
-  );
-
-  const handleCategoryFilterToggle = useCallback((categoryId: string) => {
+  const handleCategoryFilterToggle = (categoryId: string) => {
     setCategoryFilter((prev) => (prev === categoryId ? null : categoryId));
-  }, []);
-
-  const renderActions = (task: TaskWithCategory) => (
-    <TaskActionList
-      isNext={task.isNext}
-      onSetNext={() => {
-        setNextTask(task.id);
-        setExpandedTaskId(null);
-      }}
-      onUnsetNext={() => {
-        unsetNextTask(task.id);
-        setExpandedTaskId(null);
-      }}
-      onStartWork={() => handleStartWork(task.id)}
-      onEdit={() => handleOpenEdit(task)}
-      onDelete={() => {
-        setDeleteTarget(task);
-        setExpandedTaskId(null);
-      }}
-    />
-  );
+  };
 
   const taskContent = (
     <>
