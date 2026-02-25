@@ -1,13 +1,11 @@
 "use client";
 
 import { format, parse } from "date-fns";
-import { ja } from "date-fns/locale";
-import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 
 import { CategorySelect } from "@/components/category-select";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { DatePickerField } from "@/components/ui/date-picker-field";
 import {
   Dialog,
   DialogContent,
@@ -17,11 +15,6 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { SelectField } from "@/components/ui/select-field";
 
 import type { Category } from "@/types/task";
@@ -102,7 +95,6 @@ function AddTaskForm({
     editingTask?.estimatedMinutes ?? null,
   );
   const [nameError, setNameError] = useState(false);
-  const [calendarOpen, setCalendarOpen] = useState(false);
 
   const handleSubmit = () => {
     if (!name.trim()) {
@@ -156,36 +148,7 @@ function AddTaskForm({
 
         <div className="flex flex-col gap-1.5">
           <Label className="text-sm font-medium">予定日</Label>
-          <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
-            <PopoverTrigger asChild>
-              <button
-                type="button"
-                className="flex h-12 w-full items-center justify-between rounded-4xl border border-input bg-transparent px-4 text-sm text-left transition-all duration-200 ease-out"
-              >
-                <span
-                  className={
-                    scheduledDate ? "text-foreground" : "text-muted-foreground"
-                  }
-                >
-                  {scheduledDate
-                    ? format(scheduledDate, "yyyy/MM/dd", { locale: ja })
-                    : "日付を選択"}
-                </span>
-                <CalendarIcon className="size-4 text-muted-foreground" />
-              </button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={scheduledDate}
-                onSelect={(date) => {
-                  setScheduledDate(date);
-                  setCalendarOpen(false);
-                }}
-                locale={ja}
-              />
-            </PopoverContent>
-          </Popover>
+          <DatePickerField value={scheduledDate} onChange={setScheduledDate} />
         </div>
 
         <div className="flex flex-col gap-1.5">

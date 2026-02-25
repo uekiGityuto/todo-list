@@ -36,7 +36,7 @@ export function NextTaskHero({
       </h2>
       <div className="flex items-center gap-3">
         {category && (
-          <span className="rounded-full bg-white/[0.13] px-2.5 py-1 text-xs font-medium text-white">
+          <span className="rounded-full bg-white/13 px-2.5 py-1 text-xs font-medium text-white">
             {category}
           </span>
         )}
@@ -47,7 +47,7 @@ export function NextTaskHero({
       <Button
         variant="ghost"
         onClick={onStart}
-        className="w-full justify-center rounded-[20px] bg-white/[0.13] py-3 text-sm font-semibold text-white hover:bg-white/20 hover:text-white"
+        className="w-full justify-center rounded-4xl bg-white/13 py-3 text-sm font-semibold text-white hover:bg-white/20 hover:text-white"
       >
         <Play className="size-4.5" />
         作業を始める

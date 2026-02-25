@@ -174,7 +174,7 @@ export default function TasksPage() {
       </div>
 
       {categories.length > 0 && (
-        <div className="scrollbar-hide flex items-center gap-2 overflow-x-auto pr-8 [mask-image:linear-gradient(to_right,black_calc(100%-2rem),transparent)]">
+        <div className="scrollbar-hide flex items-center gap-2 overflow-x-auto pr-8 mask-[linear-gradient(to_right,black_calc(100%-2rem),transparent)]">
           <FilterChip
             label="すべて"
             active={categoryFilter === null}

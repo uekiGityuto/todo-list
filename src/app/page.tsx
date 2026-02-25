@@ -132,7 +132,7 @@ export default function Home() {
           {/* NextTaskHero */}
           <section className="mb-10">
             <h2 className="mb-4 text-xl font-bold">NextTaskHero</h2>
-            <div className="max-w-[350px]">
+            <div className="max-w-87.5">
               <NextTaskHero
                 title={"インスタ投稿の\n画像を作成する"}
                 category="インスタ投稿"
@@ -144,7 +144,7 @@ export default function Home() {
           {/* NextTaskCard */}
           <section className="mb-10">
             <h2 className="mb-4 text-xl font-bold">NextTaskCard</h2>
-            <div className="max-w-[350px]">
+            <div className="max-w-87.5">
               <NextTaskCard
                 title="タスク名がここに入る"
                 duration="30分"
@@ -156,7 +156,7 @@ export default function Home() {
           {/* TaskCard */}
           <section className="mb-10">
             <h2 className="mb-4 text-xl font-bold">TaskCard</h2>
-            <div className="flex max-w-[350px] flex-col gap-2">
+            <div className="flex max-w-87.5 flex-col gap-2">
               <TaskCard
                 title="タスク名がここに入る"
                 duration="30分"

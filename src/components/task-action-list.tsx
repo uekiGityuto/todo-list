@@ -23,7 +23,7 @@ export function TaskActionList({
   onDelete,
   className,
 }: TaskActionListProps) {
-  const hoverBg = isNext ? "hover:bg-primary-soft" : "hover:bg-[#e4e4e7]";
+  const hoverBg = isNext ? "hover:bg-primary-soft" : "hover:bg-surface-hover";
 
   return (
     <div className={cn("flex flex-col gap-0.5", className)}>
@@ -96,8 +96,9 @@ function ActionItem({
       onClick={onClick}
       className={cn(
         "flex items-center gap-3 rounded-xl px-2 py-2.5 text-sm transition-all duration-200 ease-out",
-        hoverBg,
-        variant === "destructive" ? "text-destructive" : "text-foreground",
+        variant === "destructive"
+          ? "text-destructive hover:bg-destructive-soft"
+          : cn("text-foreground", hoverBg),
       )}
     >
       {icon}

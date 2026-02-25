@@ -24,7 +24,7 @@ export function NextTaskCard({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-[20px] bg-primary-soft transition-all duration-200 ease-out",
+        "overflow-hidden rounded-4xl bg-primary-soft transition-all duration-200 ease-out",
         className,
       )}
     >

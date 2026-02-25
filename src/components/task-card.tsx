@@ -24,7 +24,7 @@ export function TaskCard({
   return (
     <div
       className={cn(
-        "rounded-[20px] bg-card transition-all duration-200 ease-out",
+        "rounded-4xl bg-card transition-all duration-200 ease-out",
         className,
       )}
     >
