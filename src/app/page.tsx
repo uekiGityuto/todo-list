@@ -38,7 +38,7 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-3">
               <Button>Primary</Button>
               <Button variant="secondary">Secondary</Button>
-              <Button variant="outlined">Outlined</Button>
+              <Button variant="outline">Outlined</Button>
               <Button variant="outline">Outline</Button>
               <Button variant="ghost">Ghost</Button>
               <Button variant="destructive">Destructive</Button>
@@ -48,7 +48,7 @@ export default function Home() {
               <Button size="sm" variant="secondary">
                 Secondary sm
               </Button>
-              <Button size="sm" variant="outlined">
+              <Button size="sm" variant="outline">
                 Outlined sm
               </Button>
               <Button size="sm" variant="ghost">
@@ -132,7 +132,7 @@ export default function Home() {
           {/* NextTaskHero */}
           <section className="mb-10">
             <h2 className="mb-4 text-xl font-bold">NextTaskHero</h2>
-            <div className="max-w-[350px]">
+            <div className="max-w-87.5">
               <NextTaskHero
                 title={"インスタ投稿の\n画像を作成する"}
                 category="インスタ投稿"
@@ -144,7 +144,7 @@ export default function Home() {
           {/* NextTaskCard */}
           <section className="mb-10">
             <h2 className="mb-4 text-xl font-bold">NextTaskCard</h2>
-            <div className="max-w-[350px]">
+            <div className="max-w-87.5">
               <NextTaskCard
                 title="タスク名がここに入る"
                 duration="30分"
@@ -156,7 +156,7 @@ export default function Home() {
           {/* TaskCard */}
           <section className="mb-10">
             <h2 className="mb-4 text-xl font-bold">TaskCard</h2>
-            <div className="flex max-w-[350px] flex-col gap-2">
+            <div className="flex max-w-87.5 flex-col gap-2">
               <TaskCard
                 title="タスク名がここに入る"
                 duration="30分"
@@ -166,7 +166,6 @@ export default function Home() {
                 title="完了したタスク"
                 duration="15分"
                 category="ブログ"
-                checked
               />
             </div>
           </section>
