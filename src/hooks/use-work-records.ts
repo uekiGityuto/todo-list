@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import { useLocalStorage } from "@/hooks/use-local-storage";
 
+import type { WorkResult } from "@/enums/work-results";
 import type { TaskWithCategory } from "@/types/task";
 import type { WorkRecord } from "@/types/work-record";
 
@@ -17,8 +18,16 @@ export type DayGroup = {
   records: WorkRecordWithTask[];
 };
 
+type AddWorkRecordInput = {
+  taskId: string;
+  date: string;
+  durationMinutes: number;
+  result: WorkResult;
+};
+
 type UseWorkRecordsReturn = {
   recentWorkByDay: DayGroup[];
+  addWorkRecord: (input: AddWorkRecordInput) => void;
 };
 
 const RECENT_DAYS_COUNT = 3;
@@ -26,17 +35,30 @@ const RECENT_DAYS_COUNT = 3;
 export function useWorkRecords(
   tasks: TaskWithCategory[],
 ): UseWorkRecordsReturn {
-  const { value: workRecords } = useLocalStorage<WorkRecord[]>(
-    "work-records",
-    [],
-  );
+  const { value: workRecords, setValue: setWorkRecords } = useLocalStorage<
+    WorkRecord[]
+  >("work-records", []);
 
   const recentWorkByDay = useMemo(
     () => buildRecentWorkByDay(workRecords, tasks),
     [workRecords, tasks],
   );
 
-  return { recentWorkByDay };
+  const addWorkRecord = useCallback(
+    (input: AddWorkRecordInput) => {
+      const newRecord: WorkRecord = {
+        id: crypto.randomUUID(),
+        taskId: input.taskId,
+        date: input.date,
+        durationMinutes: input.durationMinutes,
+        result: input.result,
+      };
+      setWorkRecords((prev) => [...prev, newRecord]);
+    },
+    [setWorkRecords],
+  );
+
+  return { recentWorkByDay, addWorkRecord };
 }
 
 function resolveTaskInfo(

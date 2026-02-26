@@ -1,5 +1,7 @@
 import { Inter } from "next/font/google";
 
+import { RecoveryDialogProvider } from "@/components/recovery-dialog-provider";
+
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -22,6 +24,7 @@ export default function RootLayout({
     <html lang="ja">
       <body className={`${inter.variable} font-sans antialiased`}>
         {children}
+        <RecoveryDialogProvider />
       </body>
     </html>
   );

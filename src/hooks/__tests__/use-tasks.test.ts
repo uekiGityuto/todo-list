@@ -250,4 +250,53 @@ describe("useTasks", () => {
     expect(result.current.tasks[0].category.name).toBe("リサーチ");
     expect(result.current.tasks[0].category.color).toBe("#22C55E");
   });
+
+  it("startWorkでステータスがin_progressになる", () => {
+    const { result } = renderHook(() => useTasks());
+
+    act(() => {
+      result.current.addTask({
+        name: "作業開始テスト",
+        categoryId: "",
+        scheduledDate: null,
+        estimatedMinutes: null,
+      });
+    });
+
+    const taskId = result.current.tasks[0].id;
+
+    act(() => {
+      result.current.startWork(taskId);
+    });
+
+    expect(result.current.tasks[0].status).toBe("in_progress");
+  });
+
+  it("completeTaskでステータスがdoneになりisNextがfalseになる", () => {
+    const { result } = renderHook(() => useTasks());
+
+    act(() => {
+      result.current.addTask({
+        name: "完了テスト",
+        categoryId: "",
+        scheduledDate: null,
+        estimatedMinutes: null,
+      });
+    });
+
+    const taskId = result.current.tasks[0].id;
+
+    act(() => {
+      result.current.setNextTask(taskId);
+    });
+
+    expect(result.current.tasks[0].isNext).toBe(true);
+
+    act(() => {
+      result.current.completeTask(taskId);
+    });
+
+    expect(result.current.tasks[0].status).toBe("done");
+    expect(result.current.tasks[0].isNext).toBe(false);
+  });
 });
