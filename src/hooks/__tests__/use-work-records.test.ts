@@ -1,5 +1,5 @@
-import { renderHook } from "@testing-library/react";
-import { beforeEach, describe, expect, it } from "vitest";
+import { act, renderHook } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { useWorkRecords, buildRecentWorkByDay } from "@/hooks/use-work-records";
 import { formatDateLabel } from "@/lib/format-date-label";
@@ -190,6 +190,7 @@ describe("formatDateLabel", () => {
 describe("useWorkRecords", () => {
   beforeEach(() => {
     localStorage.clear();
+    vi.spyOn(crypto, "randomUUID").mockReturnValue("mock-uuid");
   });
 
   it("初期状態では空のデータを返す", () => {
@@ -218,5 +219,32 @@ describe("useWorkRecords", () => {
 
     const { result } = renderHook(() => useWorkRecords(tasks));
     expect(result.current.recentWorkByDay).toHaveLength(1);
+  });
+
+  it("addWorkRecordで作業記録を追加できる", () => {
+    const tasks = makeTasks([
+      {
+        id: "t1",
+        name: "タスクA",
+        category: { id: "c1", name: "カテA", color: "#f00" },
+      },
+    ]);
+
+    const { result } = renderHook(() => useWorkRecords(tasks));
+
+    act(() => {
+      result.current.addWorkRecord({
+        taskId: "t1",
+        date: "2026-02-26",
+        durationMinutes: 25,
+        result: "completed",
+      });
+    });
+
+    expect(result.current.recentWorkByDay).toHaveLength(1);
+    expect(result.current.recentWorkByDay[0].records[0].taskId).toBe("t1");
+    expect(result.current.recentWorkByDay[0].records[0].durationMinutes).toBe(
+      25,
+    );
   });
 });

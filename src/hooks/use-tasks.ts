@@ -36,6 +36,8 @@ type UseTasksReturn = {
   toggleComplete: (id: string) => void;
   setNextTask: (id: string) => void;
   unsetNextTask: (id: string) => void;
+  startWork: (id: string) => void;
+  completeTask: (id: string) => void;
   addCategory: (name: string, color: string) => string;
 };
 
@@ -155,6 +157,39 @@ export function useTasks(): UseTasksReturn {
     [setTasks],
   );
 
+  const startWork = useCallback(
+    (id: string) => {
+      const now = new Date().toISOString();
+      setTasks((prev) =>
+        prev.map((task) =>
+          task.id === id
+            ? { ...task, status: "in_progress" as TaskStatus, updatedAt: now }
+            : task,
+        ),
+      );
+    },
+    [setTasks],
+  );
+
+  const completeTask = useCallback(
+    (id: string) => {
+      const now = new Date().toISOString();
+      setTasks((prev) =>
+        prev.map((task) =>
+          task.id === id
+            ? {
+                ...task,
+                status: "done" as TaskStatus,
+                isNext: false,
+                updatedAt: now,
+              }
+            : task,
+        ),
+      );
+    },
+    [setTasks],
+  );
+
   const addCategory = useCallback(
     (name: string, color: string): string => {
       const id = crypto.randomUUID();
@@ -178,6 +213,8 @@ export function useTasks(): UseTasksReturn {
     toggleComplete,
     setNextTask,
     unsetNextTask,
+    startWork,
+    completeTask,
     addCategory,
   };
 }
