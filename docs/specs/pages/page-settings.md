@@ -50,7 +50,7 @@
 - 各アイテム: カラードット（12px 丸）+ カテゴリ名（14px）+ 編集アイコン（pencil, 16px）+ 削除アイコン（trash-2, 16px）
 - アイテム間: `border` 色の 1px セパレータ
 - アイテム padding: `[14, 16]`
-- アイコン色: `text-muted`
+- アイコン色: `text-muted-foreground`
 - アイコン間 gap: 12
 
 ## カテゴリ追加/編集パネル
@@ -73,9 +73,9 @@
   - Input: 高さ 44px, `rounded-12`, `bg-background`, placeholder "カテゴリ名を入力"
 - カラーフィールド:
   - ラベル: "カラー"（12px, semibold）
-  - カラーグリッド: 8色の丸（32px）、gap 12
+  - カラーグリッド: 10色の丸（32px）、gap 12
   - 選択色: `primary` 色の 2px ボーダー
-  - カラー一覧: `#3B82F6`, `#22C55E`, `#F97316`, `#EF4444`, `#A855F7`, `#EC4899`, `#14B8A6`, `#F59E0B`
+  - カラー一覧: `#3B82F6`, `#22C55E`, `#F97316`, `#EF4444`, `#EC4899`, `#A855F7`, `#F43F5E`, `#14B8A6`, `#6366F1`, `#FACC15`（`category-select.tsx` の `CATEGORY_COLORS` と同一）
 - ボタン: キャンセル（Outlined）+ 追加/保存（Primary）、gap 12
 
 ## インタラクション
