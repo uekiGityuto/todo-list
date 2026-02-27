@@ -27,8 +27,8 @@
   /* Destructive */
   --color-destructive: var(--destructive);
   --color-destructive-soft: var(--destructive-soft);
-  /* Surface hover (hover on card backgrounds) */
-  --color-surface-hover: var(--surface-hover);
+  /* Card hover */
+  --color-card-hover: var(--card-hover);
   /* Border / Input / Ring */
   --color-border: var(--border);
   --color-input: var(--input);
@@ -72,15 +72,15 @@
   --muted-foreground: #71717a;
 
   /* === Accent (hover for outline/ghost) === */
-  --accent: #3bade015;
+  --accent: #3bade025;
   --accent-foreground: #18181b;
 
   /* === Destructive === */
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-soft: oklch(0.577 0.245 27.325 / 10%);
 
-  /* === Surface hover === */
-  --surface-hover: #e4e4e7;
+  /* === Card hover === */
+  --card-hover: #e4e4e7;
 
   /* === Border / Input / Ring === */
   --border: #e4e4e7;

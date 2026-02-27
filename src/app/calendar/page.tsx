@@ -201,7 +201,7 @@ function MonthNavigator({
         type="button"
         onClick={onPrev}
         aria-label="前の月"
-        className="rounded-lg p-1 text-muted-foreground transition-colors hover:bg-surface-hover"
+        className="rounded-lg p-1 text-muted-foreground transition-colors hover:bg-card-hover"
       >
         <ChevronLeft className="size-5" />
       </button>
@@ -212,7 +212,7 @@ function MonthNavigator({
         type="button"
         onClick={onNext}
         aria-label="次の月"
-        className="rounded-lg p-1 text-muted-foreground transition-colors hover:bg-surface-hover"
+        className="rounded-lg p-1 text-muted-foreground transition-colors hover:bg-card-hover"
       >
         <ChevronRight className="size-5" />
       </button>

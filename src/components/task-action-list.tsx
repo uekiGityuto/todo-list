@@ -23,7 +23,7 @@ export function TaskActionList({
   onDelete,
   className,
 }: TaskActionListProps) {
-  const hoverBg = isNext ? "hover:bg-primary-soft" : "hover:bg-surface-hover";
+  const hoverBg = isNext ? "hover:bg-primary-soft" : "hover:bg-card-hover";
 
   return (
     <div className={cn("flex flex-col gap-0.5", className)}>
