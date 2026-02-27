@@ -11,6 +11,7 @@ import type { WorkRecord } from "@/types/work-record";
 export type WorkRecordWithTask = WorkRecord & {
   taskName: string;
   categoryName: string;
+  categoryColor: string;
 };
 
 export type DayGroup = {
@@ -28,6 +29,7 @@ type AddWorkRecordInput = {
 type UseWorkRecordsReturn = {
   recentWorkByDay: DayGroup[];
   addWorkRecord: (input: AddWorkRecordInput) => void;
+  getWorkRecordsByMonth: (year: number, month: number) => WorkRecordWithTask[];
 };
 
 const RECENT_DAYS_COUNT = 3;
@@ -58,17 +60,31 @@ export function useWorkRecords(
     [setWorkRecords],
   );
 
-  return { recentWorkByDay, addWorkRecord };
+  const getWorkRecordsByMonth = useCallback(
+    (year: number, month: number): WorkRecordWithTask[] => {
+      const prefix = `${year}-${String(month).padStart(2, "0")}`;
+      return workRecords
+        .filter((r) => r.date.startsWith(prefix))
+        .map((r) => ({
+          ...r,
+          ...resolveTaskInfo(r.taskId, tasks),
+        }));
+    },
+    [workRecords, tasks],
+  );
+
+  return { recentWorkByDay, addWorkRecord, getWorkRecordsByMonth };
 }
 
 function resolveTaskInfo(
   taskId: string,
   tasks: TaskWithCategory[],
-): { taskName: string; categoryName: string } {
+): { taskName: string; categoryName: string; categoryColor: string } {
   const task = tasks.find((t) => t.id === taskId);
   return {
     taskName: task?.name ?? "",
     categoryName: task?.category.name ?? "",
+    categoryColor: task?.category.color ?? "",
   };
 }
 
