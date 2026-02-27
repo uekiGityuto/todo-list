@@ -45,7 +45,7 @@ export function TabBar({ activeTab, onTabChange, className }: TabBarProps) {
             onClick={() => onTabChange?.(tab.key)}
             className={cn(
               "flex flex-1 flex-col items-center justify-center gap-0.5 px-4 py-1.5 transition-all duration-200 ease-out",
-              isActive ? "text-primary" : "text-text-muted",
+              isActive ? "text-primary" : "text-muted-foreground",
             )}
           >
             <Icon className="size-5" />

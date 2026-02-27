@@ -39,6 +39,8 @@ type UseTasksReturn = {
   startWork: (id: string) => void;
   completeTask: (id: string) => void;
   addCategory: (name: string, color: string) => string;
+  updateCategory: (id: string, name: string, color: string) => void;
+  deleteCategory: (id: string) => void;
 };
 
 export function useTasks(): UseTasksReturn {
@@ -204,6 +206,27 @@ export function useTasks(): UseTasksReturn {
     [setCategories],
   );
 
+  const updateCategory = useCallback(
+    (id: string, name: string, color: string) => {
+      setCategories((prev) =>
+        prev.map((cat) => (cat.id === id ? { ...cat, name, color } : cat)),
+      );
+    },
+    [setCategories],
+  );
+
+  const deleteCategory = useCallback(
+    (id: string) => {
+      setTasks((prev) =>
+        prev.map((task) =>
+          task.categoryId === id ? { ...task, categoryId: "" } : task,
+        ),
+      );
+      setCategories((prev) => prev.filter((cat) => cat.id !== id));
+    },
+    [setTasks, setCategories],
+  );
+
   return {
     tasks: tasksWithCategory,
     categories,
@@ -216,5 +239,7 @@ export function useTasks(): UseTasksReturn {
     startWork,
     completeTask,
     addCategory,
+    updateCategory,
+    deleteCategory,
   };
 }

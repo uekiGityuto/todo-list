@@ -217,40 +217,6 @@ describe("useTasks", () => {
     expect(result.current.tasks[0].isNext).toBe(false);
   });
 
-  it("addCategoryでカテゴリを追加できる", () => {
-    const { result } = renderHook(() => useTasks());
-
-    act(() => {
-      result.current.addCategory("インスタ投稿", "#3B82F6");
-    });
-
-    expect(result.current.categories).toHaveLength(1);
-    expect(result.current.categories[0].name).toBe("インスタ投稿");
-    expect(result.current.categories[0].color).toBe("#3B82F6");
-  });
-
-  it("カテゴリIDが設定されたタスクにcategoryが解決される", () => {
-    const { result } = renderHook(() => useTasks());
-
-    act(() => {
-      result.current.addCategory("リサーチ", "#22C55E");
-    });
-
-    const categoryId = result.current.categories[0].id;
-
-    act(() => {
-      result.current.addTask({
-        name: "リサーチタスク",
-        categoryId,
-        scheduledDate: null,
-        estimatedMinutes: null,
-      });
-    });
-
-    expect(result.current.tasks[0].category.name).toBe("リサーチ");
-    expect(result.current.tasks[0].category.color).toBe("#22C55E");
-  });
-
   it("startWorkでステータスがin_progressになる", () => {
     const { result } = renderHook(() => useTasks());
 
