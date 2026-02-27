@@ -46,7 +46,7 @@ export function TaskCard({
             )}
           </div>
         </div>
-        <span className="shrink-0 text-text-muted transition-all duration-200 ease-out">
+        <span className="shrink-0 text-muted-foreground transition-all duration-200 ease-out">
           {expanded ? (
             <ChevronUp className="size-4" />
           ) : (
