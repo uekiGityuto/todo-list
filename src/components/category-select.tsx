@@ -7,22 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SelectFieldTrigger } from "@/components/ui/select-field";
+import { CATEGORY_COLORS } from "@/constants/category-colors";
 import { cn } from "@/lib/utils";
 
 import type { Category } from "@/types/task";
-
-const CATEGORY_COLORS = [
-  "#3B82F6",
-  "#22C55E",
-  "#F97316",
-  "#EF4444",
-  "#EC4899",
-  "#A855F7",
-  "#F43F5E",
-  "#14B8A6",
-  "#6366F1",
-  "#FACC15",
-];
 
 interface CategorySelectProps {
   categories: Category[];
