@@ -1,0 +1,78 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "typescript",
+    "unicorn",
+    "oxc",
+    "import",
+    "react",
+    "nextjs",
+    "jsx-a11y"
+  ],
+  "categories": {
+    "correctness": "error"
+  },
+  "ignorePatterns": ["src/shared/ui/shadcn/**"],
+  "rules": {
+    "typescript/switch-exhaustiveness-check": "error",
+    "react/no-multi-comp": "error"
+  },
+  "overrides": [
+    {
+      "files": ["src/shared/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/views/*", "@/views/**"],
+                "message": "shared/ から views/ への import は禁止です（FSD依存方向: app → views → shared）"
+              },
+              {
+                "group": ["@/app/*", "@/app/**"],
+                "message": "shared/ から app/ への import は禁止です（FSD依存方向: app → views → shared）"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/views/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/views/*", "@/views/**"],
+                "message": "views/ 同士の cross-import は禁止です。共通化するなら shared/ に移動してください"
+              },
+              {
+                "group": ["@/app/*", "@/app/**"],
+                "message": "views/ から app/ への import は禁止です（FSD依存方向: app → views → shared）"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/app/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/views/*/*", "@/views/*/**"],
+                "message": "views/ の内部ファイルを直接 import しないでください。index.ts (Public API) 経由で import してください"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

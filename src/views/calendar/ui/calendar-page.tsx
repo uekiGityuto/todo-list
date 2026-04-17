@@ -8,7 +8,6 @@ import {
   startOfMonth,
   subMonths,
 } from "date-fns";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 
@@ -20,8 +19,7 @@ import { TabBar } from "@/shared/ui/tab-bar";
 import type { CalendarTask } from "./calendar-cell";
 import { CalendarGrid } from "./calendar-grid";
 import { CalendarTaskItem } from "./calendar-task-item";
-
-const WEEKDAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
+import { MonthNavigator } from "./month-navigator";
 
 export function CalendarPage() {
   const router = useRouter();
@@ -139,7 +137,7 @@ export function CalendarPage() {
           />
 
           <CalendarGrid
-            weekdayLabels={WEEKDAY_LABELS}
+            weekdayLabels={["日", "月", "火", "水", "木", "金", "土"]}
             calendarDays={calendarDays}
             year={year}
             month={month}
@@ -179,42 +177,6 @@ export function CalendarPage() {
       </div>
 
       <TabBar activeTab="calendar" onTabChange={handleNavChange} />
-    </div>
-  );
-}
-
-function MonthNavigator({
-  year,
-  month,
-  onPrev,
-  onNext,
-}: {
-  year: number;
-  month: number;
-  onPrev: () => void;
-  onNext: () => void;
-}) {
-  return (
-    <div className="flex items-center justify-center gap-4">
-      <button
-        type="button"
-        onClick={onPrev}
-        aria-label="前の月"
-        className="rounded-lg p-1 text-muted-foreground transition-colors hover:bg-card-hover"
-      >
-        <ChevronLeft className="size-5" />
-      </button>
-      <span className="min-w-28 text-center text-sm font-semibold text-foreground">
-        {month}月 {year}
-      </span>
-      <button
-        type="button"
-        onClick={onNext}
-        aria-label="次の月"
-        className="rounded-lg p-1 text-muted-foreground transition-colors hover:bg-card-hover"
-      >
-        <ChevronRight className="size-5" />
-      </button>
     </div>
   );
 }

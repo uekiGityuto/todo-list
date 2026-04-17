@@ -39,8 +39,11 @@ export function CategoryForm({
       <h3 className="text-base font-bold">{title}</h3>
 
       <div className="flex flex-col gap-2">
-        <label className="text-xs font-semibold">カテゴリ名 *</label>
+        <label htmlFor="category-name" className="text-xs font-semibold">
+          カテゴリ名 *
+        </label>
         <Input
+          id="category-name"
           className="h-11 rounded-xl bg-background"
           placeholder="カテゴリ名を入力"
           value={name}
@@ -49,7 +52,7 @@ export function CategoryForm({
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="text-xs font-semibold">カラー</label>
+        <span className="text-xs font-semibold">カラー</span>
         <div className="flex flex-wrap gap-3">
           {CATEGORY_COLORS.map((c) => (
             <button

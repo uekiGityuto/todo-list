@@ -10,18 +10,20 @@ interface CheckProps {
 
 export function Check({ checked = false, className, onToggle }: CheckProps) {
   return (
-    <button
-      type="button"
-      role="checkbox"
-      aria-checked={checked}
-      onClick={onToggle}
+    <label
       className={cn(
-        "flex size-6 shrink-0 items-center justify-center rounded-2xl transition-all duration-200 ease-out",
+        "flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-2xl transition-all duration-200 ease-out",
         checked ? "bg-primary" : "border-2 border-border bg-transparent",
         className,
       )}
     >
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onToggle}
+        className="sr-only"
+      />
       {checked && <CheckIcon className="size-3.5 text-white" />}
-    </button>
+    </label>
   );
 }
