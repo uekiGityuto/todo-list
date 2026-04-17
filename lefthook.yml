@@ -10,4 +10,4 @@ pre-push:
     build:
       run: pnpm build
       skip:
-        - run: "if ! git rev-parse @{upstream} >/dev/null 2>&1; then exit 1; fi; ! git diff --name-only @{upstream}..HEAD | grep -q '^src/'"
+        - run: "if ! git rev-parse @{upstream} >/dev/null 2>&1; then exit 1; fi; ! git diff --name-only @{upstream}..HEAD | grep -qE '^(src/|package.json|tsconfig.json|biome.json|.oxlintrc.json|next.config)'"

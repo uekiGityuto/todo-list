@@ -7,7 +7,7 @@
     "dev:clean": "rm -rf .next && next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "oxlint src/",
+    "lint": "oxlint --type-aware --type-check src/",
     "format": "biome check --write src/",
     "format:check": "biome check src/",
     "test": "vitest run"
