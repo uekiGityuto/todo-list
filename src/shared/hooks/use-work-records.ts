@@ -1,10 +1,8 @@
 "use client";
 
 import { useCallback, useMemo } from "react";
-
-import { useLocalStorage } from "@/shared/hooks/use-local-storage";
-
 import type { WorkResult } from "@/shared/enums/work-results";
+import { useLocalStorage } from "@/shared/hooks/use-local-storage";
 import type { TaskWithCategory } from "@/shared/types/task";
 import type { WorkRecord } from "@/shared/types/work-record";
 

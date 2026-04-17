@@ -1,10 +1,13 @@
 pre-commit:
-  skip:
-    - run: test "$CLAUDECODE" != 1
-  piped: true
   commands:
-    1-format:
-      run: pnpm format
-      stage_fixed: true
-    2-lint:
-      run: pnpm lint
+    test:
+      run: pnpm test
+      skip:
+        - run: "! git diff --cached --name-only | grep -q '^src/'"
+
+pre-push:
+  commands:
+    build:
+      run: pnpm build
+      skip:
+        - run: "if ! git rev-parse @{upstream} >/dev/null 2>&1; then exit 1; fi; ! git diff --name-only @{upstream}..HEAD | grep -qE '^(src/|package.json|tsconfig.json|biome.json|.oxlintrc.json|next.config)'"

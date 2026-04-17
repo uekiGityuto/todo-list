@@ -1,27 +1,20 @@
 "use client";
 
 import { format } from "date-fns";
-import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import { useTaskPageActions } from "@/shared/hooks/use-task-page-actions";
 import { useTasks } from "@/shared/hooks/use-tasks";
 import { useWorkRecords } from "@/shared/hooks/use-work-records";
-import { formatDuration } from "@/shared/lib/format-duration";
 import { AddTaskModal } from "@/shared/ui/add-task-modal";
 import { DeleteConfirmDialog } from "@/shared/ui/delete-confirm-dialog";
 import { EmptyState } from "@/shared/ui/empty-state";
-import { SectionHeader } from "@/shared/ui/section-header";
-import { Button } from "@/shared/ui/shadcn/button";
 import { Sidebar } from "@/shared/ui/sidebar";
 import { TabBar } from "@/shared/ui/tab-bar";
-import { TaskCard } from "@/shared/ui/task-card";
-
-import { NextTaskHero } from "./next-task-hero";
 import { RecentWorkColumn } from "./recent-work-column";
-
-import type { TaskWithCategory } from "@/shared/types/task";
+import { TaskContent } from "./task-content";
+import { TopRow } from "./top-row";
 
 export function HomePage() {
   const router = useRouter();
@@ -135,94 +128,5 @@ export function HomePage() {
         />
       )}
     </div>
-  );
-}
-
-function TopRow({ onAddTask }: { onAddTask: () => void }) {
-  return (
-    <div className="flex items-center justify-between">
-      <div className="flex flex-col gap-1">
-        <span className="text-sm font-medium text-muted-foreground">
-          おかえり！
-        </span>
-        <h1 className="text-xl font-bold text-foreground md:text-2xl">
-          今日もがんばろう 💪
-        </h1>
-      </div>
-      <Button size="sm" onClick={onAddTask} className="hidden md:inline-flex">
-        <Plus className="size-4" />
-        タスク追加
-      </Button>
-    </div>
-  );
-}
-
-function TaskContent({
-  nextTask,
-  todayTasks,
-  expandedTaskId,
-  onToggleExpand,
-  onNavigateToTasks,
-  onStartWork,
-  renderActions,
-}: {
-  nextTask: TaskWithCategory | undefined;
-  todayTasks: TaskWithCategory[];
-  expandedTaskId: string | null;
-  onToggleExpand: (taskId: string) => void;
-  onNavigateToTasks: () => void;
-  onStartWork: (taskId: string) => void;
-  renderActions: (task: TaskWithCategory) => React.ReactNode;
-}) {
-  return (
-    <>
-      {nextTask && (
-        <NextTaskHero
-          title={nextTask.name}
-          category={nextTask.category.name || undefined}
-          duration={
-            nextTask.estimatedMinutes
-              ? formatDuration(nextTask.estimatedMinutes)
-              : undefined
-          }
-          onStart={() => onStartWork(nextTask.id)}
-        />
-      )}
-
-      <div className="flex flex-col gap-3">
-        <SectionHeader
-          title="今日のタスク"
-          action="すべて見る →"
-          onAction={onNavigateToTasks}
-        />
-
-        {todayTasks.length > 0 ? (
-          <div className="flex flex-col gap-2">
-            {todayTasks.map((task) => (
-              <TaskCard
-                key={task.id}
-                title={task.name}
-                duration={
-                  task.estimatedMinutes
-                    ? formatDuration(task.estimatedMinutes)
-                    : undefined
-                }
-                category={task.category.name || undefined}
-                expanded={expandedTaskId === task.id}
-                onAction={() => onToggleExpand(task.id)}
-              >
-                {renderActions(task)}
-              </TaskCard>
-            ))}
-          </div>
-        ) : (
-          !nextTask && (
-            <p className="py-4 text-center text-sm text-muted-foreground">
-              今日のタスクはありません
-            </p>
-          )
-        )}
-      </div>
-    </>
   );
 }

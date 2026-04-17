@@ -1,9 +1,9 @@
 import {
+  Calendar,
   House,
   ListTodo,
-  Calendar,
-  Settings,
   type LucideIcon,
+  Settings,
 } from "lucide-react";
 
 import { cn } from "@/shared/lib/utils";

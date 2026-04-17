@@ -6,13 +6,12 @@ import { useCallback } from "react";
 import { useLocalStorage } from "@/shared/hooks/use-local-storage";
 import { useTasks } from "@/shared/hooks/use-tasks";
 import {
-  TIMER_SESSION_KEY,
   calcDurationMinutes,
+  TIMER_SESSION_KEY,
 } from "@/shared/hooks/use-timer";
 import { useWorkRecords } from "@/shared/hooks/use-work-records";
-import { RecoveryDialog } from "@/shared/ui/recovery-dialog";
-
 import type { TimerSession } from "@/shared/types/timer";
+import { RecoveryDialog } from "@/shared/ui/recovery-dialog";
 
 export function RecoveryDialogProvider() {
   const { tasks, completeTask } = useTasks();

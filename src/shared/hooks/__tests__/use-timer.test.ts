@@ -1,7 +1,7 @@
 import { act, renderHook } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { useTimer, TIMER_SESSION_KEY } from "@/shared/hooks/use-timer";
+import { TIMER_SESSION_KEY, useTimer } from "@/shared/hooks/use-timer";
 
 const DEFAULT_INPUT = {
   taskId: "task-1",

@@ -5,16 +5,14 @@ import { useCallback, useState } from "react";
 
 import { useMediaQuery } from "@/shared/hooks/use-media-query";
 import { useTasks } from "@/shared/hooks/use-tasks";
+import type { Category } from "@/shared/types/task";
 import { SectionHeader } from "@/shared/ui/section-header";
 import { Dialog, DialogContent } from "@/shared/ui/shadcn/dialog";
 import { Sidebar } from "@/shared/ui/sidebar";
 import { TabBar } from "@/shared/ui/tab-bar";
-
 import { CategoryDeleteDialog } from "./category-delete-dialog";
 import { CategoryForm } from "./category-form";
 import { CategoryList } from "./category-list";
-
-import type { Category } from "@/shared/types/task";
 
 type FormState =
   | { mode: "closed" }

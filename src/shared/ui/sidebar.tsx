@@ -1,10 +1,10 @@
 import {
-  SquareCheckBig,
+  Calendar,
   House,
   ListTodo,
-  Calendar,
-  Settings,
   type LucideIcon,
+  Settings,
+  SquareCheckBig,
 } from "lucide-react";
 
 import { cn } from "@/shared/lib/utils";

@@ -1,10 +1,8 @@
 "use client";
 
 import { Pencil, Plus, Trash2 } from "lucide-react";
-
-import { Button } from "@/shared/ui/shadcn/button";
-
 import type { Category } from "@/shared/types/task";
+import { Button } from "@/shared/ui/shadcn/button";
 
 interface CategoryListProps {
   categories: Category[];

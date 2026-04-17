@@ -1,8 +1,6 @@
-import { formatDuration } from "@/shared/lib/format-duration";
-
-import { Check } from "./check";
-
 import type { WorkResult } from "@/shared/enums/work-results";
+import { formatDuration } from "@/shared/lib/format-duration";
+import { Check } from "./check";
 
 type CalendarTaskItemProps = {
   taskName: string;
