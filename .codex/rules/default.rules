@@ -1,0 +1,80 @@
+# todo-list local exec policy overrides for Codex.
+# Keep this file conservative: allow common development commands, but do not
+# auto-allow deploy, release, or destructive maintenance operations.
+
+prefix_rule(
+    pattern = ["git", ["status", "diff", "show", "log", "branch", "rev-parse"]],
+    decision = "allow",
+    justification = "Allow routine Git inspection commands without prompting.",
+    match = [
+        "git status",
+        "git diff",
+        "git show HEAD~1",
+        "git log --oneline -5",
+        "git branch --show-current",
+        "git rev-parse --show-toplevel",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "add"],
+    decision = "allow",
+    justification = "Allow staging repository changes without prompting.",
+    match = [
+        "git add -A",
+        "git add AGENTS.md CLAUDE.md .agent-rules .claude/rules",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "commit"],
+    decision = "allow",
+    justification = "Allow local commits without prompting.",
+    match = [
+        "git commit -m 'chore: update config'",
+        "git commit --amend --no-edit",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "push", "origin"],
+    decision = "allow",
+    justification = "Allow pushing the current branch to origin without prompting.",
+    match = [
+        "git push origin HEAD",
+    ],
+)
+
+prefix_rule(
+    pattern = ["gh", ["pr", "issue", "api", "auth"]],
+    decision = "allow",
+    justification = "Allow common GitHub CLI workflows for this project without prompting.",
+    match = [
+        "gh pr view",
+        "gh pr checkout 123",
+        "gh pr diff 123",
+        "gh issue view 123",
+        "gh api repos/owner/repo/pulls/123",
+        "gh auth status",
+    ],
+)
+
+prefix_rule(
+    pattern = ["pnpm", [
+        "dev",
+        "build",
+        "lint",
+        "format",
+        "type-check",
+    ]],
+    decision = "allow",
+    justification = "Allow common local validation and development commands.",
+    match = [
+        "pnpm dev",
+        "pnpm build",
+        "pnpm lint",
+    ],
+    not_match = [
+        "pnpm deploy",
+    ],
+)
