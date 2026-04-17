@@ -1,11 +1,12 @@
 "use client";
 
-import { CircleAlert, Check, Pause } from "lucide-react";
+import { Check, CircleAlert, Pause } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { useLocalStorage } from "@/shared/hooks/use-local-storage";
 import { TIMER_SESSION_KEY } from "@/shared/hooks/use-timer";
+import type { TimerSession } from "@/shared/types/timer";
 import { Button } from "@/shared/ui/shadcn/button";
 import {
   Dialog,
@@ -14,8 +15,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/shared/ui/shadcn/dialog";
-
-import type { TimerSession } from "@/shared/types/timer";
 
 export function RecoveryDialog({
   onComplete,

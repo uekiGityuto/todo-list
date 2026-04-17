@@ -2,7 +2,7 @@
 
 import { format, parse } from "date-fns";
 import { useState } from "react";
-
+import type { Category } from "@/shared/types/task";
 import { CategorySelect } from "@/shared/ui/category-select";
 import { Button } from "@/shared/ui/shadcn/button";
 import { DatePickerField } from "@/shared/ui/shadcn/date-picker-field";
@@ -16,8 +16,6 @@ import {
 import { Input } from "@/shared/ui/shadcn/input";
 import { Label } from "@/shared/ui/shadcn/label";
 import { SelectField } from "@/shared/ui/shadcn/select-field";
-
-import type { Category } from "@/shared/types/task";
 
 const ESTIMATED_MINUTES_OPTIONS = [
   { label: "15分", value: 15 },

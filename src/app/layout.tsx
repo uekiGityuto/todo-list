@@ -1,8 +1,6 @@
-import { Inter } from "next/font/google";
-
-import { RecoveryDialogProvider } from "@/shared/ui/recovery-dialog-provider";
-
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { RecoveryDialogProvider } from "@/shared/ui/recovery-dialog-provider";
 import "./globals.css";
 
 const inter = Inter({

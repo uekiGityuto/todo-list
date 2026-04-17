@@ -2,11 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
-
-import { TaskActionList } from "@/shared/ui/task-action-list";
-
 import type { TaskWithCategory } from "@/shared/types/task";
 import type { TaskFormData } from "@/shared/ui/add-task-modal";
+import { TaskActionList } from "@/shared/ui/task-action-list";
 
 type UseTaskPageActionsParams = {
   addTask: (input: TaskFormData) => void;

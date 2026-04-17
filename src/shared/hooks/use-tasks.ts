@@ -1,10 +1,8 @@
 "use client";
 
 import { useCallback, useMemo } from "react";
-
-import { useLocalStorage } from "@/shared/hooks/use-local-storage";
-
 import type { TaskStatus } from "@/shared/enums/task-statuses";
+import { useLocalStorage } from "@/shared/hooks/use-local-storage";
 import type { Category, Task, TaskWithCategory } from "@/shared/types/task";
 
 const UNCATEGORIZED: Category = {

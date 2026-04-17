@@ -4,10 +4,9 @@ import { useState } from "react";
 
 import { CATEGORY_COLORS } from "@/shared/constants/category-colors";
 import { cn } from "@/shared/lib/utils";
+import type { Category } from "@/shared/types/task";
 import { Button } from "@/shared/ui/shadcn/button";
 import { Input } from "@/shared/ui/shadcn/input";
-
-import type { Category } from "@/shared/types/task";
 
 interface CategoryFormProps {
   editingCategory: Category | null;

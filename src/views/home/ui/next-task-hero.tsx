@@ -1,4 +1,4 @@
-import { Zap, Play } from "lucide-react";
+import { Play, Zap } from "lucide-react";
 
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/shadcn/button";

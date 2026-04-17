@@ -17,11 +17,9 @@ import { useWorkRecords } from "@/shared/hooks/use-work-records";
 import { SectionHeader } from "@/shared/ui/section-header";
 import { Sidebar } from "@/shared/ui/sidebar";
 import { TabBar } from "@/shared/ui/tab-bar";
-
+import type { CalendarTask } from "./calendar-cell";
 import { CalendarGrid } from "./calendar-grid";
 import { CalendarTaskItem } from "./calendar-task-item";
-
-import type { CalendarTask } from "./calendar-cell";
 
 const WEEKDAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
 

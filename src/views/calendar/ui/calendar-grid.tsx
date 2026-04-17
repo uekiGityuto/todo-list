@@ -1,6 +1,5 @@
-import { CalendarCell } from "./calendar-cell";
-
 import type { CalendarTask } from "./calendar-cell";
+import { CalendarCell } from "./calendar-cell";
 
 type CalendarGridProps = {
   weekdayLabels: string[];

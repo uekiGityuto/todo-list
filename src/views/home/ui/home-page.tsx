@@ -9,6 +9,7 @@ import { useTaskPageActions } from "@/shared/hooks/use-task-page-actions";
 import { useTasks } from "@/shared/hooks/use-tasks";
 import { useWorkRecords } from "@/shared/hooks/use-work-records";
 import { formatDuration } from "@/shared/lib/format-duration";
+import type { TaskWithCategory } from "@/shared/types/task";
 import { AddTaskModal } from "@/shared/ui/add-task-modal";
 import { DeleteConfirmDialog } from "@/shared/ui/delete-confirm-dialog";
 import { EmptyState } from "@/shared/ui/empty-state";
@@ -17,11 +18,8 @@ import { Button } from "@/shared/ui/shadcn/button";
 import { Sidebar } from "@/shared/ui/sidebar";
 import { TabBar } from "@/shared/ui/tab-bar";
 import { TaskCard } from "@/shared/ui/task-card";
-
 import { NextTaskHero } from "./next-task-hero";
 import { RecentWorkColumn } from "./recent-work-column";
-
-import type { TaskWithCategory } from "@/shared/types/task";
 
 export function HomePage() {
   const router = useRouter();

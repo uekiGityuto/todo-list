@@ -6,17 +6,15 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useMemo } from "react";
 
 import { useTasks } from "@/shared/hooks/use-tasks";
+import type { TimerResult } from "@/shared/hooks/use-timer";
 import { useTimer } from "@/shared/hooks/use-timer";
 import { useWorkRecords } from "@/shared/hooks/use-work-records";
 import { Badge } from "@/shared/ui/shadcn/badge";
 import { Button } from "@/shared/ui/shadcn/button";
 import { Sidebar } from "@/shared/ui/sidebar";
 import { TabBar } from "@/shared/ui/tab-bar";
-
 import { TimerEndDialog } from "./timer-end-dialog";
 import { TimerRing } from "./timer-ring";
-
-import type { TimerResult } from "@/shared/hooks/use-timer";
 
 const DEFAULT_MINUTES = 60;
 
