@@ -4,7 +4,7 @@
 
 ## アーキテクチャ
 
-FSD Lite（`.claude/rules/architecture.md` 参照）
+FSD Lite（`.agent-rules/architecture.md` 参照）
 
 ## Claude Code 固有の注意事項
 
