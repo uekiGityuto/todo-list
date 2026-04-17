@@ -15,7 +15,12 @@
   "ignorePatterns": ["src/shared/ui/shadcn/**"],
   "rules": {
     "typescript/switch-exhaustiveness-check": "error",
-    "react/no-multi-comp": "error"
+    "react/no-multi-comp": "error",
+    "nextjs/google-font-display": "error",
+    "nextjs/google-font-preconnect": "error",
+    "nextjs/no-css-tags": "error",
+    "nextjs/no-img-element": "error",
+    "nextjs/no-sync-scripts": "error"
   },
   "overrides": [
     {
