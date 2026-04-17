@@ -30,12 +30,12 @@ export function useLocalStorage<T>(
     const parsed = raw === null ? initialValue : (JSON.parse(raw) as T);
     cachedRef.current = { raw, parsed };
     return parsed;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps -- initialValue は初期値で不変の前提のため deps から除外
   }, [key]);
 
   const getServerSnapshot = useCallback((): T => {
     return initialValue;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps -- initialValue は初期値で不変の前提のため deps から除外
   }, []);
 
   const value = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
@@ -54,8 +54,7 @@ export function useLocalStorage<T>(
       cachedRef.current = { raw: newRaw, parsed: resolved };
       subscribersRef.current.forEach((cb) => cb());
     },
-    // initialValue は初期値で不変の前提のため除外
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps -- initialValue は初期値で不変の前提のため deps から除外
     [key],
   );
 

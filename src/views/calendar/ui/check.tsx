@@ -9,6 +9,24 @@ interface CheckProps {
 }
 
 export function Check({ checked = false, className, onToggle }: CheckProps) {
+  const interactive = !!onToggle;
+
+  if (!interactive) {
+    return (
+      <span
+        role="img"
+        aria-label={checked ? "完了" : "未完了"}
+        className={cn(
+          "flex size-6 shrink-0 items-center justify-center rounded-2xl",
+          checked ? "bg-primary" : "border-2 border-border bg-transparent",
+          className,
+        )}
+      >
+        {checked && <CheckIcon className="size-3.5 text-white" />}
+      </span>
+    );
+  }
+
   return (
     <label
       className={cn(

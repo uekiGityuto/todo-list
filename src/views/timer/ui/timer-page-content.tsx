@@ -48,7 +48,7 @@ export function TimerPageContent() {
       }
       timer.start();
     }
-  }, [taskId]); // eslint-disable-line react-hooks/exhaustive-deps -- taskId 変更時のみ実行（timer/task/startWork は初回起動の制御に使うため除外）
+  }, [taskId]); // oxlint-disable-line react-hooks/exhaustive-deps -- taskId 変更時のみ実行（timer/task/startWork は初回起動の制御に使うため deps から除外）
 
   const handleNavChange = useCallback(
     (key: string) => {
