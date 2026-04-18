@@ -15,5 +15,6 @@ if [ $EXIT_CODE -ne 0 ]; then
   echo "[pnpm audit] 本番依存に脆弱性が見つかりました:" >&2
   echo "$RESULT" >&2
   echo "" >&2
-  echo "対応を検討してください。" >&2
+  echo "脆弱性の内容をユーザーに報告し、対応方針を相談してください。" >&2
+  exit 2
 fi
