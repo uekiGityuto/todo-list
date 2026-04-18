@@ -2,11 +2,15 @@
   "permissions": {
     "ask": [
       "Edit(**/.devcontainer/**)",
-      "Edit(~/.claude/**)",
-      "Edit(~/.codex/**)",
-      "Edit(~/.gemini/**)",
-      "Edit(~/.takt/**)",
-      "Edit(~/.agents/**)"
+      "Edit(**/biome.json)",
+      "Write(**/biome.json)",
+      "Edit(**/.oxlintrc.json)",
+      "Write(**/.oxlintrc.json)",
+      "Edit(**/lefthook.yml)",
+      "Write(**/lefthook.yml)",
+      "Edit(**/tsconfig.json)",
+      "Write(**/tsconfig.json)",
+      "Write(**/package.json)"
     ],
     "deny": [
       "Edit(apps/web/src/shared/ui/shadcn/**)",
