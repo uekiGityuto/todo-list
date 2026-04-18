@@ -99,6 +99,14 @@ import { TasksPage } from "@/views/tasks";
 import { TasksPage } from "@/views/tasks/ui/tasks-page";
 ```
 
+## データフェッチ
+
+- **初期データ取得**: Server Components で API を fetch し、props で Client Component に渡す
+- **ミューテーション・再フェッチ**: TanStack Query + Hono RPC クライアント（`hc`）
+- **API 型安全**: `hc<AppType>` で API の型が自動的にフロント側に伝播する（手動で型を書かない）
+
+> 詳細は実装時に追記予定。ADR-0004 も参照。
+
 ## 現在使わないレイヤー
 
 以下の FSD レイヤーは現時点では不要。必要になった時に追加する。
