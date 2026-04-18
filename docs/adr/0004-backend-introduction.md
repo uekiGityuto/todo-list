@@ -30,9 +30,10 @@ Accepted
 
 ```
 todo-list/
-  packages/
+  apps/
     web/          # Next.js（フロントエンド）
     api/          # Hono + Prisma（バックエンド）
+  packages/
     shared/       # Zod スキーマ、共有型定義
 ```
 
