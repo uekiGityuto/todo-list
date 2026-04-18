@@ -30,10 +30,11 @@ Accepted
 
 ```
 todo-list/
-  packages/
+  apps/
     web/          # Next.js（フロントエンド）
     api/          # Hono + Prisma（バックエンド）
-    shared/       # Zod スキーマ、共有型定義
+  packages/
+    schema/       # Zod スキーマ、共有型定義
 ```
 
 デプロイ先はフロントとバックエンドで別々を想定（具体的なデプロイ設定は後回し）。

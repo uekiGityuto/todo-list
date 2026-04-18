@@ -7,6 +7,17 @@ settings:
 importers:
 
   .:
+    devDependencies:
+      '@biomejs/biome':
+        specifier: ^2.4.12
+        version: 2.4.12
+      lefthook:
+        specifier: ^2.1.1
+        version: 2.1.1
+
+  apps/api: {}
+
+  apps/web:
     dependencies:
       class-variance-authority:
         specifier: ^0.7.1
@@ -39,9 +50,6 @@ importers:
         specifier: ^3.5.0
         version: 3.5.0
     devDependencies:
-      '@biomejs/biome':
-        specifier: ^2.4.12
-        version: 2.4.12
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.2.0
@@ -69,9 +77,6 @@ importers:
       jsdom:
         specifier: ^28.1.0
         version: 28.1.0(@noble/hashes@1.8.0)
-      lefthook:
-        specifier: ^2.1.1
-        version: 2.1.1
       oxlint:
         specifier: ^1.60.0
         version: 1.60.0(oxlint-tsgolint@0.21.1)
@@ -93,6 +98,8 @@ importers:
       vitest:
         specifier: ^4.0.18
         version: 4.0.18(@types/node@20.19.33)(jiti@2.6.1)(jsdom@28.1.0(@noble/hashes@1.8.0))(lightningcss@1.31.1)(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))
+
+  packages/schema: {}
 
 packages:
 

@@ -12,7 +12,7 @@
   "categories": {
     "correctness": "error"
   },
-  "ignorePatterns": ["src/shared/ui/shadcn/**"],
+  "ignorePatterns": ["apps/web/src/shared/ui/shadcn/**"],
   "rules": {
     "typescript/switch-exhaustiveness-check": "error",
     "react/no-multi-comp": "error",

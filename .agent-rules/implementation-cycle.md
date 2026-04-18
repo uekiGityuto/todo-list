@@ -1,6 +1,6 @@
 ---
 paths:
-  - "src/**/*.{ts,tsx,css}"
+  - "apps/web/src/**/*.{ts,tsx,css}"
 ---
 
 # 実装サイクル

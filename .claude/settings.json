@@ -6,19 +6,12 @@
       "Edit(~/.codex/**)",
       "Edit(~/.gemini/**)",
       "Edit(~/.takt/**)",
-      "Edit(~/.agents/**)",
-      "Edit(biome.json)",
-      "Write(biome.json)",
-      "Edit(.oxlintrc.json)",
-      "Write(.oxlintrc.json)",
-      "Edit(lefthook.yml)",
-      "Write(lefthook.yml)",
-      "Edit(tsconfig.json)",
-      "Write(tsconfig.json)",
-      "Edit(package.json)",
-      "Write(package.json)"
+      "Edit(~/.agents/**)"
     ],
-    "deny": ["Edit(src/shared/ui/shadcn/**)", "Write(src/shared/ui/shadcn/**)"]
+    "deny": [
+      "Edit(apps/web/src/shared/ui/shadcn/**)",
+      "Write(apps/web/src/shared/ui/shadcn/**)"
+    ]
   },
   "hooks": {
     "PreToolUse": [
