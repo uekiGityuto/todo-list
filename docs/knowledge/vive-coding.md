@@ -12,13 +12,11 @@
 2. Desktop版のClaudeにそれを読ませて、要件定義書を作りたいので、協力してとお願いした。Claudeからの質問に答える形で、要件をブラッシュアップ。最終的にMarkdown形式でドキュメント化してもらった。技術スタックもこの段階で決めた。
    https://claude.ai/share/d8321fca-0894-4cd5-8a18-e08531d262a8
 
-作成してもらったドキュメントがこれ（作業しながら修正したので、最初の状態からは少し変わっている）
-[task-management-plan.md](docs/task-management-plan.md)
+作成してもらったドキュメントは `docs/domain/background.md` に背景部分を残している（技術スタック等は古くなったため削除済み）。
 
 ## セットアップ
 
-基本的にはこのドキュメントの内容通りにセットアップ。
-[SETUP.md](/docs/SETUP.md)
+devcontainerを立ち上げて、GitHub認証等を行う（詳細は `docs/knowledge/devcontainer.md` 参照）。
 
 試しにdevcontainerを立ち上げたけど、pencil.devが使えなかったので、結局実装はローカル環境（ホスト環境）でやったので、意味なかった。
 skillsのui-ux-pro-maxとvercel-react-best-practicesを入れてみた。

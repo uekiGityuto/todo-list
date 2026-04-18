@@ -1,9 +1,5 @@
 # devcontainerのKnowledge
 
-## Setup
-
-[SETUP.md](/docs/SETUP.md)
-
 ## 注意点
 
 ### ファイアウォール
