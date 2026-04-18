@@ -49,7 +49,8 @@ Server Components + TanStack Query のハイブリッド構成:
 ```tsx
 // app/tasks/page.tsx (Server Component)
 export default async function Page() {
-  const tasks = await fetch("http://localhost:3001/api/tasks");
+  const res = await fetch(`${process.env.API_URL}/api/tasks`);
+  const tasks = await res.json();
   return <TasksPage initialTasks={tasks} />;
 }
 ```
