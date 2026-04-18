@@ -10,7 +10,7 @@ paths:
 ## 1. 確認
 
 - 既存コードを読んで現在の実装を把握する
-- ファイルの置き場所を確認: `.agent-rules/architecture.md`
+- ファイルの置き場所を確認: `.agent-rules/web/architecture.md`
 - pencil デザインを `batch_get` / `get_screenshot` で確認する
   - `batch_get` は `readDepth: 2〜3`, `searchDepth: 3〜5` に抑える（大きすぎるとコンテキスト溢れ）
 
