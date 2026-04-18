@@ -20,15 +20,6 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Edit|Write|NotebookEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "branch=$(git branch --show-current 2>/dev/null); file_path=$(echo \"$CLAUDE_TOOL_INPUT\" | jq -r '.file_path // empty'); if [ \"$branch\" = \"main\" ] && [ -n \"$file_path\" ] && echo \"$file_path\" | grep -q \"^$CLAUDE_PROJECT_DIR\"; then echo 'mainブランチでのプロジェクト内ファイル編集は禁止です。featureブランチを作成してください。' >&2; exit 2; fi"
-          }
-        ]
-      },
-      {
         "matcher": "Bash",
         "hooks": [
           {
