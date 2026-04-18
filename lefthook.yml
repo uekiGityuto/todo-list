@@ -3,11 +3,11 @@ pre-commit:
     test:
       run: pnpm test
       skip:
-        - run: "! git diff --cached --name-only | grep -q '^src/'"
+        - run: "! git diff --cached --name-only | grep -qE '^(apps/|packages/)'"
 
 pre-push:
   commands:
     build:
       run: pnpm build
       skip:
-        - run: "if ! git rev-parse @{upstream} >/dev/null 2>&1; then exit 1; fi; ! git diff --name-only @{upstream}..HEAD | grep -qE '^(src/|package.json|tsconfig.json|biome.json|.oxlintrc.json|next.config)'"
+        - run: "if ! git rev-parse @{upstream} >/dev/null 2>&1; then exit 1; fi; ! git diff --name-only @{upstream}..HEAD | grep -qE '^(apps/|packages/|package.json|biome.json|pnpm-workspace.yaml|pnpm-lock.yaml|\\.npmrc)'"

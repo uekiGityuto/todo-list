@@ -28,7 +28,7 @@
       "!**/.next",
       "!**/node_modules",
       "!**/pnpm-lock.yaml",
-      "!**/src/shared/ui/shadcn/**"
+      "!**/shared/ui/shadcn/**"
     ]
   }
 }

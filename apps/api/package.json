@@ -1,0 +1,9 @@
+{
+  "name": "@todo-list/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'TODO: setup hono dev server'",
+    "build": "echo 'TODO: setup build'"
+  }
+}
