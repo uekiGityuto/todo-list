@@ -1,5 +1,5 @@
 {
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "$schema": "../../node_modules/oxlint/configuration_schema.json",
   "plugins": [
     "typescript",
     "unicorn",
@@ -12,7 +12,7 @@
   "categories": {
     "correctness": "error"
   },
-  "ignorePatterns": ["apps/web/src/shared/ui/shadcn/**"],
+  "ignorePatterns": ["src/shared/ui/shadcn/**"],
   "rules": {
     "typescript/switch-exhaustiveness-check": "error",
     "react/no-multi-comp": "error",
