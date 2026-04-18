@@ -34,40 +34,68 @@ apps/api/src/
 
 ### route.ts
 
-Hono の router 定義のみ。ロジックを書かない。
+Hono の router 定義 + zValidator によるバリデーション。RPC の型推論のためバリデーションはここに書く。
 
 ```typescript
 import { Hono } from "hono";
+import { zValidator } from "@hono/zod-validator";
+import { createTaskSchema, updateTaskSchema } from "@todo-list/schema";
 import { list, create, update, remove } from "./handler";
 
 export const tasksRoute = new Hono()
   .get("/", list)
-  .post("/", create)
-  .put("/:id", update)
+  .post("/", zValidator("json", createTaskSchema), create)
+  .put("/:id", zValidator("json", updateTaskSchema), update)
   .delete("/:id", remove);
 ```
+
+### app.ts
+
+ルートを集約し、RPC 用の型をエクスポートする。
+
+```typescript
+import { Hono } from "hono";
+import { tasksRoute } from "./features/tasks/route";
+import { categoriesRoute } from "./features/categories/route";
+
+const app = new Hono();
+
+const routes = app
+  .route("/tasks", tasksRoute)
+  .route("/categories", categoriesRoute);
+
+export default app;
+export type AppType = typeof routes;
+```
+
+> RPC の型推論をモノレポで動かすには、web と api の両方の `tsconfig.json` で `"strict": true` が必須。
 
 ### handler.ts
 
 薄い HTTP 層。以下だけを行う:
-- request parse（Zod validation）
+- validated input の取得（`c.req.valid()` — route.ts の zValidator で検証済み）
 - auth context 取得
 - service 呼び出し
 - response mapping
 
 ```typescript
-// ✅ handler.ts
-export const create = async (c: Context) => {
-  const body = await c.req.json();
-  const input = createTaskSchema.parse(body);
+// ✅ handler.ts — validated input を受け取る
+export const create = async (c) => {
+  const input = c.req.valid("json"); // zValidator で検証済み、型付き
   const userId = c.get("userId");
   const task = await taskService.create(userId, input);
   return c.json(task, 201);
 };
 
 // ❌ handler.ts に Prisma を書かない
-export const create = async (c: Context) => {
+export const create = async (c) => {
   const task = await prisma.task.create({ ... }); // NG
+};
+
+// ❌ handler.ts で手動バリデーションしない（route.ts の zValidator を使う）
+export const create = async (c) => {
+  const body = await c.req.json();
+  const input = createTaskSchema.parse(body); // NG — route.ts に書く
 };
 ```
 
