@@ -23,18 +23,17 @@ issue #19 の作業用メモ。実装完了後に削除する。
 app.ts                    # Hono エントリポイント、ルート集約、AppType エクスポート
 features/
   tasks/
-    route.ts              # Hono router + zValidator
-    handler.ts            # validated input 取得 → service → response
+    route.ts              # Hono route + zValidator + request/response mapping
     service.ts            # ビジネスロジック + Prisma
     validation.ts         # server-only validation（必要な時だけ）
   categories/
-    route.ts / handler.ts / service.ts
+    route.ts / service.ts
   work-records/
-    route.ts / handler.ts / service.ts
+    route.ts / service.ts
   timer-sessions/
-    route.ts / handler.ts / service.ts
+    route.ts / service.ts
   auth/
-    route.ts / handler.ts / service.ts
+    route.ts / service.ts
 shared/
   lib/
     prisma.ts             # Prisma client singleton
@@ -93,13 +92,29 @@ const res = await client.tasks.$post({
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { createTaskSchema, updateTaskSchema } from "@todo-list/schema";
-import { list, create, update, remove } from "./handler";
+import * as taskService from "./service";
 
 export const tasksRoute = new Hono()
-  .get("/", list)
-  .post("/", zValidator("json", createTaskSchema), create)
-  .put("/:id", zValidator("json", updateTaskSchema), update)
-  .delete("/:id", remove);
+  .get("/", async (c) => {
+    const tasks = await taskService.list();
+    return c.json(tasks);
+  })
+  .post("/", zValidator("json", createTaskSchema), async (c) => {
+    const input = c.req.valid("json");
+    const task = await taskService.create(input);
+    return c.json(task, 201);
+  })
+  .put("/:id", zValidator("json", updateTaskSchema), async (c) => {
+    const id = c.req.param("id");
+    const input = c.req.valid("json");
+    const task = await taskService.update(id, input);
+    return c.json(task);
+  })
+  .delete("/:id", async (c) => {
+    const id = c.req.param("id");
+    await taskService.remove(id);
+    return c.body(null, 204);
+  });
 ```
 
 #### app.ts
@@ -109,29 +124,15 @@ import { Hono } from "hono";
 import { tasksRoute } from "./features/tasks/route";
 import { categoriesRoute } from "./features/categories/route";
 
-const app = new Hono();
-
-const routes = app
+const app = new Hono()
   .route("/tasks", tasksRoute)
   .route("/categories", categoriesRoute);
 
 export default app;
-export type AppType = typeof routes;
+export type AppType = typeof app;
 ```
 
 > RPC の型推論をモノレポで動かすには、web と api の両方の tsconfig.json で "strict": true が必須。
-
-#### handler.ts
-
-```typescript
-// validated input を受け取る
-export const create = async (c) => {
-  const input = c.req.valid("json"); // zValidator で検証済み、型付き
-  const userId = c.get("userId");
-  const task = await taskService.create(userId, input);
-  return c.json(task, 201);
-};
-```
 
 #### service.ts
 
@@ -139,13 +140,27 @@ export const create = async (c) => {
 import { prisma } from "@/shared/lib/prisma";
 
 export const taskService = {
-  async create(userId: string, input: CreateTaskInput) {
+  async create(input: CreateTaskInput) {
     return prisma.task.create({
-      data: { ...input, userId },
+      data: input,
     });
   },
 };
 ```
+
+## Hono の実装方針
+
+- handler は原則 `route.ts` に直接書く
+- Hono は route 定義の近くで型推論が最も強く働くため、`c.req.param()`、`c.req.valid()`、RPC 用 `AppType` を素直に活かせる
+- `handler.ts` を挟む controller 風構成は、型を手で補う必要が出やすいので採用しない
+- HTTP 文脈を持たない業務ロジックと Prisma 操作は `service.ts` に寄せる
+- 追加の server-only validation が必要な場合だけ `validation.ts` を slice 内に置く
+
+## テスト方針
+
+- API テストは `app.request()` を基本とする
+- typed client が欲しいケースでは `hono/testing` の `testClient()` を検討する
+- route 単体で型推論を活かせる構成を優先し、`Context` generic を補うための独自ユーティリティ型は作らない
 
 ## ローカル開発
 
@@ -162,6 +177,6 @@ export const taskService = {
 - [ ] Prisma スキーマ定義
 - [ ] Hono API 実装（features/ 構成）
 - [ ] packages/schema に Zod スキーマ定義
-- [ ] TanStack Query + Hono RPC でフロント接続
+- [ ] Hono RPC でフロント接続
 - [ ] Google OAuth 認証
 - [ ] 既存 hooks（useTasks, useWorkRecords, useTimer）の差し替え

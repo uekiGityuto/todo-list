@@ -1,3 +1,8 @@
+---
+paths:
+  - "apps/web/src/**/*.{ts,tsx,css}"
+---
+
 # Web ルール
 
 FSD Lite（Feature-Sliced Design v2.1 簡略版）。
