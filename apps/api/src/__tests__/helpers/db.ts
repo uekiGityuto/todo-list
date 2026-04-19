@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../../shared/lib/prisma";
 
 export async function cleanDatabase(): Promise<void> {
   try {
@@ -15,5 +13,4 @@ export async function cleanDatabase(): Promise<void> {
     );
   }
 }
-
 export { prisma };

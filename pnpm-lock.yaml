@@ -42,6 +42,9 @@ importers:
       '@types/node':
         specifier: ^22.0.0
         version: 22.19.17
+      oxlint:
+        specifier: ^1.60.0
+        version: 1.60.0(oxlint-tsgolint@0.21.1)
       prisma:
         specifier: ^6.7.0
         version: 6.19.3(typescript@5.9.3)

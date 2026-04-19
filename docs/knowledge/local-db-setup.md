@@ -28,7 +28,7 @@ pnpm --filter @todo-list/api test
 
 ## 接続先
 
-API は [apps/api/.env.example](/Users/ueki/ghq/github.com/uekiGityuto/todo-list/apps/api/.env.example:1) と同じ形式の `apps/api/.env` を参照する。
+API は [apps/api/.env.example](../../apps/api/.env.example) と同じ形式の `apps/api/.env` を参照する。
 
 ローカルDBのデフォルト接続先:
 

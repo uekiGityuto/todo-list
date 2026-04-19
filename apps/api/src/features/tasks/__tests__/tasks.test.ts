@@ -323,6 +323,23 @@ describe("Tasks API", () => {
 
       expect(res.status).toBe(404);
     });
+
+    it("should return 400 when task id is not a valid UUID", async () => {
+      const res = await app.request("/tasks/not-a-uuid", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Updated",
+          categoryId: null,
+          status: "todo",
+          isNext: false,
+          estimatedMinutes: null,
+          scheduledDate: null,
+        }),
+      });
+
+      expect(res.status).toBe(400);
+    });
   });
 
   describe("DELETE /tasks/:id", () => {
@@ -362,6 +379,14 @@ describe("Tasks API", () => {
       });
 
       expect(res.status).toBe(404);
+    });
+
+    it("should return 400 when task id is not a valid UUID", async () => {
+      const res = await app.request("/tasks/not-a-uuid", {
+        method: "DELETE",
+      });
+
+      expect(res.status).toBe(400);
     });
   });
 });

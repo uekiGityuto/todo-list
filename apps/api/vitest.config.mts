@@ -14,12 +14,17 @@ function loadDotenv(filePath: string): Record<string, string> {
       .filter((line) => line && !line.startsWith("#"))
       .map((line) => {
         const separatorIndex = line.indexOf("=");
-        const key = line.slice(0, separatorIndex);
+        if (separatorIndex === -1) return null;
+
+        const key = line.slice(0, separatorIndex).trim();
+        if (!key) return null;
+
         const rawValue = line.slice(separatorIndex + 1);
         const value = rawValue.replace(/^['"]|['"]$/g, "");
 
         return [key, value];
-      }),
+      })
+      .filter((entry): entry is [string, string] => entry !== null),
   );
 }
 

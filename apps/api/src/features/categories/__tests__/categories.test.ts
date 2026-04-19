@@ -123,6 +123,19 @@ describe("Categories API", () => {
 
       expect(res.status).toBe(404);
     });
+
+    it("should return 400 when category id is not a valid UUID", async () => {
+      const res = await app.request("/categories/not-a-uuid", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Updated",
+          color: "#FF0000",
+        }),
+      });
+
+      expect(res.status).toBe(400);
+    });
   });
 
   describe("DELETE /categories/:id", () => {
@@ -183,6 +196,14 @@ describe("Categories API", () => {
       });
 
       expect(res.status).toBe(404);
+    });
+
+    it("should return 400 when category id is not a valid UUID", async () => {
+      const res = await app.request("/categories/not-a-uuid", {
+        method: "DELETE",
+      });
+
+      expect(res.status).toBe(400);
     });
   });
 });

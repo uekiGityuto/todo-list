@@ -1,3 +1,4 @@
+export { type IdParam, idParamSchema } from "./common";
 export {
   type CategoryResponse,
   type CreateCategoryInput,
