@@ -4,7 +4,7 @@
 INPUT=$(cat)
 COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // ""')
 
-if ! echo "$COMMAND" | grep -qE 'pnpm\s+(install|i|add|update|up)\b'; then
+if ! echo "$COMMAND" | grep -qE 'pnpm\s+.*\b(install|i|add|update|up)\b'; then
   exit 0
 fi
 
