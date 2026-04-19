@@ -3,7 +3,7 @@ pre-commit:
     test:
       run: pnpm test
       skip:
-        - run: "! git diff --cached --name-only | grep -qE '^(apps/|packages/)'"
+        - run: "! git diff --cached --name-only | grep -qE '^(apps/|packages/|package.json|biome.json|pnpm-workspace.yaml|pnpm-lock.yaml|\\.npmrc)'"
 
 pre-push:
   commands:
