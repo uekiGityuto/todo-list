@@ -24,7 +24,7 @@ Accepted
 ### アーキテクチャ構成
 
 - **リポジトリ**: モノレポ（pnpm workspaces）。`apps/web`, `apps/api`, `packages/schema`
-- **API**: Vertical Slice 構成。機能ごとに route / handler / service を垂直にまとめる
+- **API**: Vertical Slice 構成。機能ごとに route / service を垂直にまとめ、Hono handler は route 定義の近くに置く
 - **フロント**: 初期データは Server Components（SSR）、ミューテーションは TanStack Query + Hono RPC
 - **型安全**: Hono RPC で API の型がフロント側に自動伝播。Zod スキーマは `packages/schema` で共有
 - **フロントとバックエンドの疎結合**: Server Actions ではなく Hono API を採用。独立デプロイ可能
@@ -36,7 +36,7 @@ Supabase CLI (Docker) で DB・認証をローカル実行。
 ## 理由
 
 - **Supabase**: PostgreSQL + 認証をセットで提供。ローカル開発もCLIで完結
-- **Hono**: 軽量で型安全、RPC クライアントによりフロント・バックエンド間の型共有が容易
+- **Hono**: 軽量で型安全。handler を route 定義の近くに置くと `param` / `valid()` / RPC 型推論を自然に活かせる
 - **Prisma**: スキーマファーストで型安全。AIにコードを書かせやすく、レビューもしやすい
 - **Zod**: フロント・API両方でバリデーション共有可能
 - **TanStack Query + Hono RPC**: 楽観的更新・キャッシュ管理が自動、型安全なAPI呼び出し

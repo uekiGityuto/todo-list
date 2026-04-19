@@ -1,0 +1,35 @@
+{
+  "$schema": "../../node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "import", "node", "promise"],
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "typescript/switch-exhaustiveness-check": "error"
+  },
+  "overrides": [
+    {
+      "files": ["src/**/*.ts"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "@prisma/client",
+                "importNames": ["PrismaClient"],
+                "message": "@prisma/client は shared/lib/prisma.ts に閉じ込めてください"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/shared/lib/prisma.ts"],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ]
+}

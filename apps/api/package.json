@@ -3,7 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "echo 'TODO: setup hono dev server'",
-    "build": "echo 'TODO: setup build'"
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc --noEmit",
+    "lint": "oxlint --type-aware --type-check src/",
+    "test": "vitest run",
+    "db:generate": "prisma generate",
+    "db:deploy": "prisma migrate deploy && prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.14.0",
+    "@hono/zod-validator": "^0.5.0",
+    "@prisma/client": "^6.7.0",
+    "@todo-list/schema": "workspace:*",
+    "hono": "^4.7.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "oxlint": "^1.60.0",
+    "prisma": "^6.7.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.1.0"
   }
 }
