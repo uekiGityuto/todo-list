@@ -16,21 +16,24 @@ if [ -z "$file_path" ] || [ ! -f "$file_path" ]; then
 fi
 
 # ツール存在チェック
-for cmd in biome oxlint jq; do
-  if ! command -v pnpm >/dev/null 2>&1; then
-    jq -n --arg ctx "pnpm が見つかりません。lint/format をスキップしました。" '{
-      hookSpecificOutput: {
-        hookEventName: "PostToolUse",
-        additionalContext: $ctx
-      }
-    }'
+for cmd in pnpm jq; do
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    echo "{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"$cmd が見つかりません。lint/format をスキップしました。\"}}"
     exit 0
   fi
 done
 
+# oxlint はパッケージ単位でインストールされているため、対象パッケージのディレクトリを特定する
+PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+PKG_DIR=""
+case "$file_path" in
+  */apps/api/*) PKG_DIR="$PROJECT_ROOT/apps/api" ;;
+  */apps/web/*) PKG_DIR="$PROJECT_ROOT/apps/web" ;;
+esac
+
 case "$file_path" in
   *.ts|*.tsx|*.js|*.jsx|*.mjs|*.cjs)
-    # Biome: format + organizeImports
+    # Biome: format + organizeImports（ルートにインストール済み）
     BIOME_OUT=$(pnpm exec biome check --write "$file_path" 2>&1)
     BIOME_EXIT=$?
     if [ $BIOME_EXIT -ne 0 ] && ! echo "$BIOME_OUT" | grep -q 'Checked'; then
@@ -43,8 +46,13 @@ case "$file_path" in
       exit 0
     fi
 
+    # Oxlint: パッケージディレクトリが特定できない場合はスキップ
+    if [ -z "$PKG_DIR" ]; then
+      exit 0
+    fi
+
     # Oxlint: auto-fix + type-aware linting + type-check
-    FIX_OUT=$(pnpm exec oxlint --type-aware --type-check --fix "$file_path" 2>&1)
+    FIX_OUT=$(cd "$PKG_DIR" && pnpm exec oxlint --type-aware --type-check --fix "$file_path" 2>&1)
     FIX_EXIT=$?
     if [ $FIX_EXIT -ne 0 ] && ! echo "$FIX_OUT" | grep -q 'Found'; then
       jq -n --arg ctx "Oxlint 実行エラー: $FIX_OUT" '{
@@ -57,8 +65,8 @@ case "$file_path" in
     fi
 
     # Oxlint: 残存エラーの検出（型エラー含む）
-    DIAG=$(pnpm exec oxlint --type-aware --type-check "$file_path" 2>&1 | head -30)
-    if echo "$DIAG" | grep -qE 'Found [1-9]'; then
+    DIAG=$(cd "$PKG_DIR" && pnpm exec oxlint --type-aware --type-check "$file_path" 2>&1 | head -30)
+    if echo "$DIAG" | grep -qE '[1-9][0-9]* error'; then
       jq -n --arg ctx "$DIAG" '{
         hookSpecificOutput: {
           hookEventName: "PostToolUse",

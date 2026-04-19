@@ -14,6 +14,7 @@
   },
   "ignorePatterns": ["src/shared/ui/shadcn/**"],
   "rules": {
+    "react-hooks/exhaustive-deps": "warn",
     "typescript/switch-exhaustiveness-check": "error",
     "react/no-multi-comp": "error",
     "nextjs/google-font-display": "error",
