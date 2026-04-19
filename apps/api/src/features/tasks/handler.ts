@@ -12,8 +12,11 @@ export async function create(
   c: Context<Env, string, ValidatedJsonInput<CreateTaskInput>>,
 ) {
   const input = c.req.valid("json");
-  const task = await taskService.create(input);
-  return c.json(task, 201);
+  const result = await taskService.create(input);
+  if (result.type === "category_not_found") {
+    return c.json({ error: "Category not found" }, 404);
+  }
+  return c.json(result.task, 201);
 }
 
 export async function update(
@@ -21,11 +24,14 @@ export async function update(
 ) {
   const id = c.req.param("id")!;
   const input = c.req.valid("json");
-  const task = await taskService.update(id, input);
-  if (!task) {
+  const result = await taskService.update(id, input);
+  if (result.type === "not_found") {
     return c.json({ error: "Not found" }, 404);
   }
-  return c.json(task);
+  if (result.type === "category_not_found") {
+    return c.json({ error: "Category not found" }, 404);
+  }
+  return c.json(result.task);
 }
 
 export async function remove(c: Context) {

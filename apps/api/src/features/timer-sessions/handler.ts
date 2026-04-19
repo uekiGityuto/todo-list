@@ -12,11 +12,14 @@ export async function create(
   c: Context<Env, string, ValidatedJsonInput<CreateTimerSessionInput>>,
 ) {
   const input = c.req.valid("json");
-  const session = await timerSessionService.create(input);
-  if (!session) {
+  const result = await timerSessionService.create(input);
+  if (result.type === "active_session_exists") {
     return c.json({ error: "Active session already exists" }, 409);
   }
-  return c.json(session, 201);
+  if (result.type === "task_not_found") {
+    return c.json({ error: "Task not found" }, 404);
+  }
+  return c.json(result.session, 201);
 }
 
 export async function remove(c: Context) {

@@ -1,17 +1,21 @@
 import { z } from "zod";
 
 const taskStatusEnum = z.enum(["todo", "in_progress", "done"]);
+const nullableUuidSchema = z.preprocess(
+  (value) => (value === "" ? null : value),
+  z.string().uuid().nullable(),
+);
 
 export const createTaskSchema = z.object({
   name: z.string().min(1),
-  categoryId: z.string().uuid(),
+  categoryId: nullableUuidSchema,
   estimatedMinutes: z.number().int().positive().nullable(),
   scheduledDate: z.string().nullable(),
 });
 
 export const updateTaskSchema = z.object({
   name: z.string().min(1),
-  categoryId: z.string().uuid().nullable(),
+  categoryId: nullableUuidSchema,
   status: taskStatusEnum,
   isNext: z.boolean(),
   estimatedMinutes: z.number().int().positive().nullable(),

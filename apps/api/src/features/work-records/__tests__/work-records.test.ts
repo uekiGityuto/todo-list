@@ -189,5 +189,20 @@ describe("Work Records API", () => {
 
       expect(res.status).toBe(400);
     });
+
+    it("should return 404 when task does not exist", async () => {
+      const res = await app.request("/work-records", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          taskId: "00000000-0000-0000-0000-000000000000",
+          date: "2026-04-19",
+          durationMinutes: 30,
+          result: "completed",
+        }),
+      });
+
+      expect(res.status).toBe(404);
+    });
   });
 });

@@ -12,6 +12,9 @@ export async function create(
   c: Context<Env, string, ValidatedJsonInput<CreateWorkRecordInput>>,
 ) {
   const input = c.req.valid("json");
-  const record = await workRecordService.create(input);
-  return c.json(record, 201);
+  const result = await workRecordService.create(input);
+  if (result.type === "task_not_found") {
+    return c.json({ error: "Task not found" }, 404);
+  }
+  return c.json(result.workRecord, 201);
 }

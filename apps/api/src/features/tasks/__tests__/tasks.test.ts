@@ -121,6 +121,40 @@ describe("Tasks API", () => {
       expect(body.scheduledDate).toBeNull();
     });
 
+    it("should create an uncategorized task when categoryId is null", async () => {
+      const res = await app.request("/tasks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Uncategorized task",
+          categoryId: null,
+          estimatedMinutes: null,
+          scheduledDate: null,
+        }),
+      });
+
+      expect(res.status).toBe(201);
+      const body = await res.json();
+      expect(body.categoryId).toBeNull();
+    });
+
+    it("should create an uncategorized task when categoryId is empty string", async () => {
+      const res = await app.request("/tasks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Uncategorized task",
+          categoryId: "",
+          estimatedMinutes: null,
+          scheduledDate: null,
+        }),
+      });
+
+      expect(res.status).toBe(201);
+      const body = await res.json();
+      expect(body.categoryId).toBeNull();
+    });
+
     it("should return 400 when name is empty", async () => {
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF" },
@@ -163,6 +197,21 @@ describe("Tasks API", () => {
       });
 
       expect(res.status).toBe(400);
+    });
+
+    it("should return 404 when categoryId does not exist", async () => {
+      const res = await app.request("/tasks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Task with missing category",
+          categoryId: "00000000-0000-0000-0000-000000000000",
+          estimatedMinutes: null,
+          scheduledDate: null,
+        }),
+      });
+
+      expect(res.status).toBe(404);
     });
   });
 
@@ -244,6 +293,35 @@ describe("Tasks API", () => {
       });
 
       expect(res.status).toBe(400);
+    });
+
+    it("should return 404 when categoryId does not exist", async () => {
+      const category = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF" },
+      });
+      const task = await prisma.task.create({
+        data: {
+          name: "Task",
+          categoryId: category.id,
+          status: "todo",
+          isNext: false,
+        },
+      });
+
+      const res = await app.request(`/tasks/${task.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Updated",
+          categoryId: "00000000-0000-0000-0000-000000000000",
+          status: "todo",
+          isNext: false,
+          estimatedMinutes: null,
+          scheduledDate: null,
+        }),
+      });
+
+      expect(res.status).toBe(404);
     });
   });
 

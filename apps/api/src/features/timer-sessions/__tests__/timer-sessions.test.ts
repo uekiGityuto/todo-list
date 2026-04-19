@@ -191,6 +191,21 @@ describe("Timer Sessions API", () => {
 
       expect(res.status).toBe(400);
     });
+
+    it("should return 404 when task does not exist", async () => {
+      const res = await app.request("/timer-sessions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          taskId: "00000000-0000-0000-0000-000000000000",
+          taskName: "Task",
+          categoryName: "Work",
+          estimatedMinutes: 25,
+        }),
+      });
+
+      expect(res.status).toBe(404);
+    });
   });
 
   describe("DELETE /timer-sessions", () => {
