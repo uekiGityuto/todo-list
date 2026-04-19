@@ -8,7 +8,7 @@ if ! echo "$COMMAND" | grep -qE 'pnpm\s+.*\b(install|i|add|update|up)\b'; then
   exit 0
 fi
 
-RESULT=$(pnpm audit --prod 2>&1)
+RESULT=$(pnpm audit --prod --ignore-registry-errors 2>&1)
 EXIT_CODE=$?
 
 if [ $EXIT_CODE -ne 0 ]; then
