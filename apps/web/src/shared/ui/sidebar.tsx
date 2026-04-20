@@ -26,7 +26,7 @@ const navItems: NavItem[] = [
 interface SidebarProps {
   activeItem: string;
   onItemChange?: (key: string) => void;
-  onLogout?: () => void;
+  onLogout: () => void;
   className?: string;
 }
 
