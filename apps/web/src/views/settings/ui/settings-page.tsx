@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
+import { NAV_ROUTES } from "@/shared/constants/routes";
 import { useLogout } from "@/shared/hooks/use-logout";
 import { useMediaQuery } from "@/shared/hooks/use-media-query";
 import { type TasksInitialData, useTasks } from "@/shared/hooks/use-tasks";
@@ -47,13 +48,7 @@ export function SettingsPage({
 
   const handleNavChange = useCallback(
     (key: string) => {
-      const routes: Record<string, string> = {
-        home: "/",
-        tasks: "/tasks",
-        calendar: "/calendar",
-        settings: "/settings",
-      };
-      const route = routes[key];
+      const route = NAV_ROUTES[key];
       if (route) router.push(route);
     },
     [router],

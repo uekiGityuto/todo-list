@@ -11,6 +11,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 
+import { NAV_ROUTES } from "@/shared/constants/routes";
 import { useLogout } from "@/shared/hooks/use-logout";
 import { type TasksInitialData, useTasks } from "@/shared/hooks/use-tasks";
 import {
@@ -121,13 +122,7 @@ export function CalendarPage({
   const handleLogout = useLogout();
   const handleNavChange = useCallback(
     (key: string) => {
-      const routes: Record<string, string> = {
-        home: "/",
-        tasks: "/tasks",
-        calendar: "/calendar",
-        settings: "/settings",
-      };
-      const route = routes[key];
+      const route = NAV_ROUTES[key];
       if (route) router.push(route);
     },
     [router],

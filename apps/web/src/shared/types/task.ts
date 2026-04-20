@@ -6,7 +6,6 @@ export type Category = {
   color: string;
 };
 
-/** localStorage に保存する形 */
 export type Task = {
   id: string;
   name: string;
