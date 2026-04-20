@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$(git rev-parse --show-toplevel)/.codex/hooks/lint-format-on-stop.sh\"",
+            "statusMessage": "Formatting and linting changed files"
+          }
+        ]
+      }
+    ]
+  }
+}
