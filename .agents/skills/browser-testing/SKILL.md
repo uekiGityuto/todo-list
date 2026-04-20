@@ -3,9 +3,6 @@ name: browser-testing
 description: "Playwright MCP を使ったブラウザでの動作確認。開発サーバー起動、認証、UI操作の検証を行う。UIの動作確認やブラウザテストが必要な場合に使用する。"
 compatibility: Requires Docker Desktop, Playwright MCP server
 allowed-tools: Bash(docker:*) Bash(pnpm:*) mcp__playwright__*
-metadata:
-  author: uekiGityuto
-  version: "0.1.0"
 ---
 
 # ブラウザテスト
