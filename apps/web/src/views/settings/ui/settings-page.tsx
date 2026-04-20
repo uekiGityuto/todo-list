@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
+import { useLogout } from "@/shared/hooks/use-logout";
 import { useMediaQuery } from "@/shared/hooks/use-media-query";
 import { type TasksInitialData, useTasks } from "@/shared/hooks/use-tasks";
 import type { Category, Task } from "@/shared/types/task";
@@ -42,6 +43,7 @@ export function SettingsPage({
 
   const [formState, setFormState] = useState<FormState>({ mode: "closed" });
   const [deleteTarget, setDeleteTarget] = useState<Category | null>(null);
+  const handleLogout = useLogout();
 
   const handleNavChange = useCallback(
     (key: string) => {
@@ -110,7 +112,11 @@ export function SettingsPage({
   return (
     <div className="flex min-h-svh flex-col bg-background">
       <div className="flex flex-1">
-        <Sidebar activeItem="settings" onItemChange={handleNavChange} />
+        <Sidebar
+          activeItem="settings"
+          onItemChange={handleNavChange}
+          onLogout={handleLogout}
+        />
 
         <main className="flex flex-1 flex-col gap-5 p-5 pb-0 md:gap-6 md:p-8">
           <h1 className="text-xl font-bold text-foreground md:text-2xl">

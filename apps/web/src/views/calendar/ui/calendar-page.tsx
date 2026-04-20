@@ -11,6 +11,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 
+import { useLogout } from "@/shared/hooks/use-logout";
 import { type TasksInitialData, useTasks } from "@/shared/hooks/use-tasks";
 import {
   useWorkRecords,
@@ -117,6 +118,7 @@ export function CalendarPage({
     [year, month],
   );
 
+  const handleLogout = useLogout();
   const handleNavChange = useCallback(
     (key: string) => {
       const routes: Record<string, string> = {
@@ -140,7 +142,11 @@ export function CalendarPage({
   return (
     <div className="flex min-h-svh flex-col bg-background">
       <div className="flex flex-1">
-        <Sidebar activeItem="calendar" onItemChange={handleNavChange} />
+        <Sidebar
+          activeItem="calendar"
+          onItemChange={handleNavChange}
+          onLogout={handleLogout}
+        />
 
         <main className="flex flex-1 flex-col gap-5 p-5 pb-0 md:gap-6 md:p-8">
           <div className="flex items-center justify-between">

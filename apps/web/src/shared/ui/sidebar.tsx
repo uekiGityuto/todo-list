@@ -2,6 +2,7 @@ import {
   Calendar,
   House,
   ListTodo,
+  LogOut,
   type LucideIcon,
   Settings,
   SquareCheckBig,
@@ -25,10 +26,16 @@ const navItems: NavItem[] = [
 interface SidebarProps {
   activeItem: string;
   onItemChange?: (key: string) => void;
+  onLogout?: () => void;
   className?: string;
 }
 
-export function Sidebar({ activeItem, onItemChange, className }: SidebarProps) {
+export function Sidebar({
+  activeItem,
+  onItemChange,
+  onLogout,
+  className,
+}: SidebarProps) {
   return (
     <aside
       className={cn(
@@ -60,6 +67,16 @@ export function Sidebar({ activeItem, onItemChange, className }: SidebarProps) {
           </button>
         );
       })}
+      <div className="mt-auto pt-4">
+        <button
+          type="button"
+          onClick={onLogout}
+          className="flex w-full items-center gap-2.5 rounded-2xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-200 ease-out hover:bg-card"
+        >
+          <LogOut className="size-4.5" />
+          ログアウト
+        </button>
+      </div>
     </aside>
   );
 }

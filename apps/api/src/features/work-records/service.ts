@@ -2,8 +2,8 @@ import { Prisma } from "@prisma/client";
 import type { CreateWorkRecordInput } from "@todo-list/schema";
 import { prisma } from "../../shared/lib/prisma";
 
-export async function list() {
-  return prisma.workRecord.findMany();
+export async function list(userId: string) {
+  return prisma.workRecord.findMany({ where: { userId } });
 }
 
 type CreateWorkRecordResult =
@@ -13,9 +13,9 @@ type CreateWorkRecordResult =
     }
   | { type: "task_not_found" };
 
-export async function create(input: CreateWorkRecordInput) {
+export async function create(userId: string, input: CreateWorkRecordInput) {
   const task = await prisma.task.findUnique({
-    where: { id: input.taskId },
+    where: { id: input.taskId, userId },
     select: { id: true },
   });
   if (!task) return { type: "task_not_found" } satisfies CreateWorkRecordResult;
@@ -23,6 +23,7 @@ export async function create(input: CreateWorkRecordInput) {
   try {
     const workRecord = await prisma.workRecord.create({
       data: {
+        userId,
         taskId: input.taskId,
         date: input.date,
         durationMinutes: input.durationMinutes,

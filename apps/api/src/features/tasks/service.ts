@@ -2,18 +2,18 @@ import { Prisma } from "@prisma/client";
 import type { CreateTaskInput, UpdateTaskInput } from "@todo-list/schema";
 import { prisma } from "../../shared/lib/prisma";
 
-export async function list() {
-  return prisma.task.findMany();
+export async function list(userId: string) {
+  return prisma.task.findMany({ where: { userId } });
 }
 
 type CreateTaskResult =
   | { type: "success"; task: Awaited<ReturnType<typeof prisma.task.create>> }
   | { type: "category_not_found" };
 
-export async function create(input: CreateTaskInput) {
+export async function create(userId: string, input: CreateTaskInput) {
   if (input.categoryId) {
     const category = await prisma.category.findUnique({
-      where: { id: input.categoryId },
+      where: { id: input.categoryId, userId },
       select: { id: true },
     });
     if (!category)
@@ -23,6 +23,7 @@ export async function create(input: CreateTaskInput) {
   try {
     const task = await prisma.task.create({
       data: {
+        userId,
         name: input.name,
         categoryId: input.categoryId,
         estimatedMinutes: input.estimatedMinutes,
@@ -46,13 +47,17 @@ type UpdateTaskResult =
   | { type: "not_found" }
   | { type: "category_not_found" };
 
-export async function update(id: string, input: UpdateTaskInput) {
-  const existing = await prisma.task.findUnique({ where: { id } });
+export async function update(
+  userId: string,
+  id: string,
+  input: UpdateTaskInput,
+) {
+  const existing = await prisma.task.findUnique({ where: { id, userId } });
   if (!existing) return { type: "not_found" } satisfies UpdateTaskResult;
 
   if (input.categoryId) {
     const category = await prisma.category.findUnique({
-      where: { id: input.categoryId },
+      where: { id: input.categoryId, userId },
       select: { id: true },
     });
     if (!category)
@@ -61,7 +66,7 @@ export async function update(id: string, input: UpdateTaskInput) {
 
   try {
     const task = await prisma.task.update({
-      where: { id },
+      where: { id, userId },
       data: {
         name: input.name,
         categoryId: input.categoryId,
@@ -83,10 +88,10 @@ export async function update(id: string, input: UpdateTaskInput) {
   }
 }
 
-export async function remove(id: string) {
-  const existing = await prisma.task.findUnique({ where: { id } });
+export async function remove(userId: string, id: string) {
+  const existing = await prisma.task.findUnique({ where: { id, userId } });
   if (!existing) return false;
 
-  await prisma.task.delete({ where: { id } });
+  await prisma.task.delete({ where: { id, userId } });
   return true;
 }

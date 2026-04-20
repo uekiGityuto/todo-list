@@ -5,16 +5,19 @@ import {
   updateTaskSchema,
 } from "@todo-list/schema";
 import { Hono } from "hono";
+import type { AuthEnv } from "../../shared/auth/env";
 import * as taskService from "./service";
 
-export const tasksRoute = new Hono()
+export const tasksRoute = new Hono<AuthEnv>()
   .get("/", async (c) => {
-    const tasks = await taskService.list();
+    const userId = c.get("userId");
+    const tasks = await taskService.list(userId);
     return c.json(tasks);
   })
   .post("/", zValidator("json", createTaskSchema), async (c) => {
+    const userId = c.get("userId");
     const input = c.req.valid("json");
-    const result = await taskService.create(input);
+    const result = await taskService.create(userId, input);
     if (result.type === "category_not_found") {
       return c.json({ error: "Category not found" }, 404);
     }
@@ -25,9 +28,10 @@ export const tasksRoute = new Hono()
     zValidator("param", idParamSchema),
     zValidator("json", updateTaskSchema),
     async (c) => {
+      const userId = c.get("userId");
       const { id } = c.req.valid("param");
       const input = c.req.valid("json");
-      const result = await taskService.update(id, input);
+      const result = await taskService.update(userId, id, input);
       if (result.type === "not_found") {
         return c.json({ error: "Not found" }, 404);
       }
@@ -38,8 +42,9 @@ export const tasksRoute = new Hono()
     },
   )
   .delete("/:id", zValidator("param", idParamSchema), async (c) => {
+    const userId = c.get("userId");
     const { id } = c.req.valid("param");
-    const deleted = await taskService.remove(id);
+    const deleted = await taskService.remove(userId, id);
     if (!deleted) {
       return c.json({ error: "Not found" }, 404);
     }

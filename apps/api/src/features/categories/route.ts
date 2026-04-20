@@ -5,16 +5,19 @@ import {
   updateCategorySchema,
 } from "@todo-list/schema";
 import { Hono } from "hono";
+import type { AuthEnv } from "../../shared/auth/env";
 import * as categoryService from "./service";
 
-export const categoriesRoute = new Hono()
+export const categoriesRoute = new Hono<AuthEnv>()
   .get("/", async (c) => {
-    const categories = await categoryService.list();
+    const userId = c.get("userId");
+    const categories = await categoryService.list(userId);
     return c.json(categories);
   })
   .post("/", zValidator("json", createCategorySchema), async (c) => {
+    const userId = c.get("userId");
     const input = c.req.valid("json");
-    const category = await categoryService.create(input);
+    const category = await categoryService.create(userId, input);
     return c.json(category, 201);
   })
   .put(
@@ -22,9 +25,10 @@ export const categoriesRoute = new Hono()
     zValidator("param", idParamSchema),
     zValidator("json", updateCategorySchema),
     async (c) => {
+      const userId = c.get("userId");
       const { id } = c.req.valid("param");
       const input = c.req.valid("json");
-      const category = await categoryService.update(id, input);
+      const category = await categoryService.update(userId, id, input);
       if (!category) {
         return c.json({ error: "Not found" }, 404);
       }
@@ -32,8 +36,9 @@ export const categoriesRoute = new Hono()
     },
   )
   .delete("/:id", zValidator("param", idParamSchema), async (c) => {
+    const userId = c.get("userId");
     const { id } = c.req.valid("param");
-    const deleted = await categoryService.remove(id);
+    const deleted = await categoryService.remove(userId, id);
     if (!deleted) {
       return c.json({ error: "Not found" }, 404);
     }

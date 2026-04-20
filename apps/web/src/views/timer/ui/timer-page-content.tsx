@@ -5,6 +5,7 @@ import { Check, Pause } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 
+import { useLogout } from "@/shared/hooks/use-logout";
 import { type TasksInitialData, useTasks } from "@/shared/hooks/use-tasks";
 import type { TimerResult } from "@/shared/hooks/use-timer";
 import { useTimer } from "@/shared/hooks/use-timer";
@@ -92,6 +93,7 @@ export function TimerPageContent({
     })();
   }, [startWork, task, taskId, timer]);
 
+  const handleLogout = useLogout();
   const handleNavChange = useCallback(
     (key: string) => {
       const routes: Record<string, string> = {
@@ -148,7 +150,11 @@ export function TimerPageContent({
   return (
     <div className="flex min-h-svh flex-col bg-background">
       <div className="flex flex-1">
-        <Sidebar activeItem="home" onItemChange={handleNavChange} />
+        <Sidebar
+          activeItem="home"
+          onItemChange={handleNavChange}
+          onLogout={handleLogout}
+        />
 
         <main className="flex flex-1 flex-col items-center justify-center gap-8 p-5 md:p-8">
           <h1 className="text-center text-base font-semibold text-foreground">

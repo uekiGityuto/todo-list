@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { getCurrentTimerSession } from "@/shared/lib/api/server";
+import { createSupabaseServerClient } from "@/shared/lib/supabase/server";
 import { AppQueryProvider } from "@/shared/providers/query-provider";
 import { RecoveryDialogProvider } from "@/shared/ui/recovery-dialog-provider";
 import "./globals.css";
@@ -22,14 +23,21 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialTimerSession = await getCurrentTimerSession();
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const initialTimerSession = user ? await getCurrentTimerSession() : null;
 
   return (
     <html lang="ja">
       <body className={`${inter.variable} font-sans antialiased`}>
         <AppQueryProvider>
           {children}
-          <RecoveryDialogProvider initialSession={initialTimerSession} />
+          {user && (
+            <RecoveryDialogProvider initialSession={initialTimerSession} />
+          )}
         </AppQueryProvider>
       </body>
     </html>

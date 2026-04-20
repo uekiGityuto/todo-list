@@ -1,16 +1,19 @@
 import { zValidator } from "@hono/zod-validator";
 import { createTimerSessionSchema } from "@todo-list/schema";
 import { Hono } from "hono";
+import type { AuthEnv } from "../../shared/auth/env";
 import * as timerSessionService from "./service";
 
-export const timerSessionsRoute = new Hono()
+export const timerSessionsRoute = new Hono<AuthEnv>()
   .get("/", async (c) => {
-    const session = await timerSessionService.getCurrent();
+    const userId = c.get("userId");
+    const session = await timerSessionService.getCurrent(userId);
     return c.json(session);
   })
   .post("/", zValidator("json", createTimerSessionSchema), async (c) => {
+    const userId = c.get("userId");
     const input = c.req.valid("json");
-    const result = await timerSessionService.create(input);
+    const result = await timerSessionService.create(userId, input);
     if (result.type === "active_session_exists") {
       return c.json({ error: "Active session already exists" }, 409);
     }
@@ -20,6 +23,7 @@ export const timerSessionsRoute = new Hono()
     return c.json(result.session, 201);
   })
   .delete("/", async (c) => {
-    await timerSessionService.removeAll();
+    const userId = c.get("userId");
+    await timerSessionService.removeAll(userId);
     return c.body(null, 204);
   });
