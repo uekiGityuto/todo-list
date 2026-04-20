@@ -12,10 +12,14 @@ emit_ok() {
 }
 
 emit_message() {
-  printf '{"continue":true,"systemMessage":"%s"}\n' "$1"
+  jq -Rn --arg message "$1" '{continue: true, systemMessage: $message}'
 }
 
-for cmd in git pnpm; do
+emit_block() {
+  jq -Rn --arg reason "$1" '{decision: "block", reason: $reason}'
+}
+
+for cmd in git jq pnpm; do
   if ! command -v "$cmd" >/dev/null 2>&1; then
     emit_message "Codex stop hook skipped: required command not found."
     exit 0
@@ -89,19 +93,26 @@ if [ "${#biome_files[@]}" -gt 0 ]; then
 fi
 
 if [ "${#web_oxlint_files[@]}" -gt 0 ]; then
-  if ! (
-    cd "$PROJECT_ROOT/apps/web" &&
-      pnpm exec oxlint --type-aware --type-check --fix "${web_oxlint_files[@]}"
-  ) >/dev/null 2>&1; then
+  FIX_OUT=$(
+    (
+      cd "$PROJECT_ROOT/apps/web" &&
+        pnpm exec oxlint --type-aware --type-check --fix "${web_oxlint_files[@]}"
+    ) 2>&1
+  )
+  FIX_EXIT=$?
+  if [ $FIX_EXIT -ne 0 ] && ! printf '%s' "$FIX_OUT" | grep -q 'Found'; then
     emit_message "Codex stop hook: Oxlint failed while fixing changed web files."
     exit 0
   fi
 
-  if ! (
+  DIAG=$(
     cd "$PROJECT_ROOT/apps/web" &&
-      pnpm exec oxlint --type-aware --type-check "${web_oxlint_files[@]}"
-  ) >/dev/null 2>&1; then
-    emit_message "Codex stop hook: changed web files still have Oxlint errors."
+      pnpm exec oxlint --type-aware --type-check "${web_oxlint_files[@]}" 2>&1
+  )
+  DIAG_EXIT=$?
+  DIAG=$(printf '%s\n' "$DIAG" | head -30)
+  if [ $DIAG_EXIT -ne 0 ]; then
+    emit_block "Changed web files still have Oxlint errors. Fix them before ending the turn. Relevant output:\n$DIAG"
     exit 0
   fi
 fi
