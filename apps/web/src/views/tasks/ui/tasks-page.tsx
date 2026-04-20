@@ -3,6 +3,7 @@
 import { Plus } from "lucide-react";
 import { useMemo, useState } from "react";
 
+import { useLogout } from "@/shared/hooks/use-logout";
 import { useTaskPageActions } from "@/shared/hooks/use-task-page-actions";
 import { type TasksInitialData, useTasks } from "@/shared/hooks/use-tasks";
 import { formatDuration } from "@/shared/lib/format-duration";
@@ -69,6 +70,7 @@ export function TasksPage({ initialTasks, initialCategories }: TasksPageProps) {
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const handleLogout = useLogout();
 
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
@@ -176,7 +178,11 @@ export function TasksPage({ initialTasks, initialCategories }: TasksPageProps) {
   return (
     <div className="flex min-h-svh flex-col bg-background">
       <div className="flex flex-1">
-        <Sidebar activeItem="tasks" onItemChange={handleNavChange} />
+        <Sidebar
+          activeItem="tasks"
+          onItemChange={handleNavChange}
+          onLogout={handleLogout}
+        />
 
         <main className="flex flex-1 flex-col gap-4 p-5 pb-0 md:p-8">
           {taskContent}

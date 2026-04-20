@@ -1,6 +1,13 @@
-import { afterAll, beforeEach, describe, expect, it } from "vitest";
+import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanDatabase, prisma } from "../../../__tests__/helpers/db";
 import app from "../../../app";
+
+vi.mock("jose", () => ({
+  createRemoteJWKSet: vi.fn(),
+  jwtVerify: vi.fn().mockResolvedValue({
+    payload: { sub: "test-user-id" },
+  }),
+}));
 
 describe("Work Records API", () => {
   beforeEach(async () => {
@@ -14,7 +21,9 @@ describe("Work Records API", () => {
 
   describe("GET /work-records", () => {
     it("should return empty array when no records exist", async () => {
-      const res = await app.request("/work-records");
+      const res = await app.request("/work-records", {
+        headers: { Authorization: "Bearer test-token" },
+      });
 
       expect(res.status).toBe(200);
       const body = await res.json();
@@ -24,7 +33,7 @@ describe("Work Records API", () => {
     it("should return all work records", async () => {
       // Given
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
       const task = await prisma.task.create({
         data: {
@@ -32,6 +41,7 @@ describe("Work Records API", () => {
           categoryId: category.id,
           status: "todo",
           isNext: false,
+          userId: "test-user-id",
         },
       });
       await prisma.workRecord.create({
@@ -40,6 +50,7 @@ describe("Work Records API", () => {
           date: "2026-04-19",
           durationMinutes: 30,
           result: "completed",
+          userId: "test-user-id",
         },
       });
       await prisma.workRecord.create({
@@ -48,11 +59,14 @@ describe("Work Records API", () => {
           date: "2026-04-18",
           durationMinutes: 15,
           result: "interrupted",
+          userId: "test-user-id",
         },
       });
 
       // When
-      const res = await app.request("/work-records");
+      const res = await app.request("/work-records", {
+        headers: { Authorization: "Bearer test-token" },
+      });
 
       // Then
       expect(res.status).toBe(200);
@@ -70,7 +84,7 @@ describe("Work Records API", () => {
     it("should create a work record with valid input", async () => {
       // Given
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
       const task = await prisma.task.create({
         data: {
@@ -78,13 +92,17 @@ describe("Work Records API", () => {
           categoryId: category.id,
           status: "in_progress",
           isNext: false,
+          userId: "test-user-id",
         },
       });
 
       // When
       const res = await app.request("/work-records", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           taskId: task.id,
           date: "2026-04-19",
@@ -106,7 +124,7 @@ describe("Work Records API", () => {
     it("should create a work record with zero duration", async () => {
       // Given
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
       const task = await prisma.task.create({
         data: {
@@ -114,13 +132,17 @@ describe("Work Records API", () => {
           categoryId: category.id,
           status: "todo",
           isNext: false,
+          userId: "test-user-id",
         },
       });
 
       // When
       const res = await app.request("/work-records", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           taskId: task.id,
           date: "2026-04-19",
@@ -138,7 +160,10 @@ describe("Work Records API", () => {
     it("should return 400 when taskId is not a valid UUID", async () => {
       const res = await app.request("/work-records", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           taskId: "not-a-uuid",
           date: "2026-04-19",
@@ -153,7 +178,10 @@ describe("Work Records API", () => {
     it("should return 400 when result is not a valid enum value", async () => {
       const res = await app.request("/work-records", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           taskId: "00000000-0000-0000-0000-000000000000",
           date: "2026-04-19",
@@ -168,7 +196,10 @@ describe("Work Records API", () => {
     it("should return 400 when durationMinutes is negative", async () => {
       const res = await app.request("/work-records", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           taskId: "00000000-0000-0000-0000-000000000000",
           date: "2026-04-19",
@@ -183,7 +214,10 @@ describe("Work Records API", () => {
     it("should return 400 when required fields are missing", async () => {
       const res = await app.request("/work-records", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({}),
       });
 
@@ -193,7 +227,10 @@ describe("Work Records API", () => {
     it("should return 404 when task does not exist", async () => {
       const res = await app.request("/work-records", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           taskId: "00000000-0000-0000-0000-000000000000",
           date: "2026-04-19",

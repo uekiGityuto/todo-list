@@ -1,6 +1,13 @@
-import { afterAll, beforeEach, describe, expect, it } from "vitest";
+import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanDatabase, prisma } from "../../../__tests__/helpers/db";
 import app from "../../../app";
+
+vi.mock("jose", () => ({
+  createRemoteJWKSet: vi.fn(),
+  jwtVerify: vi.fn().mockResolvedValue({
+    payload: { sub: "test-user-id" },
+  }),
+}));
 
 describe("Tasks API", () => {
   beforeEach(async () => {
@@ -14,7 +21,9 @@ describe("Tasks API", () => {
 
   describe("GET /tasks", () => {
     it("should return empty array when no tasks exist", async () => {
-      const res = await app.request("/tasks");
+      const res = await app.request("/tasks", {
+        headers: { Authorization: "Bearer test-token" },
+      });
 
       expect(res.status).toBe(200);
       const body = await res.json();
@@ -24,7 +33,7 @@ describe("Tasks API", () => {
     it("should return all tasks", async () => {
       // Given
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
       await prisma.task.create({
         data: {
@@ -32,6 +41,7 @@ describe("Tasks API", () => {
           categoryId: category.id,
           status: "todo",
           isNext: false,
+          userId: "test-user-id",
         },
       });
       await prisma.task.create({
@@ -42,11 +52,14 @@ describe("Tasks API", () => {
           isNext: true,
           estimatedMinutes: 60,
           scheduledDate: "2026-04-20",
+          userId: "test-user-id",
         },
       });
 
       // When
-      const res = await app.request("/tasks");
+      const res = await app.request("/tasks", {
+        headers: { Authorization: "Bearer test-token" },
+      });
 
       // Then
       expect(res.status).toBe(200);
@@ -66,13 +79,16 @@ describe("Tasks API", () => {
     it("should create a task with all fields", async () => {
       // Given
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
 
       // When
       const res = await app.request("/tasks", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           name: "Implement feature",
           categoryId: category.id,
@@ -98,13 +114,16 @@ describe("Tasks API", () => {
     it("should create a task with null optional fields", async () => {
       // Given
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
 
       // When
       const res = await app.request("/tasks", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           name: "Simple task",
           categoryId: category.id,
@@ -124,7 +143,10 @@ describe("Tasks API", () => {
     it("should create an uncategorized task when categoryId is null", async () => {
       const res = await app.request("/tasks", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           name: "Uncategorized task",
           categoryId: null,
@@ -141,7 +163,10 @@ describe("Tasks API", () => {
     it("should create an uncategorized task when categoryId is empty string", async () => {
       const res = await app.request("/tasks", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           name: "Uncategorized task",
           categoryId: "",
@@ -157,12 +182,15 @@ describe("Tasks API", () => {
 
     it("should return 400 when name is empty", async () => {
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
 
       const res = await app.request("/tasks", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           name: "",
           categoryId: category.id,
@@ -177,7 +205,10 @@ describe("Tasks API", () => {
     it("should return 400 when categoryId is not a valid UUID", async () => {
       const res = await app.request("/tasks", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           name: "Test task",
           categoryId: "not-a-uuid",
@@ -192,7 +223,10 @@ describe("Tasks API", () => {
     it("should return 400 when required fields are missing", async () => {
       const res = await app.request("/tasks", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({}),
       });
 
@@ -202,7 +236,10 @@ describe("Tasks API", () => {
     it("should return 404 when categoryId does not exist", async () => {
       const res = await app.request("/tasks", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           name: "Task with missing category",
           categoryId: "00000000-0000-0000-0000-000000000000",
@@ -219,7 +256,7 @@ describe("Tasks API", () => {
     it("should update a task", async () => {
       // Given
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
       const task = await prisma.task.create({
         data: {
@@ -227,13 +264,17 @@ describe("Tasks API", () => {
           categoryId: category.id,
           status: "todo",
           isNext: false,
+          userId: "test-user-id",
         },
       });
 
       // When
       const res = await app.request(`/tasks/${task.id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           name: "Updated",
           categoryId: category.id,
@@ -259,7 +300,10 @@ describe("Tasks API", () => {
 
       const res = await app.request(`/tasks/${nonExistentId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           name: "Updated",
           categoryId: null,
@@ -275,7 +319,7 @@ describe("Tasks API", () => {
 
     it("should return 400 when body is invalid", async () => {
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
       const task = await prisma.task.create({
         data: {
@@ -283,12 +327,16 @@ describe("Tasks API", () => {
           categoryId: category.id,
           status: "todo",
           isNext: false,
+          userId: "test-user-id",
         },
       });
 
       const res = await app.request(`/tasks/${task.id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({ name: "" }),
       });
 
@@ -297,7 +345,7 @@ describe("Tasks API", () => {
 
     it("should return 404 when categoryId does not exist", async () => {
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
       const task = await prisma.task.create({
         data: {
@@ -305,12 +353,16 @@ describe("Tasks API", () => {
           categoryId: category.id,
           status: "todo",
           isNext: false,
+          userId: "test-user-id",
         },
       });
 
       const res = await app.request(`/tasks/${task.id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           name: "Updated",
           categoryId: "00000000-0000-0000-0000-000000000000",
@@ -327,7 +379,10 @@ describe("Tasks API", () => {
     it("should return 400 when task id is not a valid UUID", async () => {
       const res = await app.request("/tasks/not-a-uuid", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           name: "Updated",
           categoryId: null,
@@ -346,7 +401,7 @@ describe("Tasks API", () => {
     it("should delete a task", async () => {
       // Given
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
       const task = await prisma.task.create({
         data: {
@@ -354,12 +409,14 @@ describe("Tasks API", () => {
           categoryId: category.id,
           status: "todo",
           isNext: false,
+          userId: "test-user-id",
         },
       });
 
       // When
       const res = await app.request(`/tasks/${task.id}`, {
         method: "DELETE",
+        headers: { Authorization: "Bearer test-token" },
       });
 
       // Then
@@ -376,6 +433,7 @@ describe("Tasks API", () => {
 
       const res = await app.request(`/tasks/${nonExistentId}`, {
         method: "DELETE",
+        headers: { Authorization: "Bearer test-token" },
       });
 
       expect(res.status).toBe(404);
@@ -384,6 +442,7 @@ describe("Tasks API", () => {
     it("should return 400 when task id is not a valid UUID", async () => {
       const res = await app.request("/tasks/not-a-uuid", {
         method: "DELETE",
+        headers: { Authorization: "Bearer test-token" },
       });
 
       expect(res.status).toBe(400);

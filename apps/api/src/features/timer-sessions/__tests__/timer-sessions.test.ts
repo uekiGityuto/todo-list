@@ -1,6 +1,13 @@
-import { afterAll, beforeEach, describe, expect, it } from "vitest";
+import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanDatabase, prisma } from "../../../__tests__/helpers/db";
 import app from "../../../app";
+
+vi.mock("jose", () => ({
+  createRemoteJWKSet: vi.fn(),
+  jwtVerify: vi.fn().mockResolvedValue({
+    payload: { sub: "test-user-id" },
+  }),
+}));
 
 describe("Timer Sessions API", () => {
   beforeEach(async () => {
@@ -14,7 +21,9 @@ describe("Timer Sessions API", () => {
 
   describe("GET /timer-sessions", () => {
     it("should return null when no active session exists", async () => {
-      const res = await app.request("/timer-sessions");
+      const res = await app.request("/timer-sessions", {
+        headers: { Authorization: "Bearer test-token" },
+      });
 
       expect(res.status).toBe(200);
       const body = await res.json();
@@ -24,7 +33,7 @@ describe("Timer Sessions API", () => {
     it("should return the active session", async () => {
       // Given
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
       const task = await prisma.task.create({
         data: {
@@ -32,6 +41,7 @@ describe("Timer Sessions API", () => {
           categoryId: category.id,
           status: "in_progress",
           isNext: false,
+          userId: "test-user-id",
         },
       });
       await prisma.timerSession.create({
@@ -40,11 +50,14 @@ describe("Timer Sessions API", () => {
           taskName: "Timer task",
           categoryName: "Work",
           estimatedMinutes: 25,
+          userId: "test-user-id",
         },
       });
 
       // When
-      const res = await app.request("/timer-sessions");
+      const res = await app.request("/timer-sessions", {
+        headers: { Authorization: "Bearer test-token" },
+      });
 
       // Then
       expect(res.status).toBe(200);
@@ -63,7 +76,7 @@ describe("Timer Sessions API", () => {
     it("should create a new timer session", async () => {
       // Given
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
       const task = await prisma.task.create({
         data: {
@@ -71,13 +84,17 @@ describe("Timer Sessions API", () => {
           categoryId: category.id,
           status: "in_progress",
           isNext: false,
+          userId: "test-user-id",
         },
       });
 
       // When
       const res = await app.request("/timer-sessions", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           taskId: task.id,
           taskName: "Timer task",
@@ -100,7 +117,7 @@ describe("Timer Sessions API", () => {
     it("should return 409 when an active session already exists", async () => {
       // Given
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
       const task = await prisma.task.create({
         data: {
@@ -108,6 +125,7 @@ describe("Timer Sessions API", () => {
           categoryId: category.id,
           status: "in_progress",
           isNext: false,
+          userId: "test-user-id",
         },
       });
       await prisma.timerSession.create({
@@ -116,13 +134,17 @@ describe("Timer Sessions API", () => {
           taskName: "Timer task",
           categoryName: "Work",
           estimatedMinutes: 25,
+          userId: "test-user-id",
         },
       });
 
       // When
       const res = await app.request("/timer-sessions", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           taskId: task.id,
           taskName: "Another session",
@@ -138,7 +160,7 @@ describe("Timer Sessions API", () => {
     it("should allow creating a session with empty categoryName", async () => {
       // Given
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
       const task = await prisma.task.create({
         data: {
@@ -146,13 +168,17 @@ describe("Timer Sessions API", () => {
           categoryId: category.id,
           status: "todo",
           isNext: false,
+          userId: "test-user-id",
         },
       });
 
       // When
       const res = await app.request("/timer-sessions", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           taskId: task.id,
           taskName: "Timer task",
@@ -170,7 +196,10 @@ describe("Timer Sessions API", () => {
     it("should return 400 when required fields are missing", async () => {
       const res = await app.request("/timer-sessions", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({}),
       });
 
@@ -180,7 +209,10 @@ describe("Timer Sessions API", () => {
     it("should return 400 when estimatedMinutes is not positive", async () => {
       const res = await app.request("/timer-sessions", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           taskId: "00000000-0000-0000-0000-000000000000",
           taskName: "Task",
@@ -195,7 +227,10 @@ describe("Timer Sessions API", () => {
     it("should return 404 when task does not exist", async () => {
       const res = await app.request("/timer-sessions", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
         body: JSON.stringify({
           taskId: "00000000-0000-0000-0000-000000000000",
           taskName: "Task",
@@ -212,7 +247,7 @@ describe("Timer Sessions API", () => {
     it("should delete the active session", async () => {
       // Given
       const category = await prisma.category.create({
-        data: { name: "Work", color: "#0000FF" },
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
       const task = await prisma.task.create({
         data: {
@@ -220,6 +255,7 @@ describe("Timer Sessions API", () => {
           categoryId: category.id,
           status: "in_progress",
           isNext: false,
+          userId: "test-user-id",
         },
       });
       await prisma.timerSession.create({
@@ -228,12 +264,14 @@ describe("Timer Sessions API", () => {
           taskName: "Timer task",
           categoryName: "Work",
           estimatedMinutes: 25,
+          userId: "test-user-id",
         },
       });
 
       // When
       const res = await app.request("/timer-sessions", {
         method: "DELETE",
+        headers: { Authorization: "Bearer test-token" },
       });
 
       // Then
@@ -246,6 +284,7 @@ describe("Timer Sessions API", () => {
     it("should return 204 even when no session exists", async () => {
       const res = await app.request("/timer-sessions", {
         method: "DELETE",
+        headers: { Authorization: "Bearer test-token" },
       });
 
       expect(res.status).toBe(204);

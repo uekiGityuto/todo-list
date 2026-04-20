@@ -5,9 +5,10 @@
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
     "test": "pnpm -r test",
-    "db:start": "pnpm exec supabase start",
-    "db:stop": "pnpm exec supabase stop",
-    "db:setup": "pnpm db:start && pnpm --filter @todo-list/api db:deploy",
+    "supabase:start": "pnpm exec supabase start",
+    "supabase:stop": "pnpm exec supabase stop",
+    "supabase:setup": "pnpm supabase:start && pnpm --filter @todo-list/api db:deploy",
+    "db:login": "docker exec -it supabase_db_todo-list psql -U postgres",
     "format": "biome check --write .",
     "format:check": "biome check ."
   },

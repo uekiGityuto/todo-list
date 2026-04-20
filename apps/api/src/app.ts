@@ -4,6 +4,7 @@ import { categoriesRoute } from "./features/categories/route";
 import { tasksRoute } from "./features/tasks/route";
 import { timerSessionsRoute } from "./features/timer-sessions/route";
 import { workRecordsRoute } from "./features/work-records/route";
+import { authMiddleware } from "./shared/auth/middleware";
 
 function resolveCorsOrigin(origin: string) {
   if (origin.startsWith("http://localhost:")) {
@@ -23,9 +24,10 @@ const app = new Hono()
     cors({
       origin: resolveCorsOrigin,
       allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-      allowHeaders: ["Content-Type"],
+      allowHeaders: ["Content-Type", "Authorization"],
     }),
   )
+  .use("/*", authMiddleware)
   .route("/tasks", tasksRoute)
   .route("/categories", categoriesRoute)
   .route("/work-records", workRecordsRoute)

@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
+import { useLogout } from "@/shared/hooks/use-logout";
 import { useTaskPageActions } from "@/shared/hooks/use-task-page-actions";
 import { type TasksInitialData, useTasks } from "@/shared/hooks/use-tasks";
 import {
@@ -90,11 +91,16 @@ export function HomePage({
   );
 
   const hasContent = !!nextTask || todayTasks.length > 0;
+  const handleLogout = useLogout();
 
   return (
     <div className="flex min-h-svh flex-col bg-background">
       <div className="flex flex-1">
-        <Sidebar activeItem="home" onItemChange={handleNavChange} />
+        <Sidebar
+          activeItem="home"
+          onItemChange={handleNavChange}
+          onLogout={handleLogout}
+        />
 
         <main className="flex flex-1 flex-col gap-7 p-5 pb-0 md:p-8 md:pt-8">
           <TopRow onAddTask={() => setIsAddModalOpen(true)} />

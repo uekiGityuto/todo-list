@@ -8,7 +8,7 @@ export async function cleanDatabase(): Promise<void> {
     await prisma.category.deleteMany();
   } catch (error) {
     throw new Error(
-      "Database is not ready. Run `pnpm db:setup` from the repository root before running API tests.",
+      "Database is not ready. Run `pnpm supabase:setup` from the repository root before running API tests.",
       { cause: error },
     );
   }

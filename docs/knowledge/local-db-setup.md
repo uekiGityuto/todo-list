@@ -8,7 +8,7 @@
 ## 初回セットアップ
 
 ```bash
-pnpm db:setup
+pnpm supabase:setup
 ```
 
 このコマンドで以下をまとめて実行する。
@@ -21,8 +21,9 @@ pnpm db:setup
 ## 開発中によく使うコマンド
 
 ```bash
-pnpm db:start
-pnpm db:stop
+pnpm supabase:start
+pnpm supabase:stop
+pnpm db:login
 pnpm --filter @todo-list/api test
 ```
 
@@ -38,5 +39,5 @@ postgresql://postgres:postgres@127.0.0.1:54322/postgres
 
 ## ハマりどころ
 
-- `Can't reach database server at localhost:54322` が出る場合は、まず `pnpm db:setup` を実行する
+- `Can't reach database server at localhost:54322` が出る場合は、まず `pnpm supabase:setup` を実行する
 - Supabase CLI が見つからない場合も、グローバルインストールは不要で `pnpm exec supabase` が使われる
