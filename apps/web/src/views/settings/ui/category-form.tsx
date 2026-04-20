@@ -10,7 +10,7 @@ import { Input } from "@/shared/ui/shadcn/input";
 
 interface CategoryFormProps {
   editingCategory: Category | null;
-  onSubmit: (name: string, color: string) => void;
+  onSubmit: (name: string, color: string) => Promise<void>;
   onCancel: () => void;
 }
 
@@ -28,10 +28,10 @@ export function CategoryForm({
   const title = isEditing ? "カテゴリ編集" : "カテゴリ追加";
   const submitLabel = isEditing ? "保存" : "追加";
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const trimmed = name.trim();
     if (!trimmed) return;
-    onSubmit(trimmed, color);
+    await onSubmit(trimmed, color);
   };
 
   return (

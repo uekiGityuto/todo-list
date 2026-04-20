@@ -4,8 +4,9 @@ import { Plus } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { useTaskPageActions } from "@/shared/hooks/use-task-page-actions";
-import { useTasks } from "@/shared/hooks/use-tasks";
+import { type TasksInitialData, useTasks } from "@/shared/hooks/use-tasks";
 import { formatDuration } from "@/shared/lib/format-duration";
+import type { Category, Task } from "@/shared/types/task";
 import { AddTaskModal } from "@/shared/ui/add-task-modal";
 import { DeleteConfirmDialog } from "@/shared/ui/delete-confirm-dialog";
 import { EmptyState } from "@/shared/ui/empty-state";
@@ -25,7 +26,12 @@ const STATUS_FILTERS: { key: StatusFilter; label: string }[] = [
   { key: "done", label: "完了済み" },
 ];
 
-export function TasksPage() {
+type TasksPageProps = {
+  initialTasks: Task[];
+  initialCategories: Category[];
+};
+
+export function TasksPage({ initialTasks, initialCategories }: TasksPageProps) {
   const {
     tasks,
     categories,
@@ -35,7 +41,10 @@ export function TasksPage() {
     setNextTask,
     unsetNextTask,
     addCategory,
-  } = useTasks();
+  } = useTasks({
+    tasks: initialTasks,
+    categories: initialCategories,
+  } satisfies TasksInitialData);
 
   const {
     expandedTaskId,

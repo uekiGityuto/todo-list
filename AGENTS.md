@@ -31,3 +31,7 @@ pnpm lint         # Lint実行
 ## 開発フロー
 
 pencil.devでデザイン → AIエージェントがMCP経由でコード生成 → ロジック実装 → デザイン調整
+
+## MCP
+
+ブラウザでの動作確認やUI確認が必要な場合は、Playwright MCP を使って確認してよい。

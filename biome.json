@@ -25,7 +25,11 @@
   "files": {
     "includes": [
       "**",
+      "!**/.claude",
+      "!**/.claude/**",
       "!**/.next",
+      "!**/.pnpm-store",
+      "!**/.pnpm-store/**",
       "!**/node_modules",
       "!**/pnpm-lock.yaml",
       "!**/shared/ui/shadcn/**"

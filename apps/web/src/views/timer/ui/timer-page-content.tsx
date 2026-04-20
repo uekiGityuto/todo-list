@@ -3,12 +3,18 @@
 import { format } from "date-fns";
 import { Check, Pause } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 
-import { useTasks } from "@/shared/hooks/use-tasks";
+import { type TasksInitialData, useTasks } from "@/shared/hooks/use-tasks";
 import type { TimerResult } from "@/shared/hooks/use-timer";
 import { useTimer } from "@/shared/hooks/use-timer";
-import { useWorkRecords } from "@/shared/hooks/use-work-records";
+import {
+  useWorkRecords,
+  type WorkRecordsInitialData,
+} from "@/shared/hooks/use-work-records";
+import type { Category, Task } from "@/shared/types/task";
+import type { TimerSession } from "@/shared/types/timer";
+import type { WorkRecord } from "@/shared/types/work-record";
 import { Badge } from "@/shared/ui/shadcn/badge";
 import { Button } from "@/shared/ui/shadcn/button";
 import { Sidebar } from "@/shared/ui/sidebar";
@@ -18,13 +24,31 @@ import { TimerRing } from "./timer-ring";
 
 const DEFAULT_MINUTES = 60;
 
-export function TimerPageContent() {
+type TimerPageContentProps = {
+  initialTasks: Task[];
+  initialCategories: Category[];
+  initialWorkRecords?: WorkRecord[];
+  initialTimerSession: TimerSession | null;
+};
+
+export function TimerPageContent({
+  initialTasks,
+  initialCategories,
+  initialWorkRecords,
+  initialTimerSession,
+}: TimerPageContentProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const taskId = searchParams.get("taskId");
+  const hasStartedRef = useRef(false);
 
-  const { tasks, startWork, completeTask } = useTasks();
-  const { addWorkRecord } = useWorkRecords(tasks);
+  const { tasks, startWork, completeTask } = useTasks({
+    tasks: initialTasks,
+    categories: initialCategories,
+  } satisfies TasksInitialData);
+  const { addWorkRecord } = useWorkRecords(tasks, {
+    workRecords: initialWorkRecords ?? [],
+  } satisfies WorkRecordsInitialData);
 
   const task = useMemo(
     () => tasks.find((t) => t.id === taskId),
@@ -33,22 +57,34 @@ export function TimerPageContent() {
 
   const estimatedMinutes = task?.estimatedMinutes ?? DEFAULT_MINUTES;
 
-  const timer = useTimer({
-    taskId: taskId ?? "",
-    taskName: task?.name ?? "",
-    categoryName: task?.category.name ?? "",
-    estimatedMinutes,
-  });
+  const timer = useTimer(
+    {
+      taskId: taskId ?? "",
+      taskName: task?.name ?? "",
+      categoryName: task?.category.name ?? "",
+      estimatedMinutes,
+    },
+    initialTimerSession,
+  );
 
   useEffect(() => {
-    if (!taskId) return;
-    if (!timer.isRunning && !timer.isFinished) {
-      if (task) {
-        startWork(taskId);
-      }
-      timer.start();
+    if (
+      !taskId ||
+      !task ||
+      timer.isRunning ||
+      timer.isFinished ||
+      hasStartedRef.current
+    ) {
+      return;
     }
-  }, [taskId]); // oxlint-disable-line react-hooks/exhaustive-deps -- taskId 変更時のみ実行（timer/task/startWork は初回起動の制御に使うため deps から除外）
+
+    hasStartedRef.current = true;
+
+    void (async () => {
+      await startWork(taskId);
+      await timer.start();
+    })();
+  }, [startWork, task, taskId, timer]);
 
   const handleNavChange = useCallback(
     (key: string) => {
@@ -65,8 +101,8 @@ export function TimerPageContent() {
   );
 
   const recordWork = useCallback(
-    (result: TimerResult, workResult: "completed" | "interrupted") => {
-      addWorkRecord({
+    async (result: TimerResult, workResult: "completed" | "interrupted") => {
+      await addWorkRecord({
         taskId: result.taskId,
         date: format(new Date(result.startedAt), "yyyy-MM-dd"),
         durationMinutes: Math.max(1, result.durationMinutes),
@@ -76,21 +112,23 @@ export function TimerPageContent() {
     [addWorkRecord],
   );
 
-  const handleComplete = useCallback(() => {
-    const result = timer.complete();
-    if (taskId) completeTask(taskId);
-    recordWork(result, "completed");
+  const handleComplete = useCallback(async () => {
+    const result = await timer.complete();
+    if (taskId) {
+      await completeTask(taskId);
+    }
+    await recordWork(result, "completed");
     router.push("/");
   }, [timer, taskId, completeTask, recordWork, router]);
 
-  const handleInterrupt = useCallback(() => {
-    const result = timer.interrupt();
-    recordWork(result, "interrupted");
+  const handleInterrupt = useCallback(async () => {
+    const result = await timer.interrupt();
+    await recordWork(result, "interrupted");
     router.push("/");
   }, [timer, recordWork, router]);
 
-  const handleContinue = useCallback(() => {
-    timer.restart();
+  const handleContinue = useCallback(async () => {
+    await timer.restart();
   }, [timer]);
 
   if (!taskId) {

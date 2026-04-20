@@ -15,7 +15,7 @@ interface CategorySelectProps {
   categories: Category[];
   selectedCategoryId: string;
   onSelect: (categoryId: string) => void;
-  onCreateCategory: (name: string, color: string) => string;
+  onCreateCategory: (name: string, color: string) => Promise<string>;
   className?: string;
 }
 
@@ -38,9 +38,9 @@ export function CategorySelect({
     setIsOpen(false);
   };
 
-  const handleCreateCategory = () => {
+  const handleCreateCategory = async () => {
     if (!newCategoryName.trim()) return;
-    const newId = onCreateCategory(newCategoryName.trim(), selectedColor);
+    const newId = await onCreateCategory(newCategoryName.trim(), selectedColor);
     onSelect(newId);
     setNewCategoryName("");
     setSelectedColor(CATEGORY_COLORS[0]);

@@ -5,8 +5,13 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import { useTaskPageActions } from "@/shared/hooks/use-task-page-actions";
-import { useTasks } from "@/shared/hooks/use-tasks";
-import { useWorkRecords } from "@/shared/hooks/use-work-records";
+import { type TasksInitialData, useTasks } from "@/shared/hooks/use-tasks";
+import {
+  useWorkRecords,
+  type WorkRecordsInitialData,
+} from "@/shared/hooks/use-work-records";
+import type { Category, Task } from "@/shared/types/task";
+import type { WorkRecord } from "@/shared/types/work-record";
 import { AddTaskModal } from "@/shared/ui/add-task-modal";
 import { DeleteConfirmDialog } from "@/shared/ui/delete-confirm-dialog";
 import { EmptyState } from "@/shared/ui/empty-state";
@@ -16,7 +21,17 @@ import { RecentWorkColumn } from "./recent-work-column";
 import { TaskContent } from "./task-content";
 import { TopRow } from "./top-row";
 
-export function HomePage() {
+type HomePageProps = {
+  initialTasks: Task[];
+  initialCategories: Category[];
+  initialWorkRecords: WorkRecord[];
+};
+
+export function HomePage({
+  initialTasks,
+  initialCategories,
+  initialWorkRecords,
+}: HomePageProps) {
   const router = useRouter();
   const {
     tasks,
@@ -27,9 +42,14 @@ export function HomePage() {
     setNextTask,
     unsetNextTask,
     addCategory,
-  } = useTasks();
+  } = useTasks({
+    tasks: initialTasks,
+    categories: initialCategories,
+  } satisfies TasksInitialData);
 
-  const { recentWorkByDay } = useWorkRecords(tasks);
+  const { recentWorkByDay } = useWorkRecords(tasks, {
+    workRecords: initialWorkRecords,
+  } satisfies WorkRecordsInitialData);
 
   const {
     expandedTaskId,

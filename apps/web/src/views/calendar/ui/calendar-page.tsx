@@ -11,8 +11,13 @@ import {
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 
-import { useTasks } from "@/shared/hooks/use-tasks";
-import { useWorkRecords } from "@/shared/hooks/use-work-records";
+import { type TasksInitialData, useTasks } from "@/shared/hooks/use-tasks";
+import {
+  useWorkRecords,
+  type WorkRecordsInitialData,
+} from "@/shared/hooks/use-work-records";
+import type { Category, Task } from "@/shared/types/task";
+import type { WorkRecord } from "@/shared/types/work-record";
 import { SectionHeader } from "@/shared/ui/section-header";
 import { Sidebar } from "@/shared/ui/sidebar";
 import { TabBar } from "@/shared/ui/tab-bar";
@@ -21,10 +26,25 @@ import { CalendarGrid } from "./calendar-grid";
 import { CalendarTaskItem } from "./calendar-task-item";
 import { MonthNavigator } from "./month-navigator";
 
-export function CalendarPage() {
+type CalendarPageProps = {
+  initialTasks: Task[];
+  initialCategories: Category[];
+  initialWorkRecords: WorkRecord[];
+};
+
+export function CalendarPage({
+  initialTasks,
+  initialCategories,
+  initialWorkRecords,
+}: CalendarPageProps) {
   const router = useRouter();
-  const { tasks } = useTasks();
-  const { getWorkRecordsByMonth } = useWorkRecords(tasks);
+  const { tasks } = useTasks({
+    tasks: initialTasks,
+    categories: initialCategories,
+  } satisfies TasksInitialData);
+  const { getWorkRecordsByMonth } = useWorkRecords(tasks, {
+    workRecords: initialWorkRecords,
+  } satisfies WorkRecordsInitialData);
 
   const [currentMonth, setCurrentMonth] = useState(() =>
     startOfMonth(new Date()),

@@ -29,8 +29,8 @@ const ESTIMATED_MINUTES_OPTIONS = [
 
 interface AddTaskFormProps {
   onClose: () => void;
-  onSubmit: (data: TaskFormData) => void;
-  onCreateCategory: (name: string, color: string) => string;
+  onSubmit: (data: TaskFormData) => Promise<void>;
+  onCreateCategory: (name: string, color: string) => Promise<string>;
   categories: Category[];
   editingTask?: TaskFormData & { id: string };
 }
@@ -54,13 +54,13 @@ export function AddTaskForm({
   );
   const [nameError, setNameError] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!name.trim()) {
       setNameError(true);
       return;
     }
 
-    onSubmit({
+    await onSubmit({
       name: name.trim(),
       categoryId,
       scheduledDate: scheduledDate ? format(scheduledDate, "yyyy-MM-dd") : null,

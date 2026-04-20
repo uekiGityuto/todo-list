@@ -4,10 +4,15 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 import { useMediaQuery } from "@/shared/hooks/use-media-query";
-import { useTasks } from "@/shared/hooks/use-tasks";
-import type { Category } from "@/shared/types/task";
+import { type TasksInitialData, useTasks } from "@/shared/hooks/use-tasks";
+import type { Category, Task } from "@/shared/types/task";
 import { SectionHeader } from "@/shared/ui/section-header";
-import { Dialog, DialogContent } from "@/shared/ui/shadcn/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/shared/ui/shadcn/dialog";
 import { Sidebar } from "@/shared/ui/sidebar";
 import { TabBar } from "@/shared/ui/tab-bar";
 import { CategoryDeleteDialog } from "./category-delete-dialog";
@@ -19,10 +24,21 @@ type FormState =
   | { mode: "add" }
   | { mode: "edit"; category: Category };
 
-export function SettingsPage() {
+type SettingsPageProps = {
+  initialTasks: Task[];
+  initialCategories: Category[];
+};
+
+export function SettingsPage({
+  initialTasks,
+  initialCategories,
+}: SettingsPageProps) {
   const router = useRouter();
   const { tasks, categories, addCategory, updateCategory, deleteCategory } =
-    useTasks();
+    useTasks({
+      tasks: initialTasks,
+      categories: initialCategories,
+    } satisfies TasksInitialData);
 
   const [formState, setFormState] = useState<FormState>({ mode: "closed" });
   const [deleteTarget, setDeleteTarget] = useState<Category | null>(null);
@@ -50,32 +66,32 @@ export function SettingsPage() {
   }, []);
 
   const handleDelete = useCallback(
-    (category: Category) => {
+    async (category: Category) => {
       const hasLinkedTasks = tasks.some(
         (task) => task.categoryId === category.id,
       );
       if (hasLinkedTasks) {
         setDeleteTarget(category);
       } else {
-        deleteCategory(category.id);
+        await deleteCategory(category.id);
       }
     },
     [tasks, deleteCategory],
   );
 
-  const handleConfirmDelete = useCallback(() => {
+  const handleConfirmDelete = useCallback(async () => {
     if (!deleteTarget) return;
-    deleteCategory(deleteTarget.id);
+    await deleteCategory(deleteTarget.id);
     setDeleteTarget(null);
     setFormState({ mode: "closed" });
   }, [deleteTarget, deleteCategory]);
 
   const handleFormSubmit = useCallback(
-    (name: string, color: string) => {
+    async (name: string, color: string) => {
       if (formState.mode === "add") {
-        addCategory(name, color);
+        await addCategory(name, color);
       } else if (formState.mode === "edit") {
-        updateCategory(formState.category.id, name, color);
+        await updateCategory(formState.category.id, name, color);
       }
       setFormState({ mode: "closed" });
     },
@@ -134,6 +150,12 @@ export function SettingsPage() {
                 showCloseButton={false}
                 className="block border-none bg-transparent p-0 shadow-none"
               >
+                <DialogTitle className="sr-only">
+                  {editingCategory ? "カテゴリ編集" : "カテゴリ追加"}
+                </DialogTitle>
+                <DialogDescription className="sr-only">
+                  カテゴリ名とカラーを入力して保存するダイアログです。
+                </DialogDescription>
                 <CategoryForm
                   key={
                     formState.mode === "edit"

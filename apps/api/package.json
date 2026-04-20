@@ -2,6 +2,9 @@
   "name": "@todo-list/api",
   "version": "0.1.0",
   "private": true,
+  "exports": {
+    "./client": "./src/client.ts"
+  },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc --noEmit",

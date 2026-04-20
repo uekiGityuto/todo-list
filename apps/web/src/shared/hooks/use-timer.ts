@@ -2,11 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { useLocalStorage } from "@/shared/hooks/use-local-storage";
-
+import { useCurrentTimerSession } from "@/shared/hooks/use-current-timer-session";
 import type { TimerSession } from "@/shared/types/timer";
 
-const TIMER_SESSION_KEY = "timer-session";
 const INTERVAL_MS = 1000;
 
 type UseTimerInput = {
@@ -20,10 +18,10 @@ type UseTimerReturn = {
   remainingSeconds: number;
   isRunning: boolean;
   isFinished: boolean;
-  start: () => void;
-  complete: () => TimerResult;
-  interrupt: () => TimerResult;
-  restart: () => void;
+  start: () => Promise<void>;
+  complete: () => Promise<TimerResult>;
+  interrupt: () => Promise<TimerResult>;
+  restart: () => Promise<void>;
 };
 
 export type TimerResult = {
@@ -31,6 +29,8 @@ export type TimerResult = {
   durationMinutes: number;
   startedAt: string;
 };
+
+export const TIMER_SESSION_KEY = "timer-session";
 
 function calcRemainingSeconds(
   startedAt: string,
@@ -41,24 +41,39 @@ function calcRemainingSeconds(
   return Math.max(0, remaining);
 }
 
+function getInitialState(
+  session: TimerSession | null,
+  estimatedMinutes: number,
+) {
+  const remainingSeconds = session
+    ? calcRemainingSeconds(session.startedAt, session.estimatedMinutes)
+    : estimatedMinutes * 60;
+  const isFinished = session !== null && remainingSeconds === 0;
+
+  return {
+    remainingSeconds,
+    isFinished,
+    isRunning: session !== null && !isFinished,
+  };
+}
+
 export function calcDurationMinutes(startedAt: string): number {
   return Math.floor((Date.now() - new Date(startedAt).getTime()) / 60000);
 }
 
-export function useTimer(input: UseTimerInput): UseTimerReturn {
-  const { value: session, setValue: setSession } =
-    useLocalStorage<TimerSession | null>(TIMER_SESSION_KEY, null);
+export function useTimer(
+  input: UseTimerInput,
+  initialSession?: TimerSession | null,
+): UseTimerReturn {
+  const { session, createSession, clearSession } =
+    useCurrentTimerSession(initialSession);
+  const initialState = getInitialState(session, input.estimatedMinutes);
 
-  const initialRemaining = session
-    ? calcRemainingSeconds(session.startedAt, session.estimatedMinutes)
-    : input.estimatedMinutes * 60;
-  const initialFinished = session !== null && initialRemaining === 0;
-
-  const [remainingSeconds, setRemainingSeconds] = useState(initialRemaining);
-  const [isRunning, setIsRunning] = useState(
-    () => session !== null && !initialFinished,
+  const [remainingSeconds, setRemainingSeconds] = useState(
+    initialState.remainingSeconds,
   );
-  const [isFinished, setIsFinished] = useState(initialFinished);
+  const [isRunning, setIsRunning] = useState(initialState.isRunning);
+  const [isFinished, setIsFinished] = useState(initialState.isFinished);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -70,6 +85,13 @@ export function useTimer(input: UseTimerInput): UseTimerReturn {
   }, []);
 
   useEffect(() => {
+    const nextState = getInitialState(session, input.estimatedMinutes);
+    setRemainingSeconds(nextState.remainingSeconds);
+    setIsRunning(nextState.isRunning);
+    setIsFinished(nextState.isFinished);
+  }, [input.estimatedMinutes, session]);
+
+  useEffect(() => {
     if (!isRunning || isFinished || !session) return;
 
     const tick = () => {
@@ -78,60 +100,67 @@ export function useTimer(input: UseTimerInput): UseTimerReturn {
         session.estimatedMinutes,
       );
       setRemainingSeconds(remaining);
+
       if (remaining <= 0) {
         setIsFinished(true);
-        if (intervalRef.current !== null) {
-          clearInterval(intervalRef.current);
-          intervalRef.current = null;
-        }
+        clearTimer();
       }
     };
 
     intervalRef.current = setInterval(tick, INTERVAL_MS);
-    return () => {
-      if (intervalRef.current !== null) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-    };
-  }, [isRunning, isFinished, session]);
+    return clearTimer;
+  }, [clearTimer, isFinished, isRunning, session]);
 
-  const initSession = useCallback(() => {
-    const now = new Date().toISOString();
-    const newSession: TimerSession = {
+  const start = useCallback(async () => {
+    const createdSession = await createSession({
       taskId: input.taskId,
       taskName: input.taskName,
       categoryName: input.categoryName,
       estimatedMinutes: input.estimatedMinutes,
-      startedAt: now,
-    };
-    setSession(newSession);
-    setRemainingSeconds(input.estimatedMinutes * 60);
+    });
+
+    setRemainingSeconds(
+      calcRemainingSeconds(
+        createdSession.startedAt,
+        createdSession.estimatedMinutes,
+      ),
+    );
     setIsFinished(false);
     setIsRunning(true);
-  }, [input, setSession]);
+  }, [createSession, input]);
 
-  const start = useCallback(() => initSession(), [initSession]);
+  const stop = useCallback(async (): Promise<TimerResult> => {
+    if (!session) {
+      throw new Error("No active timer session");
+    }
 
-  const stop = useCallback((): TimerResult => {
     clearTimer();
-    const currentSession = session!;
     const result: TimerResult = {
-      taskId: currentSession.taskId,
-      durationMinutes: calcDurationMinutes(currentSession.startedAt),
-      startedAt: currentSession.startedAt,
+      taskId: session.taskId,
+      durationMinutes: calcDurationMinutes(session.startedAt),
+      startedAt: session.startedAt,
     };
-    setSession(null);
+
+    await clearSession();
     setIsRunning(false);
     setIsFinished(false);
     return result;
-  }, [session, setSession, clearTimer]);
+  }, [clearSession, clearTimer, session]);
 
-  const complete = useCallback((): TimerResult => stop(), [stop]);
+  const complete = useCallback(async (): Promise<TimerResult> => {
+    return stop();
+  }, [stop]);
 
-  const interrupt = useCallback((): TimerResult => stop(), [stop]);
+  const interrupt = useCallback(async (): Promise<TimerResult> => {
+    return stop();
+  }, [stop]);
 
-  const restart = useCallback(() => initSession(), [initSession]);
+  const restart = useCallback(async () => {
+    if (session) {
+      await clearSession();
+    }
+    await start();
+  }, [clearSession, session, start]);
 
   return {
     remainingSeconds,
@@ -143,5 +172,3 @@ export function useTimer(input: UseTimerInput): UseTimerReturn {
     restart,
   };
 }
-
-export { TIMER_SESSION_KEY };

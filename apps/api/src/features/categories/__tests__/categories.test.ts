@@ -41,6 +41,41 @@ describe("Categories API", () => {
       expect(body[0]).toHaveProperty("name");
       expect(body[0]).toHaveProperty("color");
     });
+
+    it("should include CORS headers for localhost origins", async () => {
+      const res = await app.request("/categories", {
+        headers: {
+          Origin: "http://localhost:3000",
+        },
+      });
+
+      expect(res.status).toBe(200);
+      expect(res.headers.get("Access-Control-Allow-Origin")).toBe(
+        "http://localhost:3000",
+      );
+    });
+  });
+
+  describe("OPTIONS /categories", () => {
+    it("should handle preflight requests", async () => {
+      const res = await app.request("/categories", {
+        method: "OPTIONS",
+        headers: {
+          Origin: "http://localhost:3000",
+          "Access-Control-Request-Method": "POST",
+          "Access-Control-Request-Headers": "Content-Type",
+        },
+      });
+
+      expect(res.status).toBe(204);
+      expect(res.headers.get("Access-Control-Allow-Origin")).toBe(
+        "http://localhost:3000",
+      );
+      expect(res.headers.get("Access-Control-Allow-Methods")).toContain("POST");
+      expect(res.headers.get("Access-Control-Allow-Headers")).toContain(
+        "Content-Type",
+      );
+    });
   });
 
   describe("POST /categories", () => {

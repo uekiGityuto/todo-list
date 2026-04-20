@@ -3,52 +3,60 @@
 import { format } from "date-fns";
 import { useCallback } from "react";
 
-import { useLocalStorage } from "@/shared/hooks/use-local-storage";
+import { useCurrentTimerSession } from "@/shared/hooks/use-current-timer-session";
 import { useTasks } from "@/shared/hooks/use-tasks";
-import {
-  calcDurationMinutes,
-  TIMER_SESSION_KEY,
-} from "@/shared/hooks/use-timer";
+import { calcDurationMinutes } from "@/shared/hooks/use-timer";
 import { useWorkRecords } from "@/shared/hooks/use-work-records";
 import type { TimerSession } from "@/shared/types/timer";
 import { RecoveryDialog } from "@/shared/ui/recovery-dialog";
 
-export function RecoveryDialogProvider() {
+export function RecoveryDialogProvider({
+  initialSession,
+}: {
+  initialSession: TimerSession | null;
+}) {
+  const { session, clearSession } = useCurrentTimerSession(initialSession);
   const { tasks, completeTask } = useTasks();
   const { addWorkRecord } = useWorkRecords(tasks);
-  const { setValue: setSession } = useLocalStorage<TimerSession | null>(
-    TIMER_SESSION_KEY,
-    null,
-  );
 
   const handleComplete = useCallback(
-    (session: TimerSession) => {
-      completeTask(session.taskId);
-      addWorkRecord({
-        taskId: session.taskId,
-        date: format(new Date(session.startedAt), "yyyy-MM-dd"),
-        durationMinutes: Math.max(1, calcDurationMinutes(session.startedAt)),
+    async (activeSession: TimerSession) => {
+      await completeTask(activeSession.taskId);
+      await addWorkRecord({
+        taskId: activeSession.taskId,
+        date: format(new Date(activeSession.startedAt), "yyyy-MM-dd"),
+        durationMinutes: Math.max(
+          1,
+          calcDurationMinutes(activeSession.startedAt),
+        ),
         result: "completed",
       });
-      setSession(null);
+      await clearSession();
     },
-    [completeTask, addWorkRecord, setSession],
+    [addWorkRecord, clearSession, completeTask],
   );
 
   const handleInterrupt = useCallback(
-    (session: TimerSession) => {
-      addWorkRecord({
-        taskId: session.taskId,
-        date: format(new Date(session.startedAt), "yyyy-MM-dd"),
-        durationMinutes: Math.max(1, calcDurationMinutes(session.startedAt)),
+    async (activeSession: TimerSession) => {
+      await addWorkRecord({
+        taskId: activeSession.taskId,
+        date: format(new Date(activeSession.startedAt), "yyyy-MM-dd"),
+        durationMinutes: Math.max(
+          1,
+          calcDurationMinutes(activeSession.startedAt),
+        ),
         result: "interrupted",
       });
-      setSession(null);
+      await clearSession();
     },
-    [addWorkRecord, setSession],
+    [addWorkRecord, clearSession],
   );
 
   return (
-    <RecoveryDialog onComplete={handleComplete} onInterrupt={handleInterrupt} />
+    <RecoveryDialog
+      session={session}
+      onComplete={handleComplete}
+      onInterrupt={handleInterrupt}
+    />
   );
 }

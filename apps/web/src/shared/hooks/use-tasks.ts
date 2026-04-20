@@ -1,9 +1,22 @@
 "use client";
 
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";
 import type { TaskStatus } from "@/shared/enums/task-statuses";
-import { useLocalStorage } from "@/shared/hooks/use-local-storage";
+import {
+  createCategory,
+  createTask,
+  deleteCategory,
+  deleteTask,
+  fetchCategories,
+  fetchTasks,
+  updateCategory,
+  updateTask,
+} from "@/shared/lib/api";
+import { queryKeys } from "@/shared/lib/api/query-keys";
 import type { Category, Task, TaskWithCategory } from "@/shared/types/task";
+import type { TimerSession } from "@/shared/types/timer";
+import type { WorkRecord } from "@/shared/types/work-record";
 
 const UNCATEGORIZED: Category = {
   id: "",
@@ -25,219 +38,320 @@ type UpdateTaskInput = {
   estimatedMinutes: number | null;
 };
 
+export type TasksInitialData = {
+  categories: Category[];
+  tasks: Task[];
+};
+
 type UseTasksReturn = {
   tasks: TaskWithCategory[];
   categories: Category[];
-  addTask: (input: AddTaskInput) => void;
-  updateTask: (id: string, input: UpdateTaskInput) => void;
-  deleteTask: (id: string) => void;
-  toggleComplete: (id: string) => void;
-  setNextTask: (id: string) => void;
-  unsetNextTask: (id: string) => void;
-  startWork: (id: string) => void;
-  completeTask: (id: string) => void;
-  addCategory: (name: string, color: string) => string;
-  updateCategory: (id: string, name: string, color: string) => void;
-  deleteCategory: (id: string) => void;
+  addTask: (input: AddTaskInput) => Promise<void>;
+  updateTask: (id: string, input: UpdateTaskInput) => Promise<void>;
+  deleteTask: (id: string) => Promise<void>;
+  toggleComplete: (id: string) => Promise<void>;
+  setNextTask: (id: string) => Promise<void>;
+  unsetNextTask: (id: string) => Promise<void>;
+  startWork: (id: string) => Promise<void>;
+  completeTask: (id: string) => Promise<void>;
+  addCategory: (name: string, color: string) => Promise<string>;
+  updateCategory: (id: string, name: string, color: string) => Promise<void>;
+  deleteCategory: (id: string) => Promise<void>;
 };
 
-export function useTasks(): UseTasksReturn {
-  const { value: tasks, setValue: setTasks } = useLocalStorage<Task[]>(
-    "tasks",
-    [],
-  );
-  const { value: categories, setValue: setCategories } = useLocalStorage<
-    Category[]
-  >("categories", []);
+function normalizeCategoryId(categoryId: string) {
+  return categoryId === "" ? null : categoryId;
+}
+
+function toTaskMutationInput(
+  task: Task,
+  overrides: Partial<
+    Pick<
+      Task,
+      | "categoryId"
+      | "estimatedMinutes"
+      | "isNext"
+      | "name"
+      | "scheduledDate"
+      | "status"
+    >
+  >,
+) {
+  return {
+    name: overrides.name ?? task.name,
+    categoryId: normalizeCategoryId(overrides.categoryId ?? task.categoryId),
+    status: overrides.status ?? task.status,
+    isNext: overrides.isNext ?? task.isNext,
+    estimatedMinutes: overrides.estimatedMinutes ?? task.estimatedMinutes,
+    scheduledDate: overrides.scheduledDate ?? task.scheduledDate,
+  };
+}
+
+export function useTasks(initialData?: TasksInitialData): UseTasksReturn {
+  const queryClient = useQueryClient();
+
+  const { data: tasks = [] } = useQuery({
+    queryKey: queryKeys.tasks,
+    queryFn: fetchTasks,
+    initialData: initialData?.tasks,
+  });
+  const { data: categories = [] } = useQuery({
+    queryKey: queryKeys.categories,
+    queryFn: fetchCategories,
+    initialData: initialData?.categories,
+  });
+
+  const createTaskMutation = useMutation({
+    mutationFn: createTask,
+    onSuccess: (createdTask) => {
+      queryClient.setQueryData<Task[]>(queryKeys.tasks, (prev = []) => [
+        ...prev,
+        createdTask,
+      ]);
+    },
+  });
+  const updateTaskMutation = useMutation({
+    mutationFn: ({
+      id,
+      input,
+    }: {
+      id: string;
+      input: ReturnType<typeof toTaskMutationInput>;
+    }) => updateTask(id, input),
+    onSuccess: (updatedTask) => {
+      queryClient.setQueryData<Task[]>(queryKeys.tasks, (prev = []) =>
+        prev.map((task) => (task.id === updatedTask.id ? updatedTask : task)),
+      );
+    },
+  });
+  const deleteTaskMutation = useMutation({
+    mutationFn: deleteTask,
+    onSuccess: (_, deletedTaskId) => {
+      queryClient.setQueryData<Task[]>(queryKeys.tasks, (prev = []) =>
+        prev.filter((task) => task.id !== deletedTaskId),
+      );
+      queryClient.setQueryData<WorkRecord[]>(
+        queryKeys.workRecords,
+        (prev = []) => prev.filter((record) => record.taskId !== deletedTaskId),
+      );
+      queryClient.setQueryData<TimerSession | null>(
+        queryKeys.timerSession,
+        (prev) => (prev?.taskId === deletedTaskId ? null : (prev ?? null)),
+      );
+    },
+  });
+  const createCategoryMutation = useMutation({
+    mutationFn: createCategory,
+    onSuccess: (createdCategory) => {
+      queryClient.setQueryData<Category[]>(
+        queryKeys.categories,
+        (prev = []) => [...prev, createdCategory],
+      );
+    },
+  });
+  const updateCategoryMutation = useMutation({
+    mutationFn: ({
+      id,
+      color,
+      name,
+    }: {
+      id: string;
+      color: string;
+      name: string;
+    }) => updateCategory(id, { name, color }),
+    onSuccess: (updatedCategory) => {
+      queryClient.setQueryData<Category[]>(queryKeys.categories, (prev = []) =>
+        prev.map((category) =>
+          category.id === updatedCategory.id ? updatedCategory : category,
+        ),
+      );
+    },
+  });
+  const deleteCategoryMutation = useMutation({
+    mutationFn: deleteCategory,
+    onSuccess: (_, deletedCategoryId) => {
+      queryClient.setQueryData<Category[]>(queryKeys.categories, (prev = []) =>
+        prev.filter((category) => category.id !== deletedCategoryId),
+      );
+      queryClient.setQueryData<Task[]>(queryKeys.tasks, (prev = []) =>
+        prev.map((task) =>
+          task.categoryId === deletedCategoryId
+            ? { ...task, categoryId: "" }
+            : task,
+        ),
+      );
+    },
+  });
 
   const resolveCategory = useCallback(
     (categoryId: string): Category => {
-      return categories.find((c) => c.id === categoryId) ?? UNCATEGORIZED;
+      return (
+        categories.find((category) => category.id === categoryId) ??
+        UNCATEGORIZED
+      );
     },
     [categories],
   );
 
-  const tasksWithCategory: TaskWithCategory[] = useMemo(() => {
+  const tasksWithCategory = useMemo(() => {
     return tasks.map((task) => ({
       ...task,
       category: resolveCategory(task.categoryId),
     }));
   }, [tasks, resolveCategory]);
 
-  const addTask = useCallback(
-    (input: AddTaskInput) => {
-      const now = new Date().toISOString();
-      const newTask: Task = {
-        id: crypto.randomUUID(),
+  const mutateTask = useCallback(
+    async (
+      id: string,
+      recipe: (task: Task) => ReturnType<typeof toTaskMutationInput>,
+    ) => {
+      const currentTask = tasks.find((task) => task.id === id);
+      if (!currentTask) return;
+      await updateTaskMutation.mutateAsync({
+        id,
+        input: recipe(currentTask),
+      });
+    },
+    [tasks, updateTaskMutation],
+  );
+
+  const addTaskAction = useCallback(
+    async (input: AddTaskInput) => {
+      await createTaskMutation.mutateAsync({
         name: input.name,
-        categoryId: input.categoryId,
-        status: "todo" as TaskStatus,
-        isNext: false,
-        estimatedMinutes: input.estimatedMinutes,
+        categoryId: normalizeCategoryId(input.categoryId),
         scheduledDate: input.scheduledDate,
-        createdAt: now,
-        updatedAt: now,
-      };
-      setTasks((prev) => [...prev, newTask]);
+        estimatedMinutes: input.estimatedMinutes,
+      });
     },
-    [setTasks],
+    [createTaskMutation],
   );
 
-  const updateTask = useCallback(
-    (id: string, input: UpdateTaskInput) => {
-      const now = new Date().toISOString();
-      setTasks((prev) =>
-        prev.map((task) =>
-          task.id === id
-            ? {
-                ...task,
-                name: input.name,
-                categoryId: input.categoryId,
-                scheduledDate: input.scheduledDate,
-                estimatedMinutes: input.estimatedMinutes,
-                updatedAt: now,
-              }
-            : task,
-        ),
-      );
-    },
-    [setTasks],
-  );
-
-  const deleteTask = useCallback(
-    (id: string) => {
-      setTasks((prev) => prev.filter((task) => task.id !== id));
-    },
-    [setTasks],
-  );
-
-  const toggleComplete = useCallback(
-    (id: string) => {
-      const now = new Date().toISOString();
-      setTasks((prev) =>
-        prev.map((task) => {
-          if (task.id !== id) return task;
-          const newStatus: TaskStatus =
-            task.status === "done" ? "todo" : "done";
-          return {
-            ...task,
-            status: newStatus,
-            isNext: newStatus === "done" ? false : task.isNext,
-            updatedAt: now,
-          };
+  const updateTaskAction = useCallback(
+    async (id: string, input: UpdateTaskInput) => {
+      await mutateTask(id, (task) =>
+        toTaskMutationInput(task, {
+          name: input.name,
+          categoryId: input.categoryId,
+          scheduledDate: input.scheduledDate,
+          estimatedMinutes: input.estimatedMinutes,
         }),
       );
     },
-    [setTasks],
+    [mutateTask],
+  );
+
+  const deleteTaskAction = useCallback(
+    async (id: string) => {
+      await deleteTaskMutation.mutateAsync(id);
+    },
+    [deleteTaskMutation],
+  );
+
+  const toggleComplete = useCallback(
+    async (id: string) => {
+      await mutateTask(id, (task) => {
+        const nextStatus: TaskStatus = task.status === "done" ? "todo" : "done";
+        return toTaskMutationInput(task, {
+          status: nextStatus,
+          isNext: nextStatus === "done" ? false : task.isNext,
+        });
+      });
+    },
+    [mutateTask],
   );
 
   const setNextTask = useCallback(
-    (id: string) => {
-      const now = new Date().toISOString();
-      setTasks((prev) =>
-        prev.map((task) => ({
-          ...task,
-          isNext: task.id === id,
-          updatedAt: task.id === id || task.isNext ? now : task.updatedAt,
-        })),
+    async (id: string) => {
+      const currentTasks = tasks;
+      await Promise.all(
+        currentTasks
+          .filter((task) => task.id === id || task.isNext)
+          .map((task) =>
+            updateTaskMutation.mutateAsync({
+              id: task.id,
+              input: toTaskMutationInput(task, {
+                isNext: task.id === id,
+              }),
+            }),
+          ),
       );
     },
-    [setTasks],
+    [tasks, updateTaskMutation],
   );
 
   const unsetNextTask = useCallback(
-    (id: string) => {
-      const now = new Date().toISOString();
-      setTasks((prev) =>
-        prev.map((task) =>
-          task.id === id ? { ...task, isNext: false, updatedAt: now } : task,
-        ),
+    async (id: string) => {
+      await mutateTask(id, (task) =>
+        toTaskMutationInput(task, {
+          isNext: false,
+        }),
       );
     },
-    [setTasks],
+    [mutateTask],
   );
 
   const startWork = useCallback(
-    (id: string) => {
-      const now = new Date().toISOString();
-      setTasks((prev) =>
-        prev.map((task) =>
-          task.id === id
-            ? { ...task, status: "in_progress" as TaskStatus, updatedAt: now }
-            : task,
-        ),
+    async (id: string) => {
+      await mutateTask(id, (task) =>
+        toTaskMutationInput(task, {
+          status: "in_progress",
+        }),
       );
     },
-    [setTasks],
+    [mutateTask],
   );
 
   const completeTask = useCallback(
-    (id: string) => {
-      const now = new Date().toISOString();
-      setTasks((prev) =>
-        prev.map((task) =>
-          task.id === id
-            ? {
-                ...task,
-                status: "done" as TaskStatus,
-                isNext: false,
-                updatedAt: now,
-              }
-            : task,
-        ),
+    async (id: string) => {
+      await mutateTask(id, (task) =>
+        toTaskMutationInput(task, {
+          status: "done",
+          isNext: false,
+        }),
       );
     },
-    [setTasks],
+    [mutateTask],
   );
 
-  const addCategory = useCallback(
-    (name: string, color: string): string => {
-      const id = crypto.randomUUID();
-      const newCategory: Category = {
-        id,
+  const addCategoryAction = useCallback(
+    async (name: string, color: string) => {
+      const category = await createCategoryMutation.mutateAsync({
         name,
         color,
-      };
-      setCategories((prev) => [...prev, newCategory]);
-      return id;
+      });
+      return category.id;
     },
-    [setCategories],
+    [createCategoryMutation],
   );
 
-  const updateCategory = useCallback(
-    (id: string, name: string, color: string) => {
-      setCategories((prev) =>
-        prev.map((cat) => (cat.id === id ? { ...cat, name, color } : cat)),
-      );
+  const updateCategoryAction = useCallback(
+    async (id: string, name: string, color: string) => {
+      await updateCategoryMutation.mutateAsync({ id, name, color });
     },
-    [setCategories],
+    [updateCategoryMutation],
   );
 
-  const deleteCategory = useCallback(
-    (id: string) => {
-      setTasks((prev) =>
-        prev.map((task) =>
-          task.categoryId === id ? { ...task, categoryId: "" } : task,
-        ),
-      );
-      setCategories((prev) => prev.filter((cat) => cat.id !== id));
+  const deleteCategoryAction = useCallback(
+    async (id: string) => {
+      await deleteCategoryMutation.mutateAsync(id);
     },
-    [setTasks, setCategories],
+    [deleteCategoryMutation],
   );
 
   return {
     tasks: tasksWithCategory,
     categories,
-    addTask,
-    updateTask,
-    deleteTask,
+    addTask: addTaskAction,
+    updateTask: updateTaskAction,
+    deleteTask: deleteTaskAction,
     toggleComplete,
     setNextTask,
     unsetNextTask,
     startWork,
     completeTask,
-    addCategory,
-    updateCategory,
-    deleteCategory,
+    addCategory: addCategoryAction,
+    updateCategory: updateCategoryAction,
+    deleteCategory: deleteCategoryAction,
   };
 }
