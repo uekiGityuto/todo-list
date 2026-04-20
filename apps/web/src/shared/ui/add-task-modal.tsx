@@ -1,7 +1,11 @@
 "use client";
 
 import type { Category } from "@/shared/types/task";
-import { Dialog, DialogContent } from "@/shared/ui/shadcn/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+} from "@/shared/ui/shadcn/dialog";
 import { AddTaskForm } from "./add-task-form";
 
 export interface TaskFormData {
@@ -14,8 +18,8 @@ export interface TaskFormData {
 interface AddTaskModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (data: TaskFormData) => void;
-  onCreateCategory: (name: string, color: string) => string;
+  onSubmit: (data: TaskFormData) => Promise<void>;
+  onCreateCategory: (name: string, color: string) => Promise<string>;
   categories: Category[];
   editingTask?: TaskFormData & { id: string };
 }
@@ -31,6 +35,9 @@ export function AddTaskModal({
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
       <DialogContent showCloseButton={false} className="sm:max-w-md">
+        <DialogDescription className="sr-only">
+          タスク名、カテゴリ、予定日、見積もり時間を入力するダイアログです。
+        </DialogDescription>
         <AddTaskForm
           key={editingTask?.id ?? "new"}
           onClose={onClose}

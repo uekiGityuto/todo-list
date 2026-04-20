@@ -1,54 +1,94 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useCallback } from "react";
 
-import { useLocalStorage } from "@/shared/hooks/use-local-storage";
-import { useTasks } from "@/shared/hooks/use-tasks";
-import {
-  calcDurationMinutes,
-  TIMER_SESSION_KEY,
-} from "@/shared/hooks/use-timer";
-import { useWorkRecords } from "@/shared/hooks/use-work-records";
+import { useCurrentTimerSession } from "@/shared/hooks/use-current-timer-session";
+import { calcDurationMinutes } from "@/shared/hooks/use-timer";
+import { createWorkRecord, fetchTasks, updateTask } from "@/shared/lib/api";
+import { queryKeys } from "@/shared/lib/api/query-keys";
+import type { Task } from "@/shared/types/task";
 import type { TimerSession } from "@/shared/types/timer";
+import type { WorkRecord } from "@/shared/types/work-record";
 import { RecoveryDialog } from "@/shared/ui/recovery-dialog";
 
-export function RecoveryDialogProvider() {
-  const { tasks, completeTask } = useTasks();
-  const { addWorkRecord } = useWorkRecords(tasks);
-  const { setValue: setSession } = useLocalStorage<TimerSession | null>(
-    TIMER_SESSION_KEY,
-    null,
-  );
+export function RecoveryDialogProvider({
+  initialSession,
+}: {
+  initialSession: TimerSession | null;
+}) {
+  const queryClient = useQueryClient();
+  const { session, clearSession } = useCurrentTimerSession(initialSession);
 
   const handleComplete = useCallback(
-    (session: TimerSession) => {
-      completeTask(session.taskId);
-      addWorkRecord({
-        taskId: session.taskId,
-        date: format(new Date(session.startedAt), "yyyy-MM-dd"),
-        durationMinutes: Math.max(1, calcDurationMinutes(session.startedAt)),
+    async (activeSession: TimerSession) => {
+      const tasks = await fetchTasks();
+      const currentTask = tasks.find(
+        (task) => task.id === activeSession.taskId,
+      );
+      if (!currentTask) {
+        throw new Error("Task not found for recovery session");
+      }
+
+      const completedTask = await updateTask(activeSession.taskId, {
+        name: currentTask.name,
+        categoryId:
+          currentTask.categoryId === "" ? null : currentTask.categoryId,
+        status: "done",
+        isNext: false,
+        estimatedMinutes: currentTask.estimatedMinutes,
+        scheduledDate: currentTask.scheduledDate,
+      });
+      queryClient.setQueryData<Task[]>(queryKeys.tasks, (prev = tasks) =>
+        prev.map((task) =>
+          task.id === completedTask.id ? completedTask : task,
+        ),
+      );
+
+      const createdRecord = await createWorkRecord({
+        taskId: activeSession.taskId,
+        date: format(new Date(activeSession.startedAt), "yyyy-MM-dd"),
+        durationMinutes: Math.max(
+          1,
+          calcDurationMinutes(activeSession.startedAt),
+        ),
         result: "completed",
       });
-      setSession(null);
+      queryClient.setQueryData<WorkRecord[]>(
+        queryKeys.workRecords,
+        (prev = []) => [...prev, createdRecord],
+      );
+      await clearSession();
     },
-    [completeTask, addWorkRecord, setSession],
+    [clearSession, queryClient],
   );
 
   const handleInterrupt = useCallback(
-    (session: TimerSession) => {
-      addWorkRecord({
-        taskId: session.taskId,
-        date: format(new Date(session.startedAt), "yyyy-MM-dd"),
-        durationMinutes: Math.max(1, calcDurationMinutes(session.startedAt)),
+    async (activeSession: TimerSession) => {
+      const createdRecord = await createWorkRecord({
+        taskId: activeSession.taskId,
+        date: format(new Date(activeSession.startedAt), "yyyy-MM-dd"),
+        durationMinutes: Math.max(
+          1,
+          calcDurationMinutes(activeSession.startedAt),
+        ),
         result: "interrupted",
       });
-      setSession(null);
+      queryClient.setQueryData<WorkRecord[]>(
+        queryKeys.workRecords,
+        (prev = []) => [...prev, createdRecord],
+      );
+      await clearSession();
     },
-    [addWorkRecord, setSession],
+    [clearSession, queryClient],
   );
 
   return (
-    <RecoveryDialog onComplete={handleComplete} onInterrupt={handleInterrupt} />
+    <RecoveryDialog
+      session={session}
+      onComplete={handleComplete}
+      onInterrupt={handleInterrupt}
+    />
   );
 }

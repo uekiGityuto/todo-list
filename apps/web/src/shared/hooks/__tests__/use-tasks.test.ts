@@ -1,41 +1,75 @@
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-
 import { useTasks } from "@/shared/hooks/use-tasks";
+import * as api from "@/shared/lib/api";
+import type { Category, Task } from "@/shared/types/task";
 
-vi.stubGlobal(
-  "crypto",
-  Object.assign({}, crypto, {
-    randomUUID: () => {
-      let counter = 0;
-      return () => `uuid-${++counter}`;
-    },
-  }),
-);
+import { createQueryClientWrapper } from "./query-client-wrapper";
+
+vi.mock("@/shared/lib/api", () => ({
+  createCategory: vi.fn(),
+  createTask: vi.fn(),
+  deleteCategory: vi.fn(),
+  deleteTask: vi.fn(),
+  fetchCategories: vi.fn(),
+  fetchTasks: vi.fn(),
+  updateCategory: vi.fn(),
+  updateTask: vi.fn(),
+}));
+
+const now = "2026-01-01T00:00:00.000Z";
+
+const makeTask = (overrides: Partial<Task> = {}): Task => ({
+  id: "task-1",
+  name: "テストタスク",
+  categoryId: "",
+  status: "todo",
+  isNext: false,
+  estimatedMinutes: null,
+  scheduledDate: null,
+  createdAt: now,
+  updatedAt: now,
+  ...overrides,
+});
+
+const makeCategory = (overrides: Partial<Category> = {}): Category => ({
+  id: "category-1",
+  name: "カテゴリ",
+  color: "#3B82F6",
+  ...overrides,
+});
+
+function renderUseTasks(tasks: Task[] = [], categories: Category[] = []) {
+  vi.mocked(api.fetchTasks).mockResolvedValue(tasks);
+  vi.mocked(api.fetchCategories).mockResolvedValue(categories);
+
+  const { wrapper } = createQueryClientWrapper();
+  return renderHook(() => useTasks({ tasks, categories }), { wrapper });
+}
 
 describe("useTasks", () => {
-  let uuidCounter: number;
-
   beforeEach(() => {
-    localStorage.clear();
-    uuidCounter = 0;
-    vi.spyOn(crypto, "randomUUID").mockImplementation(() => {
-      uuidCounter++;
-      return `uuid-${uuidCounter}`;
-    });
+    vi.clearAllMocks();
   });
 
   it("初期状態では空のタスクとカテゴリを返す", () => {
-    const { result } = renderHook(() => useTasks());
+    const { result } = renderUseTasks();
+
     expect(result.current.tasks).toEqual([]);
     expect(result.current.categories).toEqual([]);
   });
 
-  it("addTaskでタスクを追加できる", () => {
-    const { result } = renderHook(() => useTasks());
+  it("addTaskでタスクを追加できる", async () => {
+    vi.mocked(api.createTask).mockResolvedValue(
+      makeTask({
+        estimatedMinutes: 30,
+      }),
+    );
 
-    act(() => {
-      result.current.addTask({
+    const { result } = renderUseTasks();
+
+    await act(async () => {
+      await result.current.addTask({
         name: "テストタスク",
         categoryId: "",
         scheduledDate: null,
@@ -43,29 +77,28 @@ describe("useTasks", () => {
       });
     });
 
-    expect(result.current.tasks).toHaveLength(1);
+    await waitFor(() => expect(result.current.tasks).toHaveLength(1));
     expect(result.current.tasks[0].name).toBe("テストタスク");
     expect(result.current.tasks[0].status).toBe("todo");
     expect(result.current.tasks[0].isNext).toBe(false);
     expect(result.current.tasks[0].estimatedMinutes).toBe(30);
   });
 
-  it("updateTaskでタスクを更新できる", () => {
-    const { result } = renderHook(() => useTasks());
+  it("updateTaskでタスクを更新できる", async () => {
+    const task = makeTask();
+    vi.mocked(api.updateTask).mockResolvedValue(
+      makeTask({
+        id: task.id,
+        name: "更新後のタスク",
+        scheduledDate: "2026-03-01",
+        estimatedMinutes: 60,
+      }),
+    );
 
-    act(() => {
-      result.current.addTask({
-        name: "元のタスク",
-        categoryId: "",
-        scheduledDate: null,
-        estimatedMinutes: null,
-      });
-    });
+    const { result } = renderUseTasks([task]);
 
-    const taskId = result.current.tasks[0].id;
-
-    act(() => {
-      result.current.updateTask(taskId, {
+    await act(async () => {
+      await result.current.updateTask(task.id, {
         name: "更新後のタスク",
         categoryId: "",
         scheduledDate: "2026-03-01",
@@ -73,196 +106,161 @@ describe("useTasks", () => {
       });
     });
 
-    expect(result.current.tasks[0].name).toBe("更新後のタスク");
+    await waitFor(() =>
+      expect(result.current.tasks[0].name).toBe("更新後のタスク"),
+    );
     expect(result.current.tasks[0].scheduledDate).toBe("2026-03-01");
     expect(result.current.tasks[0].estimatedMinutes).toBe(60);
   });
 
-  it("deleteTaskでタスクを削除できる", () => {
-    const { result } = renderHook(() => useTasks());
+  it("deleteTaskでタスクを削除できる", async () => {
+    const task = makeTask();
+    vi.mocked(api.deleteTask).mockResolvedValue(undefined);
 
-    act(() => {
-      result.current.addTask({
-        name: "削除するタスク",
-        categoryId: "",
-        scheduledDate: null,
-        estimatedMinutes: null,
-      });
+    const { result } = renderUseTasks([task]);
+
+    await act(async () => {
+      await result.current.deleteTask(task.id);
     });
 
-    const taskId = result.current.tasks[0].id;
-
-    act(() => {
-      result.current.deleteTask(taskId);
-    });
-
-    expect(result.current.tasks).toHaveLength(0);
+    await waitFor(() => expect(result.current.tasks).toHaveLength(0));
   });
 
-  it("toggleCompleteでタスクの完了を切り替えられる", () => {
-    const { result } = renderHook(() => useTasks());
+  it("toggleCompleteでタスクの完了を切り替えられる", async () => {
+    const task = makeTask();
+    vi.mocked(api.updateTask)
+      .mockResolvedValueOnce(makeTask({ id: task.id, status: "done" }))
+      .mockResolvedValueOnce(makeTask({ id: task.id, status: "todo" }));
 
-    act(() => {
-      result.current.addTask({
-        name: "完了テスト",
-        categoryId: "",
-        scheduledDate: null,
-        estimatedMinutes: null,
-      });
+    const { result } = renderUseTasks([task]);
+
+    await act(async () => {
+      await result.current.toggleComplete(task.id);
     });
 
-    const taskId = result.current.tasks[0].id;
+    await waitFor(() => expect(result.current.tasks[0].status).toBe("done"));
 
-    act(() => {
-      result.current.toggleComplete(taskId);
+    await act(async () => {
+      await result.current.toggleComplete(task.id);
     });
 
-    expect(result.current.tasks[0].status).toBe("done");
-
-    act(() => {
-      result.current.toggleComplete(taskId);
-    });
-
-    expect(result.current.tasks[0].status).toBe("todo");
+    await waitFor(() => expect(result.current.tasks[0].status).toBe("todo"));
   });
 
-  it("完了時にisNextがtrueのタスクは自動でisNextがfalseになる", () => {
-    const { result } = renderHook(() => useTasks());
+  it("完了時にisNextがtrueのタスクは自動でisNextがfalseになる", async () => {
+    const task = makeTask({ isNext: true });
+    vi.mocked(api.updateTask).mockResolvedValue(
+      makeTask({
+        id: task.id,
+        status: "done",
+        isNext: false,
+      }),
+    );
 
-    act(() => {
-      result.current.addTask({
-        name: "次やるタスク",
-        categoryId: "",
-        scheduledDate: null,
-        estimatedMinutes: null,
-      });
+    const { result } = renderUseTasks([task]);
+
+    await act(async () => {
+      await result.current.toggleComplete(task.id);
     });
 
-    const taskId = result.current.tasks[0].id;
-
-    act(() => {
-      result.current.setNextTask(taskId);
-    });
-
-    expect(result.current.tasks[0].isNext).toBe(true);
-
-    act(() => {
-      result.current.toggleComplete(taskId);
-    });
-
-    expect(result.current.tasks[0].status).toBe("done");
+    await waitFor(() => expect(result.current.tasks[0].status).toBe("done"));
     expect(result.current.tasks[0].isNext).toBe(false);
   });
 
-  it("setNextTaskで「次やる」を設定すると他のタスクのisNextが解除される", () => {
-    const { result } = renderHook(() => useTasks());
-
-    act(() => {
-      result.current.addTask({
-        name: "タスク1",
-        categoryId: "",
-        scheduledDate: null,
-        estimatedMinutes: null,
-      });
-      result.current.addTask({
-        name: "タスク2",
-        categoryId: "",
-        scheduledDate: null,
-        estimatedMinutes: null,
+  it("setNextTaskで「次やる」を設定すると他のタスクのisNextが解除される", async () => {
+    const tasks = [makeTask({ id: "task-1" }), makeTask({ id: "task-2" })];
+    vi.mocked(api.updateTask).mockImplementation(async (id, input) => {
+      const task = tasks.find((candidate) => candidate.id === id)!;
+      return makeTask({
+        ...task,
+        ...input,
+        id,
+        categoryId: (input.categoryId ?? "") as string,
       });
     });
 
-    const task1Id = result.current.tasks[0].id;
-    const task2Id = result.current.tasks[1].id;
+    const { result } = renderUseTasks(tasks);
 
-    act(() => {
-      result.current.setNextTask(task1Id);
+    await act(async () => {
+      await result.current.setNextTask("task-1");
     });
 
-    expect(result.current.tasks[0].isNext).toBe(true);
+    await waitFor(() => expect(result.current.tasks[0].isNext).toBe(true));
     expect(result.current.tasks[1].isNext).toBe(false);
 
-    act(() => {
-      result.current.setNextTask(task2Id);
+    await act(async () => {
+      await result.current.setNextTask("task-2");
     });
 
-    expect(result.current.tasks[0].isNext).toBe(false);
+    await waitFor(() => expect(result.current.tasks[0].isNext).toBe(false));
     expect(result.current.tasks[1].isNext).toBe(true);
   });
 
-  it("unsetNextTaskで「次やる」を解除できる", () => {
-    const { result } = renderHook(() => useTasks());
+  it("unsetNextTaskで「次やる」を解除できる", async () => {
+    const task = makeTask({ isNext: true });
+    vi.mocked(api.updateTask).mockResolvedValue(
+      makeTask({
+        id: task.id,
+        isNext: false,
+      }),
+    );
 
-    act(() => {
-      result.current.addTask({
-        name: "タスク",
-        categoryId: "",
-        scheduledDate: null,
-        estimatedMinutes: null,
-      });
+    const { result } = renderUseTasks([task]);
+
+    await act(async () => {
+      await result.current.unsetNextTask(task.id);
     });
 
-    const taskId = result.current.tasks[0].id;
+    await waitFor(() => expect(result.current.tasks[0].isNext).toBe(false));
+  });
 
-    act(() => {
-      result.current.setNextTask(taskId);
+  it("startWorkでステータスがin_progressになる", async () => {
+    const task = makeTask();
+    vi.mocked(api.updateTask).mockResolvedValue(
+      makeTask({
+        id: task.id,
+        status: "in_progress",
+      }),
+    );
+
+    const { result } = renderUseTasks([task]);
+
+    await act(async () => {
+      await result.current.startWork(task.id);
     });
 
-    expect(result.current.tasks[0].isNext).toBe(true);
+    await waitFor(() =>
+      expect(result.current.tasks[0].status).toBe("in_progress"),
+    );
+  });
 
-    act(() => {
-      result.current.unsetNextTask(taskId);
+  it("completeTaskでステータスがdoneになりisNextがfalseになる", async () => {
+    const task = makeTask({ isNext: true, status: "in_progress" });
+    vi.mocked(api.updateTask).mockResolvedValue(
+      makeTask({
+        id: task.id,
+        status: "done",
+        isNext: false,
+      }),
+    );
+
+    const { result } = renderUseTasks([task]);
+
+    await act(async () => {
+      await result.current.completeTask(task.id);
     });
 
+    await waitFor(() => expect(result.current.tasks[0].status).toBe("done"));
     expect(result.current.tasks[0].isNext).toBe(false);
   });
 
-  it("startWorkでステータスがin_progressになる", () => {
-    const { result } = renderHook(() => useTasks());
+  it("categoryIdがあるタスクにcategory情報を解決する", () => {
+    const category = makeCategory();
+    const task = makeTask({ categoryId: category.id });
 
-    act(() => {
-      result.current.addTask({
-        name: "作業開始テスト",
-        categoryId: "",
-        scheduledDate: null,
-        estimatedMinutes: null,
-      });
-    });
+    const { result } = renderUseTasks([task], [category]);
 
-    const taskId = result.current.tasks[0].id;
-
-    act(() => {
-      result.current.startWork(taskId);
-    });
-
-    expect(result.current.tasks[0].status).toBe("in_progress");
-  });
-
-  it("completeTaskでステータスがdoneになりisNextがfalseになる", () => {
-    const { result } = renderHook(() => useTasks());
-
-    act(() => {
-      result.current.addTask({
-        name: "完了テスト",
-        categoryId: "",
-        scheduledDate: null,
-        estimatedMinutes: null,
-      });
-    });
-
-    const taskId = result.current.tasks[0].id;
-
-    act(() => {
-      result.current.setNextTask(taskId);
-    });
-
-    expect(result.current.tasks[0].isNext).toBe(true);
-
-    act(() => {
-      result.current.completeTask(taskId);
-    });
-
-    expect(result.current.tasks[0].status).toBe("done");
-    expect(result.current.tasks[0].isNext).toBe(false);
+    expect(result.current.tasks[0].category.name).toBe(category.name);
+    expect(result.current.tasks[0].category.color).toBe(category.color);
   });
 });

@@ -4,8 +4,6 @@ import { Check, CircleAlert, Pause } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { useLocalStorage } from "@/shared/hooks/use-local-storage";
-import { TIMER_SESSION_KEY } from "@/shared/hooks/use-timer";
 import type { TimerSession } from "@/shared/types/timer";
 import { Button } from "@/shared/ui/shadcn/button";
 import {
@@ -17,33 +15,31 @@ import {
 } from "@/shared/ui/shadcn/dialog";
 
 export function RecoveryDialog({
+  session,
   onComplete,
   onInterrupt,
 }: {
-  onComplete: (session: TimerSession) => void;
-  onInterrupt: (session: TimerSession) => void;
+  session: TimerSession | null;
+  onComplete: (session: TimerSession) => Promise<void>;
+  onInterrupt: (session: TimerSession) => Promise<void>;
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { value: session } = useLocalStorage<TimerSession | null>(
-    TIMER_SESSION_KEY,
-    null,
-  );
   const [dismissed, setDismissed] = useState(false);
 
   const shouldShow = session !== null && pathname !== "/timer" && !dismissed;
 
   if (!shouldShow || !session) return null;
 
-  const handleComplete = () => {
+  const handleComplete = async () => {
     setDismissed(true);
-    onComplete(session);
+    await onComplete(session);
     router.push("/");
   };
 
-  const handleInterrupt = () => {
+  const handleInterrupt = async () => {
     setDismissed(true);
-    onInterrupt(session);
+    await onInterrupt(session);
     router.push("/");
   };
 

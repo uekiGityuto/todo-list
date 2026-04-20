@@ -16,7 +16,8 @@ export async function create(input: CreateTaskInput) {
       where: { id: input.categoryId },
       select: { id: true },
     });
-    if (!category) return { type: "category_not_found" } satisfies CreateTaskResult;
+    if (!category)
+      return { type: "category_not_found" } satisfies CreateTaskResult;
   }
 
   try {
@@ -54,7 +55,8 @@ export async function update(id: string, input: UpdateTaskInput) {
       where: { id: input.categoryId },
       select: { id: true },
     });
-    if (!category) return { type: "category_not_found" } satisfies UpdateTaskResult;
+    if (!category)
+      return { type: "category_not_found" } satisfies UpdateTaskResult;
   }
 
   try {

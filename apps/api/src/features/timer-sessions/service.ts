@@ -24,7 +24,8 @@ export async function create(input: CreateTimerSessionInput) {
     where: { id: input.taskId },
     select: { id: true },
   });
-  if (!task) return { type: "task_not_found" } satisfies CreateTimerSessionResult;
+  if (!task)
+    return { type: "task_not_found" } satisfies CreateTimerSessionResult;
 
   try {
     const session = await prisma.timerSession.create({

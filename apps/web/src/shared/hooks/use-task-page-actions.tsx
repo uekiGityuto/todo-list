@@ -7,11 +7,11 @@ import type { TaskFormData } from "@/shared/ui/add-task-modal";
 import { TaskActionList } from "@/shared/ui/task-action-list";
 
 type UseTaskPageActionsParams = {
-  addTask: (input: TaskFormData) => void;
-  updateTask: (id: string, input: TaskFormData) => void;
-  deleteTask: (id: string) => void;
-  setNextTask: (id: string) => void;
-  unsetNextTask: (id: string) => void;
+  addTask: (input: TaskFormData) => Promise<void>;
+  updateTask: (id: string, input: TaskFormData) => Promise<void>;
+  deleteTask: (id: string) => Promise<void>;
+  setNextTask: (id: string) => Promise<void>;
+  unsetNextTask: (id: string) => Promise<void>;
 };
 
 type UseTaskPageActionsReturn = {
@@ -21,10 +21,10 @@ type UseTaskPageActionsReturn = {
   handleToggleExpand: (taskId: string) => void;
   handleNavChange: (key: string) => void;
   handleStartWork: (taskId: string) => void;
-  handleAddTask: (data: TaskFormData) => void;
-  handleUpdateTask: (data: TaskFormData) => void;
+  handleAddTask: (data: TaskFormData) => Promise<void>;
+  handleUpdateTask: (data: TaskFormData) => Promise<void>;
   handleOpenEdit: (task: TaskWithCategory) => void;
-  handleConfirmDelete: () => void;
+  handleConfirmDelete: () => Promise<void>;
   setDeleteTarget: (target: TaskWithCategory | null) => void;
   setEditingTask: (task: (TaskFormData & { id: string }) | undefined) => void;
   renderActions: (task: TaskWithCategory) => React.ReactNode;
@@ -73,16 +73,16 @@ export function useTaskPageActions({
   );
 
   const handleAddTask = useCallback(
-    (data: TaskFormData) => {
-      addTask(data);
+    async (data: TaskFormData) => {
+      await addTask(data);
     },
     [addTask],
   );
 
   const handleUpdateTask = useCallback(
-    (data: TaskFormData) => {
+    async (data: TaskFormData) => {
       if (!editingTask) return;
-      updateTask(editingTask.id, data);
+      await updateTask(editingTask.id, data);
       setEditingTask(undefined);
     },
     [editingTask, updateTask],
@@ -99,9 +99,9 @@ export function useTaskPageActions({
     setExpandedTaskId(null);
   }, []);
 
-  const handleConfirmDelete = useCallback(() => {
+  const handleConfirmDelete = useCallback(async () => {
     if (!deleteTarget) return;
-    deleteTask(deleteTarget.id);
+    await deleteTask(deleteTarget.id);
     setDeleteTarget(null);
     setExpandedTaskId(null);
   }, [deleteTarget, deleteTask]);
@@ -110,11 +110,11 @@ export function useTaskPageActions({
     <TaskActionList
       isNext={task.isNext}
       onSetNext={() => {
-        setNextTask(task.id);
+        void setNextTask(task.id);
         setExpandedTaskId(null);
       }}
       onUnsetNext={() => {
-        unsetNextTask(task.id);
+        void unsetNextTask(task.id);
         setExpandedTaskId(null);
       }}
       onStartWork={() => handleStartWork(task.id)}

@@ -1,4 +1,3 @@
-export { type IdParam, idParamSchema } from "./common";
 export {
   type CategoryResponse,
   type CreateCategoryInput,
@@ -7,6 +6,7 @@ export {
   type UpdateCategoryInput,
   updateCategorySchema,
 } from "./category";
+export { type IdParam, idParamSchema } from "./common";
 export {
   type CreateTaskInput,
   createTaskSchema,
