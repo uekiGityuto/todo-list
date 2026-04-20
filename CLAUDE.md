@@ -1,10 +1,6 @@
 # CLAUDE.md
 
-共通ルール（プロジェクト概要・コマンド・ドキュメント・開発フロー）は **[AGENTS.md](AGENTS.md)** を参照。
-
-## アーキテクチャ
-
-FSD Lite（`.agent-rules/web/architecture.md` 参照）
+@AGENTS.md
 
 ## Claude Code 固有の注意事項
 
