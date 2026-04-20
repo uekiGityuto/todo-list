@@ -10,6 +10,7 @@ export function AppQueryProvider({ children }: { children: React.ReactNode }) {
         defaultOptions: {
           queries: {
             retry: false,
+            staleTime: 30_000,
           },
         },
       }),

@@ -40,7 +40,7 @@ export function TimerPageContent({
   const router = useRouter();
   const searchParams = useSearchParams();
   const taskId = searchParams.get("taskId");
-  const hasStartedRef = useRef(false);
+  const startedTaskIdRef = useRef<string | null>(null);
 
   const { tasks, startWork, completeTask } = useTasks({
     tasks: initialTasks,
@@ -73,16 +73,22 @@ export function TimerPageContent({
       !task ||
       timer.isRunning ||
       timer.isFinished ||
-      hasStartedRef.current
+      startedTaskIdRef.current === taskId
     ) {
       return;
     }
 
-    hasStartedRef.current = true;
+    startedTaskIdRef.current = taskId;
 
     void (async () => {
-      await startWork(taskId);
-      await timer.start();
+      try {
+        await startWork(taskId);
+        await timer.start();
+      } catch {
+        if (startedTaskIdRef.current === taskId) {
+          startedTaskIdRef.current = null;
+        }
+      }
     })();
   }, [startWork, task, taskId, timer]);
 

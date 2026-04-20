@@ -30,8 +30,6 @@ export type TimerResult = {
   startedAt: string;
 };
 
-export const TIMER_SESSION_KEY = "timer-session";
-
 function calcRemainingSeconds(
   startedAt: string,
   estimatedMinutes: number,
