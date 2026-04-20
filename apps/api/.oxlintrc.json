@@ -26,6 +26,22 @@
       }
     },
     {
+      "files": ["src/features/*/route.ts"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "../../shared/lib/prisma",
+                "message": "route handler から Prisma を直接呼ばない。service.ts を経由すること。"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "files": ["src/shared/lib/prisma.ts"],
       "rules": {
         "no-restricted-imports": "off"
