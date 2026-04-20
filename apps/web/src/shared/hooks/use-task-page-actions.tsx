@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
+import { NAV_ROUTES } from "@/shared/constants/routes";
 import type { TaskWithCategory } from "@/shared/types/task";
 import type { TaskFormData } from "@/shared/ui/add-task-modal";
 import { TaskActionList } from "@/shared/ui/task-action-list";
@@ -53,13 +54,7 @@ export function useTaskPageActions({
 
   const handleNavChange = useCallback(
     (key: string) => {
-      const routes: Record<string, string> = {
-        home: "/",
-        tasks: "/tasks",
-        calendar: "/calendar",
-        settings: "/settings",
-      };
-      const route = routes[key];
+      const route = NAV_ROUTES[key];
       if (route) router.push(route);
     },
     [router],
