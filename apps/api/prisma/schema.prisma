@@ -54,11 +54,13 @@ model WorkRecord {
 model TimerSession {
   id               String   @id @default(uuid()) @db.Uuid
   userId           String
-  singletonKey     String   @unique @default("active")
+  singletonKey     String   @default("active")
   taskId           String   @db.Uuid
   task             Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskName         String
   categoryName     String
   estimatedMinutes Int
   startedAt        DateTime @default(now())
+
+  @@unique([userId, singletonKey])
 }
