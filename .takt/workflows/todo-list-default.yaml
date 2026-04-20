@@ -1,0 +1,367 @@
+name: todo-list-default
+description: Issue実装ワークフロー（計画 → テスト作成 → チームリーダー実装 → AIレビュー → 並列レビュー → 修正 → 完了）
+workflow_config:
+  provider_options:
+    codex:
+      network_access: true
+    opencode:
+      network_access: true
+knowledge:
+  browser-testing: ../../.agents/skills/browser-testing/SKILL.md
+max_steps: 30
+initial_step: plan
+loop_monitors:
+  - cycle:
+      - ai_review
+      - ai_fix
+    threshold: 3
+    judge:
+      persona: supervisor
+      instruction: loop-monitor-ai-fix
+      rules:
+        - condition: 健全（進捗あり）
+          next: ai_review
+        - condition: 非生産的（改善なし）
+          next: reviewers
+  - cycle:
+      - reviewers
+      - fix
+    threshold: 3
+    judge:
+      persona: supervisor
+      instruction: loop-monitor-reviewers-fix
+      rules:
+        - condition: 健全（指摘数が減少、修正が反映されている）
+          next: reviewers
+        - condition: 非生産的（同じ指摘が繰り返される）
+          next: ABORT
+steps:
+  - name: plan
+    edit: false
+    persona: planner
+    knowledge:
+      - architecture
+      - frontend
+      - react
+      - backend
+    provider_options:
+      claude:
+        allowed_tools:
+          - Read
+          - Glob
+          - Grep
+          - Bash
+          - WebSearch
+          - WebFetch
+    instruction: plan
+    rules:
+      - condition: タスク分析と計画が完了した
+        next: write_tests
+      - condition: ユーザーが質問をしている（実装タスクではない）
+        next: COMPLETE
+      - condition: 要件が不明確で計画を立てられない
+        next: ABORT
+        appendix: |
+          確認事項:
+          - {質問1}
+          - {質問2}
+    output_contracts:
+      report:
+        - name: plan.md
+          format: plan
+  - name: write_tests
+    edit: true
+    persona: coder
+    policy:
+      - coding
+      - testing
+    knowledge:
+      - architecture
+      - frontend
+      - react
+      - backend
+      - unit-testing
+      - e2e-testing
+    provider_options:
+      claude:
+        allowed_tools:
+          - Read
+          - Glob
+          - Grep
+          - Edit
+          - Write
+          - Bash
+          - WebSearch
+          - WebFetch
+    required_permission_mode: edit
+    instruction: write-tests-first
+    rules:
+      - condition: テスト作成が完了した
+        next: implement
+      - condition: テスト対象が未実装のためテスト作成をスキップする
+        next: implement
+      - condition: テスト作成を進行できない
+        next: ABORT
+      - condition: ユーザーへの確認事項があるためユーザー入力が必要
+        next: write_tests
+        requires_user_input: true
+        interactive_only: true
+    output_contracts:
+      report:
+        - name: test-report.md
+          format: test-report
+  - name: implement
+    edit: true
+    persona: coder
+    policy:
+      - coding
+      - testing
+    session: refresh
+    knowledge:
+      - architecture
+      - frontend
+      - react
+      - backend
+    provider_options:
+      claude:
+        allowed_tools:
+          - Read
+          - Glob
+          - Grep
+          - Edit
+          - Write
+          - Bash
+          - WebSearch
+          - WebFetch
+    required_permission_mode: edit
+    team_leader:
+      max_parts: 2
+      part_persona: coder
+      part_edit: true
+      part_permission_mode: edit
+      part_allowed_tools:
+        - Read
+        - Glob
+        - Grep
+        - Edit
+        - Write
+        - Bash
+        - WebSearch
+        - WebFetch
+    instruction: dual-team-leader-implement
+    quality_gates:
+      - 使用するフレームワーク/ライブラリの最新ドキュメントを確認し、非推奨パターンを使っていないこと
+    rules:
+      - condition: 実装が完了した
+        next: ai_review
+      - condition: 実装未着手（レポートのみ）
+        next: ai_review
+      - condition: 実装を進行できない
+        next: ai_review
+      - condition: ユーザー入力が必要
+        next: implement
+        requires_user_input: true
+        interactive_only: true
+    output_contracts:
+      report:
+        - name: coder-scope.md
+          format: coder-scope
+        - name: coder-decisions.md
+          format: coder-decisions
+  - name: ai_review
+    edit: false
+    persona: ai-antipattern-reviewer
+    policy:
+      - review
+      - ai-antipattern
+    provider_options:
+      claude:
+        allowed_tools:
+          - Read
+          - Glob
+          - Grep
+          - WebSearch
+          - WebFetch
+    instruction: ai-review
+    rules:
+      - condition: AI特有の問題なし
+        next: reviewers
+      - condition: AI特有の問題あり
+        next: ai_fix
+    output_contracts:
+      report:
+        - name: ai-review.md
+          format: ai-review
+  - name: ai_fix
+    edit: true
+    persona: coder
+    policy:
+      - coding
+      - testing
+    session: refresh
+    knowledge:
+      - architecture
+      - frontend
+      - react
+      - backend
+    provider_options:
+      claude:
+        allowed_tools:
+          - Read
+          - Glob
+          - Grep
+          - Edit
+          - Write
+          - Bash
+          - WebSearch
+          - WebFetch
+    required_permission_mode: edit
+    instruction: ai-fix
+    pass_previous_response: false
+    rules:
+      - condition: AI Reviewerの指摘に対する修正が完了した
+        next: ai_review
+      - condition: 修正不要（指摘対象ファイル/仕様の確認済み）
+        next: reviewers
+      - condition: 修正を進行できない
+        next: reviewers
+  - name: reviewers
+    parallel:
+      - name: arch-review
+        edit: false
+        persona: architecture-reviewer
+        policy: review
+        knowledge:
+          - architecture
+          - react
+          - backend
+        provider_options:
+          claude:
+            allowed_tools:
+              - Read
+              - Glob
+              - Grep
+              - Bash
+              - WebSearch
+              - WebFetch
+        rules:
+          - condition: approved
+          - condition: needs_fix
+        instruction: review-arch
+        output_contracts:
+          report:
+            - name: architect-review.md
+              format: architecture-review
+      - name: testing-review
+        edit: false
+        persona: testing-reviewer
+        policy:
+          - review
+          - testing
+        knowledge:
+          - unit-testing
+          - e2e-testing
+        provider_options:
+          claude:
+            allowed_tools:
+              - Read
+              - Glob
+              - Grep
+              - Bash
+              - WebSearch
+              - WebFetch
+        rules:
+          - condition: approved
+          - condition: needs_fix
+        instruction: review-test
+        output_contracts:
+          report:
+            - name: testing-review.md
+              format: testing-review
+      - name: browser-verify
+        edit: false
+        persona: qa-reviewer
+        policy: review
+        knowledge: browser-testing
+        provider_options:
+          claude:
+            allowed_tools:
+              - Read
+              - Glob
+              - Grep
+              - Bash
+              - mcp__playwright__browser_navigate
+              - mcp__playwright__browser_snapshot
+              - mcp__playwright__browser_take_screenshot
+              - mcp__playwright__browser_click
+              - mcp__playwright__browser_fill_form
+              - mcp__playwright__browser_press_key
+              - mcp__playwright__browser_hover
+              - mcp__playwright__browser_select_option
+              - mcp__playwright__browser_tabs
+              - mcp__playwright__browser_wait_for
+              - mcp__playwright__browser_console_messages
+              - mcp__playwright__browser_network_requests
+        instruction: verify-browser
+        rules:
+          - condition: approved
+          - condition: needs_fix
+      - name: supervise
+        edit: false
+        persona: supervisor
+        policy: review
+        provider_options:
+          claude:
+            allowed_tools:
+              - Read
+              - Glob
+              - Grep
+              - Bash
+              - WebSearch
+              - WebFetch
+        instruction: supervise
+        rules:
+          - condition: すべて問題なし
+          - condition: 要求未達成、テスト失敗、ビルドエラー
+        output_contracts:
+          report:
+            - name: supervisor-validation.md
+              format: supervisor-validation
+            - name: summary.md
+              format: summary
+              use_judge: false
+    rules:
+      - condition: all("approved", "approved", "approved", "すべて問題なし")
+        next: COMPLETE
+      - condition: any("needs_fix", "needs_fix", "needs_fix", "要求未達成、テスト失敗、ビルドエラー")
+        next: fix
+  - name: fix
+    edit: true
+    persona: coder
+    policy:
+      - coding
+      - testing
+    knowledge:
+      - architecture
+      - frontend
+      - react
+      - backend
+    provider_options:
+      claude:
+        allowed_tools:
+          - Read
+          - Glob
+          - Grep
+          - Edit
+          - Write
+          - Bash
+          - WebSearch
+          - WebFetch
+    required_permission_mode: edit
+    instruction: fix
+    pass_previous_response: false
+    rules:
+      - condition: 修正完了
+        next: reviewers
+      - condition: 判断できない、情報不足
+        next: plan

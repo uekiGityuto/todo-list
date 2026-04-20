@@ -1,0 +1,53 @@
+name: タスク
+description: AIエージェント（TAKT）で実行するタスク
+labels: ["task"]
+body:
+  - type: textarea
+    id: overview
+    attributes:
+      label: 概要
+      description: 何をしたいか簡潔に
+      placeholder: "例: カレンダーページに月の切り替え機能を追加する"
+    validations:
+      required: true
+  - type: textarea
+    id: requirements
+    attributes:
+      label: 要件
+      description: 達成すべき条件を箇条書きで
+      placeholder: |
+        - 前月/次月への切り替えボタンを表示する
+        - 月を切り替えると該当月の作業履歴が表示される
+        - 今月に戻るボタンがある
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: 参照資料
+      description: 参考にすべきファイル、デザイン、ドキュメント等
+      placeholder: |
+        - `apps/web/src/views/calendar/` — 既存のカレンダー実装
+        - pencil デザイン: https://...
+    validations:
+      required: false
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: やらないこと
+      description: スコープ外を明示（エージェントの暴走防止）
+      placeholder: |
+        - 既存の作業履歴表示ロジックは変更しない
+        - レスポンシブ対応は別issueで行う
+    validations:
+      required: false
+  - type: textarea
+    id: verification
+    attributes:
+      label: 確認方法
+      description: 完了を判断する基準
+      placeholder: |
+        - pnpm build が通る
+        - 月切り替えで正しいデータが表示される
+    validations:
+      required: false

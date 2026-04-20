@@ -43,18 +43,19 @@ next-env.d.ts
 # Claude Code
 .claude/settings.local.json
 .claude/worktrees/
-.claude/skills/
+.claude/skills/*
+!.claude/skills/browser-testing
 CLAUDE.local.md
 
 # MCP (API key含む)
 .mcp.json
 
 # Skills (npx skills)
-.agents/
+.agents/*
+!.agents/skills/
+.agents/skills/*
+!.agents/skills/browser-testing/
 skills-lock.json
 
 # Playwright MCP
 .playwright-mcp/
-
-# TAKT
-.takt/

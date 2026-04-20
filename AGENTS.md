@@ -1,37 +1,29 @@
 # AGENTS.md
 
-## プロジェクト概要
+タスク管理アプリ（pnpm monorepo: `apps/web` + `apps/api` + `packages/schema`）
 
-妻の副業タスク管理アプリ。「次やるタスク」の即表示、作業タイマー、カレンダーによる作業履歴確認が主要機能。
+## ルール（必読）
 
-## 技術スタック
+`.agent-rules/` 配下に開発ルールがある。コードを変更する前に該当ルールを読むこと。
 
-Next.js (App Router) + TypeScript / pnpm / shadcn/ui + Tailwind CSS / ローカルストレージ
+## リファレンス
 
-## アーキテクチャ
+- `.agent-rules/` — 開発ルール（アーキテクチャ、コーディング規約等）
+- `docs/adr/` — アーキテクチャ決定記録
+- `docs/domain/` — ドメイン知識
+- `docs/knowledge/` — 技術ナレッジ
 
-FSD Lite（`.agent-rules/web/architecture.md` 参照）
+### 公式ドキュメント（最新の書き方を確認する際に参照）
+
+- Next.js: https://nextjs.org/llms.txt
+- React: https://react.dev/llms.txt
+- Hono: https://hono.dev/llms.txt
 
 ## コマンド
 
 ```bash
-pnpm dev          # 開発サーバー起動
-pnpm build        # ビルド
-pnpm lint         # Lint実行
+pnpm dev       # 開発サーバー起動
+pnpm build     # ビルド
+pnpm lint      # Lint
+pnpm test      # テスト
 ```
-
-## ドキュメント
-
-| ディレクトリ       | 用途                         |
-| ------------------ | ---------------------------- |
-| `docs/adr/`        | アーキテクチャ決定記録 (ADR) |
-| `docs/domain/`     | ドメイン知識                 |
-| `docs/knowledge/`  | 技術ナレッジ                 |
-
-## 開発フロー
-
-pencil.devでデザイン → AIエージェントがMCP経由でコード生成 → ロジック実装 → デザイン調整
-
-## MCP
-
-ブラウザでの動作確認やUI確認が必要な場合は、Playwright MCP を使って確認してよい。
