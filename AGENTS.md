@@ -13,6 +13,12 @@
 - `docs/domain/` — ドメイン知識
 - `docs/knowledge/` — 技術ナレッジ
 
+### 公式ドキュメント（最新の書き方を確認する際に参照）
+
+- Next.js: https://nextjs.org/llms.txt
+- React: https://react.dev/llms.txt
+- Hono: https://hono.dev/llms.txt
+
 ## コマンド
 
 ```bash

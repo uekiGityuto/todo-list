@@ -136,6 +136,7 @@ steps:
     required_permission_mode: edit
     instruction: implement-after-tests
     quality_gates:
+      - 使用するフレームワーク/ライブラリの最新ドキュメントを確認し、非推奨パターンを使っていないこと
       - デザイン参照がある場合、主要画面のレイアウト・文言・色・間隔を要素単位で照合したこと
       - デザイン参照がある場合、プラットフォーム制約による差分は決定ログに明記したこと
     rules:

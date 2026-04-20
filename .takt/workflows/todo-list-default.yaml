@@ -149,6 +149,8 @@ steps:
         - WebSearch
         - WebFetch
     instruction: dual-team-leader-implement
+    quality_gates:
+      - 使用するフレームワーク/ライブラリの最新ドキュメントを確認し、非推奨パターンを使っていないこと
     rules:
       - condition: 実装が完了した
         next: ai_review
