@@ -22,9 +22,9 @@ loop_monitors:
         - condition: 健全（進捗あり）
           next: ai_review
         - condition: 非生産的（改善なし）
-          next: reviewers
+          next: reviewers-core
   - cycle:
-      - reviewers
+      - reviewers-core
       - fix
     threshold: 3
     judge:
@@ -32,7 +32,7 @@ loop_monitors:
       instruction: loop-monitor-reviewers-fix
       rules:
         - condition: 健全（指摘数が減少、修正が反映されている）
-          next: reviewers
+          next: reviewers-core
         - condition: 非生産的（同じ指摘が繰り返される）
           next: ABORT
 steps:
@@ -185,7 +185,7 @@ steps:
     instruction: ai-review
     rules:
       - condition: AI特有の問題なし
-        next: reviewers
+        next: browser-verify
       - condition: AI特有の問題あり
         next: ai_fix
     output_contracts:
@@ -222,10 +222,40 @@ steps:
       - condition: AI Reviewerの指摘に対する修正が完了した
         next: ai_review
       - condition: 修正不要（指摘対象ファイル/仕様の確認済み）
-        next: reviewers
+        next: browser-verify
       - condition: 修正を進行できない
-        next: reviewers
-  - name: reviewers
+        next: browser-verify
+  - name: browser-verify
+    edit: false
+    persona: qa-reviewer
+    policy: review
+    knowledge: browser-testing
+    provider_options:
+      claude:
+        allowed_tools:
+          - Read
+          - Glob
+          - Grep
+          - Bash
+          - mcp__playwright__browser_navigate
+          - mcp__playwright__browser_snapshot
+          - mcp__playwright__browser_take_screenshot
+          - mcp__playwright__browser_click
+          - mcp__playwright__browser_fill_form
+          - mcp__playwright__browser_press_key
+          - mcp__playwright__browser_hover
+          - mcp__playwright__browser_select_option
+          - mcp__playwright__browser_tabs
+          - mcp__playwright__browser_wait_for
+          - mcp__playwright__browser_console_messages
+          - mcp__playwright__browser_network_requests
+    instruction: verify-browser
+    rules:
+      - condition: approved
+        next: reviewers-core
+      - condition: needs_fix
+        next: browser-fix
+  - name: reviewers-core
     parallel:
       - name: arch-review
         edit: false
@@ -278,63 +308,119 @@ steps:
           report:
             - name: testing-review.md
               format: testing-review
-      - name: browser-verify
-        edit: false
-        persona: qa-reviewer
-        policy: review
-        knowledge: browser-testing
-        provider_options:
-          claude:
-            allowed_tools:
-              - Read
-              - Glob
-              - Grep
-              - Bash
-              - mcp__playwright__browser_navigate
-              - mcp__playwright__browser_snapshot
-              - mcp__playwright__browser_take_screenshot
-              - mcp__playwright__browser_click
-              - mcp__playwright__browser_fill_form
-              - mcp__playwright__browser_press_key
-              - mcp__playwright__browser_hover
-              - mcp__playwright__browser_select_option
-              - mcp__playwright__browser_tabs
-              - mcp__playwright__browser_wait_for
-              - mcp__playwright__browser_console_messages
-              - mcp__playwright__browser_network_requests
-        instruction: verify-browser
-        rules:
-          - condition: approved
-          - condition: needs_fix
-      - name: supervise
-        edit: false
-        persona: supervisor
-        policy: review
-        provider_options:
-          claude:
-            allowed_tools:
-              - Read
-              - Glob
-              - Grep
-              - Bash
-              - WebSearch
-              - WebFetch
-        instruction: supervise
-        rules:
-          - condition: すべて問題なし
-          - condition: 要求未達成、テスト失敗、ビルドエラー
-        output_contracts:
-          report:
-            - name: supervisor-validation.md
-              format: supervisor-validation
-            - name: summary.md
-              format: summary
-              use_judge: false
     rules:
-      - condition: all("approved", "approved", "approved", "すべて問題なし")
-        next: COMPLETE
-      - condition: any("needs_fix", "needs_fix", "needs_fix", "要求未達成、テスト失敗、ビルドエラー")
+      - condition: all("approved", "approved")
+        next: supervise
+      - condition: any("needs_fix", "needs_fix")
         next: fix
+  - name: browser-reverify
+    edit: false
+    persona: qa-reviewer
+    policy: review
+    knowledge: browser-testing
+    provider_options:
+      claude:
+        allowed_tools:
+          - Read
+          - Glob
+          - Grep
+          - Bash
+          - mcp__playwright__browser_navigate
+          - mcp__playwright__browser_snapshot
+          - mcp__playwright__browser_take_screenshot
+          - mcp__playwright__browser_click
+          - mcp__playwright__browser_fill_form
+          - mcp__playwright__browser_press_key
+          - mcp__playwright__browser_hover
+          - mcp__playwright__browser_select_option
+          - mcp__playwright__browser_tabs
+          - mcp__playwright__browser_wait_for
+          - mcp__playwright__browser_console_messages
+          - mcp__playwright__browser_network_requests
+    instruction: verify-browser
+    rules:
+      - condition: approved
+        next: reviewers-core
+      - condition: needs_fix
+        next: ABORT
+  - name: browser-fix
+    edit: true
+    persona: coder
+    policy:
+      - coding
+      - testing
+    knowledge:
+      - architecture
+      - frontend
+      - react
+      - backend
+    provider_options:
+      claude:
+        allowed_tools:
+          - Read
+          - Glob
+          - Grep
+          - Edit
+          - Write
+          - Bash
+          - WebSearch
+          - WebFetch
+    required_permission_mode: edit
+    instruction: browser-fix
+    rules:
+      - condition: 修正完了
+        next: browser-fix-review
+      - condition: 判断できない、情報不足
+        next: plan
+  - name: browser-fix-review
+    edit: false
+    persona: qa-reviewer
+    policy: review
+    provider_options:
+      claude:
+        allowed_tools:
+          - Read
+          - Glob
+          - Grep
+          - Bash
+          - WebSearch
+          - WebFetch
+    instruction: review-browser-fix
+    output_contracts:
+      report:
+        - name: browser-fix-review.md
+          format: browser-fix-review
+    rules:
+      - condition: approved
+        next: browser-reverify
+      - condition: needs_fix
+        next: browser-fix
+  - name: supervise
+    edit: false
+    persona: supervisor
+    policy: review
+    provider_options:
+      claude:
+        allowed_tools:
+          - Read
+          - Glob
+          - Grep
+          - Bash
+          - WebSearch
+          - WebFetch
+    instruction: supervise
+    rules:
+      - condition: すべて問題なし
+        next: COMPLETE
+      - condition: 要求未達成、テスト失敗、ビルドエラー
+        next: fix
+    output_contracts:
+      report:
+        - name: supervisor-validation.md
+          format: supervisor-validation
+        - name: summary.md
+          format: summary
+          use_judge: false
   - name: fix
     edit: true
     persona: coder
@@ -362,6 +448,6 @@ steps:
     pass_previous_response: false
     rules:
       - condition: 修正完了
-        next: reviewers
+        next: reviewers-core
       - condition: 判断できない、情報不足
         next: plan
