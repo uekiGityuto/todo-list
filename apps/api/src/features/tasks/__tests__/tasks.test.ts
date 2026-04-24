@@ -9,7 +9,7 @@ vi.mock("jose", () => ({
   }),
 }));
 
-describe("Tasks API", () => {
+describe("タスク API", () => {
   beforeEach(async () => {
     await cleanDatabase();
   });
@@ -20,7 +20,7 @@ describe("Tasks API", () => {
   });
 
   describe("GET /tasks", () => {
-    it("should return empty array when no tasks exist", async () => {
+    it("タスクが存在しない場合、空配列を返す", async () => {
       const res = await app.request("/tasks", {
         headers: { Authorization: "Bearer test-token" },
       });
@@ -30,7 +30,7 @@ describe("Tasks API", () => {
       expect(body).toEqual([]);
     });
 
-    it("should return all tasks", async () => {
+    it("すべてのタスクを返す", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -76,7 +76,7 @@ describe("Tasks API", () => {
   });
 
   describe("POST /tasks", () => {
-    it("should create a task with all fields", async () => {
+    it("全フィールド指定でタスクを作成する", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -111,7 +111,7 @@ describe("Tasks API", () => {
       expect(body.updatedAt).toBeDefined();
     });
 
-    it("should create a task with null optional fields", async () => {
+    it("オプションフィールドが null でタスクを作成する", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -140,7 +140,7 @@ describe("Tasks API", () => {
       expect(body.scheduledDate).toBeNull();
     });
 
-    it("should create an uncategorized task when categoryId is null", async () => {
+    it("categoryId が null の場合、未分類タスクを作成する", async () => {
       const res = await app.request("/tasks", {
         method: "POST",
         headers: {
@@ -160,7 +160,7 @@ describe("Tasks API", () => {
       expect(body.categoryId).toBeNull();
     });
 
-    it("should create an uncategorized task when categoryId is empty string", async () => {
+    it("categoryId が空文字の場合、未分類タスクを作成する", async () => {
       const res = await app.request("/tasks", {
         method: "POST",
         headers: {
@@ -180,7 +180,7 @@ describe("Tasks API", () => {
       expect(body.categoryId).toBeNull();
     });
 
-    it("should return 400 when name is empty", async () => {
+    it("name が空の場合、400 を返す", async () => {
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
@@ -202,7 +202,7 @@ describe("Tasks API", () => {
       expect(res.status).toBe(400);
     });
 
-    it("should return 400 when categoryId is not a valid UUID", async () => {
+    it("categoryId が有効な UUID でない場合、400 を返す", async () => {
       const res = await app.request("/tasks", {
         method: "POST",
         headers: {
@@ -220,7 +220,7 @@ describe("Tasks API", () => {
       expect(res.status).toBe(400);
     });
 
-    it("should return 400 when required fields are missing", async () => {
+    it("必須フィールドが不足している場合、400 を返す", async () => {
       const res = await app.request("/tasks", {
         method: "POST",
         headers: {
@@ -233,7 +233,7 @@ describe("Tasks API", () => {
       expect(res.status).toBe(400);
     });
 
-    it("should return 404 when categoryId does not exist", async () => {
+    it("categoryId が存在しない場合、404 を返す", async () => {
       const res = await app.request("/tasks", {
         method: "POST",
         headers: {
@@ -253,7 +253,7 @@ describe("Tasks API", () => {
   });
 
   describe("PUT /tasks/:id", () => {
-    it("should update a task", async () => {
+    it("タスクを更新する", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -295,7 +295,7 @@ describe("Tasks API", () => {
       expect(body.scheduledDate).toBe("2026-05-01");
     });
 
-    it("should return 404 when task does not exist", async () => {
+    it("タスクが存在しない場合、404 を返す", async () => {
       const nonExistentId = "00000000-0000-0000-0000-000000000000";
 
       const res = await app.request(`/tasks/${nonExistentId}`, {
@@ -317,7 +317,7 @@ describe("Tasks API", () => {
       expect(res.status).toBe(404);
     });
 
-    it("should return 400 when body is invalid", async () => {
+    it("リクエストボディが無効な場合、400 を返す", async () => {
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
@@ -343,7 +343,7 @@ describe("Tasks API", () => {
       expect(res.status).toBe(400);
     });
 
-    it("should return 404 when categoryId does not exist", async () => {
+    it("categoryId が存在しない場合、404 を返す", async () => {
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
       });
@@ -376,7 +376,7 @@ describe("Tasks API", () => {
       expect(res.status).toBe(404);
     });
 
-    it("should return 400 when task id is not a valid UUID", async () => {
+    it("タスク ID が有効な UUID でない場合、400 を返す", async () => {
       const res = await app.request("/tasks/not-a-uuid", {
         method: "PUT",
         headers: {
@@ -398,7 +398,7 @@ describe("Tasks API", () => {
   });
 
   describe("DELETE /tasks/:id", () => {
-    it("should delete a task", async () => {
+    it("タスクを削除する", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -428,7 +428,7 @@ describe("Tasks API", () => {
       expect(deleted).toBeNull();
     });
 
-    it("should return 404 when task does not exist", async () => {
+    it("タスクが存在しない場合、404 を返す", async () => {
       const nonExistentId = "00000000-0000-0000-0000-000000000000";
 
       const res = await app.request(`/tasks/${nonExistentId}`, {
@@ -439,7 +439,7 @@ describe("Tasks API", () => {
       expect(res.status).toBe(404);
     });
 
-    it("should return 400 when task id is not a valid UUID", async () => {
+    it("タスク ID が有効な UUID でない場合、400 を返す", async () => {
       const res = await app.request("/tasks/not-a-uuid", {
         method: "DELETE",
         headers: { Authorization: "Bearer test-token" },

@@ -9,7 +9,7 @@ vi.mock("jose", () => ({
   }),
 }));
 
-describe("Timer Sessions API", () => {
+describe("タイマーセッション API", () => {
   beforeEach(async () => {
     await cleanDatabase();
   });
@@ -20,7 +20,7 @@ describe("Timer Sessions API", () => {
   });
 
   describe("GET /timer-sessions", () => {
-    it("should return null when no active session exists", async () => {
+    it("アクティブなセッションがない場合、null を返す", async () => {
       const res = await app.request("/timer-sessions", {
         headers: { Authorization: "Bearer test-token" },
       });
@@ -30,7 +30,7 @@ describe("Timer Sessions API", () => {
       expect(body).toBeNull();
     });
 
-    it("should return the active session", async () => {
+    it("アクティブなセッションを返す", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -73,7 +73,7 @@ describe("Timer Sessions API", () => {
   });
 
   describe("POST /timer-sessions", () => {
-    it("should create a new timer session", async () => {
+    it("新しいタイマーセッションを作成する", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -114,7 +114,7 @@ describe("Timer Sessions API", () => {
       expect(body.startedAt).toBeDefined();
     });
 
-    it("should return 409 when an active session already exists", async () => {
+    it("アクティブなセッションが既に存在する場合、409 を返す", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -157,7 +157,7 @@ describe("Timer Sessions API", () => {
       expect(res.status).toBe(409);
     });
 
-    it("should allow creating a session with empty categoryName", async () => {
+    it("空の categoryName でセッションを作成できる", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -193,7 +193,7 @@ describe("Timer Sessions API", () => {
       expect(body.categoryName).toBe("");
     });
 
-    it("should return 400 when required fields are missing", async () => {
+    it("必須フィールドが不足している場合、400 を返す", async () => {
       const res = await app.request("/timer-sessions", {
         method: "POST",
         headers: {
@@ -206,7 +206,7 @@ describe("Timer Sessions API", () => {
       expect(res.status).toBe(400);
     });
 
-    it("should return 400 when estimatedMinutes is not positive", async () => {
+    it("estimatedMinutes が正の数でない場合、400 を返す", async () => {
       const res = await app.request("/timer-sessions", {
         method: "POST",
         headers: {
@@ -224,7 +224,7 @@ describe("Timer Sessions API", () => {
       expect(res.status).toBe(400);
     });
 
-    it("should return 404 when task does not exist", async () => {
+    it("タスクが存在しない場合、404 を返す", async () => {
       const res = await app.request("/timer-sessions", {
         method: "POST",
         headers: {
@@ -244,7 +244,7 @@ describe("Timer Sessions API", () => {
   });
 
   describe("DELETE /timer-sessions", () => {
-    it("should delete the active session", async () => {
+    it("アクティブなセッションを削除する", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -281,7 +281,7 @@ describe("Timer Sessions API", () => {
       expect(sessions).toHaveLength(0);
     });
 
-    it("should return 204 even when no session exists", async () => {
+    it("セッションが存在しない場合でも 204 を返す", async () => {
       const res = await app.request("/timer-sessions", {
         method: "DELETE",
         headers: { Authorization: "Bearer test-token" },

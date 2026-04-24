@@ -9,7 +9,7 @@ vi.mock("jose", () => ({
   }),
 }));
 
-describe("Categories API", () => {
+describe("カテゴリ API", () => {
   beforeEach(async () => {
     await cleanDatabase();
   });
@@ -20,7 +20,7 @@ describe("Categories API", () => {
   });
 
   describe("GET /categories", () => {
-    it("should return empty array when no categories exist", async () => {
+    it("カテゴリが存在しない場合、空配列を返す", async () => {
       const res = await app.request("/categories", {
         headers: { Authorization: "Bearer test-token" },
       });
@@ -30,7 +30,7 @@ describe("Categories API", () => {
       expect(body).toEqual([]);
     });
 
-    it("should return all categories", async () => {
+    it("すべてのカテゴリを返す", async () => {
       // Given
       await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -53,7 +53,7 @@ describe("Categories API", () => {
       expect(body[0]).toHaveProperty("color");
     });
 
-    it("should include CORS headers for localhost origins", async () => {
+    it("localhost オリジンに CORS ヘッダーを含める", async () => {
       const res = await app.request("/categories", {
         headers: {
           Origin: "http://localhost:3000",
@@ -69,7 +69,7 @@ describe("Categories API", () => {
   });
 
   describe("OPTIONS /categories", () => {
-    it("should handle preflight requests", async () => {
+    it("プリフライトリクエストを処理する", async () => {
       const res = await app.request("/categories", {
         method: "OPTIONS",
         headers: {
@@ -92,7 +92,7 @@ describe("Categories API", () => {
   });
 
   describe("POST /categories", () => {
-    it("should create a category with valid input", async () => {
+    it("有効な入力でカテゴリを作成する", async () => {
       const res = await app.request("/categories", {
         method: "POST",
         headers: {
@@ -112,7 +112,7 @@ describe("Categories API", () => {
       expect(body.id).toBeDefined();
     });
 
-    it("should return 400 when name is empty", async () => {
+    it("name が空の場合、400 を返す", async () => {
       const res = await app.request("/categories", {
         method: "POST",
         headers: {
@@ -128,7 +128,7 @@ describe("Categories API", () => {
       expect(res.status).toBe(400);
     });
 
-    it("should return 400 when required fields are missing", async () => {
+    it("必須フィールドが不足している場合、400 を返す", async () => {
       const res = await app.request("/categories", {
         method: "POST",
         headers: {
@@ -143,7 +143,7 @@ describe("Categories API", () => {
   });
 
   describe("PUT /categories/:id", () => {
-    it("should update a category", async () => {
+    it("カテゴリを更新する", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -169,7 +169,7 @@ describe("Categories API", () => {
       expect(body.color).toBe("#FF0000");
     });
 
-    it("should return 404 when category does not exist", async () => {
+    it("カテゴリが存在しない場合、404 を返す", async () => {
       const nonExistentId = "00000000-0000-0000-0000-000000000000";
 
       const res = await app.request(`/categories/${nonExistentId}`, {
@@ -187,7 +187,7 @@ describe("Categories API", () => {
       expect(res.status).toBe(404);
     });
 
-    it("should return 400 when category id is not a valid UUID", async () => {
+    it("カテゴリ ID が有効な UUID でない場合、400 を返す", async () => {
       const res = await app.request("/categories/not-a-uuid", {
         method: "PUT",
         headers: {
@@ -205,7 +205,7 @@ describe("Categories API", () => {
   });
 
   describe("DELETE /categories/:id", () => {
-    it("should delete a category", async () => {
+    it("カテゴリを削除する", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -226,7 +226,7 @@ describe("Categories API", () => {
       expect(deleted).toBeNull();
     });
 
-    it("should set related tasks categoryId to null when category is deleted", async () => {
+    it("カテゴリ削除時に関連タスクの categoryId を null にする", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -257,7 +257,7 @@ describe("Categories API", () => {
       expect(updatedTask!.categoryId).toBeNull();
     });
 
-    it("should return 404 when category does not exist", async () => {
+    it("カテゴリが存在しない場合、404 を返す", async () => {
       const nonExistentId = "00000000-0000-0000-0000-000000000000";
 
       const res = await app.request(`/categories/${nonExistentId}`, {
@@ -268,7 +268,7 @@ describe("Categories API", () => {
       expect(res.status).toBe(404);
     });
 
-    it("should return 400 when category id is not a valid UUID", async () => {
+    it("カテゴリ ID が有効な UUID でない場合、400 を返す", async () => {
       const res = await app.request("/categories/not-a-uuid", {
         method: "DELETE",
         headers: { Authorization: "Bearer test-token" },

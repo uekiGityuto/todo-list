@@ -9,7 +9,7 @@ vi.mock("jose", () => ({
   }),
 }));
 
-describe("Work Records API", () => {
+describe("作業記録 API", () => {
   beforeEach(async () => {
     await cleanDatabase();
   });
@@ -20,7 +20,7 @@ describe("Work Records API", () => {
   });
 
   describe("GET /work-records", () => {
-    it("should return empty array when no records exist", async () => {
+    it("作業記録が存在しない場合、空配列を返す", async () => {
       const res = await app.request("/work-records", {
         headers: { Authorization: "Bearer test-token" },
       });
@@ -30,7 +30,7 @@ describe("Work Records API", () => {
       expect(body).toEqual([]);
     });
 
-    it("should return all work records", async () => {
+    it("すべての作業記録を返す", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -81,7 +81,7 @@ describe("Work Records API", () => {
   });
 
   describe("POST /work-records", () => {
-    it("should create a work record with valid input", async () => {
+    it("有効な入力で作業記録を作成する", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -121,7 +121,7 @@ describe("Work Records API", () => {
       expect(body.id).toBeDefined();
     });
 
-    it("should create a work record with zero duration", async () => {
+    it("作業時間が 0 でも作業記録を作成できる", async () => {
       // Given
       const category = await prisma.category.create({
         data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
@@ -157,7 +157,7 @@ describe("Work Records API", () => {
       expect(body.durationMinutes).toBe(0);
     });
 
-    it("should return 400 when taskId is not a valid UUID", async () => {
+    it("taskId が有効な UUID でない場合、400 を返す", async () => {
       const res = await app.request("/work-records", {
         method: "POST",
         headers: {
@@ -175,7 +175,7 @@ describe("Work Records API", () => {
       expect(res.status).toBe(400);
     });
 
-    it("should return 400 when result is not a valid enum value", async () => {
+    it("result が無効な enum 値の場合、400 を返す", async () => {
       const res = await app.request("/work-records", {
         method: "POST",
         headers: {
@@ -193,7 +193,7 @@ describe("Work Records API", () => {
       expect(res.status).toBe(400);
     });
 
-    it("should return 400 when durationMinutes is negative", async () => {
+    it("durationMinutes が負の値の場合、400 を返す", async () => {
       const res = await app.request("/work-records", {
         method: "POST",
         headers: {
@@ -211,7 +211,7 @@ describe("Work Records API", () => {
       expect(res.status).toBe(400);
     });
 
-    it("should return 400 when required fields are missing", async () => {
+    it("必須フィールドが不足している場合、400 を返す", async () => {
       const res = await app.request("/work-records", {
         method: "POST",
         headers: {
@@ -224,7 +224,7 @@ describe("Work Records API", () => {
       expect(res.status).toBe(400);
     });
 
-    it("should return 404 when task does not exist", async () => {
+    it("タスクが存在しない場合、404 を返す", async () => {
       const res = await app.request("/work-records", {
         method: "POST",
         headers: {
