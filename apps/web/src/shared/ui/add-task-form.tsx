@@ -54,7 +54,8 @@ export function AddTaskForm({
   );
   const [nameError, setNameError] = useState(false);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!name.trim()) {
       setNameError(true);
       return;
@@ -72,7 +73,7 @@ export function AddTaskForm({
   const isEditing = !!editingTask;
 
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <DialogHeader>
         <DialogTitle>{isEditing ? "タスク編集" : "タスク追加"}</DialogTitle>
       </DialogHeader>
@@ -119,13 +120,18 @@ export function AddTaskForm({
         </div>
       </div>
       <DialogFooter className="flex-row gap-2">
-        <Button variant="outline" onClick={onClose} className="flex-1">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={onClose}
+          className="flex-1"
+        >
           キャンセル
         </Button>
-        <Button onClick={handleSubmit} className="flex-1">
+        <Button type="submit" className="flex-1">
           {isEditing ? "更新" : "追加"}
         </Button>
       </DialogFooter>
-    </>
+    </form>
   );
 }

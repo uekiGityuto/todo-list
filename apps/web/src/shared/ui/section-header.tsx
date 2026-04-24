@@ -1,8 +1,11 @@
+import Link from "next/link";
+
 import { cn } from "@/shared/lib/utils";
 
 interface SectionHeaderProps {
   title: string;
   action?: string;
+  href?: string;
   onAction?: () => void;
   className?: string;
 }
@@ -10,19 +13,23 @@ interface SectionHeaderProps {
 export function SectionHeader({
   title,
   action,
+  href,
   onAction,
   className,
 }: SectionHeaderProps) {
+  const actionClassName =
+    "text-xs font-medium text-primary transition-all duration-200 ease-out hover:text-primary/80";
+
   return (
     <div className={cn("flex items-center justify-between", className)}>
       <h2 className="text-base font-bold text-foreground">{title}</h2>
       {action &&
-        (onAction ? (
-          <button
-            type="button"
-            onClick={onAction}
-            className="text-xs font-medium text-primary transition-all duration-200 ease-out hover:text-primary/80"
-          >
+        (href ? (
+          <Link href={href} className={actionClassName}>
+            {action}
+          </Link>
+        ) : onAction ? (
+          <button type="button" onClick={onAction} className={actionClassName}>
             {action}
           </button>
         ) : (
