@@ -33,6 +33,7 @@ export function CategoryForm({
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (loading) return;
     const trimmed = name.trim();
     if (!trimmed) return;
     await onSubmit(trimmed, color);

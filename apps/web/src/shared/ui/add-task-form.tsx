@@ -59,6 +59,7 @@ export function AddTaskForm({
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (loading) return;
     if (!name.trim()) {
       setNameError(true);
       return;

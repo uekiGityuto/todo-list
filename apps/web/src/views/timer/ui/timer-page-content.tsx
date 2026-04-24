@@ -119,6 +119,7 @@ export function TimerPageContent({
   const [loadingAction, setLoadingAction] = useState<TimerAction | null>(null);
 
   const handleComplete = useCallback(async () => {
+    if (loadingAction) return;
     setLoadingAction("complete");
     try {
       const result = await timer.complete();
@@ -127,30 +128,32 @@ export function TimerPageContent({
       }
       await recordWork(result, "completed");
       router.push("/");
-    } finally {
+    } catch {
       setLoadingAction(null);
     }
-  }, [timer, taskId, completeTask, recordWork, router]);
+  }, [loadingAction, timer, taskId, completeTask, recordWork, router]);
 
   const handleInterrupt = useCallback(async () => {
+    if (loadingAction) return;
     setLoadingAction("interrupt");
     try {
       const result = await timer.interrupt();
       await recordWork(result, "interrupted");
       router.push("/");
-    } finally {
+    } catch {
       setLoadingAction(null);
     }
-  }, [timer, recordWork, router]);
+  }, [loadingAction, timer, recordWork, router]);
 
   const handleContinue = useCallback(async () => {
+    if (loadingAction) return;
     setLoadingAction("continue");
     try {
       await timer.restart();
     } finally {
       setLoadingAction(null);
     }
-  }, [timer]);
+  }, [loadingAction, timer]);
 
   if (!taskId) {
     return (
