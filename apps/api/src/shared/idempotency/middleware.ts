@@ -33,7 +33,7 @@ export const idempotencyMiddleware = createMiddleware<AuthEnv>(
     }
 
     const userId = c.get("userId");
-    const compositeKey = `${userId}:${idempotencyKey}`;
+    const compositeKey = `${userId}:${method}:${c.req.path}:${idempotencyKey}`;
 
     if (store.size > CLEANUP_THRESHOLD) {
       cleanup();

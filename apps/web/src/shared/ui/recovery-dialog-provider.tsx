@@ -50,7 +50,6 @@ export function RecoveryDialogProvider({
         },
         completeUpdateKeyRef.current,
       );
-      completeUpdateKeyRef.current = crypto.randomUUID();
       queryClient.setQueryData<Task[]>(queryKeys.tasks, (prev = tasks) =>
         prev.map((task) =>
           task.id === completedTask.id ? completedTask : task,
@@ -69,12 +68,14 @@ export function RecoveryDialogProvider({
         },
         completeRecordKeyRef.current,
       );
-      completeRecordKeyRef.current = crypto.randomUUID();
       queryClient.setQueryData<WorkRecord[]>(
         queryKeys.workRecords,
         (prev = []) => [...prev, createdRecord],
       );
       await clearSession();
+      // 全ステップ成功後にキーを再生成
+      completeUpdateKeyRef.current = crypto.randomUUID();
+      completeRecordKeyRef.current = crypto.randomUUID();
     },
     [clearSession, queryClient],
   );
@@ -93,12 +94,12 @@ export function RecoveryDialogProvider({
         },
         interruptRecordKeyRef.current,
       );
-      interruptRecordKeyRef.current = crypto.randomUUID();
       queryClient.setQueryData<WorkRecord[]>(
         queryKeys.workRecords,
         (prev = []) => [...prev, createdRecord],
       );
       await clearSession();
+      interruptRecordKeyRef.current = crypto.randomUUID();
     },
     [clearSession, queryClient],
   );
