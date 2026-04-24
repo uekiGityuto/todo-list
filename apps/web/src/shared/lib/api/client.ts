@@ -17,11 +17,15 @@ export function createApiClient(
 ) {
   return hc<AppType>(getApiBaseUrl(), {
     headers,
-    fetch: (input: RequestInfo | URL, init?: RequestInit) =>
-      fetch(input, {
-        ...init,
-        cache: "no-store",
-      }),
+    fetch: (input: RequestInfo | URL, init?: RequestInit) => {
+      const headers = new Headers(init?.headers);
+      const method = init?.method?.toUpperCase();
+      if (method && method !== "GET" && method !== "HEAD") {
+        headers.set("Idempotency-Key", crypto.randomUUID());
+      }
+      // Next.js の fetch キャッシュを無効化し、キャッシュ管理は TanStack Query に委ねる
+      return fetch(input, { ...init, headers, cache: "no-store" });
+    },
   });
 }
 
