@@ -2,7 +2,7 @@
 
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 
 import { useCurrentTimerSession } from "@/shared/hooks/use-current-timer-session";
 import { calcDurationMinutes } from "@/shared/hooks/use-timer";
@@ -21,8 +21,12 @@ export function RecoveryDialogProvider({
   const queryClient = useQueryClient();
   const { session, clearSession } = useCurrentTimerSession(initialSession);
 
+  const completeKeyRef = useRef(crypto.randomUUID());
+  const interruptKeyRef = useRef(crypto.randomUUID());
+
   const handleComplete = useCallback(
     async (activeSession: TimerSession) => {
+      const baseKey = completeKeyRef.current;
       const tasks = await fetchTasks();
       const currentTask = tasks.find(
         (task) => task.id === activeSession.taskId,
@@ -31,55 +35,67 @@ export function RecoveryDialogProvider({
         throw new Error("Task not found for recovery session");
       }
 
-      const completedTask = await updateTask(activeSession.taskId, {
-        name: currentTask.name,
-        categoryId:
-          currentTask.categoryId === "" ? null : currentTask.categoryId,
-        status: "done",
-        isNext: false,
-        estimatedMinutes: currentTask.estimatedMinutes,
-        scheduledDate: currentTask.scheduledDate,
-      });
+      const completedTask = await updateTask(
+        activeSession.taskId,
+        {
+          name: currentTask.name,
+          categoryId:
+            currentTask.categoryId === "" ? null : currentTask.categoryId,
+          status: "done",
+          isNext: false,
+          estimatedMinutes: currentTask.estimatedMinutes,
+          scheduledDate: currentTask.scheduledDate,
+        },
+        `${baseKey}:update`,
+      );
       queryClient.setQueryData<Task[]>(queryKeys.tasks, (prev = tasks) =>
         prev.map((task) =>
           task.id === completedTask.id ? completedTask : task,
         ),
       );
 
-      const createdRecord = await createWorkRecord({
-        taskId: activeSession.taskId,
-        date: format(new Date(activeSession.startedAt), "yyyy-MM-dd"),
-        durationMinutes: Math.max(
-          1,
-          calcDurationMinutes(activeSession.startedAt),
-        ),
-        result: "completed",
-      });
+      const createdRecord = await createWorkRecord(
+        {
+          taskId: activeSession.taskId,
+          date: format(new Date(activeSession.startedAt), "yyyy-MM-dd"),
+          durationMinutes: Math.max(
+            1,
+            calcDurationMinutes(activeSession.startedAt),
+          ),
+          result: "completed",
+        },
+        `${baseKey}:record`,
+      );
       queryClient.setQueryData<WorkRecord[]>(
         queryKeys.workRecords,
         (prev = []) => [...prev, createdRecord],
       );
       await clearSession();
+      completeKeyRef.current = crypto.randomUUID();
     },
     [clearSession, queryClient],
   );
 
   const handleInterrupt = useCallback(
     async (activeSession: TimerSession) => {
-      const createdRecord = await createWorkRecord({
-        taskId: activeSession.taskId,
-        date: format(new Date(activeSession.startedAt), "yyyy-MM-dd"),
-        durationMinutes: Math.max(
-          1,
-          calcDurationMinutes(activeSession.startedAt),
-        ),
-        result: "interrupted",
-      });
+      const createdRecord = await createWorkRecord(
+        {
+          taskId: activeSession.taskId,
+          date: format(new Date(activeSession.startedAt), "yyyy-MM-dd"),
+          durationMinutes: Math.max(
+            1,
+            calcDurationMinutes(activeSession.startedAt),
+          ),
+          result: "interrupted",
+        },
+        interruptKeyRef.current,
+      );
       queryClient.setQueryData<WorkRecord[]>(
         queryKeys.workRecords,
         (prev = []) => [...prev, createdRecord],
       );
       await clearSession();
+      interruptKeyRef.current = crypto.randomUUID();
     },
     [clearSession, queryClient],
   );

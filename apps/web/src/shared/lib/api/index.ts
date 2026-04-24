@@ -30,25 +30,36 @@ export async function fetchTasks() {
   return tasks.map(normalizeTask);
 }
 
-export async function createTask(input: CreateTaskRequest) {
-  const response = await apiClient.tasks.$post({ json: input });
+export async function createTask(
+  input: CreateTaskRequest,
+  idempotencyKey: string,
+) {
+  const response = await apiClient.tasks.$post(
+    { json: input },
+    { headers: { "Idempotency-Key": idempotencyKey } },
+  );
   await expectOk(response, "Failed to create task");
   return normalizeTask((await response.json()) as CreateTaskSuccess);
 }
 
-export async function updateTask(id: string, input: UpdateTaskRequest) {
-  const response = await apiClient.tasks[":id"].$put({
-    param: { id },
-    json: input,
-  });
+export async function updateTask(
+  id: string,
+  input: UpdateTaskRequest,
+  idempotencyKey: string,
+) {
+  const response = await apiClient.tasks[":id"].$put(
+    { param: { id }, json: input },
+    { headers: { "Idempotency-Key": idempotencyKey } },
+  );
   await expectOk(response, "Failed to update task");
   return normalizeTask((await response.json()) as UpdateTaskSuccess);
 }
 
-export async function deleteTask(id: string) {
-  const response = await apiClient.tasks[":id"].$delete({
-    param: { id },
-  });
+export async function deleteTask(id: string, idempotencyKey: string) {
+  const response = await apiClient.tasks[":id"].$delete(
+    { param: { id } },
+    { headers: { "Idempotency-Key": idempotencyKey } },
+  );
   await expectOk(response, "Failed to delete task");
 }
 
@@ -59,25 +70,36 @@ export async function fetchCategories() {
   return categories.map(normalizeCategory);
 }
 
-export async function createCategory(input: CreateCategoryRequest) {
-  const response = await apiClient.categories.$post({ json: input });
+export async function createCategory(
+  input: CreateCategoryRequest,
+  idempotencyKey: string,
+) {
+  const response = await apiClient.categories.$post(
+    { json: input },
+    { headers: { "Idempotency-Key": idempotencyKey } },
+  );
   await expectOk(response, "Failed to create category");
   return normalizeCategory((await response.json()) as CreateCategorySuccess);
 }
 
-export async function updateCategory(id: string, input: UpdateCategoryRequest) {
-  const response = await apiClient.categories[":id"].$put({
-    param: { id },
-    json: input,
-  });
+export async function updateCategory(
+  id: string,
+  input: UpdateCategoryRequest,
+  idempotencyKey: string,
+) {
+  const response = await apiClient.categories[":id"].$put(
+    { param: { id }, json: input },
+    { headers: { "Idempotency-Key": idempotencyKey } },
+  );
   await expectOk(response, "Failed to update category");
   return normalizeCategory((await response.json()) as UpdateCategorySuccess);
 }
 
-export async function deleteCategory(id: string) {
-  const response = await apiClient.categories[":id"].$delete({
-    param: { id },
-  });
+export async function deleteCategory(id: string, idempotencyKey: string) {
+  const response = await apiClient.categories[":id"].$delete(
+    { param: { id } },
+    { headers: { "Idempotency-Key": idempotencyKey } },
+  );
   await expectOk(response, "Failed to delete category");
 }
 
@@ -88,8 +110,14 @@ export async function fetchWorkRecords() {
   return records.map(normalizeWorkRecord);
 }
 
-export async function createWorkRecord(input: CreateWorkRecordRequest) {
-  const response = await apiClient["work-records"].$post({ json: input });
+export async function createWorkRecord(
+  input: CreateWorkRecordRequest,
+  idempotencyKey: string,
+) {
+  const response = await apiClient["work-records"].$post(
+    { json: input },
+    { headers: { "Idempotency-Key": idempotencyKey } },
+  );
   await expectOk(response, "Failed to create work record");
   return normalizeWorkRecord(
     (await response.json()) as CreateWorkRecordSuccess,
@@ -103,15 +131,23 @@ export async function fetchCurrentTimerSession() {
   return session ? normalizeTimerSession(session) : null;
 }
 
-export async function createTimerSession(input: CreateTimerSessionRequest) {
-  const response = await apiClient["timer-sessions"].$post({ json: input });
+export async function createTimerSession(
+  input: CreateTimerSessionRequest,
+  idempotencyKey: string,
+) {
+  const response = await apiClient["timer-sessions"].$post(
+    { json: input },
+    { headers: { "Idempotency-Key": idempotencyKey } },
+  );
   await expectOk(response, "Failed to create timer session");
   return normalizeTimerSession(
     (await response.json()) as CreateTimerSessionSuccess,
   );
 }
 
-export async function deleteCurrentTimerSession() {
-  const response = await apiClient["timer-sessions"].$delete();
+export async function deleteCurrentTimerSession(idempotencyKey: string) {
+  const response = await apiClient["timer-sessions"].$delete(undefined, {
+    headers: { "Idempotency-Key": idempotencyKey },
+  });
   await expectOk(response, "Failed to delete timer session");
 }
