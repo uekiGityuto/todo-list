@@ -34,7 +34,7 @@ describe("Idempotency middleware", () => {
     expect(res.status).toBe(201);
   });
 
-  it("should reject duplicate request with same Idempotency-Key", async () => {
+  it("should replay original response for duplicate request with same Idempotency-Key", async () => {
     const key = crypto.randomUUID();
 
     const first = await app.request("/categories", {
@@ -43,13 +43,22 @@ describe("Idempotency middleware", () => {
       body: JSON.stringify({ name: "Test", color: "#000000" }),
     });
     expect(first.status).toBe(201);
+    const firstBody = await first.json();
 
     const second = await app.request("/categories", {
       method: "POST",
       headers: { ...headers, "Idempotency-Key": key },
       body: JSON.stringify({ name: "Test", color: "#000000" }),
     });
-    expect(second.status).toBe(409);
+    expect(second.status).toBe(201);
+    const secondBody = await second.json();
+
+    // 同じレスポンスがリプレイされる（重複作成されない）
+    expect(secondBody.id).toBe(firstBody.id);
+
+    // DB に1件だけ存在する
+    const count = await prisma.category.count();
+    expect(count).toBe(1);
   });
 
   it("should allow requests with different Idempotency-Keys", async () => {

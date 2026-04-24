@@ -4,12 +4,17 @@ import type { AuthEnv } from "../auth/env";
 const TTL_MS = 5 * 60 * 1000;
 const CLEANUP_THRESHOLD = 1000;
 
-const store = new Map<string, number>();
+type IdempotencyEntry = {
+  timestamp: number;
+  response?: Response;
+};
+
+const store = new Map<string, IdempotencyEntry>();
 
 function cleanup() {
   const now = Date.now();
-  for (const [key, timestamp] of store) {
-    if (now - timestamp > TTL_MS) {
+  for (const [key, entry] of store) {
+    if (now - entry.timestamp > TTL_MS) {
       store.delete(key);
     }
   }
@@ -34,20 +39,25 @@ export const idempotencyMiddleware = createMiddleware<AuthEnv>(
       cleanup();
     }
 
-    const storedTimestamp = store.get(compositeKey);
-    if (storedTimestamp !== undefined) {
-      if (Date.now() - storedTimestamp < TTL_MS) {
-        return c.json({ error: "Duplicate request" }, 409);
+    const existing = store.get(compositeKey);
+    if (existing && Date.now() - existing.timestamp < TTL_MS) {
+      if (existing.response) {
+        return existing.response.clone();
       }
-      store.delete(compositeKey);
+      return c.json({ error: "Duplicate request" }, 409);
     }
 
-    store.set(compositeKey, Date.now());
+    store.set(compositeKey, { timestamp: Date.now() });
     try {
       await next();
 
       const status = c.res.status;
-      if (status < 200 || status >= 300) {
+      if (status >= 200 && status < 300) {
+        store.set(compositeKey, {
+          timestamp: Date.now(),
+          response: c.res.clone(),
+        });
+      } else {
         store.delete(compositeKey);
       }
     } catch (e) {
