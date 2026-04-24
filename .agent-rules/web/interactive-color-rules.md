@@ -1,7 +1,8 @@
 ---
 paths:
-  - "apps/web/src/**/*.tsx"
-  - "apps/web/src/**/*.css"
+  - "apps/web/src/views/**/*.tsx"
+  - "apps/web/src/shared/ui/**/*.tsx"
+  - "apps/web/src/app/globals.css"
 ---
 
 # インタラクティブUI カラールール

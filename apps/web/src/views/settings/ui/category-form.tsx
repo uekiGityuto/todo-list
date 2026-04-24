@@ -5,6 +5,7 @@ import { useState } from "react";
 import { CATEGORY_COLORS } from "@/shared/constants/category-colors";
 import { cn } from "@/shared/lib/utils";
 import type { Category } from "@/shared/types/task";
+import { LoadingButton } from "@/shared/ui/loading-button";
 import { Button } from "@/shared/ui/shadcn/button";
 import { Input } from "@/shared/ui/shadcn/input";
 
@@ -12,12 +13,14 @@ interface CategoryFormProps {
   editingCategory: Category | null;
   onSubmit: (name: string, color: string) => Promise<void>;
   onCancel: () => void;
+  loading?: boolean;
 }
 
 export function CategoryForm({
   editingCategory,
   onSubmit,
   onCancel,
+  loading = false,
 }: CategoryFormProps) {
   const [name, setName] = useState(editingCategory?.name ?? "");
   const [color, setColor] = useState(
@@ -30,6 +33,7 @@ export function CategoryForm({
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (loading) return;
     const trimmed = name.trim();
     if (!trimmed) return;
     await onSubmit(trimmed, color);
@@ -77,7 +81,9 @@ export function CategoryForm({
         <Button type="button" variant="outline" onClick={onCancel}>
           キャンセル
         </Button>
-        <Button type="submit">{submitLabel}</Button>
+        <LoadingButton type="submit" loading={loading}>
+          {submitLabel}
+        </LoadingButton>
       </div>
     </form>
   );

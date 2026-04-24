@@ -3,7 +3,7 @@
 import { format } from "date-fns";
 import { Check, Pause } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { NAV_ROUTES } from "@/shared/constants/routes";
 import { useLogout } from "@/shared/hooks/use-logout";
@@ -17,8 +17,8 @@ import {
 import type { Category, Task } from "@/shared/types/task";
 import type { TimerSession } from "@/shared/types/timer";
 import type { WorkRecord } from "@/shared/types/work-record";
+import { LoadingButton } from "@/shared/ui/loading-button";
 import { Badge } from "@/shared/ui/shadcn/badge";
-import { Button } from "@/shared/ui/shadcn/button";
 import { Sidebar } from "@/shared/ui/sidebar";
 import { TabBar } from "@/shared/ui/tab-bar";
 import { TimerEndDialog } from "./timer-end-dialog";
@@ -115,24 +115,45 @@ export function TimerPageContent({
     [addWorkRecord],
   );
 
+  type TimerAction = "complete" | "interrupt" | "continue";
+  const [loadingAction, setLoadingAction] = useState<TimerAction | null>(null);
+
   const handleComplete = useCallback(async () => {
-    const result = await timer.complete();
-    if (taskId) {
-      await completeTask(taskId);
+    if (loadingAction) return;
+    setLoadingAction("complete");
+    try {
+      const result = await timer.complete();
+      if (taskId) {
+        await completeTask(taskId);
+      }
+      await recordWork(result, "completed");
+      router.push("/");
+    } catch {
+      setLoadingAction(null);
     }
-    await recordWork(result, "completed");
-    router.push("/");
-  }, [timer, taskId, completeTask, recordWork, router]);
+  }, [loadingAction, timer, taskId, completeTask, recordWork, router]);
 
   const handleInterrupt = useCallback(async () => {
-    const result = await timer.interrupt();
-    await recordWork(result, "interrupted");
-    router.push("/");
-  }, [timer, recordWork, router]);
+    if (loadingAction) return;
+    setLoadingAction("interrupt");
+    try {
+      const result = await timer.interrupt();
+      await recordWork(result, "interrupted");
+      router.push("/");
+    } catch {
+      setLoadingAction(null);
+    }
+  }, [loadingAction, timer, recordWork, router]);
 
   const handleContinue = useCallback(async () => {
-    await timer.restart();
-  }, [timer]);
+    if (loadingAction) return;
+    setLoadingAction("continue");
+    try {
+      await timer.restart();
+    } finally {
+      setLoadingAction(null);
+    }
+  }, [loadingAction, timer]);
 
   if (!taskId) {
     return (
@@ -164,21 +185,25 @@ export function TimerPageContent({
           />
 
           <div className="flex items-center gap-3">
-            <Button
+            <LoadingButton
               variant="secondary"
               onClick={handleInterrupt}
               className="h-12 rounded-3xl px-6 text-base font-semibold"
+              loading={loadingAction === "interrupt"}
+              disabled={loadingAction !== null}
             >
               <Pause className="size-4" />
               中断
-            </Button>
-            <Button
+            </LoadingButton>
+            <LoadingButton
               onClick={handleComplete}
               className="h-12 rounded-3xl px-6 text-base font-semibold"
+              loading={loadingAction === "complete"}
+              disabled={loadingAction !== null}
             >
               <Check className="size-4" />
               完了
-            </Button>
+            </LoadingButton>
           </div>
         </main>
       </div>
@@ -191,6 +216,7 @@ export function TimerPageContent({
         onComplete={handleComplete}
         onContinue={handleContinue}
         onInterrupt={handleInterrupt}
+        loadingAction={loadingAction}
       />
     </div>
   );

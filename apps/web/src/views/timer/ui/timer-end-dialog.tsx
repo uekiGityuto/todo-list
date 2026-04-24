@@ -1,6 +1,6 @@
 import { Bell, Check, Pause, RotateCw } from "lucide-react";
 
-import { Button } from "@/shared/ui/shadcn/button";
+import { LoadingButton } from "@/shared/ui/loading-button";
 import {
   Dialog,
   DialogContent,
@@ -9,12 +9,15 @@ import {
   DialogTitle,
 } from "@/shared/ui/shadcn/dialog";
 
+type TimerLoadingAction = "complete" | "continue" | "interrupt";
+
 interface TimerEndDialogProps {
   open: boolean;
   taskName: string;
   onComplete: () => void;
   onContinue: () => void;
   onInterrupt: () => void;
+  loadingAction?: TimerLoadingAction | null;
 }
 
 export function TimerEndDialog({
@@ -23,7 +26,9 @@ export function TimerEndDialog({
   onComplete,
   onContinue,
   onInterrupt,
+  loadingAction = null,
 }: TimerEndDialogProps) {
+  const isLoading = loadingAction !== null;
   return (
     <Dialog open={open}>
       <DialogContent showCloseButton={false} className="max-w-80 gap-5 p-7">
@@ -40,29 +45,35 @@ export function TimerEndDialog({
         </DialogHeader>
 
         <div className="flex flex-col gap-2.5">
-          <Button
+          <LoadingButton
             onClick={onComplete}
             className="h-12 rounded-3xl text-base font-semibold"
+            loading={loadingAction === "complete"}
+            disabled={isLoading}
           >
             <Check className="size-4" />
             完了
-          </Button>
-          <Button
+          </LoadingButton>
+          <LoadingButton
             variant="secondary"
             onClick={onContinue}
             className="h-12 rounded-3xl text-base font-semibold"
+            loading={loadingAction === "continue"}
+            disabled={isLoading}
           >
             <RotateCw className="size-4" />
             継続する
-          </Button>
-          <Button
+          </LoadingButton>
+          <LoadingButton
             variant="outline"
             onClick={onInterrupt}
             className="h-12 rounded-3xl text-base font-semibold"
+            loading={loadingAction === "interrupt"}
+            disabled={isLoading}
           >
             <Pause className="size-4" />
             中断する
-          </Button>
+          </LoadingButton>
         </div>
       </DialogContent>
     </Dialog>

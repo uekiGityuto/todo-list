@@ -1,6 +1,7 @@
 ---
 paths:
-  - "apps/web/src/**/*.tsx"
+  - "apps/web/src/views/**/*.tsx"
+  - "apps/web/src/shared/ui/**/*.tsx"
 ---
 
 # HTML セマンティクスルール

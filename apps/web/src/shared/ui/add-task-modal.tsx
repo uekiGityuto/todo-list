@@ -22,6 +22,7 @@ interface AddTaskModalProps {
   onCreateCategory: (name: string, color: string) => Promise<string>;
   categories: Category[];
   editingTask?: TaskFormData & { id: string };
+  loading?: boolean;
 }
 
 export function AddTaskModal({
@@ -31,6 +32,7 @@ export function AddTaskModal({
   onCreateCategory,
   categories,
   editingTask,
+  loading,
 }: AddTaskModalProps) {
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
@@ -45,6 +47,7 @@ export function AddTaskModal({
           onCreateCategory={onCreateCategory}
           categories={categories}
           editingTask={editingTask}
+          loading={loading}
         />
       </DialogContent>
     </Dialog>
