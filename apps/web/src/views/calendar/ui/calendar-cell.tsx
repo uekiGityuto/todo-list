@@ -42,7 +42,7 @@ export function CalendarCell({
       >
         {day}
       </span>
-      {/* Mobile: dots */}
+      {/* モバイル: ドット表示 */}
       <div className="flex gap-0.75 md:hidden">
         {tasks.slice(0, 3).map((task) => (
           <div
@@ -52,7 +52,7 @@ export function CalendarCell({
           />
         ))}
       </div>
-      {/* PC: task names */}
+      {/* PC: タスク名表示 */}
       <div className="hidden flex-col gap-0.5 md:flex">
         {tasks.slice(0, 2).map((task) => (
           <span
