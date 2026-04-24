@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingButton } from "@/shared/ui/loading-button";
 import { Button } from "@/shared/ui/shadcn/button";
 import {
   Dialog,
@@ -15,6 +16,7 @@ interface DeleteConfirmDialogProps {
   taskName: string;
   onConfirm: () => void;
   onCancel: () => void;
+  loading?: boolean;
 }
 
 export function DeleteConfirmDialog({
@@ -22,6 +24,7 @@ export function DeleteConfirmDialog({
   taskName,
   onConfirm,
   onCancel,
+  loading = false,
 }: DeleteConfirmDialogProps) {
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onCancel()}>
@@ -36,9 +39,13 @@ export function DeleteConfirmDialog({
           <Button variant="outline" onClick={onCancel}>
             キャンセル
           </Button>
-          <Button variant="destructive" onClick={onConfirm}>
+          <LoadingButton
+            variant="destructive"
+            onClick={onConfirm}
+            loading={loading}
+          >
             削除
-          </Button>
+          </LoadingButton>
         </DialogFooter>
       </DialogContent>
     </Dialog>

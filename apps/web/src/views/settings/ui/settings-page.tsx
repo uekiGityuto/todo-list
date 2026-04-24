@@ -36,11 +36,19 @@ export function SettingsPage({
   initialCategories,
 }: SettingsPageProps) {
   const router = useRouter();
-  const { tasks, categories, addCategory, updateCategory, deleteCategory } =
-    useTasks({
-      tasks: initialTasks,
-      categories: initialCategories,
-    } satisfies TasksInitialData);
+  const {
+    tasks,
+    categories,
+    addCategory,
+    updateCategory,
+    deleteCategory,
+    isAddingCategory,
+    isUpdatingCategory,
+    isDeletingCategory,
+  } = useTasks({
+    tasks: initialTasks,
+    categories: initialCategories,
+  } satisfies TasksInitialData);
 
   const [formState, setFormState] = useState<FormState>({ mode: "closed" });
   const [deleteTarget, setDeleteTarget] = useState<Category | null>(null);
@@ -140,6 +148,11 @@ export function SettingsPage({
                   editingCategory={editingCategory}
                   onSubmit={handleFormSubmit}
                   onCancel={handleFormCancel}
+                  loading={
+                    formState.mode === "edit"
+                      ? isUpdatingCategory
+                      : isAddingCategory
+                  }
                 />
               </div>
             )}
@@ -166,6 +179,11 @@ export function SettingsPage({
                   editingCategory={editingCategory}
                   onSubmit={handleFormSubmit}
                   onCancel={handleFormCancel}
+                  loading={
+                    formState.mode === "edit"
+                      ? isUpdatingCategory
+                      : isAddingCategory
+                  }
                 />
               </DialogContent>
             </Dialog>
@@ -181,6 +199,7 @@ export function SettingsPage({
           categoryName={deleteTarget.name}
           onConfirm={handleConfirmDelete}
           onCancel={() => setDeleteTarget(null)}
+          loading={isDeletingCategory}
         />
       )}
     </div>

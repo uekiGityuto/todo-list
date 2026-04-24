@@ -41,6 +41,9 @@ export function HomePage({
     setNextTask,
     unsetNextTask,
     addCategory,
+    isAddingTask,
+    isUpdatingTask,
+    isDeletingTask,
   } = useTasks({
     tasks: initialTasks,
     categories: initialCategories,
@@ -141,6 +144,7 @@ export function HomePage({
         onCreateCategory={addCategory}
         categories={categories}
         editingTask={editingTask}
+        loading={editingTask ? isUpdatingTask : isAddingTask}
       />
 
       {deleteTarget && (
@@ -149,6 +153,7 @@ export function HomePage({
           taskName={deleteTarget.name}
           onConfirm={handleConfirmDelete}
           onCancel={() => setDeleteTarget(null)}
+          loading={isDeletingTask}
         />
       )}
     </div>

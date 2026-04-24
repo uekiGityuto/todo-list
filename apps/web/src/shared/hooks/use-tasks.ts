@@ -57,6 +57,12 @@ type UseTasksReturn = {
   addCategory: (name: string, color: string) => Promise<string>;
   updateCategory: (id: string, name: string, color: string) => Promise<void>;
   deleteCategory: (id: string) => Promise<void>;
+  isAddingTask: boolean;
+  isUpdatingTask: boolean;
+  isDeletingTask: boolean;
+  isAddingCategory: boolean;
+  isUpdatingCategory: boolean;
+  isDeletingCategory: boolean;
 };
 
 function normalizeCategoryId(categoryId: string) {
@@ -353,5 +359,11 @@ export function useTasks(initialData?: TasksInitialData): UseTasksReturn {
     addCategory: addCategoryAction,
     updateCategory: updateCategoryAction,
     deleteCategory: deleteCategoryAction,
+    isAddingTask: createTaskMutation.isPending,
+    isUpdatingTask: updateTaskMutation.isPending,
+    isDeletingTask: deleteTaskMutation.isPending,
+    isAddingCategory: createCategoryMutation.isPending,
+    isUpdatingCategory: updateCategoryMutation.isPending,
+    isDeletingCategory: deleteCategoryMutation.isPending,
   };
 }

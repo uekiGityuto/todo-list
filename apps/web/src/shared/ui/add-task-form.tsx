@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import type { Category } from "@/shared/types/task";
 import { CategorySelect } from "@/shared/ui/category-select";
+import { LoadingButton } from "@/shared/ui/loading-button";
 import { Button } from "@/shared/ui/shadcn/button";
 import { DatePickerField } from "@/shared/ui/shadcn/date-picker-field";
 import {
@@ -33,6 +34,7 @@ interface AddTaskFormProps {
   onCreateCategory: (name: string, color: string) => Promise<string>;
   categories: Category[];
   editingTask?: TaskFormData & { id: string };
+  loading?: boolean;
 }
 
 export function AddTaskForm({
@@ -41,6 +43,7 @@ export function AddTaskForm({
   onCreateCategory,
   categories,
   editingTask,
+  loading = false,
 }: AddTaskFormProps) {
   const [name, setName] = useState(editingTask?.name ?? "");
   const [categoryId, setCategoryId] = useState(editingTask?.categoryId ?? "");
@@ -128,9 +131,9 @@ export function AddTaskForm({
         >
           キャンセル
         </Button>
-        <Button type="submit" className="flex-1">
+        <LoadingButton type="submit" className="flex-1" loading={loading}>
           {isEditing ? "更新" : "追加"}
-        </Button>
+        </LoadingButton>
       </DialogFooter>
     </form>
   );
