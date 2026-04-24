@@ -21,7 +21,7 @@ export function AuthForm({ mode }: Props) {
 
   const isLogin = mode === "login";
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
     setLoading(true);

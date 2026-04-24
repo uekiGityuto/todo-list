@@ -1,7 +1,6 @@
 "use client";
 
 import { format } from "date-fns";
-import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import { useLogout } from "@/shared/hooks/use-logout";
@@ -33,7 +32,6 @@ export function HomePage({
   initialCategories,
   initialWorkRecords,
 }: HomePageProps) {
-  const router = useRouter();
   const {
     tasks,
     categories,
@@ -113,7 +111,7 @@ export function HomePage({
                   todayTasks={todayTasks}
                   expandedTaskId={expandedTaskId}
                   onToggleExpand={handleToggleExpand}
-                  onNavigateToTasks={() => router.push("/tasks")}
+                  tasksHref="/tasks"
                   onStartWork={handleStartWork}
                   renderActions={renderActions}
                 />

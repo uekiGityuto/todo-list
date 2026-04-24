@@ -9,7 +9,7 @@ interface TaskContentProps {
   todayTasks: TaskWithCategory[];
   expandedTaskId: string | null;
   onToggleExpand: (taskId: string) => void;
-  onNavigateToTasks: () => void;
+  tasksHref: string;
   onStartWork: (taskId: string) => void;
   renderActions: (task: TaskWithCategory) => React.ReactNode;
 }
@@ -19,7 +19,7 @@ export function TaskContent({
   todayTasks,
   expandedTaskId,
   onToggleExpand,
-  onNavigateToTasks,
+  tasksHref,
   onStartWork,
   renderActions,
 }: TaskContentProps) {
@@ -42,7 +42,7 @@ export function TaskContent({
         <SectionHeader
           title="今日のタスク"
           action="すべて見る →"
-          onAction={onNavigateToTasks}
+          href={tasksHref}
         />
 
         {todayTasks.length > 0 ? (

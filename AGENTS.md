@@ -19,6 +19,10 @@
 - React: https://react.dev/llms.txt
 - Hono: https://hono.dev/llms.txt
 
+## PR 作成
+
+`.github/pull_request_template.md` のテンプレートに従って PR を作成すること。
+
 ## コマンド
 
 ```bash

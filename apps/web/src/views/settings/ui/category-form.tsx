@@ -28,14 +28,18 @@ export function CategoryForm({
   const title = isEditing ? "カテゴリ編集" : "カテゴリ追加";
   const submitLabel = isEditing ? "保存" : "追加";
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const trimmed = name.trim();
     if (!trimmed) return;
     await onSubmit(trimmed, color);
   };
 
   return (
-    <div className="flex flex-col gap-6 rounded-3xl bg-card p-6">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-6 rounded-3xl bg-card p-6"
+    >
       <h3 className="text-base font-bold">{title}</h3>
 
       <div className="flex flex-col gap-2">
@@ -70,11 +74,11 @@ export function CategoryForm({
       </div>
 
       <div className="flex items-center gap-3">
-        <Button variant="outline" onClick={onCancel}>
+        <Button type="button" variant="outline" onClick={onCancel}>
           キャンセル
         </Button>
-        <Button onClick={handleSubmit}>{submitLabel}</Button>
+        <Button type="submit">{submitLabel}</Button>
       </div>
-    </div>
+    </form>
   );
 }

@@ -61,6 +61,12 @@ export function CategorySelect({
           placeholder="カテゴリ名"
           value={newCategoryName}
           onChange={(e) => setNewCategoryName(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              void handleCreateCategory();
+            }
+          }}
         />
         <div className="flex flex-wrap gap-2">
           {CATEGORY_COLORS.map((color) => (
