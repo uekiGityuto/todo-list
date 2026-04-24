@@ -20,7 +20,12 @@ export function createApiClient(
     fetch: (input: RequestInfo | URL, init?: RequestInit) => {
       const headers = new Headers(init?.headers);
       const method = init?.method?.toUpperCase();
-      if (method && method !== "GET" && method !== "HEAD") {
+      if (
+        method &&
+        method !== "GET" &&
+        method !== "HEAD" &&
+        !headers.has("Idempotency-Key")
+      ) {
         headers.set("Idempotency-Key", crypto.randomUUID());
       }
       // Next.js の fetch キャッシュを無効化し、キャッシュ管理は TanStack Query に委ねる

@@ -44,5 +44,10 @@ export const idempotencyMiddleware = createMiddleware<AuthEnv>(
 
     store.set(compositeKey, Date.now());
     await next();
+
+    const status = c.res.status;
+    if (status < 200 || status >= 300) {
+      store.delete(compositeKey);
+    }
   },
 );
