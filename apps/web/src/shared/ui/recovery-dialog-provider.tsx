@@ -21,12 +21,14 @@ export function RecoveryDialogProvider({
   const queryClient = useQueryClient();
   const { session, clearSession } = useCurrentTimerSession(initialSession);
 
-  const completeKeyRef = useRef(crypto.randomUUID());
-  const interruptKeyRef = useRef(crypto.randomUUID());
+  // 各ステップ独立のキー（部分失敗時にリトライ可能にする）
+  // updateTask は PUT で自然に冪等なので、リトライ時は新しいキーで再実行可能
+  const completeUpdateKeyRef = useRef(crypto.randomUUID());
+  const completeRecordKeyRef = useRef(crypto.randomUUID());
+  const interruptRecordKeyRef = useRef(crypto.randomUUID());
 
   const handleComplete = useCallback(
     async (activeSession: TimerSession) => {
-      const baseKey = completeKeyRef.current;
       const tasks = await fetchTasks();
       const currentTask = tasks.find(
         (task) => task.id === activeSession.taskId,
@@ -46,8 +48,9 @@ export function RecoveryDialogProvider({
           estimatedMinutes: currentTask.estimatedMinutes,
           scheduledDate: currentTask.scheduledDate,
         },
-        `${baseKey}:update`,
+        completeUpdateKeyRef.current,
       );
+      completeUpdateKeyRef.current = crypto.randomUUID();
       queryClient.setQueryData<Task[]>(queryKeys.tasks, (prev = tasks) =>
         prev.map((task) =>
           task.id === completedTask.id ? completedTask : task,
@@ -64,14 +67,14 @@ export function RecoveryDialogProvider({
           ),
           result: "completed",
         },
-        `${baseKey}:record`,
+        completeRecordKeyRef.current,
       );
+      completeRecordKeyRef.current = crypto.randomUUID();
       queryClient.setQueryData<WorkRecord[]>(
         queryKeys.workRecords,
         (prev = []) => [...prev, createdRecord],
       );
       await clearSession();
-      completeKeyRef.current = crypto.randomUUID();
     },
     [clearSession, queryClient],
   );
@@ -88,14 +91,14 @@ export function RecoveryDialogProvider({
           ),
           result: "interrupted",
         },
-        interruptKeyRef.current,
+        interruptRecordKeyRef.current,
       );
+      interruptRecordKeyRef.current = crypto.randomUUID();
       queryClient.setQueryData<WorkRecord[]>(
         queryKeys.workRecords,
         (prev = []) => [...prev, createdRecord],
       );
       await clearSession();
-      interruptKeyRef.current = crypto.randomUUID();
     },
     [clearSession, queryClient],
   );
