@@ -40,6 +40,8 @@ export function CategoryForm({
     setError,
   } = useForm<CategoryFormValues>({
     resolver: zodResolver(categoryFormSchema),
+    mode: "onBlur",
+    reValidateMode: "onChange",
     defaultValues: {
       name: editingCategory?.name ?? "",
       color: editingCategory?.color ?? CATEGORY_COLORS[0],

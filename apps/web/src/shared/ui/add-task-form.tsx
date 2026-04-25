@@ -59,6 +59,8 @@ export function AddTaskForm({
     setError,
   } = useForm<AddTaskFormValues>({
     resolver: zodResolver(addTaskFormSchema),
+    mode: "onBlur",
+    reValidateMode: "onChange",
     defaultValues: {
       name: editingTask?.name ?? "",
       categoryId: editingTask?.categoryId ?? "",
