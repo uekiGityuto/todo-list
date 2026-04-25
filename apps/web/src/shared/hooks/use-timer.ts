@@ -39,7 +39,7 @@ function calcRemainingSeconds(
   return Math.max(0, remaining);
 }
 
-function getInitialState(
+function calcInitialState(
   session: TimerSession | null,
   estimatedMinutes: number,
 ) {
@@ -65,7 +65,7 @@ export function useTimer(
 ): UseTimerReturn {
   const { session, createSession, clearSession } =
     useCurrentTimerSession(initialSession);
-  const initialState = getInitialState(session, input.estimatedMinutes);
+  const initialState = calcInitialState(session, input.estimatedMinutes);
 
   const [remainingSeconds, setRemainingSeconds] = useState(
     initialState.remainingSeconds,
@@ -82,13 +82,19 @@ export function useTimer(
     }
   }, []);
 
-  useEffect(() => {
-    const nextState = getInitialState(session, input.estimatedMinutes);
+  // session / estimatedMinutes 変更時に状態をリセット（レンダリング中の状態更新パターン）
+  const [prevSession, setPrevSession] = useState(session);
+  const [prevMinutes, setPrevMinutes] = useState(input.estimatedMinutes);
+  if (session !== prevSession || input.estimatedMinutes !== prevMinutes) {
+    setPrevSession(session);
+    setPrevMinutes(input.estimatedMinutes);
+    const nextState = calcInitialState(session, input.estimatedMinutes);
     setRemainingSeconds(nextState.remainingSeconds);
     setIsRunning(nextState.isRunning);
     setIsFinished(nextState.isFinished);
-  }, [input.estimatedMinutes, session]);
+  }
 
+  // 外部システム同期: タイマーの setInterval 管理
   useEffect(() => {
     if (!isRunning || isFinished || !session) return;
 

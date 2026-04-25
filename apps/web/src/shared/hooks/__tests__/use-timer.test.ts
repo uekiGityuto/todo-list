@@ -195,4 +195,22 @@ describe("useTimer", () => {
     expect(result.current.isRunning).toBe(true);
     expect(result.current.remainingSeconds).toBe(15 * 60);
   });
+
+  it("セッションなしでestimatedMinutesが変わるとremainingSecondsが更新される", () => {
+    vi.mocked(api.fetchCurrentTimerSession).mockResolvedValue(null);
+    const { wrapper } = createQueryClientWrapper();
+
+    let minutes = 25;
+    const { result, rerender } = renderHook(
+      () => useTimer({ ...DEFAULT_INPUT, estimatedMinutes: minutes }, null),
+      { wrapper },
+    );
+
+    expect(result.current.remainingSeconds).toBe(25 * 60);
+
+    minutes = 50;
+    rerender();
+
+    expect(result.current.remainingSeconds).toBe(50 * 60);
+  });
 });
