@@ -36,31 +36,31 @@ export async function update(
   });
 }
 
-export async function remove(userId: string, id: string) {
-  const existing = await prisma.category.findUnique({ where: { id, userId } });
-  if (!existing) return false;
+type RemoveCategoryResult = "success" | "not_found" | "conflict";
 
-  const deleteWithNullify = () =>
-    prisma.$transaction([
+export async function remove(
+  userId: string,
+  id: string,
+): Promise<RemoveCategoryResult> {
+  const existing = await prisma.category.findUnique({ where: { id, userId } });
+  if (!existing) return "not_found";
+
+  try {
+    await prisma.$transaction([
       prisma.task.updateMany({
         where: { categoryId: id, userId },
         data: { categoryId: null },
       }),
       prisma.category.delete({ where: { id, userId } }),
     ]);
-
-  try {
-    await deleteWithNullify();
+    return "success";
   } catch (error) {
-    // 同時にタスクがこのカテゴリに紐付けられた場合、リトライ
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === "P2003"
     ) {
-      await deleteWithNullify();
-    } else {
-      throw error;
+      return "conflict";
     }
+    throw error;
   }
-  return true;
 }

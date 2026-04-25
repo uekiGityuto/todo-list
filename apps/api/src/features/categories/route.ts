@@ -47,9 +47,12 @@ export const categoriesRoute = new Hono<AuthEnv>()
     async (c) => {
       const userId = c.get("userId");
       const { id } = c.req.valid("param");
-      const deleted = await categoryService.remove(userId, id);
-      if (!deleted) {
+      const result = await categoryService.remove(userId, id);
+      if (result === "not_found") {
         return errorResponse(c, 404, "CATEGORY_NOT_FOUND");
+      }
+      if (result === "conflict") {
+        return errorResponse(c, 409, "CATEGORY_IN_USE");
       }
       return c.body(null, 204);
     },
