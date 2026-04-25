@@ -7,6 +7,7 @@ import { timerSessionsRoute } from "./features/timer-sessions/route";
 import { workRecordsRoute } from "./features/work-records/route";
 import { authMiddleware } from "./shared/auth/middleware";
 import { createErrorHandler } from "./shared/http/error-handler";
+import { errorResponse } from "./shared/http/error-response";
 import { createRequestLogger } from "./shared/http/request-logger";
 import { logger } from "./shared/lib/logger";
 
@@ -41,6 +42,7 @@ const app = new Hono()
   .route("/categories", categoriesRoute)
   .route("/work-records", workRecordsRoute)
   .route("/timer-sessions", timerSessionsRoute)
+  .notFound((c) => errorResponse(c, 404, "NOT_FOUND"))
   .onError(errorHandler);
 
 export default app;

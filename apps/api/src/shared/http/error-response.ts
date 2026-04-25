@@ -7,6 +7,7 @@ const ERROR_MESSAGES: Record<ApiErrorCode, string> = {
   FORBIDDEN: "この操作は許可されていません",
   TASK_NOT_FOUND: "タスクが見つかりません",
   CATEGORY_NOT_FOUND: "カテゴリが見つかりません",
+  NOT_FOUND: "リクエストされたリソースが見つかりません",
   ACTIVE_SESSION_EXISTS: "タイマーセッションが既に存在します",
   VALIDATION_ERROR: "入力内容に誤りがあります",
   INVALID_JSON: "リクエストの形式が正しくありません",
