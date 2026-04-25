@@ -5,6 +5,7 @@
     "correctness": "error"
   },
   "rules": {
+    "typescript/no-deprecated": "error",
     "typescript/switch-exhaustiveness-check": "error"
   },
   "overrides": [

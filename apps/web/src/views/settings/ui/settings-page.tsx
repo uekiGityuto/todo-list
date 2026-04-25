@@ -91,18 +91,6 @@ export function SettingsPage({
     setFormState({ mode: "closed" });
   }, [deleteTarget, deleteCategory]);
 
-  const handleFormSubmit = useCallback(
-    async (name: string, color: string) => {
-      if (formState.mode === "add") {
-        await addCategory(name, color);
-      } else if (formState.mode === "edit") {
-        await updateCategory(formState.category.id, name, color);
-      }
-      setFormState({ mode: "closed" });
-    },
-    [formState, addCategory, updateCategory],
-  );
-
   const handleFormCancel = useCallback(() => {
     setFormState({ mode: "closed" });
   }, []);
@@ -146,7 +134,9 @@ export function SettingsPage({
                     formState.mode === "edit" ? formState.category.id : "add"
                   }
                   editingCategory={editingCategory}
-                  onSubmit={handleFormSubmit}
+                  addCategory={addCategory}
+                  updateCategory={updateCategory}
+                  onSuccess={handleFormCancel}
                   onCancel={handleFormCancel}
                   loading={
                     formState.mode === "edit"
@@ -177,7 +167,9 @@ export function SettingsPage({
                       : "mobile-add"
                   }
                   editingCategory={editingCategory}
-                  onSubmit={handleFormSubmit}
+                  addCategory={addCategory}
+                  updateCategory={updateCategory}
+                  onSuccess={handleFormCancel}
                   onCancel={handleFormCancel}
                   loading={
                     formState.mode === "edit"

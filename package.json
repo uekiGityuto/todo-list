@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "pnpm -r --parallel dev",
     "build": "pnpm -r build",
-    "lint": "pnpm -r lint",
+    "lint": "pnpm -r lint && pnpm check:web-conventions",
+    "check:web-conventions": "node scripts/check-web-conventions.mjs",
     "test": "pnpm -r test",
     "supabase:start": "pnpm exec supabase start",
     "supabase:stop": "pnpm exec supabase stop",

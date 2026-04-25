@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import { getCurrentTimerSession } from "@/shared/lib/api/server";
 import { createSupabaseServerClient } from "@/shared/lib/supabase/server";
 import { AppQueryProvider } from "@/shared/providers/query-provider";
 import { RecoveryDialogProvider } from "@/shared/ui/recovery-dialog-provider";
 import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
 
 export const metadata: Metadata = {
   title: "タスク管理",
@@ -33,7 +27,7 @@ export default async function RootLayout({
 
   return (
     <html lang="ja">
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className="font-sans antialiased">
         <AppQueryProvider>
           {children}
           {user && (

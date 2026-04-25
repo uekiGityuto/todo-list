@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { estimatedMinutesSchema, taskNameSchema } from "./primitives";
 
 const taskStatusEnum = z.enum(["todo", "in_progress", "done"]);
 const nullableUuidSchema = z.preprocess(
@@ -7,18 +8,18 @@ const nullableUuidSchema = z.preprocess(
 );
 
 export const createTaskSchema = z.object({
-  name: z.string().min(1),
+  name: taskNameSchema,
   categoryId: nullableUuidSchema,
-  estimatedMinutes: z.number().int().positive().nullable(),
+  estimatedMinutes: estimatedMinutesSchema,
   scheduledDate: z.iso.date().nullable(),
 });
 
 export const updateTaskSchema = z.object({
-  name: z.string().min(1),
+  name: taskNameSchema,
   categoryId: nullableUuidSchema,
   status: taskStatusEnum,
   isNext: z.boolean(),
-  estimatedMinutes: z.number().int().positive().nullable(),
+  estimatedMinutes: estimatedMinutesSchema,
   scheduledDate: z.iso.date().nullable(),
 });
 

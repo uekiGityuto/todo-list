@@ -1,4 +1,4 @@
-import type { ApiErrorResponse } from "@todo-list/schema";
+import type { ApiErrorResponse, ApiFieldError } from "@todo-list/schema";
 
 export class ApiError extends Error {
   status: number;
@@ -21,6 +21,18 @@ export class ApiError extends Error {
       return (this.body as ApiErrorResponse).message;
     }
     return this.message || "エラーが発生しました";
+  }
+
+  get fieldErrors(): ApiFieldError[] {
+    if (
+      this.body &&
+      typeof this.body === "object" &&
+      "errors" in this.body &&
+      Array.isArray((this.body as ApiErrorResponse).errors)
+    ) {
+      return (this.body as ApiErrorResponse).errors ?? [];
+    }
+    return [];
   }
 }
 

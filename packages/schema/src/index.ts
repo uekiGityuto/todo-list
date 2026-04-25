@@ -14,6 +14,12 @@ export {
 } from "./category";
 export { type IdParam, idParamSchema } from "./common";
 export {
+  categoryColorSchema,
+  categoryNameSchema,
+  estimatedMinutesSchema,
+  taskNameSchema,
+} from "./primitives";
+export {
   type CreateTaskInput,
   createTaskSchema,
   type TaskResponse,

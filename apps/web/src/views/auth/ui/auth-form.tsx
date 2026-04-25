@@ -1,12 +1,14 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { createSupabaseBrowserClient } from "@/shared/lib/supabase/client";
-import { Button } from "@/shared/ui/shadcn/button";
+import { useForm } from "react-hook-form";
+import { LoadingButton } from "@/shared/ui/loading-button";
 import { Input } from "@/shared/ui/shadcn/input";
 import { Label } from "@/shared/ui/shadcn/label";
+import { type AuthFormValues, authFormSchema } from "./auth-form-schema";
+import { useAuthFormSubmit } from "./use-auth-form-submit";
 
 type Props = {
   mode: "login" | "signup";
@@ -14,33 +16,34 @@ type Props = {
 
 export function AuthForm({ mode }: Props) {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const {
+    formState: { errors, isSubmitting },
+    handleSubmit,
+    register,
+    setError,
+  } = useForm<AuthFormValues>({
+    resolver: zodResolver(authFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const isLogin = mode === "login";
+  const loading = isSubmitting;
+  const submitAuthForm = useAuthFormSubmit({
+    isLogin,
+    onSuccess: () => {
+      router.push("/");
+      router.refresh();
+    },
+    setError,
+  });
 
-  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-
-    const supabase = createSupabaseBrowserClient();
-
-    const { error: authError } = isLogin
-      ? await supabase.auth.signInWithPassword({ email, password })
-      : await supabase.auth.signUp({ email, password });
-
-    if (authError) {
-      setError(authError.message);
-      setLoading(false);
-      return;
-    }
-
-    router.push("/");
-    router.refresh();
-  }
+  const onSubmit = handleSubmit(async (values) => {
+    if (loading) return;
+    await submitAuthForm(values);
+  });
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
@@ -49,17 +52,20 @@ export function AuthForm({ mode }: Props) {
           {isLogin ? "ログイン" : "アカウント作成"}
         </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={onSubmit} className="space-y-4" noValidate>
           <div className="space-y-2">
             <Label htmlFor="email">メールアドレス</Label>
             <Input
               id="email"
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               placeholder="mail@example.com"
-              required
+              aria-invalid={!!errors.email}
+              disabled={loading}
+              {...register("email")}
             />
+            {errors.email?.message && (
+              <p className="text-sm text-destructive">{errors.email.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -67,19 +73,27 @@ export function AuthForm({ mode }: Props) {
             <Input
               id="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               placeholder="6文字以上"
-              minLength={6}
-              required
+              aria-invalid={!!errors.password}
+              disabled={loading}
+              {...register("password")}
             />
+            {errors.password?.message && (
+              <p className="text-sm text-destructive">
+                {errors.password.message}
+              </p>
+            )}
           </div>
 
-          {error && <p className="text-sm text-destructive">{error}</p>}
+          {errors.root?.serverError?.message && (
+            <p className="text-sm text-destructive">
+              {errors.root.serverError.message}
+            </p>
+          )}
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "処理中..." : isLogin ? "ログイン" : "アカウント作成"}
-          </Button>
+          <LoadingButton type="submit" className="w-full" loading={loading}>
+            {isLogin ? "ログイン" : "アカウント作成"}
+          </LoadingButton>
         </form>
 
         <p className="text-center text-sm text-muted-foreground">
