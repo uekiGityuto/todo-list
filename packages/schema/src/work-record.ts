@@ -3,16 +3,16 @@ import { z } from "zod";
 const workResultEnum = z.enum(["completed", "interrupted"]);
 
 export const createWorkRecordSchema = z.object({
-  taskId: z.string().uuid(),
-  date: z.string().min(1),
+  taskId: z.uuid(),
+  date: z.iso.date(),
   durationMinutes: z.number().int().min(0),
   result: workResultEnum,
 });
 
 export const workRecordResponseSchema = z.object({
-  id: z.string().uuid(),
-  taskId: z.string().uuid(),
-  date: z.string(),
+  id: z.uuid(),
+  taskId: z.uuid(),
+  date: z.iso.date(),
   durationMinutes: z.number().int(),
   result: workResultEnum,
 });
