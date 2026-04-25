@@ -11,13 +11,20 @@ import { toast } from "sonner";
 import { ApiError } from "../lib/api/errors";
 import { createSupabaseBrowserClient } from "../lib/supabase/client";
 
+let isHandlingUnauthorized = false;
+
 function handleError(error: unknown) {
   if (error instanceof ApiError) {
     if (error.status === 401) {
+      if (isHandlingUnauthorized) return;
+      isHandlingUnauthorized = true;
       const supabase = createSupabaseBrowserClient();
-      void supabase.auth.signOut().then(() => {
-        window.location.href = "/login";
-      });
+      void supabase.auth
+        .signOut()
+        .catch(() => undefined)
+        .finally(() => {
+          window.location.replace("/auth/session-expired");
+        });
       return;
     }
     const message = error.errorMessage;
