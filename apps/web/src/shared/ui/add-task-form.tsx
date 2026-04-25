@@ -1,7 +1,8 @@
 "use client";
 
-import { format, parse } from "date-fns";
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { parse } from "date-fns";
+import { Controller, useForm } from "react-hook-form";
 
 import type { Category } from "@/shared/types/task";
 import { CategorySelect } from "@/shared/ui/category-select";
@@ -16,7 +17,12 @@ import {
 import { Input } from "@/shared/ui/shadcn/input";
 import { Label } from "@/shared/ui/shadcn/label";
 import { SelectField } from "@/shared/ui/shadcn/select-field";
+import {
+  type AddTaskFormValues,
+  addTaskFormSchema,
+} from "./add-task-form-schema";
 import type { TaskFormData } from "./add-task-modal";
+import { useAddTaskFormSubmit } from "./use-add-task-form-submit";
 
 const ESTIMATED_MINUTES_OPTIONS = [
   { label: "15分", value: 15 },
@@ -45,90 +51,125 @@ export function AddTaskForm({
   editingTask,
   loading = false,
 }: AddTaskFormProps) {
-  const [name, setName] = useState(editingTask?.name ?? "");
-  const [categoryId, setCategoryId] = useState(editingTask?.categoryId ?? "");
-  const [scheduledDate, setScheduledDate] = useState<Date | undefined>(
-    editingTask?.scheduledDate
-      ? parse(editingTask.scheduledDate, "yyyy-MM-dd", new Date())
-      : undefined,
-  );
-  const [estimatedMinutes, setEstimatedMinutes] = useState<number | null>(
-    editingTask?.estimatedMinutes ?? null,
-  );
-  const [nameError, setNameError] = useState(false);
-
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (loading) return;
-    if (!name.trim()) {
-      setNameError(true);
-      return;
-    }
-
-    await onSubmit({
-      name: name.trim(),
-      categoryId,
-      scheduledDate: scheduledDate ? format(scheduledDate, "yyyy-MM-dd") : null,
-      estimatedMinutes,
-    });
-    onClose();
-  };
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    register,
+    setError,
+  } = useForm<AddTaskFormValues>({
+    resolver: zodResolver(addTaskFormSchema),
+    defaultValues: {
+      name: editingTask?.name ?? "",
+      categoryId: editingTask?.categoryId ?? "",
+      scheduledDate: editingTask?.scheduledDate
+        ? parse(editingTask.scheduledDate, "yyyy-MM-dd", new Date())
+        : undefined,
+      estimatedMinutes: editingTask?.estimatedMinutes ?? null,
+    },
+  });
+  const submitTaskForm = useAddTaskFormSubmit({
+    onSubmit,
+    onSuccess: onClose,
+    setError,
+  });
 
   const isEditing = !!editingTask;
+  const onFormSubmit = handleSubmit(async (values) => {
+    if (loading) return;
+    await submitTaskForm(values);
+  });
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onFormSubmit} noValidate>
       <DialogHeader>
         <DialogTitle>{isEditing ? "タスク編集" : "タスク追加"}</DialogTitle>
       </DialogHeader>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
-          <Label className="text-sm font-medium">
+          <Label htmlFor="task-name" className="text-sm font-medium">
             タスク名<span className="text-destructive">*</span>
           </Label>
           <Input
+            id="task-name"
             placeholder="タスク名を入力"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-              if (e.target.value.trim()) setNameError(false);
-            }}
-            aria-invalid={nameError}
+            aria-invalid={!!errors.name}
+            disabled={loading}
+            {...register("name")}
           />
-          {nameError && (
+          {errors.name?.message && (
             <span className="text-xs text-destructive">
-              タスク名を入力してください
+              {errors.name.message}
             </span>
           )}
         </div>
 
-        <CategorySelect
-          categories={categories}
-          selectedCategoryId={categoryId}
-          onSelect={setCategoryId}
-          onCreateCategory={onCreateCategory}
+        <Controller
+          control={control}
+          name="categoryId"
+          render={({ field }) => (
+            <CategorySelect
+              categories={categories}
+              selectedCategoryId={field.value}
+              onSelect={field.onChange}
+              onCreateCategory={onCreateCategory}
+            />
+          )}
         />
+        {errors.categoryId?.message && (
+          <span className="text-xs text-destructive">
+            {errors.categoryId.message}
+          </span>
+        )}
 
         <div className="flex flex-col gap-1.5">
           <Label className="text-sm font-medium">予定日</Label>
-          <DatePickerField value={scheduledDate} onChange={setScheduledDate} />
+          <Controller
+            control={control}
+            name="scheduledDate"
+            render={({ field }) => (
+              <DatePickerField value={field.value} onChange={field.onChange} />
+            )}
+          />
+          {errors.scheduledDate?.message && (
+            <span className="text-xs text-destructive">
+              {errors.scheduledDate.message}
+            </span>
+          )}
         </div>
 
         <div className="flex flex-col gap-1.5">
           <Label className="text-sm font-medium">見積もり時間</Label>
-          <SelectField
-            value={estimatedMinutes}
-            onChange={(v) => setEstimatedMinutes(v ? Number(v) : null)}
-            options={ESTIMATED_MINUTES_OPTIONS}
+          <Controller
+            control={control}
+            name="estimatedMinutes"
+            render={({ field }) => (
+              <SelectField
+                value={field.value}
+                onChange={(v) => field.onChange(v ? Number(v) : null)}
+                options={ESTIMATED_MINUTES_OPTIONS}
+              />
+            )}
           />
+          {errors.estimatedMinutes?.message && (
+            <span className="text-xs text-destructive">
+              {errors.estimatedMinutes.message}
+            </span>
+          )}
         </div>
       </div>
+      {errors.root?.serverError?.message && (
+        <p className="text-sm text-destructive">
+          {errors.root.serverError.message}
+        </p>
+      )}
       <DialogFooter className="flex-row gap-2">
         <Button
           type="button"
           variant="outline"
           onClick={onClose}
           className="flex-1"
+          disabled={loading}
         >
           キャンセル
         </Button>

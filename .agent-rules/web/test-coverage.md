@@ -2,24 +2,21 @@
 paths:
   - "apps/web/src/shared/hooks/**"
   - "apps/web/src/shared/lib/**"
+  - "apps/web/src/shared/ui/**"
+  - "apps/web/src/views/**"
 ---
 
 # Web テストルール
 
-## テスト必須ディレクトリ
+## 何をテストするか
 
-以下のディレクトリのファイルを追加・変更した場合、対応するテストを書くこと。
-
-- `apps/web/src/shared/hooks/` — カスタムフック
-- `apps/web/src/shared/lib/` — ユーティリティ関数（`api/`, `supabase/` 配下は除く）
-
-## テスト不要
-
-- `apps/web/src/app/` — Next.js ルーティング層
-- `apps/web/src/views/` — ページコンポーネント
-- `apps/web/src/shared/ui/` — UI コンポーネント
+- `apps/web/src/shared/hooks/` のカスタムフックはテスト必須
+- `apps/web/src/shared/lib/` のユーティリティ関数はテスト必須（`api/`, `supabase/` を除く）
+- `shared/ui/` や `views/**/ui/` のうち、フォーム、バリデーション、状態遷移、submit、エラー表示を持つものはテスト対象
+- `app/` のルーティング層や、見た目だけの UI は原則テスト不要
 
 ## 規約
 
-- テストファイルは `__tests__/` ディレクトリに `<対象ファイル名>.test.ts(x)` で配置する
+- テストファイルは `__tests__/` ディレクトリに置く
+- 実装ファイルの隣に `.test.ts(x)` を colocate しない
 - テストランナー: Vitest

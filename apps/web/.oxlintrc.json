@@ -15,8 +15,20 @@
   "ignorePatterns": ["src/shared/ui/shadcn/**"],
   "rules": {
     "react-hooks/exhaustive-deps": "warn",
+    "typescript/no-deprecated": "error",
     "typescript/switch-exhaustiveness-check": "error",
     "react/no-multi-comp": "error",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["next/font/google"],
+            "message": "next/font/google は使用しないでください。system font または local font を使ってください"
+          }
+        ]
+      }
+    ],
     "nextjs/google-font-display": "error",
     "nextjs/google-font-preconnect": "error",
     "nextjs/no-css-tags": "error",
@@ -31,6 +43,10 @@
           "error",
           {
             "patterns": [
+              {
+                "group": ["next/font/google"],
+                "message": "next/font/google は使用しないでください。system font または local font を使ってください"
+              },
               {
                 "group": ["@/views/*", "@/views/**"],
                 "message": "shared/ から views/ への import は禁止です（FSD依存方向: app → views → shared）"
@@ -52,6 +68,10 @@
           {
             "patterns": [
               {
+                "group": ["next/font/google"],
+                "message": "next/font/google は使用しないでください。system font または local font を使ってください"
+              },
+              {
                 "group": ["@/views/*", "@/views/**"],
                 "message": "views/ 同士の cross-import は禁止です。共通化するなら shared/ に移動してください"
               },
@@ -71,6 +91,10 @@
           "error",
           {
             "patterns": [
+              {
+                "group": ["next/font/google"],
+                "message": "next/font/google は使用しないでください。system font または local font を使ってください"
+              },
               {
                 "group": ["@/views/*/*", "@/views/*/**"],
                 "message": "views/ の内部ファイルを直接 import しないでください。index.ts (Public API) 経由で import してください"

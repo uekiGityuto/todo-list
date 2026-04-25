@@ -27,8 +27,23 @@ paths:
 const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
   e.preventDefault();
   if (loading) return;
-  await onSubmit(data);
+await onSubmit(data);
 };
+```
+
+### react-hook-form を使う場合
+
+- `formState.isSubmitting` を `loading` 変数に束縛して使ってよい
+- submit ボタンには `LoadingButton loading={loading}` を渡す
+- `handleSubmit(async (values) => { if (loading) return; ... })` の形で明示ガードを残す
+
+```tsx
+const loading = isSubmitting;
+
+const onSubmit = handleSubmit(async (values) => {
+  if (loading) return;
+  await submit(values);
+});
 ```
 
 ## 複合操作（複数の非同期処理 + 画面遷移）
