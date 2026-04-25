@@ -11,6 +11,7 @@ const ERROR_MESSAGES: Record<ApiErrorCode, string> = {
   ACTIVE_SESSION_EXISTS: "タイマーセッションが既に存在します",
   VALIDATION_ERROR: "入力内容に誤りがあります",
   INVALID_JSON: "リクエストの形式が正しくありません",
+  BAD_REQUEST: "リクエストを処理できませんでした",
   INTERNAL_SERVER_ERROR: "サーバーエラーが発生しました",
 };
 

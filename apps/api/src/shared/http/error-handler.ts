@@ -32,8 +32,7 @@ export function createErrorHandler(logger: Logger): ErrorHandler {
       if (err.status === 400) {
         return errorResponse(c, 400, resolveHttpException400Code(err));
       }
-      const code =
-        HTTP_EXCEPTION_CODE_MAP[err.status] ?? "INTERNAL_SERVER_ERROR";
+      const code = HTTP_EXCEPTION_CODE_MAP[err.status] ?? "BAD_REQUEST";
       return errorResponse(c, err.status as ContentfulStatusCode, code);
     }
 
