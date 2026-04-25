@@ -555,6 +555,56 @@ describe("タスク API", () => {
       expect(res.status).toBe(404);
     });
 
+    it("タスク削除時に別ユーザーの作業記録は影響を受けない", async () => {
+      // Given: 自分のタスクと別ユーザーのタスク・作業記録を作成
+      const myCategory = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
+      });
+      const myTask = await prisma.task.create({
+        data: {
+          name: "My task",
+          categoryId: myCategory.id,
+          status: "todo",
+          isNext: false,
+          userId: "test-user-id",
+        },
+      });
+      const otherCategory = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+      const otherTask = await prisma.task.create({
+        data: {
+          name: "Other user task",
+          categoryId: otherCategory.id,
+          status: "todo",
+          isNext: false,
+          userId: "other-user-id",
+        },
+      });
+      const otherWorkRecord = await prisma.workRecord.create({
+        data: {
+          taskId: otherTask.id,
+          date: "2026-04-19",
+          durationMinutes: 30,
+          result: "completed",
+          userId: "other-user-id",
+        },
+      });
+
+      // When: 自分のタスクを削除
+      const res = await app.request(`/tasks/${myTask.id}`, {
+        method: "DELETE",
+        headers: { Authorization: "Bearer test-token" },
+      });
+
+      // Then: 別ユーザーの作業記録は残っている
+      expect(res.status).toBe(204);
+      const record = await prisma.workRecord.findUnique({
+        where: { id: otherWorkRecord.id },
+      });
+      expect(record).not.toBeNull();
+    });
+
     it("別ユーザーのタスクは削除できない", async () => {
       // Given
       const category = await prisma.category.create({

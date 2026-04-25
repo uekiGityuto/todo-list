@@ -39,6 +39,12 @@ export async function remove(userId: string, id: string) {
   const existing = await prisma.category.findUnique({ where: { id, userId } });
   if (!existing) return false;
 
-  await prisma.category.delete({ where: { id, userId } });
+  await prisma.$transaction([
+    prisma.task.updateMany({
+      where: { categoryId: id, userId },
+      data: { categoryId: null },
+    }),
+    prisma.category.delete({ where: { id, userId } }),
+  ]);
   return true;
 }

@@ -23,6 +23,8 @@ model Category {
   name   String
   color  String
   tasks  Task[]
+
+  @@unique([id, userId])
 }
 
 model Task {
@@ -30,7 +32,7 @@ model Task {
   userId           String
   name             String
   categoryId       String?        @db.Uuid
-  category         Category?      @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  category         Category?      @relation(fields: [categoryId, userId], references: [id, userId], onDelete: Restrict)
   status           TaskStatus     @default(todo)
   isNext           Boolean        @default(false)
   estimatedMinutes Int?
@@ -39,13 +41,15 @@ model Task {
   updatedAt        DateTime       @updatedAt
   workRecords      WorkRecord[]
   timerSessions    TimerSession[]
+
+  @@unique([id, userId])
 }
 
 model WorkRecord {
   id              String     @id @default(uuid()) @db.Uuid
   userId          String
   taskId          String     @db.Uuid
-  task            Task       @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  task            Task       @relation(fields: [taskId, userId], references: [id, userId], onDelete: Cascade)
   date            String
   durationMinutes Int
   result          WorkResult
@@ -56,7 +60,7 @@ model TimerSession {
   userId           String
   singletonKey     String   @default("active")
   taskId           String   @db.Uuid
-  task             Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  task             Task     @relation(fields: [taskId, userId], references: [id, userId], onDelete: Cascade)
   taskName         String
   categoryName     String
   estimatedMinutes Int

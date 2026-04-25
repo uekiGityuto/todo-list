@@ -335,6 +335,39 @@ describe("カテゴリ API", () => {
       expect(res.status).toBe(404);
     });
 
+    it("カテゴリ削除時に別ユーザーのタスクの categoryId は影響を受けない", async () => {
+      // Given: 同名だが別ユーザーのカテゴリとタスクを作成
+      const myCategory = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
+      });
+      const otherCategory = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+      const otherTask = await prisma.task.create({
+        data: {
+          name: "Other user task",
+          categoryId: otherCategory.id,
+          status: "todo",
+          isNext: false,
+          userId: "other-user-id",
+        },
+      });
+
+      // When: 自分のカテゴリを削除
+      const res = await app.request(`/categories/${myCategory.id}`, {
+        method: "DELETE",
+        headers: { Authorization: "Bearer test-token" },
+      });
+
+      // Then: 別ユーザーのタスクの categoryId は変わらない
+      expect(res.status).toBe(204);
+      const task = await prisma.task.findUnique({
+        where: { id: otherTask.id },
+      });
+      expect(task).not.toBeNull();
+      expect(task!.categoryId).toBe(otherCategory.id);
+    });
+
     it("別ユーザーのカテゴリは削除できない", async () => {
       // Given
       const category = await prisma.category.create({
