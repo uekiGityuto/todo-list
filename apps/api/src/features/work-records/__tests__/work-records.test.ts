@@ -157,6 +157,24 @@ describe("作業記録 API", () => {
       expect(body.durationMinutes).toBe(0);
     });
 
+    it("date が不正な日付形式の場合、400 を返す", async () => {
+      const res = await app.request("/work-records", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
+        body: JSON.stringify({
+          taskId: "00000000-0000-0000-0000-000000000000",
+          date: "2026/04/19",
+          durationMinutes: 30,
+          result: "completed",
+        }),
+      });
+
+      expect(res.status).toBe(400);
+    });
+
     it("taskId が有効な UUID でない場合、400 を返す", async () => {
       const res = await app.request("/work-records", {
         method: "POST",

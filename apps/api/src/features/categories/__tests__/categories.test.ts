@@ -128,6 +128,22 @@ describe("カテゴリ API", () => {
       expect(res.status).toBe(400);
     });
 
+    it("color が不正な形式の場合、400 を返す", async () => {
+      const res = await app.request("/categories", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
+        body: JSON.stringify({
+          name: "Work",
+          color: "red",
+        }),
+      });
+
+      expect(res.status).toBe(400);
+    });
+
     it("必須フィールドが不足している場合、400 を返す", async () => {
       const res = await app.request("/categories", {
         method: "POST",
