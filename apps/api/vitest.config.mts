@@ -35,7 +35,10 @@ export default defineConfig(() => {
     test: {
       fileParallelism: false,
       globals: true,
-      env,
+      env: {
+        ...env,
+        LOG_LEVEL: "silent",
+      },
     },
   };
 });
