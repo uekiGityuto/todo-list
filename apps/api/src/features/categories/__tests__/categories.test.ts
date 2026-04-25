@@ -293,4 +293,68 @@ describe("カテゴリ API", () => {
       expect(res.status).toBe(400);
     });
   });
+
+  describe("ユーザー隔離", () => {
+    it("別ユーザーのカテゴリは一覧に含まれない", async () => {
+      // Given
+      await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+
+      // When
+      const res = await app.request("/categories", {
+        headers: { Authorization: "Bearer test-token" },
+      });
+
+      // Then
+      expect(res.status).toBe(200);
+      const body = await res.json();
+      expect(body).toEqual([]);
+    });
+
+    it("別ユーザーのカテゴリは更新できない", async () => {
+      // Given
+      const category = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+
+      // When
+      const res = await app.request(`/categories/${category.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
+        body: JSON.stringify({
+          name: "Updated",
+          color: "#FF0000",
+        }),
+      });
+
+      // Then
+      expect(res.status).toBe(404);
+    });
+
+    it("別ユーザーのカテゴリは削除できない", async () => {
+      // Given
+      const category = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+
+      // When
+      const res = await app.request(`/categories/${category.id}`, {
+        method: "DELETE",
+        headers: { Authorization: "Bearer test-token" },
+      });
+
+      // Then
+      expect(res.status).toBe(404);
+
+      // カテゴリが削除されていないことを確認
+      const existing = await prisma.category.findUnique({
+        where: { id: category.id },
+      });
+      expect(existing).not.toBeNull();
+    });
+  });
 });

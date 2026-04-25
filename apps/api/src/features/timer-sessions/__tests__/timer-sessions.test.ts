@@ -290,4 +290,115 @@ describe("タイマーセッション API", () => {
       expect(res.status).toBe(204);
     });
   });
+
+  describe("ユーザー隔離", () => {
+    it("別ユーザーのセッションは取得できない", async () => {
+      // Given
+      const category = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+      const task = await prisma.task.create({
+        data: {
+          name: "Timer task",
+          categoryId: category.id,
+          status: "in_progress",
+          isNext: false,
+          userId: "other-user-id",
+        },
+      });
+      await prisma.timerSession.create({
+        data: {
+          taskId: task.id,
+          taskName: "Timer task",
+          categoryName: "Work",
+          estimatedMinutes: 25,
+          userId: "other-user-id",
+        },
+      });
+
+      // When
+      const res = await app.request("/timer-sessions", {
+        headers: { Authorization: "Bearer test-token" },
+      });
+
+      // Then
+      expect(res.status).toBe(200);
+      const body = await res.json();
+      expect(body).toBeNull();
+    });
+
+    it("別ユーザーのタスクでセッションを作成できない", async () => {
+      // Given
+      const category = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+      const task = await prisma.task.create({
+        data: {
+          name: "Timer task",
+          categoryId: category.id,
+          status: "in_progress",
+          isNext: false,
+          userId: "other-user-id",
+        },
+      });
+
+      // When
+      const res = await app.request("/timer-sessions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
+        body: JSON.stringify({
+          taskId: task.id,
+          taskName: "Timer task",
+          categoryName: "Work",
+          estimatedMinutes: 25,
+        }),
+      });
+
+      // Then
+      expect(res.status).toBe(404);
+    });
+
+    it("別ユーザーのセッションは削除されない", async () => {
+      // Given
+      const category = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+      const task = await prisma.task.create({
+        data: {
+          name: "Timer task",
+          categoryId: category.id,
+          status: "in_progress",
+          isNext: false,
+          userId: "other-user-id",
+        },
+      });
+      await prisma.timerSession.create({
+        data: {
+          taskId: task.id,
+          taskName: "Timer task",
+          categoryName: "Work",
+          estimatedMinutes: 25,
+          userId: "other-user-id",
+        },
+      });
+
+      // When
+      const res = await app.request("/timer-sessions", {
+        method: "DELETE",
+        headers: { Authorization: "Bearer test-token" },
+      });
+
+      // Then
+      expect(res.status).toBe(204);
+
+      // 別ユーザーのセッションが削除されていないことを確認
+      const sessions = await prisma.timerSession.findMany({
+        where: { userId: "other-user-id" },
+      });
+      expect(sessions).toHaveLength(1);
+    });
+  });
 });

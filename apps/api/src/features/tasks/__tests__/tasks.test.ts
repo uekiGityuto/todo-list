@@ -466,4 +466,124 @@ describe("タスク API", () => {
       expect(res.status).toBe(400);
     });
   });
+
+  describe("ユーザー隔離", () => {
+    it("別ユーザーのタスクは一覧に含まれない", async () => {
+      // Given
+      const category = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+      await prisma.task.create({
+        data: {
+          name: "Other user task",
+          categoryId: category.id,
+          status: "todo",
+          isNext: false,
+          userId: "other-user-id",
+        },
+      });
+
+      // When
+      const res = await app.request("/tasks", {
+        headers: { Authorization: "Bearer test-token" },
+      });
+
+      // Then
+      expect(res.status).toBe(200);
+      const body = await res.json();
+      expect(body).toEqual([]);
+    });
+
+    it("別ユーザーのカテゴリでタスクを作成できない", async () => {
+      // Given
+      const category = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+
+      // When
+      const res = await app.request("/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
+        body: JSON.stringify({
+          name: "Task",
+          categoryId: category.id,
+          estimatedMinutes: null,
+          scheduledDate: null,
+        }),
+      });
+
+      // Then
+      expect(res.status).toBe(404);
+    });
+
+    it("別ユーザーのタスクは更新できない", async () => {
+      // Given
+      const category = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+      const task = await prisma.task.create({
+        data: {
+          name: "Other user task",
+          categoryId: category.id,
+          status: "todo",
+          isNext: false,
+          userId: "other-user-id",
+        },
+      });
+
+      // When
+      const res = await app.request(`/tasks/${task.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
+        body: JSON.stringify({
+          name: "Updated",
+          categoryId: null,
+          status: "todo",
+          isNext: false,
+          estimatedMinutes: null,
+          scheduledDate: null,
+        }),
+      });
+
+      // Then
+      expect(res.status).toBe(404);
+    });
+
+    it("別ユーザーのタスクは削除できない", async () => {
+      // Given
+      const category = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+      const task = await prisma.task.create({
+        data: {
+          name: "Other user task",
+          categoryId: category.id,
+          status: "todo",
+          isNext: false,
+          userId: "other-user-id",
+        },
+      });
+
+      // When
+      const res = await app.request(`/tasks/${task.id}`, {
+        method: "DELETE",
+        headers: { Authorization: "Bearer test-token" },
+      });
+
+      // Then
+      expect(res.status).toBe(404);
+
+      // タスクが削除されていないことを確認
+      const existing = await prisma.task.findUnique({
+        where: { id: task.id },
+      });
+      expect(existing).not.toBeNull();
+    });
+  });
 });
