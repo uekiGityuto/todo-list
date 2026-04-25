@@ -260,4 +260,75 @@ describe("作業記録 API", () => {
       expect(res.status).toBe(404);
     });
   });
+
+  describe("ユーザー隔離", () => {
+    it("別ユーザーの作業記録は一覧に含まれない", async () => {
+      // Given
+      const category = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+      const task = await prisma.task.create({
+        data: {
+          name: "Task 1",
+          categoryId: category.id,
+          status: "todo",
+          isNext: false,
+          userId: "other-user-id",
+        },
+      });
+      await prisma.workRecord.create({
+        data: {
+          taskId: task.id,
+          date: "2026-04-19",
+          durationMinutes: 30,
+          result: "completed",
+          userId: "other-user-id",
+        },
+      });
+
+      // When
+      const res = await app.request("/work-records", {
+        headers: { Authorization: "Bearer test-token" },
+      });
+
+      // Then
+      expect(res.status).toBe(200);
+      const body = await res.json();
+      expect(body).toEqual([]);
+    });
+
+    it("別ユーザーのタスクに作業記録を作成できない", async () => {
+      // Given
+      const category = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+      const task = await prisma.task.create({
+        data: {
+          name: "Task 1",
+          categoryId: category.id,
+          status: "todo",
+          isNext: false,
+          userId: "other-user-id",
+        },
+      });
+
+      // When
+      const res = await app.request("/work-records", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
+        body: JSON.stringify({
+          taskId: task.id,
+          date: "2026-04-19",
+          durationMinutes: 30,
+          result: "completed",
+        }),
+      });
+
+      // Then
+      expect(res.status).toBe(404);
+    });
+  });
 });

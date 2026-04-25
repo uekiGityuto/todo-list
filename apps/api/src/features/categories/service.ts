@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import type {
   CreateCategoryInput,
   UpdateCategoryInput,
@@ -35,10 +36,31 @@ export async function update(
   });
 }
 
-export async function remove(userId: string, id: string) {
-  const existing = await prisma.category.findUnique({ where: { id, userId } });
-  if (!existing) return false;
+type RemoveCategoryResult = "success" | "not_found" | "conflict";
 
-  await prisma.category.delete({ where: { id, userId } });
-  return true;
+export async function remove(
+  userId: string,
+  id: string,
+): Promise<RemoveCategoryResult> {
+  const existing = await prisma.category.findUnique({ where: { id, userId } });
+  if (!existing) return "not_found";
+
+  try {
+    await prisma.$transaction([
+      prisma.task.updateMany({
+        where: { categoryId: id, userId },
+        data: { categoryId: null },
+      }),
+      prisma.category.delete({ where: { id, userId } }),
+    ]);
+    return "success";
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      // P2003: 同時にタスクがこのカテゴリに紐付けられた
+      if (error.code === "P2003") return "conflict";
+      // P2025: 同時に別リクエストで削除済み
+      if (error.code === "P2025") return "not_found";
+    }
+    throw error;
+  }
 }

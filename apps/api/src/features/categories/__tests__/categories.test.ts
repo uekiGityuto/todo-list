@@ -293,4 +293,101 @@ describe("カテゴリ API", () => {
       expect(res.status).toBe(400);
     });
   });
+
+  describe("ユーザー隔離", () => {
+    it("別ユーザーのカテゴリは一覧に含まれない", async () => {
+      // Given
+      await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+
+      // When
+      const res = await app.request("/categories", {
+        headers: { Authorization: "Bearer test-token" },
+      });
+
+      // Then
+      expect(res.status).toBe(200);
+      const body = await res.json();
+      expect(body).toEqual([]);
+    });
+
+    it("別ユーザーのカテゴリは更新できない", async () => {
+      // Given
+      const category = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+
+      // When
+      const res = await app.request(`/categories/${category.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
+        body: JSON.stringify({
+          name: "Updated",
+          color: "#FF0000",
+        }),
+      });
+
+      // Then
+      expect(res.status).toBe(404);
+    });
+
+    it("カテゴリ削除時に別ユーザーのタスクの categoryId は影響を受けない", async () => {
+      // Given: 同名だが別ユーザーのカテゴリとタスクを作成
+      const myCategory = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "test-user-id" },
+      });
+      const otherCategory = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+      const otherTask = await prisma.task.create({
+        data: {
+          name: "Other user task",
+          categoryId: otherCategory.id,
+          status: "todo",
+          isNext: false,
+          userId: "other-user-id",
+        },
+      });
+
+      // When: 自分のカテゴリを削除
+      const res = await app.request(`/categories/${myCategory.id}`, {
+        method: "DELETE",
+        headers: { Authorization: "Bearer test-token" },
+      });
+
+      // Then: 別ユーザーのタスクの categoryId は変わらない
+      expect(res.status).toBe(204);
+      const task = await prisma.task.findUnique({
+        where: { id: otherTask.id },
+      });
+      expect(task).not.toBeNull();
+      expect(task!.categoryId).toBe(otherCategory.id);
+    });
+
+    it("別ユーザーのカテゴリは削除できない", async () => {
+      // Given
+      const category = await prisma.category.create({
+        data: { name: "Work", color: "#0000FF", userId: "other-user-id" },
+      });
+
+      // When
+      const res = await app.request(`/categories/${category.id}`, {
+        method: "DELETE",
+        headers: { Authorization: "Bearer test-token" },
+      });
+
+      // Then
+      expect(res.status).toBe(404);
+
+      // カテゴリが削除されていないことを確認
+      const existing = await prisma.category.findUnique({
+        where: { id: category.id },
+      });
+      expect(existing).not.toBeNull();
+    });
+  });
 });
