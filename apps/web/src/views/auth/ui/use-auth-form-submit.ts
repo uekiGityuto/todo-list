@@ -5,6 +5,17 @@ import type { UseFormSetError } from "react-hook-form";
 import { createSupabaseBrowserClient } from "@/shared/lib/supabase/client";
 import type { AuthFormValues } from "./auth-form-schema";
 
+/** Supabase Auth のエラーコードを日本語メッセージに変換する */
+function toJapaneseMessage(code: string | undefined, fallback: string): string {
+  switch (code) {
+    case "invalid_credentials":
+      return "メールアドレスまたはパスワードが正しくありません";
+    case undefined:
+    default:
+      return fallback;
+  }
+}
+
 interface UseAuthFormSubmitParams {
   isLogin: boolean;
   onSuccess: () => void;
@@ -27,7 +38,7 @@ export function useAuthFormSubmit({
       if (error) {
         setError("root.serverError", {
           type: "server",
-          message: error.message,
+          message: toJapaneseMessage(error.code, error.message),
         });
         return;
       }
