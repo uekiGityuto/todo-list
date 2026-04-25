@@ -10,61 +10,70 @@ enum TaskStatus {
   todo
   in_progress
   done
+
+  @@map("task_status")
 }
 
 enum WorkResult {
   completed
   interrupted
+
+  @@map("work_result")
 }
 
 model Category {
   id     String @id @default(uuid()) @db.Uuid
-  userId String
+  userId String @map("user_id")
   name   String
   color  String
   tasks  Task[]
 
   @@unique([id, userId])
+  @@map("categories")
 }
 
 model Task {
   id               String         @id @default(uuid()) @db.Uuid
-  userId           String
+  userId           String         @map("user_id")
   name             String
-  categoryId       String?        @db.Uuid
+  categoryId       String?        @map("category_id") @db.Uuid
   category         Category?      @relation(fields: [categoryId, userId], references: [id, userId], onDelete: Restrict)
   status           TaskStatus     @default(todo)
-  isNext           Boolean        @default(false)
-  estimatedMinutes Int?
-  scheduledDate    String?
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
+  isNext           Boolean        @default(false) @map("is_next")
+  estimatedMinutes Int?           @map("estimated_minutes")
+  scheduledDate    String?        @map("scheduled_date")
+  createdAt        DateTime       @default(now()) @map("created_at")
+  updatedAt        DateTime       @updatedAt @map("updated_at")
   workRecords      WorkRecord[]
   timerSessions    TimerSession[]
 
   @@unique([id, userId])
+  @@map("tasks")
 }
 
 model WorkRecord {
   id              String     @id @default(uuid()) @db.Uuid
-  userId          String
-  taskId          String     @db.Uuid
+  userId          String     @map("user_id")
+  taskId          String     @map("task_id") @db.Uuid
   task            Task       @relation(fields: [taskId, userId], references: [id, userId], onDelete: Cascade)
   date            String
-  durationMinutes Int
+  durationMinutes Int        @map("duration_minutes")
   result          WorkResult
+
+  @@map("work_records")
 }
 
 model TimerSession {
   id               String   @id @default(uuid()) @db.Uuid
-  userId           String
-  singletonKey     String   @default("active")
-  taskId           String   @db.Uuid
+  userId           String   @map("user_id")
+  singletonKey     String   @default("active") @map("singleton_key")
+  taskId           String   @map("task_id") @db.Uuid
   task             Task     @relation(fields: [taskId, userId], references: [id, userId], onDelete: Cascade)
-  taskName         String
-  categoryName     String
-  estimatedMinutes Int
-  startedAt        DateTime @default(now())
+  taskName         String   @map("task_name")
+  categoryName     String   @map("category_name")
+  estimatedMinutes Int      @map("estimated_minutes")
+  startedAt        DateTime @default(now()) @map("started_at")
 
   @@unique([userId, singletonKey])
+  @@map("timer_sessions")
 }
