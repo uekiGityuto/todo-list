@@ -17,6 +17,7 @@ export function createApiClient(
 ) {
   return hc<AppType>(getApiBaseUrl(), {
     headers,
+    // Next.js の fetch キャッシュを無効化し、キャッシュ管理は TanStack Query に委ねる
     fetch: (input: RequestInfo | URL, init?: RequestInit) =>
       fetch(input, {
         ...init,

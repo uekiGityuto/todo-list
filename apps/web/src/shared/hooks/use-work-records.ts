@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import type { WorkResult } from "@/shared/enums/work-results";
 import { createWorkRecord, fetchWorkRecords } from "@/shared/lib/api";
 import { queryKeys } from "@/shared/lib/api/query-keys";
@@ -50,7 +50,10 @@ export function useWorkRecords(
   });
 
   const createWorkRecordMutation = useMutation({
-    mutationFn: createWorkRecord,
+    mutationFn: (args: {
+      input: Parameters<typeof createWorkRecord>[0];
+      key: string;
+    }) => createWorkRecord(args.input, args.key),
     onSuccess: (createdRecord) => {
       queryClient.setQueryData<WorkRecord[]>(
         queryKeys.workRecords,
@@ -64,9 +67,15 @@ export function useWorkRecords(
     [workRecords, tasks],
   );
 
+  const addWorkRecordKeyRef = useRef(crypto.randomUUID());
+
   const addWorkRecord = useCallback(
     async (input: AddWorkRecordInput) => {
-      await createWorkRecordMutation.mutateAsync(input);
+      await createWorkRecordMutation.mutateAsync({
+        input,
+        key: addWorkRecordKeyRef.current,
+      });
+      addWorkRecordKeyRef.current = crypto.randomUUID();
     },
     [createWorkRecordMutation],
   );

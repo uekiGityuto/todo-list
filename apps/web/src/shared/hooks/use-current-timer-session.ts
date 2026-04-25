@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 
 import {
   createTimerSession,
@@ -20,27 +20,41 @@ export function useCurrentTimerSession(initialSession?: TimerSession | null) {
   });
 
   const createSessionMutation = useMutation({
-    mutationFn: createTimerSession,
+    mutationFn: (args: {
+      input: Parameters<typeof createTimerSession>[0];
+      key: string;
+    }) => createTimerSession(args.input, args.key),
     onSuccess: (createdSession) => {
       queryClient.setQueryData(queryKeys.timerSession, createdSession);
     },
   });
   const deleteSessionMutation = useMutation({
-    mutationFn: deleteCurrentTimerSession,
+    mutationFn: (args: { key: string }) => deleteCurrentTimerSession(args.key),
     onSuccess: () => {
       queryClient.setQueryData(queryKeys.timerSession, null);
     },
   });
 
+  const createSessionKeyRef = useRef(crypto.randomUUID());
+  const clearSessionKeyRef = useRef(crypto.randomUUID());
+
   const createSession = useCallback(
-    (input: Parameters<typeof createTimerSession>[0]) => {
-      return createSessionMutation.mutateAsync(input);
+    async (input: Parameters<typeof createTimerSession>[0]) => {
+      const result = await createSessionMutation.mutateAsync({
+        input,
+        key: createSessionKeyRef.current,
+      });
+      createSessionKeyRef.current = crypto.randomUUID();
+      return result;
     },
     [createSessionMutation],
   );
 
   const clearSession = useCallback(async () => {
-    await deleteSessionMutation.mutateAsync();
+    await deleteSessionMutation.mutateAsync({
+      key: clearSessionKeyRef.current,
+    });
+    clearSessionKeyRef.current = crypto.randomUUID();
   }, [deleteSessionMutation]);
 
   return {
