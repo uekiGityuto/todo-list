@@ -1,6 +1,6 @@
 name: タスク
-description: AIエージェント（TAKT）で実行するタスク
-labels: ["task"]
+description: AIエージェントが自律的に実行できるように仕様を明確に定義
+labels: []
 body:
   - type: textarea
     id: overview
