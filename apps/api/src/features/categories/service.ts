@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import type {
   CreateCategoryInput,
   UpdateCategoryInput,
@@ -39,12 +40,27 @@ export async function remove(userId: string, id: string) {
   const existing = await prisma.category.findUnique({ where: { id, userId } });
   if (!existing) return false;
 
-  await prisma.$transaction([
-    prisma.task.updateMany({
-      where: { categoryId: id, userId },
-      data: { categoryId: null },
-    }),
-    prisma.category.delete({ where: { id, userId } }),
-  ]);
+  const deleteWithNullify = () =>
+    prisma.$transaction([
+      prisma.task.updateMany({
+        where: { categoryId: id, userId },
+        data: { categoryId: null },
+      }),
+      prisma.category.delete({ where: { id, userId } }),
+    ]);
+
+  try {
+    await deleteWithNullify();
+  } catch (error) {
+    // 同時にタスクがこのカテゴリに紐付けられた場合、リトライ
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2003"
+    ) {
+      await deleteWithNullify();
+    } else {
+      throw error;
+    }
+  }
   return true;
 }
