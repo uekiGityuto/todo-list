@@ -1,3 +1,5 @@
+import type { ApiErrorResponse } from "@todo-list/schema";
+
 export class ApiError extends Error {
   status: number;
   body: unknown;
@@ -7,6 +9,13 @@ export class ApiError extends Error {
     this.name = "ApiError";
     this.status = status;
     this.body = body;
+  }
+
+  get errorMessage(): string {
+    if (this.body && typeof this.body === "object" && "message" in this.body) {
+      return (this.body as ApiErrorResponse).message;
+    }
+    return "エラーが発生しました";
   }
 }
 

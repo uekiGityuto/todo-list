@@ -1,5 +1,6 @@
 import type { ErrorHandler } from "hono";
 import type { Logger } from "pino";
+import { errorResponse } from "./error-response";
 
 export function createErrorHandler(logger: Logger): ErrorHandler {
   return (err, c) => {
@@ -11,6 +12,6 @@ export function createErrorHandler(logger: Logger): ErrorHandler {
       "unhandled error",
     );
 
-    return c.json({ error: "Internal Server Error" }, 500);
+    return errorResponse(c, 500, "INTERNAL_SERVER_ERROR");
   };
 }

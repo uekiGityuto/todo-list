@@ -86,7 +86,7 @@ describe("createErrorHandler", () => {
       expect(res.status).toBe(500);
     });
 
-    it("{ error: 'Internal Server Error' } ボディを返す", async () => {
+    it("統一エラーレスポンス形式のボディを返す", async () => {
       // Given
       const { app } = setupTestApp();
 
@@ -95,7 +95,9 @@ describe("createErrorHandler", () => {
       const body = await res.json();
 
       // Then
-      expect(body).toEqual({ error: "Internal Server Error" });
+      expect(body.code).toBe("INTERNAL_SERVER_ERROR");
+      expect(body.message).toBe("サーバーエラーが発生しました");
+      expect(body.requestId).toBeDefined();
     });
   });
 
