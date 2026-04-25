@@ -1,10 +1,14 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { requestId } from "hono/request-id";
 import { categoriesRoute } from "./features/categories/route";
 import { tasksRoute } from "./features/tasks/route";
 import { timerSessionsRoute } from "./features/timer-sessions/route";
 import { workRecordsRoute } from "./features/work-records/route";
 import { authMiddleware } from "./shared/auth/middleware";
+import { createErrorHandler } from "./shared/http/error-handler";
+import { createRequestLogger } from "./shared/http/request-logger";
+import { logger } from "./shared/lib/logger";
 
 function resolveCorsOrigin(origin: string) {
   if (origin.startsWith("http://localhost:")) {
@@ -18,7 +22,11 @@ function resolveCorsOrigin(origin: string) {
   return "";
 }
 
+const requestLoggerMiddleware = createRequestLogger(logger);
+const errorHandler = createErrorHandler(logger);
+
 const app = new Hono()
+  .use("/*", requestId())
   .use(
     "/*",
     cors({
@@ -27,11 +35,13 @@ const app = new Hono()
       allowHeaders: ["Content-Type", "Authorization"],
     }),
   )
+  .use("/*", requestLoggerMiddleware)
   .use("/*", authMiddleware)
   .route("/tasks", tasksRoute)
   .route("/categories", categoriesRoute)
   .route("/work-records", workRecordsRoute)
-  .route("/timer-sessions", timerSessionsRoute);
+  .route("/timer-sessions", timerSessionsRoute)
+  .onError(errorHandler);
 
 export default app;
 export type AppType = typeof app;
