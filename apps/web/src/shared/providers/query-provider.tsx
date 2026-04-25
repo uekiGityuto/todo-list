@@ -12,9 +12,10 @@ import { ApiError } from "../lib/api/errors";
 
 function handleError(error: unknown) {
   if (error instanceof ApiError) {
-    toast.error(error.errorMessage);
+    const message = error.errorMessage;
+    toast.error(message, { id: message });
   } else {
-    toast.error("エラーが発生しました");
+    toast.error("エラーが発生しました", { id: "unknown-error" });
   }
 }
 

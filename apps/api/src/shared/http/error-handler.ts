@@ -5,21 +5,21 @@ import type { ContentfulStatusCode } from "hono/utils/http-status";
 import type { Logger } from "pino";
 import { errorResponse } from "./error-response";
 
-function resolveHttpExceptionCode(err: HTTPException): ApiErrorCode {
-  if (err.status === 400) {
-    const msg = err.message.toLowerCase();
-    if (
-      msg.includes("malformed") ||
-      msg.includes("unexpected") ||
-      msg.includes("json")
-    ) {
-      return "INVALID_JSON";
-    }
-    return "VALIDATION_ERROR";
+const HTTP_EXCEPTION_CODE_MAP: Partial<Record<number, ApiErrorCode>> = {
+  401: "UNAUTHORIZED",
+  403: "FORBIDDEN",
+};
+
+function resolveHttpException400Code(err: HTTPException): ApiErrorCode {
+  const msg = err.message.toLowerCase();
+  if (
+    msg.includes("malformed") ||
+    msg.includes("unexpected") ||
+    msg.includes("json")
+  ) {
+    return "INVALID_JSON";
   }
-  if (err.status === 401) return "UNAUTHORIZED";
-  if (err.status === 403) return "FORBIDDEN";
-  return "INTERNAL_SERVER_ERROR";
+  return "VALIDATION_ERROR";
 }
 
 export function createErrorHandler(logger: Logger): ErrorHandler {
@@ -29,8 +29,14 @@ export function createErrorHandler(logger: Logger): ErrorHandler {
         { requestId: c.get("requestId"), status: err.status },
         err.message,
       );
-      const code = resolveHttpExceptionCode(err);
-      return errorResponse(c, err.status as ContentfulStatusCode, code);
+      if (err.status === 400) {
+        return errorResponse(c, 400, resolveHttpException400Code(err));
+      }
+      const code = HTTP_EXCEPTION_CODE_MAP[err.status];
+      if (code) {
+        return errorResponse(c, err.status as ContentfulStatusCode, code);
+      }
+      return err.getResponse();
     }
 
     logger.error(
