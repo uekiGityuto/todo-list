@@ -38,6 +38,8 @@ export default defineConfig(() => {
       env: {
         ...env,
         LOG_LEVEL: "silent",
+        LOG_PRETTY: "false",
+        LOG_SQL: "false",
       },
     },
   };

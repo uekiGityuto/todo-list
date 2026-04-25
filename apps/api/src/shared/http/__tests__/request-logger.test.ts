@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import type { LogEntry } from "../../../__tests__/helpers/log";
 import { createLogCapture } from "../../../__tests__/helpers/log";
 import { createLogger } from "../../lib/logger";
+import { createErrorHandler } from "../error-handler";
 import { createRequestLogger } from "../request-logger";
 
 function setupTestApp(): { app: Hono; logs: LogEntry[] } {
@@ -19,7 +20,11 @@ function setupTestApp(): { app: Hono; logs: LogEntry[] } {
     .get("/server-error", (c) =>
       c.json({ error: "Internal Server Error" }, 500),
     )
-    .post("/data", (c) => c.json({ result: "ok" }));
+    .get("/throw", () => {
+      throw new Error("テストエラー");
+    })
+    .post("/data", (c) => c.json({ result: "ok" }))
+    .onError(createErrorHandler(logger));
 
   return { app, logs };
 }
@@ -74,6 +79,25 @@ describe("createRequestLogger", () => {
       expect(logs[0].level).toBe("error");
       expect(logs[0].status).toBe(500);
       expect(logs[0].msg).toBe("request completed");
+    });
+  });
+
+  describe("ハンドラが例外を throw したケース（onError 経由）", () => {
+    it("error レベルで status 500 の request completed ログを出力する", async () => {
+      // Given
+      const { app, logs } = setupTestApp();
+
+      // When
+      await app.request("/throw");
+
+      // Then
+      const requestLog = logs.find((l) => l.msg === "request completed");
+      expect(requestLog).toBeDefined();
+      expect(requestLog!.level).toBe("error");
+      expect(requestLog!.status).toBe(500);
+      expect(requestLog!.method).toBe("GET");
+      expect(requestLog!.path).toBe("/throw");
+      expect(typeof requestLog!.durationMs).toBe("number");
     });
   });
 

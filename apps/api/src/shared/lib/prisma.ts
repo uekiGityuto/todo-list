@@ -28,11 +28,11 @@ function createPrismaClient(): PrismaClient {
   const client = new PrismaClient({ adapter, log: logDefinitions });
 
   client.$on("warn", (e) => {
-    prismaLogger.warn(e.message);
+    prismaLogger.warn({ target: e.target }, e.message);
   });
 
   client.$on("error", (e) => {
-    prismaLogger.error(e.message);
+    prismaLogger.error({ target: e.target }, e.message);
   });
 
   if (process.env.LOG_SQL === "true") {
