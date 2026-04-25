@@ -23,6 +23,8 @@ export function AuthForm({ mode }: Props) {
     setError,
   } = useForm<AuthFormValues>({
     resolver: zodResolver(authFormSchema),
+    mode: "onBlur",
+    reValidateMode: "onChange",
     defaultValues: {
       email: "",
       password: "",
