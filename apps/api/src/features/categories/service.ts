@@ -55,11 +55,11 @@ export async function remove(
     ]);
     return "success";
   } catch (error) {
-    if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === "P2003"
-    ) {
-      return "conflict";
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      // P2003: 同時にタスクがこのカテゴリに紐付けられた
+      if (error.code === "P2003") return "conflict";
+      // P2025: 同時に別リクエストで削除済み
+      if (error.code === "P2025") return "not_found";
     }
     throw error;
   }
