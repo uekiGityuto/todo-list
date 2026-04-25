@@ -82,10 +82,12 @@ export function useTimer(
     }
   }, []);
 
-  // session 変更時に状態をリセット（レンダリング中の状態更新パターン）
+  // session / estimatedMinutes 変更時に状態をリセット（レンダリング中の状態更新パターン）
   const [prevSession, setPrevSession] = useState(session);
-  if (session !== prevSession) {
+  const [prevMinutes, setPrevMinutes] = useState(input.estimatedMinutes);
+  if (session !== prevSession || input.estimatedMinutes !== prevMinutes) {
     setPrevSession(session);
+    setPrevMinutes(input.estimatedMinutes);
     const nextState = calcInitialState(session, input.estimatedMinutes);
     setRemainingSeconds(nextState.remainingSeconds);
     setIsRunning(nextState.isRunning);
