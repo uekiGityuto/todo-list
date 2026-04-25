@@ -202,6 +202,24 @@ describe("タスク API", () => {
       expect(res.status).toBe(400);
     });
 
+    it("scheduledDate が不正な日付形式の場合、400 を返す", async () => {
+      const res = await app.request("/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test-token",
+        },
+        body: JSON.stringify({
+          name: "Test task",
+          categoryId: null,
+          estimatedMinutes: null,
+          scheduledDate: "2026/04/20",
+        }),
+      });
+
+      expect(res.status).toBe(400);
+    });
+
     it("categoryId が有効な UUID でない場合、400 を返す", async () => {
       const res = await app.request("/tasks", {
         method: "POST",

@@ -4,7 +4,15 @@
   "private": true,
   "main": "./src/index.ts",
   "types": "./src/index.ts",
+  "scripts": {
+    "lint": "oxlint --type-aware --type-check --deny typescript/no-deprecated src/"
+  },
   "dependencies": {
     "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "oxlint": "^1.60.0",
+    "oxlint-tsgolint": "^0.21.1",
+    "typescript": "^6.0.3"
   }
 }

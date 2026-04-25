@@ -1,15 +1,15 @@
 import { z } from "zod";
 
 export const createTimerSessionSchema = z.object({
-  taskId: z.string().uuid(),
+  taskId: z.uuid(),
   taskName: z.string().min(1),
   categoryName: z.string(),
   estimatedMinutes: z.number().int().positive(),
 });
 
 export const timerSessionResponseSchema = z.object({
-  id: z.string().uuid(),
-  taskId: z.string().uuid(),
+  id: z.uuid(),
+  taskId: z.uuid(),
   taskName: z.string(),
   categoryName: z.string(),
   estimatedMinutes: z.number().int(),
