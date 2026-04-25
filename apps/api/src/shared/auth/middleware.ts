@@ -1,5 +1,6 @@
 import { createMiddleware } from "hono/factory";
 import { createRemoteJWKSet, jwtVerify } from "jose";
+import { errorResponse } from "../http/error-response";
 import type { AuthEnv } from "./env";
 
 let jwks: ReturnType<typeof createRemoteJWKSet>;
@@ -13,21 +14,26 @@ function getJwks() {
   return jwks;
 }
 
+function unauthorized(c: Parameters<typeof errorResponse>[0]) {
+  c.header("WWW-Authenticate", "Bearer");
+  return errorResponse(c, 401, "UNAUTHORIZED");
+}
+
 export const authMiddleware = createMiddleware<AuthEnv>(async (c, next) => {
   const authHeader = c.req.header("Authorization");
   if (!authHeader?.startsWith("Bearer ")) {
-    return c.json({ error: "Unauthorized" }, 401);
+    return unauthorized(c);
   }
 
   const token = authHeader.slice(7);
   try {
     const { payload } = await jwtVerify(token, getJwks());
     if (!payload.sub) {
-      return c.json({ error: "Unauthorized" }, 401);
+      return unauthorized(c);
     }
     c.set("userId", payload.sub);
     await next();
   } catch {
-    return c.json({ error: "Unauthorized" }, 401);
+    return unauthorized(c);
   }
 });

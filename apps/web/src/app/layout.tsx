@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Toaster } from "sonner";
 import { getCurrentTimerSession } from "@/shared/lib/api/server";
 import { createSupabaseServerClient } from "@/shared/lib/supabase/server";
 import { AppQueryProvider } from "@/shared/providers/query-provider";
@@ -38,6 +39,7 @@ export default async function RootLayout({
           {user && (
             <RecoveryDialogProvider initialSession={initialTimerSession} />
           )}
+          <Toaster />
         </AppQueryProvider>
       </body>
     </html>

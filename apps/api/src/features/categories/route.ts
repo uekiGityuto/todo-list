@@ -6,6 +6,8 @@ import {
 } from "@todo-list/schema";
 import { Hono } from "hono";
 import type { AuthEnv } from "../../shared/auth/env";
+import { errorResponse } from "../../shared/http/error-response";
+import { validationHook } from "../../shared/http/validation-hook";
 import * as categoryService from "./service";
 
 export const categoriesRoute = new Hono<AuthEnv>()
@@ -14,33 +16,41 @@ export const categoriesRoute = new Hono<AuthEnv>()
     const categories = await categoryService.list(userId);
     return c.json(categories);
   })
-  .post("/", zValidator("json", createCategorySchema), async (c) => {
-    const userId = c.get("userId");
-    const input = c.req.valid("json");
-    const category = await categoryService.create(userId, input);
-    return c.json(category, 201);
-  })
+  .post(
+    "/",
+    zValidator("json", createCategorySchema, validationHook),
+    async (c) => {
+      const userId = c.get("userId");
+      const input = c.req.valid("json");
+      const category = await categoryService.create(userId, input);
+      return c.json(category, 201);
+    },
+  )
   .put(
     "/:id",
-    zValidator("param", idParamSchema),
-    zValidator("json", updateCategorySchema),
+    zValidator("param", idParamSchema, validationHook),
+    zValidator("json", updateCategorySchema, validationHook),
     async (c) => {
       const userId = c.get("userId");
       const { id } = c.req.valid("param");
       const input = c.req.valid("json");
       const category = await categoryService.update(userId, id, input);
       if (!category) {
-        return c.json({ error: "Not found" }, 404);
+        return errorResponse(c, 404, "CATEGORY_NOT_FOUND");
       }
       return c.json(category);
     },
   )
-  .delete("/:id", zValidator("param", idParamSchema), async (c) => {
-    const userId = c.get("userId");
-    const { id } = c.req.valid("param");
-    const deleted = await categoryService.remove(userId, id);
-    if (!deleted) {
-      return c.json({ error: "Not found" }, 404);
-    }
-    return c.body(null, 204);
-  });
+  .delete(
+    "/:id",
+    zValidator("param", idParamSchema, validationHook),
+    async (c) => {
+      const userId = c.get("userId");
+      const { id } = c.req.valid("param");
+      const deleted = await categoryService.remove(userId, id);
+      if (!deleted) {
+        return errorResponse(c, 404, "CATEGORY_NOT_FOUND");
+      }
+      return c.body(null, 204);
+    },
+  );

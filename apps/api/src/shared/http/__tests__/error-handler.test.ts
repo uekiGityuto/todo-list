@@ -1,10 +1,13 @@
+import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { requestId } from "hono/request-id";
 import { describe, expect, it } from "vitest";
+import { z } from "zod";
 import type { LogEntry } from "../../../__tests__/helpers/log";
 import { createLogCapture } from "../../../__tests__/helpers/log";
 import { createLogger } from "../../lib/logger";
 import { createErrorHandler } from "../error-handler";
+import { validationHook } from "../validation-hook";
 
 function setupTestApp(): { app: Hono; logs: LogEntry[] } {
   const { logs, stream } = createLogCapture();
@@ -16,6 +19,11 @@ function setupTestApp(): { app: Hono; logs: LogEntry[] } {
     .get("/error", () => {
       throw new Error("テストエラー");
     })
+    .post(
+      "/data",
+      zValidator("json", z.object({ name: z.string() }), validationHook),
+      (c) => c.json({ ok: true }),
+    )
     .onError(handler);
 
   return { app, logs };
@@ -86,7 +94,7 @@ describe("createErrorHandler", () => {
       expect(res.status).toBe(500);
     });
 
-    it("{ error: 'Internal Server Error' } ボディを返す", async () => {
+    it("統一エラーレスポンス形式のボディを返す", async () => {
       // Given
       const { app } = setupTestApp();
 
@@ -95,7 +103,9 @@ describe("createErrorHandler", () => {
       const body = await res.json();
 
       // Then
-      expect(body).toEqual({ error: "Internal Server Error" });
+      expect(body.code).toBe("INTERNAL_SERVER_ERROR");
+      expect(body.message).toBe("サーバーエラーが発生しました");
+      expect(body.requestId).toBeDefined();
     });
   });
 
@@ -111,6 +121,44 @@ describe("createErrorHandler", () => {
       expect(logs).toHaveLength(1);
       expect(logs[0].requestId).toBeDefined();
       expect(typeof logs[0].requestId).toBe("string");
+    });
+  });
+
+  describe("不正な JSON リクエスト", () => {
+    it("400 INVALID_JSON を返す", async () => {
+      // Given
+      const { app } = setupTestApp();
+
+      // When
+      const res = await app.request("/data", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: "{ invalid json",
+      });
+      const body = await res.json();
+
+      // Then
+      expect(res.status).toBe(400);
+      expect(body.code).toBe("INVALID_JSON");
+      expect(body.message).toBe("リクエストの形式が正しくありません");
+    });
+
+    it("warn レベルでログ出力する（error ではない）", async () => {
+      // Given
+      const { app, logs } = setupTestApp();
+
+      // When
+      await app.request("/data", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: "{ invalid json",
+      });
+
+      // Then
+      const warnLogs = logs.filter((l) => l.level === "warn");
+      const errorLogs = logs.filter((l) => l.level === "error");
+      expect(warnLogs.length).toBeGreaterThanOrEqual(1);
+      expect(errorLogs).toHaveLength(0);
     });
   });
 

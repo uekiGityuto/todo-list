@@ -69,3 +69,6 @@ approval_mode = "approve"
 
 [mcp_servers.playwright.tools.browser_wait_for]
 approval_mode = "approve"
+
+[sandbox_workspace_write]
+network_access = true

@@ -1,4 +1,10 @@
 export {
+  API_ERROR_CODES,
+  type ApiErrorCode,
+  type ApiErrorResponse,
+  type ApiFieldError,
+} from "./api-error";
+export {
   type CategoryResponse,
   type CreateCategoryInput,
   categoryResponseSchema,
