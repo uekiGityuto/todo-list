@@ -98,4 +98,29 @@ describe("AuthForm", () => {
 
     expect(await screen.findByText("Email rate limit exceeded")).toBeVisible();
   });
+
+  it("invalid_credentials エラーを日本語で表示する", async () => {
+    const user = userEvent.setup();
+    signInWithPassword.mockResolvedValue({
+      error: {
+        code: "invalid_credentials",
+        message: "Invalid login credentials",
+      },
+    });
+
+    render(<AuthForm mode="login" />);
+
+    await user.type(
+      screen.getByLabelText("メールアドレス"),
+      "mail@example.com",
+    );
+    await user.type(screen.getByLabelText("パスワード"), "wrong-password");
+    await user.click(screen.getByRole("button", { name: "ログイン" }));
+
+    expect(
+      await screen.findByText(
+        "メールアドレスまたはパスワードが正しくありません",
+      ),
+    ).toBeVisible();
+  });
 });
