@@ -1,5 +1,6 @@
 import type { Preview } from "@storybook/nextjs-vite";
 import { initialize, mswLoader } from "msw-storybook-addon";
+import { STORYBOOK_API_BASE_URL } from "./constants";
 import { StorybookProvider } from "./storybook-provider";
 import "../src/app/globals.css";
 
@@ -7,7 +8,7 @@ initialize({
   onUnhandledRequest: ({ method, url }) => {
     const requestUrl = new URL(url);
 
-    if (requestUrl.origin !== "http://localhost:3001") {
+    if (requestUrl.origin !== STORYBOOK_API_BASE_URL) {
       return;
     }
 

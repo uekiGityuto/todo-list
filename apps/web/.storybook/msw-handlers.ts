@@ -2,8 +2,7 @@ import { HttpResponse, http } from "msw";
 import type { Category, Task } from "@/shared/types/task";
 import type { TimerSession } from "@/shared/types/timer";
 import type { WorkRecord } from "@/shared/types/work-record";
-
-const API_BASE_URL = "http://localhost:3001";
+import { STORYBOOK_API_BASE_URL } from "./constants";
 
 export function createStoryHandlers({
   categories = [],
@@ -17,16 +16,16 @@ export function createStoryHandlers({
   workRecords?: WorkRecord[];
 } = {}) {
   return [
-    http.get(`${API_BASE_URL}/categories`, () => {
+    http.get(`${STORYBOOK_API_BASE_URL}/categories`, () => {
       return HttpResponse.json(categories);
     }),
-    http.get(`${API_BASE_URL}/tasks`, () => {
+    http.get(`${STORYBOOK_API_BASE_URL}/tasks`, () => {
       return HttpResponse.json(tasks);
     }),
-    http.get(`${API_BASE_URL}/timer-sessions`, () => {
+    http.get(`${STORYBOOK_API_BASE_URL}/timer-sessions`, () => {
       return HttpResponse.json(timerSession);
     }),
-    http.get(`${API_BASE_URL}/work-records`, () => {
+    http.get(`${STORYBOOK_API_BASE_URL}/work-records`, () => {
       return HttpResponse.json(workRecords);
     }),
   ];
