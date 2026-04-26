@@ -143,7 +143,10 @@ export function CalendarPage({
           onLogout={handleLogout}
         />
 
-        <main className="flex flex-1 flex-col gap-5 p-5 pb-0 md:gap-6 md:p-8">
+        <main
+          className="flex flex-1 flex-col gap-5 p-5 pb-0 md:gap-6 md:p-8"
+          data-testid="calendar-page"
+        >
           <div className="flex items-center justify-between">
             <h1 className="text-xl font-bold text-foreground md:text-2xl">
               作業記録

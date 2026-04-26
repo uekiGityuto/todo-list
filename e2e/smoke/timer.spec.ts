@@ -7,23 +7,24 @@ test("タスクを開始してタイマー画面を表示できる", async ({ pa
   const taskName = makeTaskName();
 
   await gotoAfterDismiss(page, "/tasks");
+  await expect(page.getByTestId("tasks-page")).toBeVisible();
 
-  await page.getByRole("button", { name: "追加", exact: true }).click();
-  const dialog = page.getByRole("dialog");
+  await page.getByTestId("add-task-button").click();
+  const dialog = page.getByTestId("add-task-dialog");
 
-  await dialog.locator("#task-name").fill(taskName);
-  await dialog.getByRole("button", { name: "選択してください" }).click();
-  await dialog.getByRole("button", { name: "新規作成" }).click();
-  await dialog.getByPlaceholder("カテゴリ名").fill(categoryName);
-  await dialog.getByRole("button", { name: "作成" }).click();
+  await dialog.getByTestId("task-name-input").fill(taskName);
+  await dialog.getByTestId("category-select-trigger").click();
+  await dialog.getByTestId("create-category-option").click();
+  await dialog.getByTestId("create-category-name-input").fill(categoryName);
+  await dialog.getByTestId("create-category-submit-button").click();
   await dialog.locator("select").selectOption("15");
-  await dialog.getByRole("button", { name: "追加" }).click();
+  await dialog.getByTestId("task-form-submit-button").click();
 
-  await expect(page.getByText(taskName, { exact: true })).toBeVisible();
+  const taskCard = page.getByTestId(`task-card-${taskName}`);
+  await expect(taskCard).toBeVisible();
 
-  const taskCard = page.getByRole("button", { name: new RegExp(taskName) });
-  await taskCard.click();
-  await page.getByRole("button", { name: "作業を始める" }).click();
+  await page.getByTestId(`task-card-${taskName}-toggle`).click();
+  await page.getByTestId(`task-${taskName}-start-work-button`).click();
 
   await page.waitForURL(/\/timer\?taskId=/);
   await expect(page.getByRole("button", { name: "中断" })).toBeVisible();

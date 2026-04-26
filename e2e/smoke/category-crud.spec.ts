@@ -7,32 +7,23 @@ test("カテゴリを追加して編集して削除できる", async ({ page }) 
   const updatedCategoryName = `${categoryName}-updated`;
 
   await gotoAfterDismiss(page, "/settings");
+  await expect(page.getByTestId("settings-page")).toBeVisible();
 
-  await page.getByRole("button", { name: "カテゴリを追加" }).click();
-  await page.locator("#category-name").fill(categoryName);
-  await page.getByRole("button", { name: "追加", exact: true }).click();
+  await page.getByTestId("add-category-button").click();
+  await page.getByTestId("category-name-input").fill(categoryName);
+  await page.getByTestId("category-submit-button").click();
 
-  await expect(page.getByText(categoryName, { exact: true })).toBeVisible();
+  const categoryRow = page.getByTestId(`category-row-${categoryName}`);
+  await expect(categoryRow).toBeVisible();
 
-  const categoryRow = page
-    .getByText(categoryName, { exact: true })
-    .locator("..")
-    .locator("..");
-  await categoryRow.getByRole("button", { name: "編集" }).click();
-  await page.locator("#category-name").fill(updatedCategoryName);
-  await page.getByRole("button", { name: "保存" }).click();
+  await categoryRow.getByTestId("category-edit-button").click();
+  await page.getByTestId("category-name-input").fill(updatedCategoryName);
+  await page.getByTestId("category-submit-button").click();
 
-  await expect(
-    page.getByText(updatedCategoryName, { exact: true }),
-  ).toBeVisible();
+  const updatedRow = page.getByTestId(`category-row-${updatedCategoryName}`);
+  await expect(updatedRow).toBeVisible();
 
-  const updatedRow = page
-    .getByText(updatedCategoryName, { exact: true })
-    .locator("..")
-    .locator("..");
-  await updatedRow.getByRole("button", { name: "削除" }).click();
+  await updatedRow.getByTestId("category-delete-button").click();
 
-  await expect(
-    page.getByText(updatedCategoryName, { exact: true }),
-  ).not.toBeVisible();
+  await expect(updatedRow).not.toBeVisible();
 });

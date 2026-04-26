@@ -6,6 +6,7 @@ interface ActionItemProps {
   onClick?: () => void;
   variant?: "default" | "destructive";
   hoverBg?: string;
+  testId?: string;
 }
 
 export function ActionItem({
@@ -14,11 +15,13 @@ export function ActionItem({
   onClick,
   variant = "default",
   hoverBg = "hover:bg-card",
+  testId,
 }: ActionItemProps) {
   return (
     <button
       type="button"
       onClick={onClick}
+      data-testid={testId}
       className={cn(
         "flex items-center gap-3 rounded-xl px-2 py-2.5 text-sm transition-all duration-200 ease-out",
         variant === "destructive"

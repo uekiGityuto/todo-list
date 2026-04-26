@@ -71,6 +71,7 @@ export function CategoryForm({
     <form
       onSubmit={onSubmit}
       noValidate
+      data-testid="category-form"
       className="flex flex-col gap-6 rounded-3xl bg-card p-6"
     >
       <h3 className="text-base font-bold">{title}</h3>
@@ -81,6 +82,7 @@ export function CategoryForm({
         </label>
         <Input
           id="category-name"
+          data-testid="category-name-input"
           className="h-11 rounded-xl bg-background"
           placeholder="カテゴリ名を入力"
           aria-invalid={!!errors.name}
@@ -127,10 +129,15 @@ export function CategoryForm({
           variant="outline"
           onClick={onCancel}
           disabled={loading}
+          data-testid="category-cancel-button"
         >
           キャンセル
         </Button>
-        <LoadingButton type="submit" loading={loading}>
+        <LoadingButton
+          type="submit"
+          loading={loading}
+          data-testid="category-submit-button"
+        >
           {submitLabel}
         </LoadingButton>
       </div>

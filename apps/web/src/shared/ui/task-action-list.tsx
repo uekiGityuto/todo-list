@@ -13,6 +13,7 @@ interface TaskActionListProps {
   onEdit?: () => void;
   onDelete?: () => void;
   className?: string;
+  testIdPrefix?: string;
 }
 
 export function TaskActionList({
@@ -23,6 +24,7 @@ export function TaskActionList({
   onEdit,
   onDelete,
   className,
+  testIdPrefix,
 }: TaskActionListProps) {
   const hoverBg = isNext ? "hover:bg-primary-soft" : "hover:bg-card-hover";
 
@@ -35,12 +37,18 @@ export function TaskActionList({
             label="作業を始める"
             onClick={onStartWork}
             hoverBg={hoverBg}
+            testId={
+              testIdPrefix ? `${testIdPrefix}-start-work-button` : undefined
+            }
           />
           <ActionItem
             icon={<ZapOff className="size-4" />}
             label="次やるを解除"
             onClick={onUnsetNext}
             hoverBg={hoverBg}
+            testId={
+              testIdPrefix ? `${testIdPrefix}-unset-next-button` : undefined
+            }
           />
         </>
       ) : (
@@ -50,12 +58,18 @@ export function TaskActionList({
             label="次やるに設定"
             onClick={onSetNext}
             hoverBg={hoverBg}
+            testId={
+              testIdPrefix ? `${testIdPrefix}-set-next-button` : undefined
+            }
           />
           <ActionItem
             icon={<Play className="size-4" />}
             label="作業を始める"
             onClick={onStartWork}
             hoverBg={hoverBg}
+            testId={
+              testIdPrefix ? `${testIdPrefix}-start-work-button` : undefined
+            }
           />
         </>
       )}
@@ -64,6 +78,7 @@ export function TaskActionList({
         label="編集"
         onClick={onEdit}
         hoverBg={hoverBg}
+        testId={testIdPrefix ? `${testIdPrefix}-edit-button` : undefined}
       />
       <ActionItem
         icon={<Trash2 className="size-4" />}
@@ -71,6 +86,7 @@ export function TaskActionList({
         onClick={onDelete}
         variant="destructive"
         hoverBg={hoverBg}
+        testId={testIdPrefix ? `${testIdPrefix}-delete-button` : undefined}
       />
     </div>
   );

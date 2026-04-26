@@ -18,12 +18,13 @@ export function CategoryList({
   onDelete,
 }: CategoryListProps) {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3" data-testid="category-list">
       {categories.length > 0 && (
         <div className="rounded-3xl bg-card">
           {categories.map((category, index) => (
             <div
               key={category.id}
+              data-testid={`category-row-${category.name}`}
               className={
                 index < categories.length - 1
                   ? "border-b border-border"
@@ -40,6 +41,7 @@ export function CategoryList({
                   <button
                     type="button"
                     aria-label="編集"
+                    data-testid="category-edit-button"
                     onClick={() => onEdit(category)}
                     className="text-muted-foreground transition-colors hover:text-foreground"
                   >
@@ -48,6 +50,7 @@ export function CategoryList({
                   <button
                     type="button"
                     aria-label="削除"
+                    data-testid="category-delete-button"
                     onClick={() => onDelete(category)}
                     className="text-muted-foreground transition-colors hover:text-foreground"
                   >
@@ -60,7 +63,12 @@ export function CategoryList({
         </div>
       )}
 
-      <Button variant="ghost" className="w-fit" onClick={onAdd}>
+      <Button
+        variant="ghost"
+        className="w-fit"
+        onClick={onAdd}
+        data-testid="add-category-button"
+      >
         <Plus className="size-4" />
         カテゴリを追加
       </Button>

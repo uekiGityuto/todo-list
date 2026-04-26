@@ -47,6 +47,7 @@ interface SelectFieldTriggerProps {
   hasValue: boolean;
   children: React.ReactNode;
   className?: string;
+  testId?: string;
 }
 
 export function SelectFieldTrigger({
@@ -54,11 +55,13 @@ export function SelectFieldTrigger({
   hasValue,
   children,
   className,
+  testId,
 }: SelectFieldTriggerProps) {
   return (
     <button
       type="button"
       onClick={onClick}
+      data-testid={testId}
       className={cn(triggerClassName, className)}
     >
       <span className={hasValue ? "text-foreground" : "text-muted-foreground"}>
