@@ -1,15 +1,12 @@
 import { expect, test } from "@playwright/test";
 import { makeCategoryName } from "../fixtures/names";
-import { dismissRecoveryDialog } from "../fixtures/recovery";
+import { gotoAfterDismiss } from "../fixtures/recovery";
 
 test("カテゴリを追加して編集して削除できる", async ({ page }) => {
   const categoryName = makeCategoryName();
   const updatedCategoryName = `${categoryName}-updated`;
 
-  await page.goto("/settings");
-  if (await dismissRecoveryDialog(page)) {
-    await page.goto("/settings");
-  }
+  await gotoAfterDismiss(page, "/settings");
 
   await page.getByRole("button", { name: "カテゴリを追加" }).click();
   await page.locator("#category-name").fill(categoryName);

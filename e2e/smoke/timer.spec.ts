@@ -1,15 +1,12 @@
 import { expect, test } from "@playwright/test";
 import { makeCategoryName, makeTaskName } from "../fixtures/names";
-import { dismissRecoveryDialog } from "../fixtures/recovery";
+import { dismissRecoveryDialog, gotoAfterDismiss } from "../fixtures/recovery";
 
 test("タスクを開始してタイマー画面を表示できる", async ({ page }) => {
   const categoryName = makeCategoryName();
   const taskName = makeTaskName();
 
-  await page.goto("/tasks");
-  if (await dismissRecoveryDialog(page)) {
-    await page.goto("/tasks");
-  }
+  await gotoAfterDismiss(page, "/tasks");
 
   await page.getByRole("button", { name: "追加", exact: true }).click();
   const dialog = page.getByRole("dialog");

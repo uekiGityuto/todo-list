@@ -63,3 +63,4 @@ skills-lock.json
 # Playwright MCP
 .playwright-mcp/
 e2e/.auth/
+test-results/

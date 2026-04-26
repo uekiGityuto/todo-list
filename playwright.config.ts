@@ -50,6 +50,7 @@ export default defineConfig({
     {
       command:
         "pnpm --filter @todo-list/web build && pnpm --filter @todo-list/web exec next start -p 3100",
+      // 認証復元前の "/" は "/login" へリダイレクトされるため、公開ページで起動完了を待つ。
       url: "http://127.0.0.1:3100/login",
       reuseExistingServer: !isCI,
       stdout: "pipe",

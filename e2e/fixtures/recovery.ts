@@ -13,3 +13,11 @@ export async function dismissRecoveryDialog(page: Page) {
   await expect(dialog).not.toBeVisible();
   return true;
 }
+
+export async function gotoAfterDismiss(page: Page, path: string) {
+  await page.goto(path);
+
+  if (await dismissRecoveryDialog(page)) {
+    await page.goto(path);
+  }
+}
