@@ -7,6 +7,11 @@ pre-commit:
           echo "mainブランチでのcommitは禁止です。featureブランチを作成してください。" >&2
           exit 1
         fi
+    format:
+      run: pnpm format
+      stage_fixed: true
+      skip:
+        - run: "! git diff --cached --name-only | grep -qE '\\.(ts|tsx|js|jsx|json|yml|yaml|css)$|^(package.json|biome.json|lefthook.yml)$'"
     web-conventions:
       run: pnpm lint
       skip:
@@ -22,3 +27,7 @@ pre-push:
       run: pnpm build
       skip:
         - run: "if ! git rev-parse @{upstream} >/dev/null 2>&1; then exit 1; fi; ! git diff --name-only @{upstream}..HEAD | grep -qE '^(apps/|packages/|package.json|biome.json|pnpm-workspace.yaml|pnpm-lock.yaml|\\.npmrc)'"
+    build-storybook:
+      run: pnpm --filter @todo-list/web build-storybook
+      skip:
+        - run: "if ! git rev-parse @{upstream} >/dev/null 2>&1; then exit 1; fi; ! git diff --name-only @{upstream}..HEAD | grep -qE '^(apps/web/\\.storybook/|apps/web/src/.*\\.stories\\.tsx$|apps/web/src/shared/storybook/|apps/web/package\\.json|pnpm-lock\\.yaml)'"

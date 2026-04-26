@@ -12,7 +12,7 @@
   "categories": {
     "correctness": "error"
   },
-  "ignorePatterns": ["src/shared/ui/shadcn/**"],
+  "ignorePatterns": ["src/shared/ui/shadcn/**", "storybook-static/**"],
   "rules": {
     "react-hooks/exhaustive-deps": "warn",
     "typescript/no-deprecated": "error",
