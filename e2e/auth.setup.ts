@@ -27,13 +27,16 @@ test("認証済み状態を作成する", async ({ context, page }) => {
   await page.goto("/login");
   await expect(page.getByTestId("login-form")).toBeVisible();
 
-  await submitAuthForm(page);
-
+  const homePage = page.getByTestId("home-page");
   const loginErrorMessage = page.getByText(
     "メールアドレスまたはパスワードが正しくありません",
   );
 
-  if (await loginErrorMessage.isVisible().catch(() => false)) {
+  await submitAuthForm(page);
+  // ログイン結果が確定するまで待つ（成功時はホーム表示、失敗時はエラー表示）
+  await expect(homePage.or(loginErrorMessage)).toBeVisible();
+
+  if (await loginErrorMessage.isVisible()) {
     await page.goto("/signup");
     await expect(page.getByTestId("signup-form")).toBeVisible();
     await submitAuthForm(page);
@@ -49,6 +52,6 @@ test("認証済み状態を作成する", async ({ context, page }) => {
   }
 
   await page.waitForURL(/\/$/);
-  await expect(page.getByTestId("home-page")).toBeVisible();
+  await expect(homePage).toBeVisible();
   await context.storageState({ path: AUTH_FILE });
 });

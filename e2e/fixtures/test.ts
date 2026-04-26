@@ -9,11 +9,28 @@ const CLEAN_DATABASE_SCRIPT = `
   import "dotenv/config";
   import { prisma } from "./src/shared/lib/prisma";
 
-  void (async () => {
-    await prisma.task.deleteMany();
-    await prisma.category.deleteMany();
-    await prisma.$disconnect();
-  })();
+  (async () => {
+    // 誤って本番/開発 DB を消さないようローカル接続のみ許可する
+    const databaseUrl = process.env.DATABASE_URL ?? "";
+    if (
+      !databaseUrl.includes("127.0.0.1") &&
+      !databaseUrl.includes("localhost")
+    ) {
+      throw new Error(
+        \`E2E cleanup はローカル DB でのみ実行できます。DATABASE_URL=\${databaseUrl}\`,
+      );
+    }
+
+    try {
+      await prisma.task.deleteMany();
+      await prisma.category.deleteMany();
+    } finally {
+      await prisma.$disconnect();
+    }
+  })().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
 `;
 
 async function cleanDatabase() {
