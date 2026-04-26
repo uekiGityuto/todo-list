@@ -1,15 +1,15 @@
 import { execFile } from "node:child_process";
+import path from "node:path";
 import { promisify } from "node:util";
 import { test as base, expect } from "@playwright/test";
 
 const execFileAsync = promisify(execFile);
+const API_DIRECTORY = path.resolve(process.cwd(), "apps/api");
 const CLEAN_DATABASE_SCRIPT = `
   import "dotenv/config";
   import { prisma } from "./src/shared/lib/prisma";
 
   void (async () => {
-    await prisma.workRecord.deleteMany();
-    await prisma.timerSession.deleteMany();
     await prisma.task.deleteMany();
     await prisma.category.deleteMany();
     await prisma.$disconnect();
@@ -21,14 +21,14 @@ async function cleanDatabase() {
     "pnpm",
     ["exec", "tsx", "--eval", CLEAN_DATABASE_SCRIPT],
     {
-      cwd: "/Users/ueki/ghq/github.com/uekiGityuto/todo-list/apps/api",
+      cwd: API_DIRECTORY,
     },
   );
 }
 
 export const test = base;
 
-test.beforeEach(async () => {
+test.beforeAll(async () => {
   await cleanDatabase();
 });
 
