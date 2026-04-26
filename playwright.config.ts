@@ -9,7 +9,7 @@ export default defineConfig({
   workers: 1,
   forbidOnly: isCI,
   retries: isCI ? 1 : 0,
-  reporter: "list",
+  reporter: "dot",
   timeout: 30_000,
   expect: {
     timeout: 5_000,
@@ -40,20 +40,21 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: "pnpm --filter @todo-list/api dev",
+      command:
+        "env -u NO_COLOR LOG_LEVEL=error LOG_SQL=false LOG_PRETTY=false pnpm --filter @todo-list/api dev",
       url: "http://127.0.0.1:3001",
       reuseExistingServer: !isCI,
-      stdout: "pipe",
+      stdout: "ignore",
       stderr: "pipe",
       timeout: 120_000,
     },
     {
       command:
-        "pnpm --filter @todo-list/web build && pnpm --filter @todo-list/web exec next start -p 3100",
+        "env -u NO_COLOR NEXT_TELEMETRY_DISABLED=1 pnpm --filter @todo-list/web build && env -u NO_COLOR NEXT_TELEMETRY_DISABLED=1 pnpm --filter @todo-list/web exec next start -p 3100",
       // 認証復元前の "/" は "/login" へリダイレクトされるため、公開ページで起動完了を待つ。
       url: "http://127.0.0.1:3100/login",
       reuseExistingServer: !isCI,
-      stdout: "pipe",
+      stdout: "ignore",
       stderr: "pipe",
       timeout: 120_000,
     },

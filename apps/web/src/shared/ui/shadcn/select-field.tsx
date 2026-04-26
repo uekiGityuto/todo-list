@@ -12,6 +12,7 @@ interface SelectFieldProps {
   }[];
   placeholder?: string;
   className?: string;
+  testId?: string;
 }
 
 export function SelectField({
@@ -20,12 +21,14 @@ export function SelectField({
   options,
   placeholder = "選択してください",
   className,
+  testId,
 }: SelectFieldProps) {
   return (
     <div className={cn("relative", className)}>
       <select
         value={value ?? ""}
         onChange={(e) => onChange(e.target.value)}
+        data-testid={testId}
         className={cn(triggerClassName, "appearance-none pr-10")}
       >
         {placeholder && <option value="">{placeholder}</option>}

@@ -1,6 +1,6 @@
-import { expect, test } from "@playwright/test";
 import { makeCategoryName } from "../fixtures/names";
 import { gotoAfterDismiss } from "../fixtures/recovery";
+import { expect, test } from "../fixtures/test";
 
 test("カテゴリを追加して編集して削除できる", async ({ page }) => {
   const categoryName = makeCategoryName();

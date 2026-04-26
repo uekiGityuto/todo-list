@@ -1,5 +1,5 @@
-import { expect, test } from "@playwright/test";
 import { dismissRecoveryDialog, gotoAfterDismiss } from "../fixtures/recovery";
+import { expect, test } from "../fixtures/test";
 
 test("認証済みで主要ページを表示できる", async ({ page }) => {
   await page.goto("/");

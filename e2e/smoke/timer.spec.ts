@@ -1,6 +1,6 @@
-import { expect, test } from "@playwright/test";
 import { makeCategoryName, makeTaskName } from "../fixtures/names";
 import { dismissRecoveryDialog, gotoAfterDismiss } from "../fixtures/recovery";
+import { expect, test } from "../fixtures/test";
 
 test("タスクを開始してタイマー画面を表示できる", async ({ page }) => {
   const categoryName = makeCategoryName();
@@ -17,7 +17,7 @@ test("タスクを開始してタイマー画面を表示できる", async ({ pa
   await dialog.getByTestId("create-category-option").click();
   await dialog.getByTestId("create-category-name-input").fill(categoryName);
   await dialog.getByTestId("create-category-submit-button").click();
-  await dialog.locator("select").selectOption("15");
+  await dialog.getByTestId("estimated-minutes-select").selectOption("15");
   await dialog.getByTestId("task-form-submit-button").click();
 
   const taskCard = page.getByTestId(`task-card-${taskName}`);

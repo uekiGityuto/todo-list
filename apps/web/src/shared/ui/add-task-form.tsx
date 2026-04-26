@@ -151,6 +151,7 @@ export function AddTaskForm({
                 value={field.value}
                 onChange={(v) => field.onChange(v ? Number(v) : null)}
                 options={ESTIMATED_MINUTES_OPTIONS}
+                testId="estimated-minutes-select"
               />
             )}
           />
