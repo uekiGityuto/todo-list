@@ -28,6 +28,8 @@
       "!**/.claude",
       "!**/.claude/**",
       "!**/.next",
+      "!**/storybook-static",
+      "!**/storybook-static/**",
       "!**/.pnpm-store",
       "!**/.pnpm-store/**",
       "!**/node_modules",
