@@ -14,6 +14,13 @@ async function submitAuthForm(page: Page) {
   await page.getByTestId("auth-submit-button").click();
 }
 
+async function getAuthErrorMessage(page: Page) {
+  const errorMessage = page.getByTestId("auth-server-error");
+  return (await errorMessage.isVisible().catch(() => false))
+    ? ((await errorMessage.textContent())?.trim() ?? null)
+    : null;
+}
+
 test("認証済み状態を作成する", async ({ context, page }) => {
   await fs.mkdir(AUTH_DIR, { recursive: true });
 
@@ -30,6 +37,15 @@ test("認証済み状態を作成する", async ({ context, page }) => {
     await page.goto("/signup");
     await expect(page.getByTestId("signup-form")).toBeVisible();
     await submitAuthForm(page);
+
+    const signupErrorMessage = await getAuthErrorMessage(page);
+    if (signupErrorMessage) {
+      throw new Error(
+        `E2E auth setup failed for ${TEST_EMAIL}: signup did not complete. ` +
+          `The local Supabase user may already exist with a different password or auth state. ` +
+          `Reset the user or update the test credentials. Original error: ${signupErrorMessage}`,
+      );
+    }
   }
 
   await page.waitForURL(/\/$/);

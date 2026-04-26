@@ -98,7 +98,10 @@ export function AuthForm({ mode }: Props) {
           </div>
 
           {errors.root?.serverError?.message && (
-            <p className="text-sm text-destructive">
+            <p
+              className="text-sm text-destructive"
+              data-testid="auth-server-error"
+            >
               {errors.root.serverError.message}
             </p>
           )}

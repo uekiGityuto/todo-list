@@ -43,7 +43,7 @@ export default defineConfig({
       command:
         "env -u NO_COLOR LOG_LEVEL=error LOG_SQL=false LOG_PRETTY=false pnpm --filter @todo-list/api dev",
       url: "http://127.0.0.1:3001",
-      reuseExistingServer: !isCI,
+      reuseExistingServer: false,
       stdout: "ignore",
       stderr: "pipe",
       timeout: 120_000,
@@ -53,7 +53,7 @@ export default defineConfig({
         "env -u NO_COLOR NEXT_TELEMETRY_DISABLED=1 pnpm --filter @todo-list/web build && env -u NO_COLOR NEXT_TELEMETRY_DISABLED=1 pnpm --filter @todo-list/web exec next start -p 3100",
       // 認証復元前の "/" は "/login" へリダイレクトされるため、公開ページで起動完了を待つ。
       url: "http://127.0.0.1:3100/login",
-      reuseExistingServer: !isCI,
+      reuseExistingServer: false,
       stdout: "ignore",
       stderr: "pipe",
       timeout: 120_000,
