@@ -1,13 +1,29 @@
 "use client";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
 import { Toaster } from "sonner";
-import { AppQueryProvider } from "@/shared/providers/query-provider";
 
 export function StorybookProvider({ children }: { children: React.ReactNode }) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: false,
+            staleTime: Number.POSITIVE_INFINITY,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+  );
+
   return (
-    <AppQueryProvider>
+    <QueryClientProvider client={queryClient}>
       {children}
       <Toaster />
-    </AppQueryProvider>
+    </QueryClientProvider>
   );
 }
