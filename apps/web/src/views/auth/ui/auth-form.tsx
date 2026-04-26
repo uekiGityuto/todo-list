@@ -48,17 +48,26 @@ export function AuthForm({ mode }: Props) {
   });
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
+    <div
+      className="flex min-h-screen items-center justify-center bg-background"
+      data-testid={isLogin ? "login-page" : "signup-page"}
+    >
       <div className="w-full max-w-sm space-y-6 rounded-xl border border-border bg-card p-8">
         <h1 className="text-center text-2xl font-bold text-card-foreground">
           {isLogin ? "ログイン" : "アカウント作成"}
         </h1>
 
-        <form onSubmit={onSubmit} className="space-y-4" noValidate>
+        <form
+          onSubmit={onSubmit}
+          className="space-y-4"
+          noValidate
+          data-testid={isLogin ? "login-form" : "signup-form"}
+        >
           <div className="space-y-2">
             <Label htmlFor="email">メールアドレス</Label>
             <Input
               id="email"
+              data-testid="auth-email-input"
               type="email"
               placeholder="mail@example.com"
               aria-invalid={!!errors.email}
@@ -74,6 +83,7 @@ export function AuthForm({ mode }: Props) {
             <Label htmlFor="password">パスワード</Label>
             <Input
               id="password"
+              data-testid="auth-password-input"
               type="password"
               placeholder="6文字以上"
               aria-invalid={!!errors.password}
@@ -93,7 +103,12 @@ export function AuthForm({ mode }: Props) {
             </p>
           )}
 
-          <LoadingButton type="submit" className="w-full" loading={loading}>
+          <LoadingButton
+            type="submit"
+            className="w-full"
+            loading={loading}
+            data-testid="auth-submit-button"
+          >
             {isLogin ? "ログイン" : "アカウント作成"}
           </LoadingButton>
         </form>
