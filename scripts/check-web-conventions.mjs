@@ -45,6 +45,31 @@ function isFormComponent(repoPath) {
   );
 }
 
+function isStoryFile(repoPath) {
+  return /\.stories\.tsx$/.test(repoPath);
+}
+
+function isAllowedStoryPath(repoPath) {
+  return (
+    repoPath.startsWith("apps/web/src/views/") ||
+    repoPath.startsWith("apps/web/src/shared/ui/")
+  );
+}
+
+function getStoryTargetPath(filePath) {
+  const dir = path.dirname(filePath);
+  const stem = path.basename(filePath, ".stories.tsx");
+
+  for (const extension of [".tsx", ".ts"]) {
+    const targetPath = path.join(dir, `${stem}${extension}`);
+    if (existsSync(targetPath)) {
+      return targetPath;
+    }
+  }
+
+  return null;
+}
+
 function checkTestPlacement(files, violations) {
   for (const filePath of files) {
     const repoPath = toRepoPath(filePath);
@@ -82,6 +107,50 @@ function checkFormFileConventions(files, violations) {
   }
 }
 
+function checkStoryPlacement(files, violations) {
+  for (const filePath of files) {
+    const repoPath = toRepoPath(filePath);
+    if (!isStoryFile(repoPath)) continue;
+
+    if (!isAllowedStoryPath(repoPath)) {
+      violations.push(
+        `Story ファイルは views/** または shared/ui/** に置いてください: ${repoPath}`,
+      );
+      continue;
+    }
+
+    if (isInTestsDir(repoPath)) {
+      violations.push(
+        `Story ファイルは __tests__/ 配下に置けません: ${repoPath}`,
+      );
+    }
+
+    const targetPath = getStoryTargetPath(filePath);
+    if (targetPath === null) {
+      violations.push(
+        `Story ファイルは同ディレクトリの対象実装ファイルと同名で置いてください: ${repoPath}`,
+      );
+    }
+  }
+}
+
+function checkPageStoryCoverage(files, violations) {
+  for (const filePath of files) {
+    const repoPath = toRepoPath(filePath);
+
+    if (!repoPath.startsWith("apps/web/src/views/")) continue;
+    if (!repoPath.endsWith("-page.tsx")) continue;
+    if (isStoryFile(repoPath)) continue;
+
+    const storyPath = filePath.replace(/\.tsx$/, ".stories.tsx");
+    if (!existsSync(storyPath)) {
+      violations.push(
+        `views 配下の *-page.tsx には同ディレクトリの Story が必要です: ${repoPath} -> ${toRepoPath(storyPath)}`,
+      );
+    }
+  }
+}
+
 function main() {
   if (!statSync(webSrcDir).isDirectory()) {
     throw new Error(`apps/web/src が見つかりません: ${webSrcDir}`);
@@ -92,6 +161,8 @@ function main() {
 
   checkTestPlacement(files, violations);
   checkFormFileConventions(files, violations);
+  checkStoryPlacement(files, violations);
+  checkPageStoryCoverage(files, violations);
 
   if (violations.length === 0) {
     console.log("web conventions: ok");
