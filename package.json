@@ -6,6 +6,8 @@
     "lint": "pnpm -r lint && pnpm check:web-conventions",
     "check:web-conventions": "node scripts/check-web-conventions.mjs",
     "test": "pnpm -r test",
+    "test:e2e": "env -u NO_COLOR playwright test",
+    "test:e2e:headed": "env -u NO_COLOR playwright test --headed",
     "supabase:start": "pnpm exec supabase start",
     "supabase:stop": "pnpm exec supabase stop",
     "supabase:setup": "pnpm supabase:start && pnpm --filter @todo-list/api db:deploy",
@@ -15,6 +17,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.12",
+    "@playwright/test": "^1.59.1",
     "lefthook": "^2.1.6",
     "supabase": "^2.92.0"
   }

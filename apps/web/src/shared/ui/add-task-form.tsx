@@ -83,7 +83,7 @@ export function AddTaskForm({
   });
 
   return (
-    <form onSubmit={onFormSubmit} noValidate>
+    <form onSubmit={onFormSubmit} noValidate data-testid="add-task-form">
       <DialogHeader>
         <DialogTitle>{isEditing ? "タスク編集" : "タスク追加"}</DialogTitle>
       </DialogHeader>
@@ -94,6 +94,7 @@ export function AddTaskForm({
           </Label>
           <Input
             id="task-name"
+            data-testid="task-name-input"
             placeholder="タスク名を入力"
             aria-invalid={!!errors.name}
             disabled={loading}
@@ -150,6 +151,7 @@ export function AddTaskForm({
                 value={field.value}
                 onChange={(v) => field.onChange(v ? Number(v) : null)}
                 options={ESTIMATED_MINUTES_OPTIONS}
+                testId="estimated-minutes-select"
               />
             )}
           />
@@ -172,10 +174,16 @@ export function AddTaskForm({
           onClick={onClose}
           className="flex-1"
           disabled={loading}
+          data-testid="task-form-cancel-button"
         >
           キャンセル
         </Button>
-        <LoadingButton type="submit" className="flex-1" loading={loading}>
+        <LoadingButton
+          type="submit"
+          className="flex-1"
+          loading={loading}
+          data-testid="task-form-submit-button"
+        >
           {isEditing ? "更新" : "追加"}
         </LoadingButton>
       </DialogFooter>

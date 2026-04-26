@@ -36,7 +36,11 @@ export function AddTaskModal({
 }: AddTaskModalProps) {
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent showCloseButton={false} className="sm:max-w-md">
+      <DialogContent
+        showCloseButton={false}
+        className="sm:max-w-md"
+        data-testid="add-task-dialog"
+      >
         <DialogDescription className="sr-only">
           タスク名、カテゴリ、予定日、見積もり時間を入力するダイアログです。
         </DialogDescription>

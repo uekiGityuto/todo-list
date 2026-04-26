@@ -10,6 +10,7 @@ interface TaskCardProps {
   onAction?: () => void;
   children?: React.ReactNode;
   className?: string;
+  testId?: string;
 }
 
 export function TaskCard({
@@ -20,9 +21,11 @@ export function TaskCard({
   onAction,
   children,
   className,
+  testId,
 }: TaskCardProps) {
   return (
     <div
+      data-testid={testId}
       className={cn(
         "rounded-4xl bg-card transition-all duration-200 ease-out",
         className,
@@ -31,6 +34,7 @@ export function TaskCard({
       <button
         type="button"
         onClick={onAction}
+        data-testid={testId ? `${testId}-toggle` : undefined}
         className="flex w-full items-center gap-3 rounded-4xl px-5 py-3.5 text-left transition-colors duration-200 ease-out hover:bg-card-hover"
       >
         <div className="flex min-w-0 flex-1 flex-col gap-1">

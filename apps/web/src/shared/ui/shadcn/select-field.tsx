@@ -12,6 +12,7 @@ interface SelectFieldProps {
   }[];
   placeholder?: string;
   className?: string;
+  testId?: string;
 }
 
 export function SelectField({
@@ -20,12 +21,14 @@ export function SelectField({
   options,
   placeholder = "選択してください",
   className,
+  testId,
 }: SelectFieldProps) {
   return (
     <div className={cn("relative", className)}>
       <select
         value={value ?? ""}
         onChange={(e) => onChange(e.target.value)}
+        data-testid={testId}
         className={cn(triggerClassName, "appearance-none pr-10")}
       >
         {placeholder && <option value="">{placeholder}</option>}
@@ -47,6 +50,7 @@ interface SelectFieldTriggerProps {
   hasValue: boolean;
   children: React.ReactNode;
   className?: string;
+  testId?: string;
 }
 
 export function SelectFieldTrigger({
@@ -54,11 +58,13 @@ export function SelectFieldTrigger({
   hasValue,
   children,
   className,
+  testId,
 }: SelectFieldTriggerProps) {
   return (
     <button
       type="button"
       onClick={onClick}
+      data-testid={testId}
       className={cn(triggerClassName, className)}
     >
       <span className={hasValue ? "text-foreground" : "text-muted-foreground"}>

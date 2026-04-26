@@ -101,7 +101,11 @@ export function TasksPage({ initialTasks, initialCategories }: TasksPageProps) {
     <>
       <div className="flex items-center gap-3">
         <h1 className="text-2xl font-bold text-foreground">タスク</h1>
-        <Button size="sm" onClick={() => setIsAddModalOpen(true)}>
+        <Button
+          size="sm"
+          onClick={() => setIsAddModalOpen(true)}
+          data-testid="add-task-button"
+        >
           <Plus className="size-3.5" />
           追加
         </Button>
@@ -144,6 +148,7 @@ export function TasksPage({ initialTasks, initialCategories }: TasksPageProps) {
           {nextTask && (
             <NextTaskCard
               title={nextTask.name}
+              testId={`task-card-${nextTask.name}`}
               duration={
                 nextTask.estimatedMinutes
                   ? formatDuration(nextTask.estimatedMinutes)
@@ -161,6 +166,7 @@ export function TasksPage({ initialTasks, initialCategories }: TasksPageProps) {
             <TaskCard
               key={task.id}
               title={task.name}
+              testId={`task-card-${task.name}`}
               duration={
                 task.estimatedMinutes
                   ? formatDuration(task.estimatedMinutes)
@@ -187,7 +193,10 @@ export function TasksPage({ initialTasks, initialCategories }: TasksPageProps) {
           onLogout={handleLogout}
         />
 
-        <main className="flex flex-1 flex-col gap-4 p-5 pb-0 md:p-8">
+        <main
+          className="flex flex-1 flex-col gap-4 p-5 pb-0 md:p-8"
+          data-testid="tasks-page"
+        >
           {taskContent}
         </main>
       </div>

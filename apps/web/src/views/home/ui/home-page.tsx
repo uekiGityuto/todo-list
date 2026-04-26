@@ -103,7 +103,10 @@ export function HomePage({
           onLogout={handleLogout}
         />
 
-        <main className="flex flex-1 flex-col gap-7 p-5 pb-0 md:p-8 md:pt-8">
+        <main
+          className="flex flex-1 flex-col gap-7 p-5 pb-0 md:p-8 md:pt-8"
+          data-testid="home-page"
+        >
           <TopRow onAddTask={() => setIsAddModalOpen(true)} />
 
           <div className="flex flex-1 gap-7">

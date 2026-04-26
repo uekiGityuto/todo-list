@@ -104,6 +104,7 @@ export function useTaskPageActions({
   const renderActions = (task: TaskWithCategory) => (
     <TaskActionList
       isNext={task.isNext}
+      testIdPrefix={`task-${task.name}`}
       onSetNext={() => {
         void setNextTask(task.id);
         setExpandedTaskId(null);

@@ -10,6 +10,7 @@ interface NextTaskCardProps {
   onAction?: () => void;
   children?: React.ReactNode;
   className?: string;
+  testId?: string;
 }
 
 export function NextTaskCard({
@@ -20,9 +21,11 @@ export function NextTaskCard({
   onAction,
   children,
   className,
+  testId,
 }: NextTaskCardProps) {
   return (
     <div
+      data-testid={testId}
       className={cn(
         "overflow-hidden rounded-4xl bg-primary-soft transition-all duration-200 ease-out",
         className,
@@ -31,6 +34,7 @@ export function NextTaskCard({
       <button
         type="button"
         onClick={onAction}
+        data-testid={testId ? `${testId}-toggle` : undefined}
         className="flex w-full items-center text-left transition-colors duration-200 ease-out hover:bg-primary-soft/80"
       >
         <div className="h-full w-1 self-stretch bg-primary" />
