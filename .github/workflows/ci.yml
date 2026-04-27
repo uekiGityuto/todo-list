@@ -17,6 +17,9 @@ jobs:
           node-version: "24"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @todo-list/api db:generate
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
       - run: pnpm build
 
   audit:
