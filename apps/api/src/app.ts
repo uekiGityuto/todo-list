@@ -37,6 +37,11 @@ const app = new Hono()
     }),
   )
   .use("/*", requestLoggerMiddleware)
+  .use("/*", async (c, next) => {
+    await next();
+    // 認証必須 API のレスポンスがブラウザ・中間キャッシュに残らないようにする
+    c.header("Cache-Control", "no-store, private");
+  })
   .use("/*", authMiddleware)
   .route("/tasks", tasksRoute)
   .route("/categories", categoriesRoute)
