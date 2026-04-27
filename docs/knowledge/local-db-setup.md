@@ -1,5 +1,7 @@
 # ローカルDBセットアップ
 
+このプロジェクトでは、認証は `Better Auth`、ローカル DB 起動は `Supabase CLI` を使う。
+
 ## 前提
 
 - Docker Desktop など、Supabase CLI が利用するコンテナ実行環境が起動していること
