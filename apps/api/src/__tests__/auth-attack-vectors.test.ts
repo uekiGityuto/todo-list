@@ -547,6 +547,65 @@ describe("Better Auth - 攻撃シナリオ", () => {
       expect(user.failedLoginAttempts).toBe(5);
       expect(user.lockedUntil).not.toBeNull();
     });
+
+    it("ロック中の追加失敗でカウントと lockedUntil が変動しない (cooldown 延長されない)", async () => {
+      // 5 回失敗してロック
+      for (let i = 0; i < 5; i++) {
+        await signIn({ password: "wrongpassword" });
+      }
+      const locked = await prisma.user.findUniqueOrThrow({
+        where: { email: VALID_EMAIL },
+        select: { failedLoginAttempts: true, lockedUntil: true },
+      });
+      expect(locked.lockedUntil).not.toBeNull();
+      const lockedUntilAtFirstLock = locked.lockedUntil!.getTime();
+      const attemptsAtFirstLock = locked.failedLoginAttempts;
+
+      // ロック中にさらに 10 回叩いてもカウントも lockedUntil も伸びない
+      for (let i = 0; i < 10; i++) {
+        const res = await signIn({ password: "wrongpassword" });
+        expect(res.status).toBe(401);
+      }
+
+      const after = await prisma.user.findUniqueOrThrow({
+        where: { email: VALID_EMAIL },
+        select: { failedLoginAttempts: true, lockedUntil: true },
+      });
+      expect(after.failedLoginAttempts).toBe(attemptsAtFirstLock);
+      expect(after.lockedUntil!.getTime()).toBe(lockedUntilAtFirstLock);
+    });
+
+    it("複数ユーザーのロックは独立しており、相互に影響しない", async () => {
+      const otherEmail = "other@example.com";
+      await signUp({ email: otherEmail });
+
+      // ユーザー A (VALID_EMAIL) を 5 回失敗でロック
+      for (let i = 0; i < 5; i++) {
+        await signIn({ password: "wrongpassword" });
+      }
+
+      // ユーザー B は依然として正しいパスワードでログインできる
+      const okB = await signIn({ email: otherEmail });
+      expect(okB.status).toBe(200);
+
+      // ユーザー B のカウンタは増えていない
+      const userB = await prisma.user.findUniqueOrThrow({
+        where: { email: otherEmail },
+        select: { failedLoginAttempts: true, lockedUntil: true },
+      });
+      expect(userB.failedLoginAttempts).toBe(0);
+      expect(userB.lockedUntil).toBeNull();
+
+      // ユーザー A は依然としてロック中 (cooldown 経過まで signin 不可)
+      const stillLocked = await signIn();
+      expect(stillLocked.status).toBe(401);
+      const userA = await prisma.user.findUniqueOrThrow({
+        where: { email: VALID_EMAIL },
+        select: { lockedUntil: true },
+      });
+      expect(userA.lockedUntil).not.toBeNull();
+      expect(userA.lockedUntil!.getTime()).toBeGreaterThan(Date.now());
+    });
   });
 
   describe("ユーザー隔離 (認証経由)", () => {
