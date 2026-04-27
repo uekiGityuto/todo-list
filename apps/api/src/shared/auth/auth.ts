@@ -34,4 +34,10 @@ export const auth = betterAuth({
     enabled: true,
     minPasswordLength: 6,
   },
+  advanced: {
+    // Better Auth はデフォルトで NODE_ENV=test の場合に Origin チェックを
+    // スキップするが、攻撃テストや production と同じ挙動を保ちたいため
+    // 明示的に false を指定して常に有効化する。
+    disableOriginCheck: false,
+  },
 });
