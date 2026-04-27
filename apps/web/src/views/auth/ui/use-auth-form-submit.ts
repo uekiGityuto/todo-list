@@ -2,14 +2,15 @@
 
 import { useCallback } from "react";
 import type { UseFormSetError } from "react-hook-form";
-import { createSupabaseBrowserClient } from "@/shared/lib/supabase/client";
+import { authClient } from "@/shared/lib/auth/client";
 import type { AuthFormValues } from "./auth-form-schema";
 
-/** Supabase Auth のエラーコードを日本語メッセージに変換する */
 function toJapaneseMessage(code: string | undefined, fallback: string): string {
   switch (code) {
-    case "invalid_credentials":
+    case "INVALID_EMAIL_OR_PASSWORD":
       return "メールアドレスまたはパスワードが正しくありません";
+    case "USER_ALREADY_EXISTS":
+      return "このメールアドレスは既に使用されています";
     case undefined:
     default:
       return fallback;
@@ -29,16 +30,20 @@ export function useAuthFormSubmit({
 }: UseAuthFormSubmitParams) {
   return useCallback(
     async (values: AuthFormValues) => {
-      const supabase = createSupabaseBrowserClient();
+      const result = isLogin
+        ? await authClient.signIn.email(values)
+        : await authClient.signUp.email({
+            ...values,
+            name: values.email.split("@")[0] || "user",
+          });
 
-      const { error } = isLogin
-        ? await supabase.auth.signInWithPassword(values)
-        : await supabase.auth.signUp(values);
-
-      if (error) {
+      if (result.error) {
         setError("root.serverError", {
           type: "server",
-          message: toJapaneseMessage(error.code, error.message),
+          message: toJapaneseMessage(
+            result.error.code,
+            result.error.message ?? "認証に失敗しました",
+          ),
         });
         return;
       }

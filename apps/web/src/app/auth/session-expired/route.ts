@@ -1,11 +1,19 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/shared/lib/supabase/server";
+import { signOutServerSession } from "@/shared/lib/auth/server";
 
 export async function GET(request: Request) {
-  const supabase = await createSupabaseServerClient();
-  await supabase.auth.signOut().catch(() => undefined);
+  const signOutResponse = await signOutServerSession(request).catch(
+    () => undefined,
+  );
 
-  return NextResponse.redirect(new URL("/login", request.url), {
-    status: 302,
+  const response = NextResponse.redirect(new URL("/login", request.url), {
+    status: 307,
   });
+
+  const setCookie = signOutResponse?.headers.get("set-cookie");
+  if (setCookie) {
+    response.headers.set("set-cookie", setCookie);
+  }
+
+  return response;
 }

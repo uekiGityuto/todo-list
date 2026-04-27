@@ -5,6 +5,7 @@ import { categoriesRoute } from "./features/categories/route";
 import { tasksRoute } from "./features/tasks/route";
 import { timerSessionsRoute } from "./features/timer-sessions/route";
 import { workRecordsRoute } from "./features/work-records/route";
+import { auth } from "./shared/auth/auth";
 import { authMiddleware } from "./shared/auth/middleware";
 import { createErrorHandler } from "./shared/http/error-handler";
 import { errorResponse } from "./shared/http/error-response";
@@ -34,9 +35,11 @@ const app = new Hono()
       origin: resolveCorsOrigin,
       allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       allowHeaders: ["Content-Type", "Authorization"],
+      credentials: true,
     }),
   )
   .use("/*", requestLoggerMiddleware)
+  .on(["GET", "POST"], "/api/auth/*", (c) => auth.handler(c.req.raw))
   .use("/*", async (c, next) => {
     // 認証必須 API のレスポンスがブラウザ・中間キャッシュに残らないようにする。
     // 例外で onError 経路に流れた場合も header を確実に付けるため、
