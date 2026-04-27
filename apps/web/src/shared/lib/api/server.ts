@@ -4,14 +4,10 @@ import { cache } from "react";
 import { createApiClient } from "./client";
 import { ApiError, expectOk } from "./errors";
 import {
-  type CategoriesResponse,
   normalizeCategory,
   normalizeTask,
   normalizeTimerSession,
   normalizeWorkRecord,
-  type TasksResponse,
-  type TimerSessionResponse,
-  type WorkRecordsResponse,
 } from "./types";
 
 function rethrowOrRedirectUnauthorized(error: unknown): never {
@@ -35,11 +31,17 @@ const getServerApiClient = cache(async () => {
   return createApiClient(cookie ? { cookie } : {});
 });
 
+// ここで呼んでいる getter はいずれも、Hono RPC の型定義上は handler が単一の成功
+// レスポンス（200）のみを型付けしているエンドポイント。`response.json()` がその
+// まま成功 body 型に推論されるので `as ...Response` の型アサーションは不要。
+// （実行時には auth ミドルウェア等により 401 などが返り得るが、それは型推論には
+// 反映されないため別途 `expectOkOrRedirect` で扱う。）
+
 export const getTasks = cache(async () => {
   const client = await getServerApiClient();
   const response = await client.tasks.$get();
   await expectOkOrRedirect(response, "Failed to fetch tasks");
-  const tasks = (await response.json()) as TasksResponse;
+  const tasks = await response.json();
   return tasks.map(normalizeTask);
 });
 
@@ -47,7 +49,7 @@ export const getCategories = cache(async () => {
   const client = await getServerApiClient();
   const response = await client.categories.$get();
   await expectOkOrRedirect(response, "Failed to fetch categories");
-  const categories = (await response.json()) as CategoriesResponse;
+  const categories = await response.json();
   return categories.map(normalizeCategory);
 });
 
@@ -55,7 +57,7 @@ export const getWorkRecords = cache(async () => {
   const client = await getServerApiClient();
   const response = await client["work-records"].$get();
   await expectOkOrRedirect(response, "Failed to fetch work records");
-  const records = (await response.json()) as WorkRecordsResponse;
+  const records = await response.json();
   return records.map(normalizeWorkRecord);
 });
 
@@ -63,6 +65,6 @@ export const getCurrentTimerSession = cache(async () => {
   const client = await getServerApiClient();
   const response = await client["timer-sessions"].$get();
   await expectOkOrRedirect(response, "Failed to fetch timer session");
-  const session = (await response.json()) as TimerSessionResponse;
+  const session = await response.json();
   return session ? normalizeTimerSession(session) : null;
 });
