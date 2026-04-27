@@ -254,6 +254,19 @@ describe("Better Auth - 攻撃シナリオ", () => {
       expect(res.status).toBe(401);
     });
 
+    it("Origin ヘッダなしの sign-out は 403 (Better Auth の origin check)", async () => {
+      // 注: Web 側の `signOutServerSession` はこの挙動を踏まえ Origin を補完する。
+      // ここでは Better Auth 側の生挙動を明文化する。
+      const signUpRes = await signUp();
+      const cookie = extractSessionCookie(signUpRes);
+
+      const res = await app.request("/api/auth/sign-out", {
+        method: "POST",
+        headers: { Cookie: cookie },
+      });
+      expect(res.status).toBe(403);
+    });
+
     it("DB から session を直接削除すると、その cookie は無効化される", async () => {
       const signUpRes = await signUp();
       const cookie = extractSessionCookie(signUpRes);

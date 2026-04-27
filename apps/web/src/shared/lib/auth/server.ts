@@ -40,9 +40,18 @@ export async function getServerAuthSession(
 }
 
 export async function signOutServerSession(request: Request) {
+  // Better Auth は cookie 付き POST に対して Origin ヘッダを検証し、
+  // 欠落 / 信頼外なら 403 を返して sign-out が成立しない。
+  // session-expired は GET ナビゲーション経由で呼ばれ Origin を持たない
+  // ことが多いため、現在の Web オリジンを明示的に forward する。
+  const forwardedHeaders = new Headers(request.headers);
+  if (!forwardedHeaders.has("origin")) {
+    forwardedHeaders.set("origin", new URL(request.url).origin);
+  }
+
   return fetch(`${getApiBaseUrl()}/api/auth/sign-out`, {
     method: "POST",
-    headers: request.headers,
+    headers: forwardedHeaders,
     cache: "no-store",
   });
 }
