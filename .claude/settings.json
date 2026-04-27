@@ -12,9 +12,7 @@
       "Write(**/tsconfig.json)",
       "Write(**/package.json)"
     ],
-    "allow": [
-      "Bash(ln -s:*)"
-    ],
+    "allow": ["Bash(ln -s:*)"],
     "deny": [
       "Edit(apps/web/src/shared/ui/shadcn/**)",
       "Write(apps/web/src/shared/ui/shadcn/**)",
@@ -23,7 +21,13 @@
       "Edit(apps/api/src/features/**/schema.ts)",
       "Write(apps/api/src/features/**/schema.ts)",
       "Edit(apps/api/src/features/**/handler.ts)",
-      "Write(apps/api/src/features/**/handler.ts)"
+      "Write(apps/api/src/features/**/handler.ts)",
+      "Bash(git commit --no-verify:*)",
+      "Bash(git commit*--no-verify*)",
+      "Bash(git commit -n:*)",
+      "Bash(git push --no-verify:*)",
+      "Bash(git push*--no-verify*)",
+      "Bash(git push -n:*)"
     ]
   },
   "hooks": {

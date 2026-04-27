@@ -27,9 +27,81 @@ prefix_rule(
 )
 
 prefix_rule(
+    pattern = ["git", "commit", "--no-verify"],
+    decision = "forbidden",
+    justification = "Do not bypass Git hooks with --no-verify.",
+    match = [
+        "git commit --no-verify -m 'chore: bypass hooks'",
+    ],
+    not_match = [
+        "git commit -m 'chore: update config'",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "commit", "--amend", "--no-edit", "--no-verify"],
+    decision = "forbidden",
+    justification = "Do not bypass Git hooks with --no-verify.",
+    match = [
+        "git commit --amend --no-edit --no-verify",
+    ],
+    not_match = [
+        "git commit --amend --no-edit",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "commit", "-n"],
+    decision = "forbidden",
+    justification = "Do not bypass Git hooks with -n.",
+    match = [
+        "git commit -n -m 'chore: bypass hooks'",
+    ],
+    not_match = [
+        "git commit -m 'chore: update config'",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "push", "--no-verify"],
+    decision = "forbidden",
+    justification = "Do not bypass Git hooks with --no-verify.",
+    match = [
+        "git push --no-verify origin HEAD",
+    ],
+    not_match = [
+        "git push origin HEAD",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "push", "--force-with-lease", "--no-verify"],
+    decision = "forbidden",
+    justification = "Do not bypass Git hooks with --no-verify.",
+    match = [
+        "git push --force-with-lease --no-verify origin HEAD",
+    ],
+    not_match = [
+        "git push --force-with-lease origin HEAD",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "push", "-n"],
+    decision = "forbidden",
+    justification = "Do not bypass Git hooks with -n.",
+    match = [
+        "git push -n origin HEAD",
+    ],
+    not_match = [
+        "git push origin HEAD",
+    ],
+)
+
+prefix_rule(
     pattern = ["git", "commit"],
-    decision = "allow",
-    justification = "Allow local commits without prompting.",
+    decision = "prompt",
+    justification = "Review Git commits explicitly; do not bypass hooks.",
     match = [
         "git commit -m 'chore: update config'",
         "git commit --amend --no-edit",
@@ -38,10 +110,21 @@ prefix_rule(
 
 prefix_rule(
     pattern = ["git", "push", "origin"],
-    decision = "allow",
-    justification = "Allow pushing the current branch to origin without prompting.",
+    decision = "prompt",
+    justification = "Review Git pushes explicitly; do not bypass hooks.",
     match = [
         "git push origin HEAD",
+        "git push origin main",
+        "git push origin feature/add-task-filter",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "push", "--force-with-lease", "origin"],
+    decision = "prompt",
+    justification = "Review force-with-lease pushes explicitly; do not bypass hooks.",
+    match = [
+        "git push --force-with-lease origin HEAD",
     ],
 )
 

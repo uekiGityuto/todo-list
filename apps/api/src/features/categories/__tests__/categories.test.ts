@@ -66,6 +66,15 @@ describe("カテゴリ API", () => {
         "http://localhost:3000",
       );
     });
+
+    it("Cache-Control: no-store, private を返す", async () => {
+      const res = await app.request("/categories", {
+        headers: { Authorization: "Bearer test-token" },
+      });
+
+      expect(res.status).toBe(200);
+      expect(res.headers.get("Cache-Control")).toBe("no-store, private");
+    });
   });
 
   describe("OPTIONS /categories", () => {
