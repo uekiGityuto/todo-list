@@ -7,6 +7,12 @@ pre-commit:
           echo "mainブランチでのcommitは禁止です。featureブランチを作成してください。" >&2
           exit 1
         fi
+    gitleaks:
+      run: gitleaks protect --staged --verbose
+    semgrep:
+      run: semgrep scan --config auto --error .
+      skip:
+        - run: "! git diff --cached --name-only | grep -qE '^(apps/|packages/|\\.github/workflows/)'"
     format:
       run: pnpm format
       stage_fixed: true

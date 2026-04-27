@@ -12,6 +12,9 @@
       "Write(**/tsconfig.json)",
       "Write(**/package.json)"
     ],
+    "allow": [
+      "Bash(ln -s:*)"
+    ],
     "deny": [
       "Edit(apps/web/src/shared/ui/shadcn/**)",
       "Write(apps/web/src/shared/ui/shadcn/**)",

@@ -1,0 +1,21 @@
+# テスト・E2E
+e2e/
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+
+# Storybook
+**/*.stories.tsx
+
+# 設定ファイル・ドキュメント
+docs/
+designs/
+scripts/
+supabase/
+.agent-rules/
+.agents/
+.claude/
+.codex/
+.takt/
+.work/

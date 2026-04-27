@@ -4,7 +4,17 @@
 
 ## セットアップ
 
+### 必要なツール
+
+- [mise](https://mise.jdx.dev/) — Node.js, pnpm 等のバージョン管理
+- [Docker](https://www.docker.com/) — Supabase ローカル DB
+- [Gitleaks](https://github.com/gitleaks/gitleaks) — シークレット検出（pre-commit で使用）
+- [Semgrep](https://semgrep.dev/) — セキュリティスキャン（pre-commit で使用）
+
 ```bash
+# Gitleaks・Semgrep のインストール（macOS）
+brew install gitleaks semgrep
+
 # ツールインストール（mise で Node.js, pnpm 等を管理）
 mise install
 

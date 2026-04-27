@@ -3,16 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "pnpm --dir ../.. sync-env",
     "dev": "next dev",
+    "predev:clean": "pnpm --dir ../.. sync-env",
     "dev:clean": "rm -rf .next && next dev",
+    "prebuild": "pnpm --dir ../.. sync-env",
     "build": "next build",
+    "prestart": "pnpm --dir ../.. sync-env",
     "start": "next start",
+    "prestorybook": "pnpm --dir ../.. sync-env",
     "storybook": "storybook dev -p 6006",
+    "prebuild-storybook": "pnpm --dir ../.. sync-env",
     "build-storybook": "storybook build",
     "msw:init": "msw init public",
     "lint": "oxlint --type-aware --type-check src/",
     "format": "biome check --write src/ --config-path ../../biome.json",
     "format:check": "biome check src/ --config-path ../../biome.json",
+    "pretest": "pnpm --dir ../.. sync-env",
     "test": "vitest run"
   },
   "dependencies": {

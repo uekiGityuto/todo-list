@@ -6,13 +6,20 @@
     "./client": "./src/client.ts"
   },
   "scripts": {
+    "predev": "pnpm --dir ../.. sync-env",
     "dev": "tsx watch src/index.ts",
+    "prebuild": "pnpm --dir ../.. sync-env",
     "build": "tsc --noEmit",
     "lint": "oxlint --type-aware --type-check src/",
+    "pretest": "pnpm --dir ../.. sync-env",
     "test": "vitest run",
+    "predb:generate": "pnpm --dir ../.. sync-env",
     "db:generate": "prisma generate",
+    "predb:deploy": "pnpm --dir ../.. sync-env",
     "db:deploy": "prisma migrate deploy && prisma generate",
+    "predb:migrate": "pnpm --dir ../.. sync-env",
     "db:migrate": "prisma migrate dev",
+    "predb:push": "pnpm --dir ../.. sync-env",
     "db:push": "prisma db push"
   },
   "dependencies": {
