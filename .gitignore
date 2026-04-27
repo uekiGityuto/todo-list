@@ -48,6 +48,7 @@ next-env.d.ts
 .claude/skills/*
 !.claude/skills/browser-testing
 !.claude/skills/create-issue
+!.claude/skills/version-upgrade
 CLAUDE.local.md
 
 # MCP (API key含む)
@@ -59,6 +60,7 @@ CLAUDE.local.md
 .agents/skills/*
 !.agents/skills/browser-testing/
 !.agents/skills/create-issue/
+!.agents/skills/version-upgrade/
 skills-lock.json
 
 # Playwright MCP
