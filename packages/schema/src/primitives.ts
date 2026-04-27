@@ -1,7 +1,10 @@
 import { z } from "zod";
 
-// 1日 = 1440分。実用的なタスク見積もり・作業記録の上限として採用
-export const MAX_DURATION_MINUTES = 1440;
+// タスクの見積もり時間（user 入力）の上限。1日 = 1440分。
+// 注: 実経過時間（work-record の durationMinutes 等）には適用しない。
+// 経過時間は日跨ぎや長時間放置で 1440 を超えうるため、サーバ側で弾くと
+// timer 完了 / リカバリーフローが詰む。
+export const MAX_ESTIMATED_MINUTES = 1440;
 
 export const taskNameSchema = z
   .string()
@@ -27,5 +30,5 @@ export const estimatedMinutesSchema = z
   .number("見積もり時間を正しく選択してください")
   .int("見積もり時間を正しく選択してください")
   .positive("見積もり時間を正しく選択してください")
-  .max(MAX_DURATION_MINUTES, "見積もり時間を正しく選択してください")
+  .max(MAX_ESTIMATED_MINUTES, "見積もり時間を正しく選択してください")
   .nullable();

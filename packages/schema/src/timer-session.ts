@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { MAX_DURATION_MINUTES } from "./primitives";
+import { MAX_ESTIMATED_MINUTES } from "./primitives";
 
 export const createTimerSessionSchema = z.object({
   taskId: z.uuid(),
   taskName: z.string().min(1),
   categoryName: z.string(),
-  estimatedMinutes: z.number().int().positive().max(MAX_DURATION_MINUTES),
+  estimatedMinutes: z.number().int().positive().max(MAX_ESTIMATED_MINUTES),
 });
 
 export const timerSessionResponseSchema = z.object({
