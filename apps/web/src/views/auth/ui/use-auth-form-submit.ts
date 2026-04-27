@@ -11,6 +11,8 @@ function toJapaneseMessage(code: string | undefined, fallback: string): string {
       return "メールアドレスまたはパスワードが正しくありません";
     case "USER_ALREADY_EXISTS":
       return "このメールアドレスは既に使用されています";
+    case "ACCOUNT_LOCKED":
+      return "ログイン失敗が続いたためアカウントを一時的にロックしました。しばらくしてから再度お試しください";
     case undefined:
     default:
       return fallback;

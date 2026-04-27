@@ -85,7 +85,7 @@ export function AuthForm({ mode }: Props) {
               id="password"
               data-testid="auth-password-input"
               type="password"
-              placeholder="6文字以上"
+              placeholder="8文字以上"
               aria-invalid={!!errors.password}
               disabled={loading}
               {...register("password")}

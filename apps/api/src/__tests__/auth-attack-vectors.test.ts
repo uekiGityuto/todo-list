@@ -81,14 +81,14 @@ describe("Better Auth - 攻撃シナリオ", () => {
       expect(res.status).toBe(200);
     });
 
-    it("パスワードが minPasswordLength (6) 未満は拒否される", async () => {
-      const res = await signUp({ password: "12345" });
+    it("パスワードが minPasswordLength (8) 未満は拒否される", async () => {
+      const res = await signUp({ password: "1234567" });
       expect(res.status).toBeGreaterThanOrEqual(400);
       expect(res.status).toBeLessThan(500);
     });
 
-    it("パスワード境界値 (6 文字ちょうど) は受理される", async () => {
-      const res = await signUp({ password: "abc123" });
+    it("パスワード境界値 (8 文字ちょうど) は受理される", async () => {
+      const res = await signUp({ password: "abc12345" });
       expect(res.status).toBe(200);
     });
 
@@ -360,6 +360,107 @@ describe("Better Auth - 攻撃シナリオ", () => {
         }),
       });
       expect(res.status).toBe(403);
+    });
+  });
+
+  describe("アカウントロック (失敗5回)", () => {
+    beforeEach(async () => {
+      await signUp();
+    });
+
+    it("失敗5回まではロックされず、6回目以降は 403 ACCOUNT_LOCKED が返る", async () => {
+      // 5回目までは 401 (失敗カウントは積まれるがロックは発動しない)
+      for (let i = 0; i < 5; i++) {
+        const res = await signIn({ password: "wrongpassword" });
+        expect(res.status).toBe(401);
+      }
+
+      // 6回目以降はロック中なので 403
+      const sixth = await signIn({ password: "wrongpassword" });
+      expect(sixth.status).toBe(403);
+      const body = (await sixth.json()) as { code?: string };
+      expect(body.code).toBe("ACCOUNT_LOCKED");
+
+      // ロック中は正しいパスワードでも入れない
+      const correct = await signIn();
+      expect(correct.status).toBe(403);
+      const correctBody = (await correct.json()) as { code?: string };
+      expect(correctBody.code).toBe("ACCOUNT_LOCKED");
+    });
+
+    it("ロック中は lockedUntil が DB に記録される", async () => {
+      for (let i = 0; i < 5; i++) {
+        await signIn({ password: "wrongpassword" });
+      }
+      const user = await prisma.user.findUniqueOrThrow({
+        where: { email: VALID_EMAIL },
+        select: { lockedUntil: true, failedLoginAttempts: true },
+      });
+      expect(user.lockedUntil).not.toBeNull();
+      expect(user.lockedUntil!.getTime()).toBeGreaterThan(Date.now());
+      expect(user.failedLoginAttempts).toBeGreaterThanOrEqual(5);
+    });
+
+    it("cooldown 経過後（lockedUntil < now）は再ログインできる", async () => {
+      // 5回失敗してロック
+      for (let i = 0; i < 5; i++) {
+        await signIn({ password: "wrongpassword" });
+      }
+      // lockedUntil を過去に書き換えて cooldown 経過をシミュレート
+      await prisma.user.update({
+        where: { email: VALID_EMAIL },
+        data: { lockedUntil: new Date(Date.now() - 1000) },
+      });
+
+      const res = await signIn();
+      expect(res.status).toBe(200);
+
+      // 成功時にカウンタがリセットされていることを確認
+      const user = await prisma.user.findUniqueOrThrow({
+        where: { email: VALID_EMAIL },
+        select: {
+          failedLoginAttempts: true,
+          lockedUntil: true,
+          lastFailedLoginAt: true,
+        },
+      });
+      expect(user.failedLoginAttempts).toBe(0);
+      expect(user.lockedUntil).toBeNull();
+      expect(user.lastFailedLoginAt).toBeNull();
+    });
+
+    it("ロック前に成功すると失敗カウンタはリセットされる", async () => {
+      // 4回失敗（まだロックされない）
+      for (let i = 0; i < 4; i++) {
+        await signIn({ password: "wrongpassword" });
+      }
+
+      // 正しいパスワードで成功
+      const ok = await signIn();
+      expect(ok.status).toBe(200);
+
+      const user = await prisma.user.findUniqueOrThrow({
+        where: { email: VALID_EMAIL },
+        select: { failedLoginAttempts: true, lastFailedLoginAt: true },
+      });
+      expect(user.failedLoginAttempts).toBe(0);
+      expect(user.lastFailedLoginAt).toBeNull();
+    });
+
+    it("存在しないユーザーには失敗カウンタは記録されない (account enumeration 抑止)", async () => {
+      for (let i = 0; i < 5; i++) {
+        const res = await signIn({
+          email: "ghost@example.com",
+          password: "wrongpassword",
+        });
+        // 401 のまま、ロックには切り替わらない
+        expect(res.status).toBe(401);
+      }
+      // user テーブルには ghost は存在しない
+      const ghost = await prisma.user.findUnique({
+        where: { email: "ghost@example.com" },
+      });
+      expect(ghost).toBeNull();
     });
   });
 

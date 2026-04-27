@@ -8,7 +8,7 @@ export const authFormSchema = z.object({
     .pipe(z.email({ error: "メールアドレスを正しく入力してください" })),
   password: z
     .string()
-    .min(6, "パスワードは6文字以上で入力してください")
+    .min(8, "パスワードは8文字以上で入力してください")
     .max(72, "パスワードは72文字以内で入力してください"),
 });
 
