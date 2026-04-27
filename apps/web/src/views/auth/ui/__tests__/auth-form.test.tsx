@@ -38,7 +38,7 @@ describe("AuthForm", () => {
 
     render(<AuthForm mode="login" />);
 
-    await user.type(screen.getByLabelText("パスワード"), "123456");
+    await user.type(screen.getByLabelText("パスワード"), "12345678");
     await user.click(screen.getByRole("button", { name: "ログイン" }));
 
     expect(
@@ -53,7 +53,7 @@ describe("AuthForm", () => {
     render(<AuthForm mode="login" />);
 
     await user.type(screen.getByLabelText("メールアドレス"), "invalid");
-    await user.type(screen.getByLabelText("パスワード"), "123456");
+    await user.type(screen.getByLabelText("パスワード"), "12345678");
     await user.click(screen.getByRole("button", { name: "ログイン" }));
 
     expect(
@@ -72,13 +72,13 @@ describe("AuthForm", () => {
       screen.getByLabelText("メールアドレス"),
       "mail@example.com",
     );
-    await user.type(screen.getByLabelText("パスワード"), "123456");
+    await user.type(screen.getByLabelText("パスワード"), "12345678");
     await user.click(screen.getByRole("button", { name: "ログイン" }));
 
     await waitFor(() =>
       expect(signInEmail).toHaveBeenCalledWith({
         email: "mail@example.com",
-        password: "123456",
+        password: "12345678",
       }),
     );
     expect(push).toHaveBeenCalledWith("/");
@@ -97,7 +97,7 @@ describe("AuthForm", () => {
       screen.getByLabelText("メールアドレス"),
       "mail@example.com",
     );
-    await user.type(screen.getByLabelText("パスワード"), "123456");
+    await user.type(screen.getByLabelText("パスワード"), "12345678");
     await user.click(screen.getByRole("button", { name: "アカウント作成" }));
 
     expect(await screen.findByText("Email rate limit exceeded")).toBeVisible();
@@ -135,13 +135,13 @@ describe("AuthForm", () => {
     render(<AuthForm mode="signup" />);
 
     await user.type(screen.getByLabelText("メールアドレス"), "new@example.com");
-    await user.type(screen.getByLabelText("パスワード"), "123456");
+    await user.type(screen.getByLabelText("パスワード"), "12345678");
     await user.click(screen.getByRole("button", { name: "アカウント作成" }));
 
     await waitFor(() =>
       expect(signUpEmail).toHaveBeenCalledWith({
         email: "new@example.com",
-        password: "123456",
+        password: "12345678",
         name: "new",
       }),
     );
