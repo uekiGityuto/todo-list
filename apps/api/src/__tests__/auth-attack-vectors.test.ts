@@ -575,6 +575,38 @@ describe("Better Auth - 攻撃シナリオ", () => {
       expect(after.lockedUntil!.getTime()).toBe(lockedUntilAtFirstLock);
     });
 
+    it("資格情報不一致以外のエラー (Origin 違反による 403) ではカウントが増えない", async () => {
+      // beforeEach で signUp 済みのアカウントで、まず正しく signin して cookie を取る
+      // (Better Auth の origin check は cookie 付き or Sec-Fetch-* 付きのときだけ走るため)
+      const signInRes = await signIn();
+      const cookie = extractSessionCookie(signInRes);
+
+      // 信頼されていない Origin から正しい資格情報で 5 回試行 → 全て 403
+      for (let i = 0; i < 5; i++) {
+        const res = await app.request("/api/auth/sign-in/email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Origin: "https://evil.example.com",
+            Cookie: cookie,
+          },
+          body: JSON.stringify({
+            email: VALID_EMAIL,
+            password: VALID_PASSWORD,
+          }),
+        });
+        expect(res.status).toBe(403);
+      }
+
+      const user = await prisma.user.findUniqueOrThrow({
+        where: { email: VALID_EMAIL },
+        select: { failedLoginAttempts: true, lockedUntil: true },
+      });
+      // 資格情報エラーではない以上、ロックカウンタは 0 のまま
+      expect(user.failedLoginAttempts).toBe(0);
+      expect(user.lockedUntil).toBeNull();
+    });
+
     it("複数ユーザーのロックは独立しており、相互に影響しない", async () => {
       const otherEmail = "other@example.com";
       await signUp({ email: otherEmail });

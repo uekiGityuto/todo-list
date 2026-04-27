@@ -103,9 +103,16 @@ export const auth = betterAuth({
       if (!email) return;
 
       const returned = ctx.context.returned;
-      const failed = returned instanceof APIError;
+      const isCredentialFailure =
+        returned instanceof APIError &&
+        returned.body?.code === INVALID_CREDENTIALS_CODE;
 
-      if (!failed) {
+      // 認証以外のエラー (Origin/CSRF: 403、rate limit: 429、バリデーション: 400 等) は
+      // 資格情報の真偽と無関係なので、ロックカウンタの加算もリセットも行わない。
+      // 攻撃者が CSRF 違反等を 5 回踏ませて被害者アカウントをロックさせる経路を塞ぐため。
+      if (returned instanceof APIError && !isCredentialFailure) return;
+
+      if (!isCredentialFailure) {
         // 成功。残っているカウンタとロックを atomic にリセット
         // (updateMany + where 条件で no-op のときは書き込みしない)
         await prisma.user.updateMany({
@@ -126,7 +133,7 @@ export const auth = betterAuth({
         return;
       }
 
-      // 失敗時の更新は並行リクエストの increment が消えないように
+      // 資格情報不一致時の更新は並行リクエストの increment が消えないように
       // 行ロック (SELECT ... FOR UPDATE) で直列化する
       await prisma.$transaction(async (tx) => {
         const rows = await tx.$queryRaw<FailureRow[]>`
