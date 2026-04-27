@@ -328,9 +328,7 @@ describe("セキュリティ - 攻撃シナリオ", () => {
         expect(res.status).toBe(400);
       });
 
-      it("estimatedMinutes が極端に大きい値 (Number.MAX_SAFE_INTEGER) は 201（int 範囲内）", async () => {
-        // 現状スキーマに上限が無いため、巨大な値が通る挙動を検証する
-        // 業務的に上限を入れたい場合は別途 issue 化対象
+      it("estimatedMinutes が極端に大きい値 (Number.MAX_SAFE_INTEGER) は 400 (max 制約)", async () => {
         const res = await app.request("/tasks", {
           method: "POST",
           headers: {
@@ -344,8 +342,41 @@ describe("セキュリティ - 攻撃シナリオ", () => {
             scheduledDate: null,
           }),
         });
-        // Postgres Int は 2^31-1 までなので、Prisma 層で失敗する可能性がある
-        expect([201, 400, 500]).toContain(res.status);
+        expect(res.status).toBe(400);
+      });
+
+      it("estimatedMinutes 上限値 (1440 = 24時間) ちょうどは 201", async () => {
+        const res = await app.request("/tasks", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer test-token",
+          },
+          body: JSON.stringify({
+            name: "Task",
+            categoryId: null,
+            estimatedMinutes: 1440,
+            scheduledDate: null,
+          }),
+        });
+        expect(res.status).toBe(201);
+      });
+
+      it("estimatedMinutes 上限値超え (1441) は 400", async () => {
+        const res = await app.request("/tasks", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer test-token",
+          },
+          body: JSON.stringify({
+            name: "Task",
+            categoryId: null,
+            estimatedMinutes: 1441,
+            scheduledDate: null,
+          }),
+        });
+        expect(res.status).toBe(400);
       });
     });
 
@@ -362,9 +393,7 @@ describe("セキュリティ - 攻撃シナリオ", () => {
         expect(res.status).toBe(400);
       });
 
-      it("タスク作成時の name が半角スペースのみは 400 を期待するが、現状は 201（空白 trim をしていない）", async () => {
-        // 期待: 空白のみは無効入力。
-        // 現状: zod の min(1) は空白を許容する。改善候補。
+      it("タスク作成時の name が空白のみは 400 (trim 後 min(1))", async () => {
         const res = await app.request("/tasks", {
           method: "POST",
           headers: {
@@ -378,8 +407,7 @@ describe("セキュリティ - 攻撃シナリオ", () => {
             scheduledDate: null,
           }),
         });
-        // 現状の挙動を記録（リグレッション検知用）
-        expect(res.status).toBe(201);
+        expect(res.status).toBe(400);
       });
     });
   });
