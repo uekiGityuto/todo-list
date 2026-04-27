@@ -13,7 +13,7 @@ Playwright MCP を使ったブラウザでの動作確認手順。
 
 ### Docker
 
-Supabase ローカル DB に Docker が必要。
+ローカル DB（Docker Compose 管理の PostgreSQL）に Docker が必要。
 
 ```bash
 # Docker が起動しているか確認

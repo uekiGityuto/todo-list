@@ -79,7 +79,7 @@ pnpm outdated -r
 - **`storybook` / `@storybook/nextjs-vite`**: `pnpm --filter @todo-list/web build-storybook` でビルド確認
 - **`vitest`**: テスト設定（`vitest.config.mts`）の互換性確認
 - **`hono` / `@hono/node-server` / `@hono/zod-validator`**: API ハンドラ・ミドルウェアの動作確認
-- **postinstall スクリプトを持つパッケージが新規追加された場合**: `pnpm-workspace.yaml` の `allowBuilds` への追加を検討（現状: `lefthook`, `supabase`, `prisma`, `@prisma/client`, `@prisma/engines`）
+- **postinstall スクリプトを持つパッケージが新規追加された場合**: `pnpm-workspace.yaml` の `allowBuilds` への追加を検討（現状: `lefthook`, `prisma`, `@prisma/client`, `@prisma/engines`）
 
 ## 既知の制約
 

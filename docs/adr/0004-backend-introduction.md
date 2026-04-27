@@ -14,7 +14,7 @@ Accepted
 
 | カテゴリ | 技術 |
 |----------|------|
-| DB | Supabase (PostgreSQL) |
+| DB | PostgreSQL（ローカルは Docker Compose、`compose.yaml`） |
 | 認証 | Better Auth (email/password) |
 | APIフレームワーク | Hono |
 | ORM | Prisma |
@@ -31,11 +31,11 @@ Accepted
 
 ### ローカル開発
 
-Supabase CLI (Docker) でローカル PostgreSQL を起動し、認証は API 内の Better Auth で扱う。
+リポジトリルートの `compose.yaml` で Docker Compose を使ってローカル PostgreSQL を起動し、認証は API 内の Better Auth で扱う。
 
 ## 理由
 
-- **Supabase**: ローカル PostgreSQL を CLI で起動できる。DB セットアップを揃えやすい
+- **Docker Compose 管理の PostgreSQL**: 追加の CLI 依存なしにローカル DB を起動できる。`compose.yaml` で構成を一元管理できる
 - **Better Auth**: Web と API をまたぐ cookie session ベースの認証をアプリ側で一元管理できる
 - **Hono**: 軽量で型安全。handler を route 定義の近くに置くと `param` / `valid()` / RPC 型推論を自然に活かせる
 - **Prisma**: スキーマファーストで型安全。AIにコードを書かせやすく、レビューもしやすい

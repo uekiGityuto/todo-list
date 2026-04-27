@@ -61,7 +61,7 @@ export const storyTasks: Task[] = [
   },
   {
     id: "task-done",
-    name: "Supabase ローカル環境を立ち上げる",
+    name: "ローカル DB 環境を立ち上げる",
     categoryId: "cat-admin",
     status: "done",
     isNext: false,
