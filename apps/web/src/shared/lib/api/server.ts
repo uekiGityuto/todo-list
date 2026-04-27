@@ -31,9 +31,11 @@ const getServerApiClient = cache(async () => {
   return createApiClient(cookie ? { cookie } : {});
 });
 
-// この server 側の getter はいずれも単一ステータス（200）しか返さないエンドポイントを
-// 呼んでいるので、`response.json()` がそのまま成功 body 型に推論される。
-// よって `as ...Response` の型アサーションは不要。
+// ここで呼んでいる getter はいずれも、Hono RPC の型定義上は handler が単一の成功
+// レスポンス（200）のみを型付けしているエンドポイント。`response.json()` がその
+// まま成功 body 型に推論されるので `as ...Response` の型アサーションは不要。
+// （実行時には auth ミドルウェア等により 401 などが返り得るが、それは型推論には
+// 反映されないため別途 `expectOkOrRedirect` で扱う。）
 
 export const getTasks = cache(async () => {
   const client = await getServerApiClient();

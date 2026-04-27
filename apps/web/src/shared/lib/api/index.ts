@@ -18,13 +18,17 @@ import {
   type UpdateTaskSuccess,
 } from "./types";
 
-// 補足:
-// 単一ステータスのみを返すエンドポイント（GET 系や、エラー分岐を持たない一部の POST）
-// では、`response.json()` が成功 body の型に推論されるので型アサーションは不要。
-// 一方、`errorResponse` などで複数ステータスを返すエンドポイントは、Hono RPC の型が
-// 全レスポンス body を 1 つの ClientResponse にマージするため `response.json()` の
-// 推論結果が `成功 body | エラー body` の union になる。`response.ok` での narrowing は
-// 効かないので、成功 body のみを取り出すために `as ...Success` で型アサーションを残す。
+// 補足: ここで言う「単一ステータス」とは、Hono RPC の型定義上 handler が
+// 成功 body のみを型付けしているエンドポイント（GET 系や、`errorResponse` で
+// 別 status を明示していない一部の POST）のこと。実行時には auth ミドルウェアや
+// validator で 401/400 が返り得るが、それらは型推論に反映されない。
+//
+// このケースでは `response.json()` が成功 body 型に推論されるので型アサーションは
+// 不要。一方、handler が `errorResponse` で複数 status を型付けしているエンド
+// ポイントは、Hono RPC が各レスポンス body を 1 つの ClientResponse にマージする
+// ため `response.json()` の推論結果が `成功 body | エラー body` の union になる。
+// `response.ok` での narrowing も効かないので、成功 body のみを取り出すために
+// `as ...Success` で型アサーションを残す。
 
 export async function fetchTasks() {
   const response = await apiClient.tasks.$get();
