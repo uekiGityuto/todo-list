@@ -4,12 +4,12 @@
 
 ## セットアップ
 
-認証は `Better Auth`、ローカル DB は `Supabase CLI` で起動する PostgreSQL を使う。
+認証は `Better Auth`、ローカル DB は Docker Compose で起動する PostgreSQL を使う。
 
 ### 必要なツール
 
 - [mise](https://mise.jdx.dev/) — Node.js, pnpm 等のバージョン管理
-- [Docker](https://www.docker.com/) — Supabase CLI で起動するローカル PostgreSQL
+- [Docker](https://www.docker.com/) — ローカル PostgreSQL の起動に使用
 - [Gitleaks](https://github.com/gitleaks/gitleaks) — シークレット検出（pre-commit で使用）
 - [Semgrep](https://semgrep.dev/) — セキュリティスキャン（pre-commit で使用）
 
@@ -23,11 +23,11 @@ mise install
 # 依存インストール
 pnpm install
 
-# Docker 起動（Supabase CLI でローカル PostgreSQL を起動）
+# Docker 起動
 open -a "Docker"
 
 # ローカル DB 起動 + DB マイグレーション
-pnpm supabase:setup
+pnpm db:setup
 
 # 開発サーバー起動
 pnpm dev
@@ -36,14 +36,15 @@ pnpm dev
 ## コマンド
 
 ```bash
-pnpm dev             # 開発サーバー起動（web + api）
-pnpm build           # ビルド
-pnpm lint            # Lint
-pnpm test            # テスト
-pnpm format          # フォーマット（Biome）
-pnpm supabase:start  # ローカル PostgreSQL 起動
-pnpm supabase:stop   # ローカル PostgreSQL 停止
-pnpm db:login        # DB に接続
+pnpm dev        # 開発サーバー起動（web + api）
+pnpm build      # ビルド
+pnpm lint       # Lint
+pnpm test       # テスト
+pnpm format     # フォーマット（Biome）
+pnpm db:start   # ローカル PostgreSQL 起動
+pnpm db:stop    # ローカル PostgreSQL 停止
+pnpm db:setup   # ローカル PostgreSQL 起動 + マイグレーション適用
+pnpm db:login   # DB に接続（psql）
 ```
 
 ## TAKT（AI ワークフロー）
