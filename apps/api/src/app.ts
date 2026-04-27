@@ -38,9 +38,11 @@ const app = new Hono()
   )
   .use("/*", requestLoggerMiddleware)
   .use("/*", async (c, next) => {
-    await next();
-    // 認証必須 API のレスポンスがブラウザ・中間キャッシュに残らないようにする
+    // 認証必須 API のレスポンスがブラウザ・中間キャッシュに残らないようにする。
+    // 例外で onError 経路に流れた場合も header を確実に付けるため、
+    // next() の前に設定する（context のヘッダは最終 Response にマージされる）。
     c.header("Cache-Control", "no-store, private");
+    await next();
   })
   .use("/*", authMiddleware)
   .route("/tasks", tasksRoute)

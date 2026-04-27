@@ -1,6 +1,7 @@
 import { jwtVerify } from "jose";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import app from "../app";
+import * as categoryService from "../features/categories/service";
 import { cleanDatabase, prisma } from "./helpers/db";
 
 // 攻撃者視点の横断テスト
@@ -14,6 +15,16 @@ vi.mock("jose", () => ({
     payload: { sub: "test-user-id" },
   }),
 }));
+
+// onError 経由の Cache-Control 検証用に list を spy 化（デフォルトは実装を呼ぶ）
+vi.mock("../features/categories/service", async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import("../features/categories/service")>();
+  return {
+    ...actual,
+    list: vi.fn().mockImplementation(actual.list),
+  };
+});
 
 describe("セキュリティ - 攻撃シナリオ", () => {
   beforeEach(async () => {
@@ -101,6 +112,21 @@ describe("セキュリティ - 攻撃シナリオ", () => {
 
       const count = await prisma.category.count();
       expect(count).toBe(0);
+    });
+  });
+
+  describe("レスポンスヘッダ", () => {
+    it("500 (onError 経路) でも Cache-Control: no-store, private が付く", async () => {
+      vi.mocked(categoryService.list).mockRejectedValueOnce(
+        new Error("simulated unhandled error"),
+      );
+
+      const res = await app.request("/categories", {
+        headers: { Authorization: "Bearer test-token" },
+      });
+
+      expect(res.status).toBe(500);
+      expect(res.headers.get("Cache-Control")).toBe("no-store, private");
     });
   });
 
