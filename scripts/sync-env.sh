@@ -25,18 +25,38 @@ for rel_path in "${env_files[@]}"; do
   dest="$current_root/$rel_path"
 
   if [ ! -f "$src" ]; then
-    echo "スキップ: $rel_path（メインリポジトリに存在しない）"
+    echo "スキップ: ${rel_path}（メインリポジトリに存在しない）"
     continue
   fi
 
-  if [ -f "$dest" ]; then
-    echo "スキップ: $rel_path（既に存在する）"
+  if [ -L "$dest" ]; then
+    linked_target="$(readlink "$dest")"
+    if [ "$linked_target" = "$src" ]; then
+      echo "スキップ: ${rel_path}（既に正しいリンクが存在する）"
+      continue
+    fi
+
+    echo "スキップ: ${rel_path}（別のシンボリックリンクが存在する）"
     continue
   fi
 
-  ln -s "$src" "$dest"
-  echo "リンク作成: $rel_path -> $src"
-  linked=$((linked + 1))
+  if [ -e "$dest" ]; then
+    echo "スキップ: ${rel_path}（既に存在する）"
+    continue
+  fi
+
+  if ln -s "$src" "$dest" 2>/dev/null; then
+    echo "リンク作成: ${rel_path} -> ${src}"
+    linked=$((linked + 1))
+    continue
+  fi
+
+  if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
+    echo "スキップ: ${rel_path}（並列実行中に正しいリンクが作成された）"
+    continue
+  fi
+
+  echo "スキップ: ${rel_path}（リンク作成に失敗した）"
 done
 
 echo "完了: ${linked}件のシンボリックリンクを作成しました"

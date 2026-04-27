@@ -24,6 +24,9 @@
 worktree 環境では `.env` や `.env.local` が存在しないため、開発サーバーやビルドが失敗する。
 `scripts/sync-env.sh` を実行して、メインリポジトリの環境変数ファイルをシンボリックリンクすること。
 
+ルートの `pnpm dev` / `pnpm build` / `pnpm lint` / `pnpm test` と、`apps/web` / `apps/api` の主要スクリプトは `sync-env.sh` を事前実行するため、通常は手動実行なしでもよい。
+ただし初回確認や明示的にリンクを張りたい場合は、以下を実行すること。
+
 ```bash
 bash scripts/sync-env.sh
 ```
