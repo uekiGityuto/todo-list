@@ -11,36 +11,36 @@ const WEB_ORIGIN = "http://127.0.0.1:3100";
 
 function buildStorageStateFromSetCookie(setCookies: string[]) {
   const cookies = setCookies.map((setCookie) => {
-  const [cookiePart, ...attributeParts] = setCookie.split(";");
-  const [name, ...valueParts] = cookiePart.split("=");
-  const value = valueParts.join("=");
+    const [cookiePart, ...attributeParts] = setCookie.split(";");
+    const [name, ...valueParts] = cookiePart.split("=");
+    const value = valueParts.join("=");
 
-  let maxAge = 60 * 60 * 24 * 7;
-  let path = "/";
-  let httpOnly = false;
-  let secure = false;
-  let sameSite: "Lax" | "Strict" | "None" = "Lax";
+    let maxAge = 60 * 60 * 24 * 7;
+    let path = "/";
+    let httpOnly = false;
+    let secure = false;
+    let sameSite: "Lax" | "Strict" | "None" = "Lax";
 
-  for (const part of attributeParts) {
-    const trimmed = part.trim();
-    const [attributeName, attributeValue] = trimmed.split("=");
+    for (const part of attributeParts) {
+      const trimmed = part.trim();
+      const [attributeName, attributeValue] = trimmed.split("=");
 
-    if (attributeName.toLowerCase() === "max-age" && attributeValue) {
-      maxAge = Number(attributeValue);
+      if (attributeName.toLowerCase() === "max-age" && attributeValue) {
+        maxAge = Number(attributeValue);
+      }
+      if (attributeName.toLowerCase() === "path" && attributeValue) {
+        path = attributeValue;
+      }
+      if (attributeName.toLowerCase() === "httponly") {
+        httpOnly = true;
+      }
+      if (attributeName.toLowerCase() === "secure") {
+        secure = true;
+      }
+      if (attributeName.toLowerCase() === "samesite" && attributeValue) {
+        sameSite = attributeValue as typeof sameSite;
+      }
     }
-    if (attributeName.toLowerCase() === "path" && attributeValue) {
-      path = attributeValue;
-    }
-    if (attributeName.toLowerCase() === "httponly") {
-      httpOnly = true;
-    }
-    if (attributeName.toLowerCase() === "secure") {
-      secure = true;
-    }
-    if (attributeName.toLowerCase() === "samesite" && attributeValue) {
-      sameSite = attributeValue as typeof sameSite;
-    }
-  }
 
     return {
       name,
