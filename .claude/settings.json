@@ -12,6 +12,9 @@
       "Write(**/tsconfig.json)",
       "Write(**/package.json)"
     ],
+    "allow": [
+      "Bash(ln -s:*)"
+    ],
     "deny": [
       "Edit(apps/web/src/shared/ui/shadcn/**)",
       "Write(apps/web/src/shared/ui/shadcn/**)",
@@ -25,6 +28,15 @@
   },
   "hooks": {
     "PostToolUse": [
+      {
+        "matcher": "EnterWorktree",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/scripts/sync-env.sh"
+          }
+        ]
+      },
       {
         "matcher": "Edit|Write|NotebookEdit",
         "hooks": [

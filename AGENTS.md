@@ -19,6 +19,15 @@
 - React: https://react.dev/llms.txt
 - Hono: https://hono.dev/llms.txt
 
+## Worktree での作業
+
+worktree 環境では `.env` や `.env.local` が存在しないため、開発サーバーやビルドが失敗する。
+`scripts/sync-env.sh` を実行して、メインリポジトリの環境変数ファイルをシンボリックリンクすること。
+
+```bash
+bash scripts/sync-env.sh
+```
+
 ## PR 作成
 
 `.github/pull_request_template.md` のテンプレートに従って PR を作成すること。
