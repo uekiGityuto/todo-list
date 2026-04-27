@@ -10,9 +10,8 @@ export async function GET(request: Request) {
     status: 307,
   });
 
-  const setCookie = signOutResponse?.headers.get("set-cookie");
-  if (setCookie) {
-    response.headers.set("set-cookie", setCookie);
+  for (const setCookie of signOutResponse?.headers.getSetCookie() ?? []) {
+    response.headers.append("set-cookie", setCookie);
   }
 
   return response;

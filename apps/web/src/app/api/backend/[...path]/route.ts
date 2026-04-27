@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { proxyRequest } from "@/shared/lib/http/proxy";
 
 function getApiBaseUrl() {
   return (
@@ -13,20 +13,7 @@ async function proxy(request: Request, path: string[]) {
     `${getApiBaseUrl()}/${path.join("/")}${new URL(request.url).search}`,
   );
 
-  const proxiedResponse = await fetch(targetUrl, {
-    method: request.method,
-    headers: request.headers,
-    body:
-      request.method === "GET" || request.method === "HEAD"
-        ? undefined
-        : await request.arrayBuffer(),
-    cache: "no-store",
-  });
-
-  return new NextResponse(proxiedResponse.body, {
-    status: proxiedResponse.status,
-    headers: proxiedResponse.headers,
-  });
+  return proxyRequest(request, targetUrl);
 }
 
 export async function GET(

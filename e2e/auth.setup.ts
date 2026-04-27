@@ -9,7 +9,8 @@ const TEST_PASSWORD = "agent001";
 const API_BASE_URL = process.env.API_URL ?? "http://127.0.0.1:3001";
 const WEB_ORIGIN = "http://127.0.0.1:3100";
 
-function buildStorageStateFromSetCookie(setCookie: string) {
+function buildStorageStateFromSetCookie(setCookies: string[]) {
+  const cookies = setCookies.map((setCookie) => {
   const [cookiePart, ...attributeParts] = setCookie.split(";");
   const [name, ...valueParts] = cookiePart.split("=");
   const value = valueParts.join("=");
@@ -41,19 +42,20 @@ function buildStorageStateFromSetCookie(setCookie: string) {
     }
   }
 
+    return {
+      name,
+      value,
+      domain: "127.0.0.1",
+      path,
+      expires: Math.floor(Date.now() / 1000) + maxAge,
+      httpOnly,
+      secure,
+      sameSite,
+    };
+  });
+
   return {
-    cookies: [
-      {
-        name,
-        value,
-        domain: "127.0.0.1",
-        path,
-        expires: Math.floor(Date.now() / 1000) + maxAge,
-        httpOnly,
-        secure,
-        sameSite,
-      },
-    ],
+    cookies,
     origins: [],
   };
 }
@@ -103,8 +105,12 @@ test("認証済み状態を作成する", async ({ request }) => {
   }
 
   expect(signInResponse.ok()).toBeTruthy();
-  const setCookie = signInResponse.headers()["set-cookie"];
-  if (!setCookie) {
+  const setCookies = signInResponse
+    .headersArray()
+    .filter(({ name }) => name.toLowerCase() === "set-cookie")
+    .map(({ value }) => value);
+
+  if (setCookies.length === 0) {
     throw new Error(
       "E2E auth setup failed: sign-in response did not set a cookie.",
     );
@@ -112,7 +118,7 @@ test("認証済み状態を作成する", async ({ request }) => {
 
   await fs.writeFile(
     AUTH_FILE,
-    JSON.stringify(buildStorageStateFromSetCookie(setCookie), null, 2),
+    JSON.stringify(buildStorageStateFromSetCookie(setCookies), null, 2),
     "utf-8",
   );
 });
