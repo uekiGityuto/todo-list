@@ -1,13 +1,12 @@
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
-import app from "../app";
-import * as categoryService from "../features/categories/service";
-import { getSession } from "./helpers/auth";
-import { cleanDatabase, prisma } from "./helpers/db";
 
-// 攻撃者視点の横断テスト
-// 認証バイパス、IDOR、SQL インジェクション、境界値の挙動を検証する。
-// 各 feature の通常系・ユーザー隔離テストは `features/*/__tests__/` に存在する前提で、
-// ここでは追加でカバーすべき攻撃シナリオに絞って検証する。
+// vi.mock は hoist 対象。helpers/auth.ts に書かれた vi.mock は、
+// import 順次第で `app` 評価前に走らず mock が効かないことがあるため、
+// 本ファイルでは vi.hoisted + vi.mock を test file 冒頭に直接書く。
+const { getSession } = vi.hoisted(() => ({ getSession: vi.fn() }));
+vi.mock("../shared/auth/auth", () => ({
+  auth: { api: { getSession } },
+}));
 
 // onError 経由の Cache-Control 検証用に list を spy 化（デフォルトは実装を呼ぶ）
 vi.mock("../features/categories/service", async (importOriginal) => {
@@ -18,6 +17,15 @@ vi.mock("../features/categories/service", async (importOriginal) => {
     list: vi.fn().mockImplementation(actual.list),
   };
 });
+
+import app from "../app";
+import * as categoryService from "../features/categories/service";
+import { cleanDatabase, prisma } from "./helpers/db";
+
+// 攻撃者視点の横断テスト
+// 認証バイパス、IDOR、SQL インジェクション、境界値の挙動を検証する。
+// 各 feature の通常系・ユーザー隔離テストは `features/*/__tests__/` に存在する前提で、
+// ここでは追加でカバーすべき攻撃シナリオに絞って検証する。
 
 describe("セキュリティ - 攻撃シナリオ", () => {
   beforeEach(async () => {
