@@ -1,6 +1,6 @@
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { cache } from "react";
-import { createSupabaseServerClient } from "../supabase/server";
 import { createApiClient } from "./client";
 import { ApiError, expectOk } from "./errors";
 import {
@@ -30,12 +30,9 @@ async function expectOkOrRedirect(response: Response, message: string) {
 }
 
 const getServerApiClient = cache(async () => {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  const token = session?.access_token;
-  return createApiClient(token ? { Authorization: `Bearer ${token}` } : {});
+  const requestHeaders = await headers();
+  const cookie = requestHeaders.get("cookie");
+  return createApiClient(cookie ? { cookie } : {});
 });
 
 export const getTasks = cache(async () => {

@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import { toast } from "sonner";
 import { ApiError } from "../lib/api/errors";
-import { createSupabaseBrowserClient } from "../lib/supabase/client";
+import { authClient } from "../lib/auth/client";
 
 let isHandlingUnauthorized = false;
 
@@ -18,8 +18,7 @@ function handleError(error: unknown) {
     if (error.status === 401) {
       if (isHandlingUnauthorized) return;
       isHandlingUnauthorized = true;
-      const supabase = createSupabaseBrowserClient();
-      void supabase.auth
+      void authClient
         .signOut()
         .catch(() => undefined)
         .finally(() => {

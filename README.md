@@ -4,10 +4,12 @@
 
 ## セットアップ
 
+認証は `Better Auth`、ローカル DB は `Supabase CLI` で起動する PostgreSQL を使う。
+
 ### 必要なツール
 
 - [mise](https://mise.jdx.dev/) — Node.js, pnpm 等のバージョン管理
-- [Docker](https://www.docker.com/) — Supabase ローカル DB
+- [Docker](https://www.docker.com/) — Supabase CLI で起動するローカル PostgreSQL
 - [Gitleaks](https://github.com/gitleaks/gitleaks) — シークレット検出（pre-commit で使用）
 - [Semgrep](https://semgrep.dev/) — セキュリティスキャン（pre-commit で使用）
 
@@ -21,10 +23,10 @@ mise install
 # 依存インストール
 pnpm install
 
-# Docker 起動（Supabase ローカル DB）
+# Docker 起動（Supabase CLI でローカル PostgreSQL を起動）
 open -a "Docker"
 
-# Supabase 起動 + DB マイグレーション
+# ローカル DB 起動 + DB マイグレーション
 pnpm supabase:setup
 
 # 開発サーバー起動
@@ -39,8 +41,8 @@ pnpm build           # ビルド
 pnpm lint            # Lint
 pnpm test            # テスト
 pnpm format          # フォーマット（Biome）
-pnpm supabase:start  # Supabase 起動
-pnpm supabase:stop   # Supabase 停止
+pnpm supabase:start  # ローカル PostgreSQL 起動
+pnpm supabase:stop   # ローカル PostgreSQL 停止
 pnpm db:login        # DB に接続
 ```
 

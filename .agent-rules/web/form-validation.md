@@ -44,7 +44,7 @@ paths:
 
 ## 認証フォームの扱い
 
-- Supabase など API 契約を共有していないフォームは `apps/web` 側だけで schema を持ってよい
+- Better Auth など API 契約を共有していないフォームは `apps/web` 側だけで schema を持ってよい
 - ただし、同じフォーム内では UI 用 schema と submit hook の責務分離は守る
 
 ## 配置ルール

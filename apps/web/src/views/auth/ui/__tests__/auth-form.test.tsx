@@ -5,8 +5,10 @@ import { AuthForm } from "../auth-form";
 
 const push = vi.fn();
 const refresh = vi.fn();
-const signInWithPassword = vi.fn();
-const signUp = vi.fn();
+const { signInEmail, signUpEmail } = vi.hoisted(() => ({
+  signInEmail: vi.fn(),
+  signUpEmail: vi.fn(),
+}));
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
@@ -15,13 +17,15 @@ vi.mock("next/navigation", () => ({
   }),
 }));
 
-vi.mock("@/shared/lib/supabase/client", () => ({
-  createSupabaseBrowserClient: () => ({
-    auth: {
-      signInWithPassword,
-      signUp,
+vi.mock("@/shared/lib/auth/client", () => ({
+  authClient: {
+    signIn: {
+      email: signInEmail,
     },
-  }),
+    signUp: {
+      email: signUpEmail,
+    },
+  },
 }));
 
 describe("AuthForm", () => {
@@ -40,7 +44,7 @@ describe("AuthForm", () => {
     expect(
       await screen.findByText("メールアドレスを入力してください"),
     ).toBeVisible();
-    expect(signInWithPassword).not.toHaveBeenCalled();
+    expect(signInEmail).not.toHaveBeenCalled();
   });
 
   it("不正なメールアドレスでは送信しない", async () => {
@@ -55,12 +59,12 @@ describe("AuthForm", () => {
     expect(
       await screen.findByText("メールアドレスを正しく入力してください"),
     ).toBeVisible();
-    expect(signInWithPassword).not.toHaveBeenCalled();
+    expect(signInEmail).not.toHaveBeenCalled();
   });
 
   it("ログイン成功時にトップへ遷移する", async () => {
     const user = userEvent.setup();
-    signInWithPassword.mockResolvedValue({ error: null });
+    signInEmail.mockResolvedValue({ error: null });
 
     render(<AuthForm mode="login" />);
 
@@ -72,7 +76,7 @@ describe("AuthForm", () => {
     await user.click(screen.getByRole("button", { name: "ログイン" }));
 
     await waitFor(() =>
-      expect(signInWithPassword).toHaveBeenCalledWith({
+      expect(signInEmail).toHaveBeenCalledWith({
         email: "mail@example.com",
         password: "123456",
       }),
@@ -81,9 +85,9 @@ describe("AuthForm", () => {
     expect(refresh).toHaveBeenCalled();
   });
 
-  it("Supabase エラーを表示する", async () => {
+  it("サインアップエラーを表示する", async () => {
     const user = userEvent.setup();
-    signUp.mockResolvedValue({
+    signUpEmail.mockResolvedValue({
       error: { message: "Email rate limit exceeded" },
     });
 
@@ -101,10 +105,10 @@ describe("AuthForm", () => {
 
   it("invalid_credentials エラーを日本語で表示する", async () => {
     const user = userEvent.setup();
-    signInWithPassword.mockResolvedValue({
+    signInEmail.mockResolvedValue({
       error: {
-        code: "invalid_credentials",
-        message: "Invalid login credentials",
+        code: "INVALID_EMAIL_OR_PASSWORD",
+        message: "Invalid email or password",
       },
     });
 
@@ -122,5 +126,24 @@ describe("AuthForm", () => {
         "メールアドレスまたはパスワードが正しくありません",
       ),
     ).toBeVisible();
+  });
+
+  it("サインアップ時はメールアドレスから表示名を作る", async () => {
+    const user = userEvent.setup();
+    signUpEmail.mockResolvedValue({ error: null });
+
+    render(<AuthForm mode="signup" />);
+
+    await user.type(screen.getByLabelText("メールアドレス"), "new@example.com");
+    await user.type(screen.getByLabelText("パスワード"), "123456");
+    await user.click(screen.getByRole("button", { name: "アカウント作成" }));
+
+    await waitFor(() =>
+      expect(signUpEmail).toHaveBeenCalledWith({
+        email: "new@example.com",
+        password: "123456",
+        name: "new",
+      }),
+    );
   });
 });

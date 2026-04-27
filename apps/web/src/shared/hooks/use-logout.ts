@@ -1,15 +1,14 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
-import { createSupabaseBrowserClient } from "@/shared/lib/supabase/client";
+import { authClient } from "@/shared/lib/auth/client";
 
 export function useLogout() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
   return useCallback(async () => {
-    const supabase = createSupabaseBrowserClient();
-    await supabase.auth.signOut();
+    await authClient.signOut();
     queryClient.clear();
     router.push("/login");
     router.refresh();

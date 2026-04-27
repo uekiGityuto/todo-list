@@ -1,17 +1,12 @@
-import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, beforeEach, describe, expect, it } from "vitest";
+import { getSession } from "../../../__tests__/helpers/auth";
 import { cleanDatabase, prisma } from "../../../__tests__/helpers/db";
 import app from "../../../app";
-
-vi.mock("jose", () => ({
-  createRemoteJWKSet: vi.fn(),
-  jwtVerify: vi.fn().mockResolvedValue({
-    payload: { sub: "test-user-id" },
-  }),
-}));
 
 describe("タイマーセッション API", () => {
   beforeEach(async () => {
     await cleanDatabase();
+    getSession.mockClear();
   });
 
   afterAll(async () => {

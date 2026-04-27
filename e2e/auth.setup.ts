@@ -1,57 +1,124 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { expect, type Page, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 const AUTH_DIR = path.join(__dirname, ".auth");
 const AUTH_FILE = path.join(AUTH_DIR, "user.json");
 const TEST_EMAIL = "agent@example.com";
-// ローカル Supabase 専用。存在しなければ自動で作成する。
 const TEST_PASSWORD = "agent001";
+const API_BASE_URL = process.env.API_URL ?? "http://127.0.0.1:3001";
+const WEB_ORIGIN = "http://127.0.0.1:3100";
 
-async function submitAuthForm(page: Page) {
-  await page.getByTestId("auth-email-input").fill(TEST_EMAIL);
-  await page.getByTestId("auth-password-input").fill(TEST_PASSWORD);
-  await page.getByTestId("auth-submit-button").click();
+function buildStorageStateFromSetCookie(setCookies: string[]) {
+  const cookies = setCookies.map((setCookie) => {
+    const [cookiePart, ...attributeParts] = setCookie.split(";");
+    const [name, ...valueParts] = cookiePart.split("=");
+    const value = valueParts.join("=");
+
+    let maxAge = 60 * 60 * 24 * 7;
+    let path = "/";
+    let httpOnly = false;
+    let secure = false;
+    let sameSite: "Lax" | "Strict" | "None" = "Lax";
+
+    for (const part of attributeParts) {
+      const trimmed = part.trim();
+      const [attributeName, attributeValue] = trimmed.split("=");
+
+      if (attributeName.toLowerCase() === "max-age" && attributeValue) {
+        maxAge = Number(attributeValue);
+      }
+      if (attributeName.toLowerCase() === "path" && attributeValue) {
+        path = attributeValue;
+      }
+      if (attributeName.toLowerCase() === "httponly") {
+        httpOnly = true;
+      }
+      if (attributeName.toLowerCase() === "secure") {
+        secure = true;
+      }
+      if (attributeName.toLowerCase() === "samesite" && attributeValue) {
+        sameSite = attributeValue as typeof sameSite;
+      }
+    }
+
+    return {
+      name,
+      value,
+      domain: "127.0.0.1",
+      path,
+      expires: Math.floor(Date.now() / 1000) + maxAge,
+      httpOnly,
+      secure,
+      sameSite,
+    };
+  });
+
+  return {
+    cookies,
+    origins: [],
+  };
 }
 
-async function getAuthErrorMessage(page: Page) {
-  const errorMessage = page.getByTestId("auth-server-error");
-  return (await errorMessage.isVisible().catch(() => false))
-    ? ((await errorMessage.textContent())?.trim() ?? null)
-    : null;
+async function signInByApi(request: Parameters<typeof test>[0]["request"]) {
+  return request.post(`${API_BASE_URL}/api/auth/sign-in/email`, {
+    data: {
+      email: TEST_EMAIL,
+      password: TEST_PASSWORD,
+    },
+    headers: {
+      Origin: WEB_ORIGIN,
+    },
+  });
 }
 
-test("認証済み状態を作成する", async ({ context, page }) => {
+async function signUpByApi(request: Parameters<typeof test>[0]["request"]) {
+  return request.post(`${API_BASE_URL}/api/auth/sign-up/email`, {
+    data: {
+      email: TEST_EMAIL,
+      password: TEST_PASSWORD,
+      name: "agent",
+    },
+    headers: {
+      Origin: WEB_ORIGIN,
+    },
+  });
+}
+
+test("認証済み状態を作成する", async ({ request }) => {
   await fs.mkdir(AUTH_DIR, { recursive: true });
 
-  await page.goto("/login");
-  await expect(page.getByTestId("login-form")).toBeVisible();
+  let signInResponse = await signInByApi(request);
 
-  const homePage = page.getByTestId("home-page");
-  const loginErrorMessage = page.getByText(
-    "メールアドレスまたはパスワードが正しくありません",
-  );
+  if (!signInResponse.ok()) {
+    const signUpResponse = await signUpByApi(request);
+    const signUpBody = await signUpResponse.text();
 
-  await submitAuthForm(page);
-  // ログイン結果が確定するまで待つ（成功時はホーム表示、失敗時はエラー表示）
-  await expect(homePage.or(loginErrorMessage)).toBeVisible();
-
-  if (await loginErrorMessage.isVisible()) {
-    await page.goto("/signup");
-    await expect(page.getByTestId("signup-form")).toBeVisible();
-    await submitAuthForm(page);
-
-    const signupErrorMessage = await getAuthErrorMessage(page);
-    if (signupErrorMessage) {
+    if (!signUpResponse.ok()) {
       throw new Error(
         `E2E auth setup failed for ${TEST_EMAIL}: signup did not complete. ` +
-          `The local Supabase user may already exist with a different password or auth state. ` +
-          `Reset the user or update the test credentials. Original error: ${signupErrorMessage}`,
+          `Status: ${signUpResponse.status()}. Body: ${signUpBody}`,
       );
     }
+
+    signInResponse = await signInByApi(request);
   }
 
-  await page.waitForURL(/\/$/);
-  await expect(homePage).toBeVisible();
-  await context.storageState({ path: AUTH_FILE });
+  expect(signInResponse.ok()).toBeTruthy();
+  const setCookies = signInResponse
+    .headersArray()
+    .filter(({ name }) => name.toLowerCase() === "set-cookie")
+    .map(({ value }) => value);
+
+  if (setCookies.length === 0) {
+    throw new Error(
+      "E2E auth setup failed: sign-in response did not set a cookie.",
+    );
+  }
+
+  await fs.writeFile(
+    AUTH_FILE,
+    JSON.stringify(buildStorageStateFromSetCookie(setCookies), null, 2),
+    "utf-8",
+  );
 });

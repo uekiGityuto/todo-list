@@ -1,20 +1,13 @@
-import { jwtVerify } from "jose";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import app from "../app";
 import * as categoryService from "../features/categories/service";
+import { getSession } from "./helpers/auth";
 import { cleanDatabase, prisma } from "./helpers/db";
 
 // 攻撃者視点の横断テスト
 // 認証バイパス、IDOR、SQL インジェクション、境界値の挙動を検証する。
 // 各 feature の通常系・ユーザー隔離テストは `features/*/__tests__/` に存在する前提で、
 // ここでは追加でカバーすべき攻撃シナリオに絞って検証する。
-
-vi.mock("jose", () => ({
-  createRemoteJWKSet: vi.fn(),
-  jwtVerify: vi.fn().mockResolvedValue({
-    payload: { sub: "test-user-id" },
-  }),
-}));
 
 // onError 経由の Cache-Control 検証用に list を spy 化（デフォルトは実装を呼ぶ）
 vi.mock("../features/categories/service", async (importOriginal) => {
@@ -29,12 +22,21 @@ vi.mock("../features/categories/service", async (importOriginal) => {
 describe("セキュリティ - 攻撃シナリオ", () => {
   beforeEach(async () => {
     await cleanDatabase();
-    // 直前のテストの mockResolvedValueOnce / mockRejectedValueOnce が
-    // 残っていると次のテストへ漏れるため、mockReset してから再設定する
-    vi.mocked(jwtVerify).mockReset();
-    vi.mocked(jwtVerify).mockResolvedValue({
-      payload: { sub: "test-user-id" },
-    } as never);
+    getSession.mockReset();
+    getSession.mockImplementation(async ({ headers }) => {
+      const requestHeaders = new Headers(headers);
+      if (requestHeaders.get("authorization") === "Bearer test-token") {
+        return {
+          session: { id: "test-session-id", userId: "test-user-id" },
+          user: {
+            id: "test-user-id",
+            email: "test@example.com",
+            name: "test",
+          },
+        };
+      }
+      return null;
+    });
   });
 
   afterAll(async () => {
@@ -72,26 +74,21 @@ describe("セキュリティ - 攻撃シナリオ", () => {
       expect(res.status).toBe(401);
     });
 
-    it("Bearer プレフィックスのみでトークンが無い場合は 401", async () => {
-      vi.mocked(jwtVerify).mockRejectedValueOnce(new Error("invalid token"));
+    it("無効な Authorization ヘッダは 401", async () => {
       const res = await app.request("/tasks", {
         headers: { Authorization: "Bearer " },
       });
       expect(res.status).toBe(401);
     });
 
-    it("JWT 検証に失敗した場合は 401", async () => {
-      vi.mocked(jwtVerify).mockRejectedValueOnce(new Error("invalid token"));
+    it("未知のトークンは 401", async () => {
       const res = await app.request("/tasks", {
         headers: { Authorization: "Bearer tampered.jwt.token" },
       });
       expect(res.status).toBe(401);
     });
 
-    it("JWT に sub クレームが無い場合は 401", async () => {
-      vi.mocked(jwtVerify).mockResolvedValueOnce({
-        payload: {},
-      } as never);
+    it("セッションを解決できないトークンは 401", async () => {
       const res = await app.request("/tasks", {
         headers: { Authorization: "Bearer no-sub-token" },
       });
@@ -132,7 +129,7 @@ describe("セキュリティ - 攻撃シナリオ", () => {
 
   describe("IDOR（他ユーザーのデータへのアクセス）", () => {
     it("リクエストボディに userId を仕込んでも別ユーザーのデータは作れない", async () => {
-      // クライアントが userId を直接指定しようとしても、route 側は JWT の sub を使う
+      // クライアントが userId を直接指定しようとしても、route 側は認証済み userId を使う
       const res = await app.request("/categories", {
         method: "POST",
         headers: {

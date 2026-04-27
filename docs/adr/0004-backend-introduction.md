@@ -15,7 +15,7 @@ Accepted
 | カテゴリ | 技術 |
 |----------|------|
 | DB | Supabase (PostgreSQL) |
-| 認証 | Google OAuth (Supabase Auth) |
+| 認証 | Better Auth (email/password) |
 | APIフレームワーク | Hono |
 | ORM | Prisma |
 | バリデーション | Zod |
@@ -31,11 +31,12 @@ Accepted
 
 ### ローカル開発
 
-Supabase CLI (Docker) で DB・認証をローカル実行。
+Supabase CLI (Docker) でローカル PostgreSQL を起動し、認証は API 内の Better Auth で扱う。
 
 ## 理由
 
-- **Supabase**: PostgreSQL + 認証をセットで提供。ローカル開発もCLIで完結
+- **Supabase**: ローカル PostgreSQL を CLI で起動できる。DB セットアップを揃えやすい
+- **Better Auth**: Web と API をまたぐ cookie session ベースの認証をアプリ側で一元管理できる
 - **Hono**: 軽量で型安全。handler を route 定義の近くに置くと `param` / `valid()` / RPC 型推論を自然に活かせる
 - **Prisma**: スキーマファーストで型安全。AIにコードを書かせやすく、レビューもしやすい
 - **Zod**: フロント・API両方でバリデーション共有可能
