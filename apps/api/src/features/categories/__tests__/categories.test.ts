@@ -72,6 +72,7 @@ describe("カテゴリ API", () => {
         headers: { Authorization: "Bearer test-token" },
       });
 
+      expect(res.status).toBe(200);
       expect(res.headers.get("Cache-Control")).toBe("no-store, private");
     });
   });

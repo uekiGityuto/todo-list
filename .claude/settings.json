@@ -24,8 +24,10 @@
       "Write(apps/api/src/features/**/handler.ts)",
       "Bash(git commit --no-verify:*)",
       "Bash(git commit*--no-verify*)",
+      "Bash(git commit -n:*)",
       "Bash(git push --no-verify:*)",
-      "Bash(git push*--no-verify*)"
+      "Bash(git push*--no-verify*)",
+      "Bash(git push -n:*)"
     ]
   },
   "hooks": {
