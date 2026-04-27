@@ -368,24 +368,65 @@ describe("Better Auth - 攻撃シナリオ", () => {
       await signUp();
     });
 
-    it("失敗5回まではロックされず、6回目以降は 403 ACCOUNT_LOCKED が返る", async () => {
-      // 5回目までは 401 (失敗カウントは積まれるがロックは発動しない)
+    it("失敗5回まではロックされず、6回目以降も外向きには通常の 401 INVALID_EMAIL_OR_PASSWORD を返す", async () => {
       for (let i = 0; i < 5; i++) {
         const res = await signIn({ password: "wrongpassword" });
         expect(res.status).toBe(401);
       }
 
-      // 6回目以降はロック中なので 403
+      // 6回目以降はロック中だが、enumeration 防止のため 401 + INVALID_EMAIL_OR_PASSWORD で返す
       const sixth = await signIn({ password: "wrongpassword" });
-      expect(sixth.status).toBe(403);
+      expect(sixth.status).toBe(401);
       const body = (await sixth.json()) as { code?: string };
-      expect(body.code).toBe("ACCOUNT_LOCKED");
+      expect(body.code).toBe("INVALID_EMAIL_OR_PASSWORD");
 
-      // ロック中は正しいパスワードでも入れない
+      // ロック中は正しいパスワードでも入れない (内部ではブロックされる)
       const correct = await signIn();
-      expect(correct.status).toBe(403);
+      expect(correct.status).toBe(401);
       const correctBody = (await correct.json()) as { code?: string };
-      expect(correctBody.code).toBe("ACCOUNT_LOCKED");
+      expect(correctBody.code).toBe("INVALID_EMAIL_OR_PASSWORD");
+    });
+
+    it("ロック中・通常パスワード不一致・存在しないユーザーで status / code / message が完全一致する (enumeration 抑止)", async () => {
+      // 別ユーザーをロック状態にする
+      const lockedEmail = "locked@example.com";
+      await signUp({ email: lockedEmail });
+      for (let i = 0; i < 5; i++) {
+        await signIn({ email: lockedEmail, password: "wrongpassword" });
+      }
+
+      // ロック中ユーザーへの試行
+      const locked = await signIn({
+        email: lockedEmail,
+        password: "wrongpassword",
+      });
+      // 通常のパスワード不一致 (VALID_EMAIL は beforeEach で作成済み)
+      const wrong = await signIn({ password: "wrongpassword" });
+      // 存在しないユーザー
+      const ghost = await signIn({
+        email: "ghost@example.com",
+        password: "wrongpassword",
+      });
+
+      const lockedBody = (await locked.json()) as {
+        message?: string;
+        code?: string;
+      };
+      const wrongBody = (await wrong.json()) as {
+        message?: string;
+        code?: string;
+      };
+      const ghostBody = (await ghost.json()) as {
+        message?: string;
+        code?: string;
+      };
+
+      expect(locked.status).toBe(wrong.status);
+      expect(wrong.status).toBe(ghost.status);
+      expect(lockedBody.code).toBe(wrongBody.code);
+      expect(wrongBody.code).toBe(ghostBody.code);
+      expect(lockedBody.message).toBe(wrongBody.message);
+      expect(wrongBody.message).toBe(ghostBody.message);
     });
 
     it("ロック中は lockedUntil が DB に記録される", async () => {
@@ -429,6 +470,32 @@ describe("Better Auth - 攻撃シナリオ", () => {
       expect(user.lastFailedLoginAt).toBeNull();
     });
 
+    it("cooldown 経過直後の 1 回失敗では再ロックされない (失敗カウンタが 1 から再カウントされる)", async () => {
+      // 5回失敗してロック
+      for (let i = 0; i < 5; i++) {
+        await signIn({ password: "wrongpassword" });
+      }
+      // cooldown 経過をシミュレート
+      await prisma.user.update({
+        where: { email: VALID_EMAIL },
+        data: { lockedUntil: new Date(Date.now() - 1000) },
+      });
+
+      // 1 回失敗してもまだロックされない
+      const res = await signIn({ password: "wrongpassword" });
+      expect(res.status).toBe(401);
+      const body = (await res.json()) as { code?: string };
+      expect(body.code).toBe("INVALID_EMAIL_OR_PASSWORD");
+
+      const user = await prisma.user.findUniqueOrThrow({
+        where: { email: VALID_EMAIL },
+        select: { failedLoginAttempts: true, lockedUntil: true },
+      });
+      // before hook で cooldown 経過時にリセット → 今回の失敗で 1 になる
+      expect(user.failedLoginAttempts).toBe(1);
+      expect(user.lockedUntil).toBeNull();
+    });
+
     it("ロック前に成功すると失敗カウンタはリセットされる", async () => {
       // 4回失敗（まだロックされない）
       for (let i = 0; i < 4; i++) {
@@ -461,6 +528,24 @@ describe("Better Auth - 攻撃シナリオ", () => {
         where: { email: "ghost@example.com" },
       });
       expect(ghost).toBeNull();
+    });
+
+    it("並行で失敗 5 回が走ってもカウントが消えず正しく 5 になる (race condition 防止)", async () => {
+      // 5 件並行で失敗 sign-in。read-modify-write が atomic でないと
+      // 同じ初期値を読んで同じ値を書き戻し increment が消える
+      const results = await Promise.all(
+        Array.from({ length: 5 }, () => signIn({ password: "wrongpassword" })),
+      );
+      for (const res of results) {
+        expect(res.status).toBe(401);
+      }
+
+      const user = await prisma.user.findUniqueOrThrow({
+        where: { email: VALID_EMAIL },
+        select: { failedLoginAttempts: true, lockedUntil: true },
+      });
+      expect(user.failedLoginAttempts).toBe(5);
+      expect(user.lockedUntil).not.toBeNull();
     });
   });
 
