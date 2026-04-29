@@ -1,6 +1,6 @@
 import { Plus } from "lucide-react";
 
-import { Button } from "@/shared/ui/shadcn/button";
+import { Button } from "@/shared/ui/primitives/button";
 
 interface TopRowProps {
   onAddTask: () => void;

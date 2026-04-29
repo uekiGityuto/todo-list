@@ -18,7 +18,7 @@ import type { Category, Task } from "@/shared/types/task";
 import type { TimerSession } from "@/shared/types/timer";
 import type { WorkRecord } from "@/shared/types/work-record";
 import { LoadingButton } from "@/shared/ui/loading-button";
-import { Badge } from "@/shared/ui/shadcn/badge";
+import { Badge } from "@/shared/ui/primitives/badge";
 import { Sidebar } from "@/shared/ui/sidebar";
 import { TabBar } from "@/shared/ui/tab-bar";
 import { TimerEndDialog } from "./timer-end-dialog";

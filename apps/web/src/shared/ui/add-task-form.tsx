@@ -7,16 +7,16 @@ import { Controller, useForm } from "react-hook-form";
 import type { Category } from "@/shared/types/task";
 import { CategorySelect } from "@/shared/ui/category-select";
 import { LoadingButton } from "@/shared/ui/loading-button";
-import { Button } from "@/shared/ui/shadcn/button";
-import { DatePickerField } from "@/shared/ui/shadcn/date-picker-field";
+import { Button } from "@/shared/ui/primitives/button";
+import { DatePickerField } from "@/shared/ui/primitives/date-picker-field";
 import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/shared/ui/shadcn/dialog";
-import { Input } from "@/shared/ui/shadcn/input";
-import { Label } from "@/shared/ui/shadcn/label";
-import { SelectField } from "@/shared/ui/shadcn/select-field";
+} from "@/shared/ui/primitives/dialog";
+import { Input } from "@/shared/ui/primitives/input";
+import { Label } from "@/shared/ui/primitives/label";
+import { SelectField } from "@/shared/ui/primitives/select-field";
 import {
   type AddTaskFormValues,
   addTaskFormSchema,

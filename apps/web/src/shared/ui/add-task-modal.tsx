@@ -5,7 +5,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-} from "@/shared/ui/shadcn/dialog";
+} from "@/shared/ui/primitives/dialog";
 import { AddTaskForm } from "./add-task-form";
 import type { TaskFormData } from "./add-task-form-types";
 

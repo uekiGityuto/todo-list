@@ -84,7 +84,7 @@ module.exports = {
       mainFields: ["main", "types"],
     },
     exclude: {
-      path: "(^src/shared/ui/shadcn/)|(^storybook-static/)|(^\\.next/)|(^src/types/.*\\.d\\.ts$)",
+      path: "(^src/shared/ui/primitives/)|(^storybook-static/)|(^\\.next/)|(^src/types/.*\\.d\\.ts$)",
     },
     cache: false,
   },

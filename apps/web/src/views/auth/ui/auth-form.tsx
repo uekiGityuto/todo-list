@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { LoadingButton } from "@/shared/ui/loading-button";
-import { Input } from "@/shared/ui/shadcn/input";
-import { Label } from "@/shared/ui/shadcn/label";
+import { Input } from "@/shared/ui/primitives/input";
+import { Label } from "@/shared/ui/primitives/label";
 import { type AuthFormValues, authFormSchema } from "./auth-form-schema";
 import { useAuthFormSubmit } from "./use-auth-form-submit";
 

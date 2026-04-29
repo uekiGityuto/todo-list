@@ -1,7 +1,7 @@
 "use client";
 
 import { LoadingButton } from "@/shared/ui/loading-button";
-import { Button } from "@/shared/ui/shadcn/button";
+import { Button } from "@/shared/ui/primitives/button";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +9,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/shared/ui/shadcn/dialog";
+} from "@/shared/ui/primitives/dialog";
 
 interface CategoryDeleteDialogProps {
   open: boolean;

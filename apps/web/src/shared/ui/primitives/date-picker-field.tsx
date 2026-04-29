@@ -6,12 +6,12 @@ import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 
 import { cn } from "@/shared/lib/utils";
-import { Calendar } from "@/shared/ui/shadcn/calendar";
+import { Calendar } from "@/shared/ui/primitives/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/shared/ui/shadcn/popover";
+} from "@/shared/ui/primitives/popover";
 
 interface DatePickerFieldProps {
   value?: Date;
