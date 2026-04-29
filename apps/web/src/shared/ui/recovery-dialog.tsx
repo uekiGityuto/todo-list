@@ -5,14 +5,14 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 import type { TimerSession } from "@/shared/types/timer";
-import { Button } from "@/shared/ui/shadcn/button";
+import { Button } from "@/shared/ui/primitives/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/shared/ui/shadcn/dialog";
+} from "@/shared/ui/primitives/dialog";
 
 export function RecoveryDialog({
   session,

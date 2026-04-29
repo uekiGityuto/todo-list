@@ -8,13 +8,13 @@ import { useLogout } from "@/shared/hooks/use-logout";
 import { useMediaQuery } from "@/shared/hooks/use-media-query";
 import { type TasksInitialData, useTasks } from "@/shared/hooks/use-tasks";
 import type { Category, Task } from "@/shared/types/task";
-import { SectionHeader } from "@/shared/ui/section-header";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
-} from "@/shared/ui/shadcn/dialog";
+} from "@/shared/ui/primitives/dialog";
+import { SectionHeader } from "@/shared/ui/section-header";
 import { Sidebar } from "@/shared/ui/sidebar";
 import { TabBar } from "@/shared/ui/tab-bar";
 import { CategoryDeleteDialog } from "./category-delete-dialog";

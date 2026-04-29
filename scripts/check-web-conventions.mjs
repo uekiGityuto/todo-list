@@ -37,7 +37,7 @@ function isInTestsDir(repoPath) {
 function isFormComponent(repoPath) {
   if (!repoPath.endsWith("-form.tsx")) return false;
   if (repoPath.includes("/__tests__/")) return false;
-  if (repoPath.includes("/shared/ui/shadcn/")) return false;
+  if (repoPath.includes("/shared/ui/primitives/")) return false;
   return (
     repoPath.startsWith("apps/web/src/shared/ui/") ||
     repoPath.includes("/views/") ||

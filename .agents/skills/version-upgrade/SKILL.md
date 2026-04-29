@@ -74,7 +74,7 @@ pnpm outdated -r
 - **`@biomejs/biome`**: `biome.json` の `$schema` URL を新バージョンへ追従（例: `https://biomejs.dev/schemas/2.4.13/schema.json`）
 - **`msw`**: `pnpm --filter @todo-list/web msw:init` で `apps/web/public/mockServiceWorker.js` を更新
 - **`@playwright/test`**: ブラウザ更新が必要な場合がある（`pnpm exec playwright install`）。E2E は `pnpm test:e2e` で実行
-- **`tailwindcss` / `shadcn`**: UI の見た目に影響しうる。ユーザーにブラウザ動作確認を依頼
+- **`tailwindcss` / `radix-ui`**: UI の見た目に影響しうる。ユーザーにブラウザ動作確認を依頼
 - **`oxlint` / `oxlint-tsgolint`**: 新ルール追加で既存コードがエラーになる場合がある。`pnpm lint` で検出
 - **`storybook` / `@storybook/nextjs-vite`**: `pnpm --filter @todo-list/web build-storybook` でビルド確認
 - **`vitest`**: テスト設定（`vitest.config.mts`）の互換性確認

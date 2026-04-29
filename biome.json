@@ -34,7 +34,7 @@
       "!**/.pnpm-store/**",
       "!**/node_modules",
       "!**/pnpm-lock.yaml",
-      "!**/shared/ui/shadcn/**"
+      "!**/shared/ui/primitives/**"
     ]
   }
 }
