@@ -6,7 +6,7 @@ import type { UseFormSetError } from "react-hook-form";
 import { ApiError } from "@/shared/lib/api/errors";
 import { applyApiFieldErrors } from "@/shared/lib/forms/apply-api-field-errors";
 import type { AddTaskFormValues } from "./add-task-form-schema";
-import type { TaskFormData } from "./add-task-modal";
+import type { TaskFormData } from "./add-task-form-types";
 
 interface UseAddTaskFormSubmitParams {
   onSubmit: (data: TaskFormData) => Promise<void>;

@@ -7,13 +7,7 @@ import {
   DialogDescription,
 } from "@/shared/ui/shadcn/dialog";
 import { AddTaskForm } from "./add-task-form";
-
-export interface TaskFormData {
-  name: string;
-  categoryId: string;
-  scheduledDate: string | null;
-  estimatedMinutes: number | null;
-}
+import type { TaskFormData } from "./add-task-form-types";
 
 interface AddTaskModalProps {
   open: boolean;

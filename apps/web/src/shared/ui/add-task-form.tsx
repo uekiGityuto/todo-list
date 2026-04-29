@@ -21,7 +21,7 @@ import {
   type AddTaskFormValues,
   addTaskFormSchema,
 } from "./add-task-form-schema";
-import type { TaskFormData } from "./add-task-modal";
+import type { TaskFormData } from "./add-task-form-types";
 import { useAddTaskFormSubmit } from "./use-add-task-form-submit";
 
 const ESTIMATED_MINUTES_OPTIONS = [
