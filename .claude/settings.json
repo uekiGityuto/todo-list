@@ -1,7 +1,6 @@
 {
   "permissions": {
     "ask": [
-      "Edit(**/.devcontainer/**)",
       "Edit(**/biome.json)",
       "Write(**/biome.json)",
       "Edit(**/.oxlintrc.json)",
@@ -14,8 +13,6 @@
     ],
     "allow": ["Bash(ln -s:*)"],
     "deny": [
-      "Edit(apps/web/src/shared/ui/primitives/**)",
-      "Write(apps/web/src/shared/ui/primitives/**)",
       "Edit(apps/api/src/shared/**/utils.ts)",
       "Write(apps/api/src/shared/**/utils.ts)",
       "Edit(apps/api/src/features/**/schema.ts)",
